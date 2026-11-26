@@ -1,7 +1,7 @@
 # Projekt „Technik Unterricht“ – GST-Lernpfade Technik
 
 Interaktive Lernpfade (je eine HTML-Datei, alles inline) für das Fach Technik am Technischen Gymnasium BW. Sprache: Deutsch, du-Ansprache.
-Cloudflare (Worker „technik“) veröffentlicht automatisch von `main`: https://technik.physik.party/. Adresse ohne `.html`. QR-Codes und Links immer mit technik.physik.party.
+Cloudflare (Worker „lernapps-technik“) veröffentlicht automatisch von `main`: https://technik.physik.party/. Adresse ohne `.html`. QR-Codes und Links immer mit technik.physik.party.
 Details zu Aufbau, Branding und Formeln: `README.md`.
 
 Schwesterprojekt: Physik-Lernpfade im öffentlichen Repo `y-deiglmayr/gst-lernen` (https://physik.party/). Gleiches Gerüst (brand/, fonts/, katex/, tools/).
@@ -54,7 +54,7 @@ Fertige Lernpfade und Druckvorlagen dort dienen als **Muster** (bei Bedarf nur l
 
 ## Feedback
 - Schüler-Feedback liegt anonym in Cloudflare D1 `gst-feedback` (ID 17e96367-7f67-4c99-b1f8-ff75f1f89423), gemeinsam mit physik.party. Technik-Einträge haben in `seite` das Präfix `/technik` – Abfragen immer mit `seite LIKE '/technik%'` filtern. Abrufen und Auswerten nach `feedback/AUSWERTEN.md`: nur Einträge mit Stellenbezug, die sich nachprüfen lassen und fachlich stimmen; dem Nutzer erst eine Liste vorlegen, dann ändern, danach `status` setzen.
-- `wrangler.jsonc` + `feedback/worker.js` bilden den Worker „technik“ (ohne Cron; das tägliche Aufräumen der gemeinsamen Datenbank macht der Physik-Worker „lernapps“); `.assetsignore` hält interne Dateien (CLAUDE.md, tools/, feedback/) aus der Auslieferung.
+- `wrangler.jsonc` + `feedback/worker.js` bilden den Worker „lernapps-technik“ (ohne Cron; das tägliche Aufräumen der gemeinsamen Datenbank macht der Physik-Worker „lernapps“); `.assetsignore` hält interne Dateien (CLAUDE.md, tools/, feedback/) aus der Auslieferung.
 
 ## Druckversionen (Heftaufschrieb + Übungsblatt)
 Zu jedem Lernpfad (Kachel) schrittweise zwei PDFs; Vorlagen, Bausteine und Befehle in `tools/druck/` (LIESMICH.md, druck.css, pdf.js, qr_einsetzen.py). Muster (im Physik-Repo): `Physik11/schiefe-ebene`, `Physik9/energie*`, `Physik9/lageenergie` mit Vorlagen in `tools/druck/`.

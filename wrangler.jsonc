@@ -1,8 +1,8 @@
 {
-  // Cloudflare Worker "technik": liefert die Technik-Lernpfade aus (statische Dateien, technik.physik.party)
+  // Cloudflare Worker "lernapps-technik": liefert die Technik-Lernpfade aus (statische Dateien, technik.physik.party)
   // und nimmt unter /api/feedback Rückmeldungen entgegen. Gemeinsame Datenbank D1 "gst-feedback" mit physik.party;
   // Technik-Einträge stehen mit dem Präfix /technik in der Spalte seite. Das tägliche Aufräumen macht der Physik-Worker.
-  "name": "technik",
+  "name": "lernapps-technik",
   "main": "feedback/worker.js",
   "compatibility_date": "2025-09-01",
   "assets": { "directory": ".", "binding": "ASSETS" },

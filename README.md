@@ -1,7 +1,7 @@
 # GST Lernpfade Technik
 
 Interaktive HTML-Lerninhalte für den Technik-Unterricht am Technischen Gymnasium, veröffentlicht als Cloudflare Worker
-„technik“ unter **https://technik.physik.party/**. Schwesterprojekt zu den Physik-Lernpfaden
+„lernapps-technik“ unter **https://technik.physik.party/**. Schwesterprojekt zu den Physik-Lernpfaden
 (Repo `y-deiglmayr/gst-lernen`, https://physik.party/) mit gleichem Aufbau, Branding und Werkzeugen.
 
 ## Struktur
@@ -10,7 +10,7 @@ Interaktive HTML-Lerninhalte für den Technik-Unterricht am Technischen Gymnasiu
 index.html                  Startseite mit allen Lernpfaden (Liste KURSE)
 impressum.html              Impressum, Datenschutz, Urheberrecht/KI, Haftung (Link im Fuß jeder Seite)
 feedback/                   Feedback: Worker (worker.js), Datenbank-Aufbau (schema.sql), Anleitung AUSWERTEN.md
-wrangler.jsonc              Cloudflare-Worker „technik“ (statische Dateien + /api/feedback, D1 gst-feedback)
+wrangler.jsonc              Cloudflare-Worker „lernapps-technik“ (statische Dateien + /api/feedback, D1 gst-feedback)
 .assetsignore               Dateien, die nicht öffentlich ausgeliefert werden
 brand/                      Schul-Branding (brand.css, theme.js, feedback.js, mischen.js, Logo, Mosaik, piktos.svg)
 fonts/                      Schriften lokal (Lexend, Atkinson Hyperlegible, Source Sans 3, SIL OFL)
@@ -34,7 +34,7 @@ Groß- und Kleinschreibung der Ordner gehört zur Adresse.
 ## Einrichtung bei Cloudflare (einmalig)
 
 1. Cloudflare-Dashboard → Workers & Pages → Erstellen → Repository importieren → `gst-lernen_technik`.
-2. Projektname `technik` (muss zu `name` in `wrangler.jsonc` passen), Zweig `main`, Build-Befehl leer, Deploy-Befehl `npx wrangler deploy`.
+2. Projektname `lernapps-technik` (muss zu `name` in `wrangler.jsonc` passen), Zweig `main`, Build-Befehl leer, Deploy-Befehl `npx wrangler deploy`.
 3. Worker → Einstellungen → Domains & Routen → Benutzerdefinierte Domain `technik.physik.party`.
    DNS-Eintrag und HTTPS-Zertifikat legt Cloudflare selbst an (physik.party wird bei Cloudflare verwaltet).
 
