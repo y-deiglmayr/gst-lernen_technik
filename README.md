@@ -18,7 +18,12 @@ katex/                      Formelsatz lokal (KaTeX + formel.js)
 tools/                      formeln_markieren.py, piktos-katalog.html, druck/ (Vorlagen-Bausteine für PDFs)
 ```
 
-Noch keine Lernpfade. Jede Klasse bzw. jedes Fach bekommt einen eigenen Ordner, z. B. `Technik11/` (Eingangsklasse),
+### Lernpfade
+
+**Klasse 8** (`Technik8/`)
+- Mikrocontroller: `led-blinken.html` – Eine LED blinken lassen (Blink-Labor: Arduino-Uno-Simulation im Browser, setup/loop, digitalWrite, delay, Vorwiderstand)
+
+Jede Klasse bzw. jedes Fach bekommt einen eigenen Ordner, z. B. `Technik11/` (Eingangsklasse),
 `Technik12/` (J1), `Technik13/` (J2). Die Adresse einer Seite ist der Pfad ohne `.html`, z. B. `/Technik11/beispiel`.
 Groß- und Kleinschreibung der Ordner gehört zur Adresse.
 
