@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lernpfade Technik</title>
+<link rel="stylesheet" href="/fonts/fonts.css">
+<script src="/brand/theme.js"></script>
+<style>
+:root{color-scheme:light dark;--bg:light-dark(#fff,#1b2122);--ink:light-dark(#323A42,#eceff0);--muted:light-dark(#5F6F74,#a9b6b9);
+--panel:light-dark(#f4f6f7,#252c2e);--line:light-dark(#C9D2D3,#3a4547);--accent:#FCBE00;
+--slate:#3E4B4C;--slate2:#5F6F74;--green:#76989D;--blue:#ACBDC3;--grey:#C9D2D3;--light:#E4E7E9}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 "Atkinson Hyperlegible",system-ui,sans-serif;display:flex;flex-direction:column;min-height:100vh}
+header{background:var(--bg);color:var(--ink);padding:0 0 0;position:relative}
+.mosaic{display:flex;justify-content:space-between;align-items:flex-start;height:62px}
+.mosaic img{height:62px;width:auto;display:block}
+.mosaic img.r{height:62px}
+.headin{max-width:1100px;margin:0 auto;padding:6px max(5vw,16px) 22px}
+.bar{height:10px;background:linear-gradient(90deg,var(--slate) 0 26%,var(--slate2) 26% 30%,var(--green) 30% 34%,var(--blue) 34% 38%,var(--grey) 38% 42%,var(--light) 42%)}
+h1,h2{font-family:"Source Sans 3",system-ui,sans-serif;line-height:1.1;margin:0 0 .3em;font-weight:700}
+h1{font-size:clamp(36px,6vw,58px);letter-spacing:-.01em}
+h1::before,h2::before{content:"";display:inline-block;width:.3em;height:.3em;background:var(--accent);margin-right:.16em}
+h2{font-size:26px;margin-top:1.4em}
+header p{color:var(--muted);max-width:60ch;margin:0;font-size:18px}
+main{max-width:1100px;margin:0 auto;padding:8px max(5vw,16px) 48px;width:100%;flex:1}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
+a.card{display:flex;flex-direction:column;gap:6px;padding:0 0 16px;overflow:hidden;border:1px solid var(--line);border-radius:6px;background:var(--panel);color:var(--ink);text-decoration:none;min-height:44px;transition:border-color .15s,box-shadow .15s}
+a.card:hover,a.card:focus-visible{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent)}
+a.card:focus-visible{outline:none}
+.thumb{position:relative}
+.abzeichen{position:absolute;top:8px;right:8px;width:34px;height:34px;display:grid;place-items:center;background:#fff;color:var(--slate);border-radius:6px;box-shadow:0 0 0 2px var(--accent)}
+.abzeichen svg{width:22px;height:22px}
+a.card b{font-family:"Source Sans 3",system-ui,sans-serif;font-size:20px;display:block;padding:6px 18px 0;line-height:1.2}
+a.card small{color:var(--muted);font-size:15px;padding:0 18px}
+.thumb{display:block;aspect-ratio:16/7;background:var(--slate)}
+.thumb svg{display:block;width:100%;height:100%}
+footer{color:#e4e7e9;font-size:14px;background:var(--light)}
+footer .fband{display:flex;align-items:stretch;min-height:48px}
+footer .fband span{display:block}
+footer .fband .s1{background:var(--slate);flex:0 0 18%}
+footer .fband .logo{background:var(--accent);flex:none;width:58px;display:grid;place-items:center}
+footer .fband .logo img{width:50px;height:auto;display:block}
+footer .fband .s2{background:var(--slate);flex:0 0 3.5%}footer .fband .s3{background:var(--slate2);flex:0 0 3.5%}footer .fband .s4{background:var(--green);flex:0 0 3.5%}footer .fband .s5{background:var(--blue);flex:0 0 3.5%}footer .fband .s6{background:var(--grey);flex:0 0 3.5%}
+footer .fband .txt a{color:inherit}footer .fband .txt{flex:1;display:flex;align-items:center;justify-content:flex-end;padding:6px 16px;color:var(--slate2);font-size:13px;text-align:right}
+@media(max-width:640px){footer .fband .s1{flex-basis:8%}footer .fband .s2,footer .fband .s3,footer .fband .s4,footer .fband .s5,footer .fband .s6{flex-basis:4%}.mosaic,.mosaic img{height:44px}}
+.herohead{display:flex;gap:24px;align-items:flex-start;justify-content:space-between}
+.qrbtn{flex:none;width:136px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:8px 8px 4px;cursor:pointer;color:#1b1e27;font:600 13px "Source Sans 3",sans-serif;text-align:center}
+.qrbtn svg{display:block;width:120px;height:120px}
+.qrbtn:hover,.qrbtn:focus-visible{outline:3px solid #FCBE00}
+dialog.qrdlg{border:0;border-radius:18px;padding:24px;background:#fff;color:#1b1e27;text-align:center;max-width:95vw}
+dialog.qrdlg::backdrop{background:rgba(8,10,16,.8)}
+dialog.qrdlg svg{width:min(70vh,80vw);height:min(70vh,80vw);display:block;margin:0 auto}
+dialog.qrdlg p{font:600 clamp(16px,2.4vw,26px) Lexend,sans-serif;margin:12px 0;word-break:break-all}
+dialog.qrdlg button{font:600 16px Lexend,sans-serif;min-height:44px;padding:8px 18px;border-radius:10px;border:1px solid #d6dde8;background:#f3f6fa;color:#1b1e27;cursor:pointer}
+@media(max-width:640px){.qrbtn{width:96px}.qrbtn svg{width:80px;height:80px}}
+/* Gliederung: Stufe → Klasse → Thema */
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.werkzeug{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;padding:14px 0 6px;border-bottom:1px solid var(--line)}
+.wahl{display:flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--panel)}
+.wahl button{font:600 16px "Source Sans 3",system-ui,sans-serif;min-height:44px;padding:6px 16px;border:0;border-right:1px solid var(--line);background:transparent;color:var(--ink);cursor:pointer}
+.wahl button:last-child{border-right:0}
+.wahl button[aria-pressed="true"]{background:var(--slate);color:#fff;box-shadow:inset 0 -4px 0 var(--accent)}
+.wahl button:focus-visible,.suche input:focus-visible,.klassen a:focus-visible,.thema summary:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.suche{flex:1 1 220px;max-width:360px}
+.suche input{width:100%;min-height:44px;font:inherit;font-size:16px;padding:6px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}
+.klassen{display:flex;flex-wrap:wrap;gap:6px;flex-basis:100%;font-size:15px}
+.klassen:empty{display:none}
+.klassen::before{content:"Springe zu:";color:var(--muted);align-self:center;margin-right:4px}
+.klassen a{color:var(--ink);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:4px 12px;min-height:32px;display:inline-flex;align-items:center}
+.klassen a:hover{border-color:var(--accent)}
+.stufe[hidden],.stufe.ohne,.klasse[hidden],.thema[hidden],.card[hidden]{display:none}
+.stufehead{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 14px;margin-top:1.4em;padding-bottom:6px;border-bottom:3px solid var(--slate)}
+.stufehead h2{margin:0;font-size:30px}
+.stufehead span{color:var(--muted);font-size:16px}
+.klasse{scroll-margin-top:12px}
+.klasse h3{font-family:"Source Sans 3",system-ui,sans-serif;font-size:23px;margin:1.1em 0 .4em;line-height:1.15}
+.klasse h3 span{font-weight:600;font-size:15px;color:var(--muted);margin-left:6px;text-transform:uppercase;letter-spacing:.06em}
+.thema{border-left:4px solid var(--green);margin:0 0 14px;padding:0 0 0 14px}
+.thema summary{cursor:pointer;display:flex;align-items:center;gap:10px;min-height:44px;list-style:none;font:600 19px "Source Sans 3",system-ui,sans-serif}
+.thema summary::-webkit-details-marker{display:none}
+.thema summary::before{content:"";flex:none;width:9px;height:9px;border-right:2.5px solid var(--muted);border-bottom:2.5px solid var(--muted);transform:rotate(-45deg);transition:transform .15s;margin-right:2px}
+.thema[open] summary::before{transform:rotate(45deg)}
+.thema .count{font:500 14px "Atkinson Hyperlegible",system-ui,sans-serif;color:var(--muted);background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:1px 10px}
+.thema .grid{padding:4px 0 6px}
+.leer{color:var(--muted);font-size:18px;margin-top:2em}
+@media(max-width:640px){.wahl{flex:1 1 100%}.wahl button{flex:1;padding:6px 8px}.suche{max-width:none}.thema{padding-left:10px}}
+/* Darstellung hell/dunkel (Umschalter aus /brand/theme.js, Wahl gilt für alle Lernpfade) */
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+.themewahl{margin-top:14px}
+.theme-switch{display:inline-flex;gap:4px;padding:3px;border:1px solid var(--line);border-radius:10px;background:var(--panel)}
+.theme-btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:40px;min-width:40px;padding:6px 12px;border-radius:8px;border:1px solid transparent;background:transparent;color:var(--ink);font:600 15px "Source Sans 3",system-ui,sans-serif;cursor:pointer}
+.theme-btn:hover{background:var(--bg)}
+.theme-btn svg{width:18px;height:18px;flex:none}
+.theme-btn[aria-pressed=true]{background:var(--bg);border-color:var(--line);box-shadow:0 1px 2px rgba(0,0,0,.12)}
+.theme-btn:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+footer{background:light-dark(var(--light),#232b2d)}
+footer .fband .txt{color:var(--muted)}
+.stufehead{border-bottom-color:light-dark(var(--slate),var(--green))}
+.wahl button[aria-pressed="true"]{background:light-dark(var(--slate),#4a595b)}
+.bar{background:linear-gradient(90deg,var(--slate) 0 26%,var(--slate2) 26% 30%,var(--green) 30% 34%,var(--blue) 34% 38%,var(--grey) 38% 42%,light-dark(var(--light),#3a4547) 42%)}
+</style>
+</head>
+<body>
+<header><div class="mosaic" aria-hidden="true"><img src="/brand/mosaik-links.svg" alt=""><img class="r" src="/brand/mosaik-rechts.svg" alt=""></div>
+<div class="headin"><div class="herohead"><div>
+<h1>Lernpfade Technik</h1>
+<p>Interaktive Lerninhalte für den Unterricht. Wähle deine Stufe, deine Klasse und dein Thema.</p>
+<div class="themewahl" data-theme-switch></div>
+</div><button class="qrbtn" id="qrOpen" title="QR-Code groß anzeigen"><svg role="img" aria-label="QR-Code: https://technik.physik.party/" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 33 33" class="segno"><path fill="#fff" d="M0 0h33v33h-33z"/><path class="qrline" stroke="#000" d="M2 2.5h7m1 0h2m1 0h4m4 0h2m1 0h7m-29 1h1m5 0h1m2 0h1m1 0h1m2 0h2m1 0h2m3 0h1m5 0h1m-29 1h1m1 0h3m1 0h1m3 0h2m2 0h3m3 0h1m1 0h1m1 0h3m1 0h1m-29 1h1m1 0h3m1 0h1m4 0h2m4 0h1m4 0h1m1 0h3m1 0h1m-29 1h1m1 0h3m1 0h1m1 0h1m4 0h3m1 0h4m1 0h1m1 0h3m1 0h1m-29 1h1m5 0h1m1 0h1m1 0h1m1 0h4m2 0h1m1 0h1m1 0h1m5 0h1m-29 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-18 1h1m3 0h1m4 0h1m-20 1h7m2 0h1m4 0h4m1 0h1m2 0h2m3 0h1m-29 1h3m2 0h1m1 0h1m1 0h14m1 0h1m1 0h1m1 0h1m-29 1h1m2 0h6m1 0h7m1 0h1m2 0h3m-21 1h3m1 0h3m4 0h2m2 0h2m1 0h2m2 0h1m1 0h1m-28 1h1m1 0h1m2 0h4m1 0h2m1 0h2m2 0h1m3 0h1m1 0h1m1 0h4m-27 1h1m1 0h1m2 0h1m1 0h1m1 0h2m4 0h6m1 0h2m1 0h2m-29 1h5m1 0h1m5 0h3m1 0h2m4 0h2m-24 1h1m2 0h3m1 0h7m1 0h1m4 0h3m1 0h2m1 0h1m-26 1h3m1 0h2m3 0h1m1 0h2m1 0h1m1 0h1m1 0h1m4 0h3m-28 1h1m3 0h1m2 0h1m2 0h6m1 0h4m1 0h3m1 0h3m-29 1h1m2 0h2m1 0h1m1 0h3m3 0h4m2 0h1m1 0h4m-26 1h1m1 0h1m1 0h2m1 0h1m1 0h2m1 0h1m1 0h2m2 0h1m3 0h1m2 0h1m-26 1h1m1 0h5m2 0h3m2 0h2m1 0h1m2 0h7m1 0h1m-21 1h2m3 0h2m3 0h3m3 0h2m2 0h1m-29 1h7m1 0h3m1 0h2m1 0h2m1 0h3m1 0h1m1 0h1m-25 1h1m5 0h1m1 0h3m1 0h3m3 0h3m3 0h2m1 0h2m-29 1h1m1 0h3m1 0h1m1 0h1m1 0h2m2 0h1m3 0h1m1 0h7m1 0h1m-29 1h1m1 0h3m1 0h1m1 0h3m2 0h1m1 0h7m1 0h1m-24 1h1m1 0h3m1 0h1m1 0h2m4 0h1m3 0h10m-28 1h1m5 0h1m1 0h2m1 0h1m4 0h1m3 0h2m2 0h2m1 0h1m-28 1h7m6 0h2m2 0h1m1 0h1m1 0h1m2 0h1m1 0h1"/></svg>
+QR groß zeigen</button></div></div><div class="bar"></div></header>
+<dialog class="qrdlg" id="qrDlg" aria-label="QR-Code zur Übersicht"><svg role="img" aria-label="QR-Code: https://technik.physik.party/" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 33 33" class="segno"><path fill="#fff" d="M0 0h33v33h-33z"/><path class="qrline" stroke="#000" d="M2 2.5h7m1 0h2m1 0h4m4 0h2m1 0h7m-29 1h1m5 0h1m2 0h1m1 0h1m2 0h2m1 0h2m3 0h1m5 0h1m-29 1h1m1 0h3m1 0h1m3 0h2m2 0h3m3 0h1m1 0h1m1 0h3m1 0h1m-29 1h1m1 0h3m1 0h1m4 0h2m4 0h1m4 0h1m1 0h3m1 0h1m-29 1h1m1 0h3m1 0h1m1 0h1m4 0h3m1 0h4m1 0h1m1 0h3m1 0h1m-29 1h1m5 0h1m1 0h1m1 0h1m1 0h4m2 0h1m1 0h1m1 0h1m5 0h1m-29 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-18 1h1m3 0h1m4 0h1m-20 1h7m2 0h1m4 0h4m1 0h1m2 0h2m3 0h1m-29 1h3m2 0h1m1 0h1m1 0h14m1 0h1m1 0h1m1 0h1m-29 1h1m2 0h6m1 0h7m1 0h1m2 0h3m-21 1h3m1 0h3m4 0h2m2 0h2m1 0h2m2 0h1m1 0h1m-28 1h1m1 0h1m2 0h4m1 0h2m1 0h2m2 0h1m3 0h1m1 0h1m1 0h4m-27 1h1m1 0h1m2 0h1m1 0h1m1 0h2m4 0h6m1 0h2m1 0h2m-29 1h5m1 0h1m5 0h3m1 0h2m4 0h2m-24 1h1m2 0h3m1 0h7m1 0h1m4 0h3m1 0h2m1 0h1m-26 1h3m1 0h2m3 0h1m1 0h2m1 0h1m1 0h1m1 0h1m4 0h3m-28 1h1m3 0h1m2 0h1m2 0h6m1 0h4m1 0h3m1 0h3m-29 1h1m2 0h2m1 0h1m1 0h3m3 0h4m2 0h1m1 0h4m-26 1h1m1 0h1m1 0h2m1 0h1m1 0h2m1 0h1m1 0h2m2 0h1m3 0h1m2 0h1m-26 1h1m1 0h5m2 0h3m2 0h2m1 0h1m2 0h7m1 0h1m-21 1h2m3 0h2m3 0h3m3 0h2m2 0h1m-29 1h7m1 0h3m1 0h2m1 0h2m1 0h3m1 0h1m1 0h1m-25 1h1m5 0h1m1 0h3m1 0h3m3 0h3m3 0h2m1 0h2m-29 1h1m1 0h3m1 0h1m1 0h1m1 0h2m2 0h1m3 0h1m1 0h7m1 0h1m-29 1h1m1 0h3m1 0h1m1 0h3m2 0h1m1 0h7m1 0h1m-24 1h1m1 0h3m1 0h1m1 0h2m4 0h1m3 0h10m-28 1h1m5 0h1m1 0h2m1 0h1m4 0h1m3 0h2m2 0h2m1 0h1m-28 1h7m6 0h2m2 0h1m1 0h1m1 0h1m2 0h1m1 0h1"/></svg>
+<p>technik.physik.party</p><button id="qrClose">Schließen</button></dialog>
+<main>
+<div class="werkzeug"><div class="wahl" id="stufenwahl" role="group" aria-label="Stufe wählen"></div>
+<label class="suche"><span class="sr">Lernpfad suchen</span><input type="search" id="suche" placeholder="Lernpfad suchen" autocomplete="off"></label>
+<nav class="klassen" id="klassen" aria-label="Zu einer Klasse springen"></nav></div>
+<div id="list"></div>
+<p data-feedback></p>
+</main>
+<footer><div class="fband"><span class="s1"></span><span class="logo"><img src="/brand/logo.svg" alt="Logo der Schule"></span><span class="s2"></span><span class="s3"></span><span class="s4"></span><span class="s5"></span><span class="s6"></span><span class="txt"><span>Interaktive Lernpfade · Dein Fortschritt bleibt in deinem Browser<br><a href="/impressum">Impressum · Datenschutz</a></span></span></div></footer>
+<!-- Neue Lernpfade werden in der Liste unten im Quelltext (KURSE) eingetragen. -->
+<script>
+{
+/* Neue Lernpfade hier eintragen.
+   Aufbau: Stufe (Mittelstufe/Oberstufe) → Klasse → Thema → Lernpfade.
+   ordner = Ordner im Repository, datei = Dateiname ohne .html, bild = Name in BILDER.
+   Neues Thema: weiteren Eintrag in themen anlegen. Neue Klasse: weiteren Block mit stufe:'…' anlegen. */
+const KURSE=[
+ /* Beispiel (Ordner Technik11 anlegen, dann Kommentarzeichen entfernen):
+ {stufe:'Oberstufe',klasse:'Eingangsklasse',fach:'Technik',ordner:'Technik11',themen:[
+  {thema:'Thema',seiten:[
+   {datei:'dateiname',titel:'Titel des Lernpfads',info:'Kurzbeschreibung',bild:'name'}
+  ]}
+ ]}
+ */
+];
+/* Stufen in dieser Reihenfolge; Untertitel erscheint unter der Überschrift */
+const STUFEN=[
+ {name:'Mittelstufe',info:'Klassen 8 bis 10'},
+ {name:'Oberstufe',info:'Technisches Gymnasium, Eingangsklasse bis J2'}
+];
+/* Vorschaubilder (Name in KURSE unter bild:) – Format 320 × 140 */
+const BILDER={
+};
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const slug=s=>String(s).toLowerCase().replace(/ä/g,'ae').replace(/ö/g,'oe').replace(/ü/g,'ue').replace(/ß/g,'ss').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+const store={get(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+/* Themen starten immer eingeklappt; geöffnete merkt sich die Seite nur bis zum Neuladen (z. B. für die Suche) */
+const auf=new Set();try{localStorage.removeItem('gst-index-zu')}catch(e){}
+const anzahl=n=>n===1?'1 Lernpfad':n+' Lernpfade';
+const karte=(k,t,s)=>{
+ const such=esc((s.titel+' '+s.info+' '+t.thema+' '+k.klasse+' '+k.fach+(s.druck?' arbeitsblatt heftaufschrieb übungsblatt pdf druck':'')).toLowerCase());
+ /* Kleines Symbol auf dem Vorschaubild, wenn es zum Lernpfad ein Arbeitsblatt zum Drucken gibt (Download im Lernpfad) */
+ const ab=s.druck?`<span class="abzeichen" title="${esc(s.druck)}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h9l5 5v15H6z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M14.5 2.5V7.5h5M9.5 12h7M9.5 15.5h7M9.5 19h4.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sr">${esc(s.druck)}</span></span>`:'';
+ return `<a class="card" href="/${esc(k.ordner)}/${esc(s.datei)}" data-such="${such}">${BILDER[s.bild]?`<span class="thumb">${BILDER[s.bild]}${ab}</span>`:ab}<b>${esc(s.titel)}</b><small>${esc(s.info)}</small></a>`};
+const stufen=STUFEN.filter(st=>KURSE.some(k=>k.stufe===st.name));
+document.getElementById('list').innerHTML=stufen.map(st=>{
+ const klassen=KURSE.filter(k=>k.stufe===st.name);
+ return `<section class="stufe" id="${slug(st.name)}" data-stufe="${esc(st.name)}"><div class="stufehead"><h2>${esc(st.name)}</h2><span>${esc(st.info)}</span></div>`+
+  klassen.map(k=>`<section class="klasse" id="${slug(k.klasse+'-'+k.fach)}"><h3>${esc(k.klasse)} <span>${esc(k.fach)}</span></h3>`+
+   k.themen.map(t=>{const id=slug(k.klasse+'-'+t.thema);
+    return `<details class="thema" id="${id}"><summary><span class="tname">${esc(t.thema)}</span><span class="count">${anzahl(t.seiten.length)}</span></summary><div class="grid">`+
+     t.seiten.map(s=>karte(k,t,s)).join('')+'</div></details>'}).join('')+'</section>').join('')+'</section>';
+}).join('')+(KURSE.length?'':'<p class="bald">Die ersten Technik-Lernpfade sind in Arbeit.</p>')+'<p class="leer" id="leer" hidden>Kein Lernpfad passt zu deiner Suche.</p>';
+/* Schnellwahl: Stufe filtern und Klassen anspringen */
+const nav=document.getElementById('stufenwahl');
+nav.innerHTML=['Alle',...stufen.map(s=>s.name)].map(n=>`<button type="button" data-wahl="${esc(n)}" aria-pressed="false">${esc(n)}</button>`).join('');
+const wahl=n=>{
+ if(!['Alle',...stufen.map(s=>s.name)].includes(n))n='Alle';
+ nav.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.wahl===n));
+ document.querySelectorAll('.stufe').forEach(s=>s.hidden=n!=='Alle'&&s.dataset.stufe!==n);
+ document.getElementById('klassen').innerHTML=KURSE.filter(k=>n==='Alle'||k.stufe===n).map(k=>`<a href="#${slug(k.klasse+'-'+k.fach)}">${esc(k.klasse)}</a>`).join('');
+ store.set('gst-index-stufe',n);
+};
+nav.addEventListener('click',e=>{const b=e.target.closest('button');if(b){wahl(b.dataset.wahl);suche()}});
+/* geöffnete Themen bis zum Neuladen merken */
+document.querySelectorAll('details.thema').forEach(d=>d.addEventListener('toggle',()=>{
+ if(document.body.classList.contains('sucht'))return;
+ d.open?auf.add(d.id):auf.delete(d.id);
+}));
+/* Suche über Titel, Beschreibung, Thema und Klasse */
+const feld=document.getElementById('suche');
+const suche=()=>{
+ const w=feld.value.trim().toLowerCase().split(/\s+/).filter(Boolean),aktiv=w.length>0;
+ document.body.classList.toggle('sucht',aktiv);
+ let treffer=0;
+ document.querySelectorAll('.stufe').forEach(st=>{
+  const sichtbar=!st.hidden;
+  st.querySelectorAll('.card').forEach(c=>{const ok=!aktiv||w.every(x=>c.dataset.such.includes(x));c.hidden=!ok;if(ok&&sichtbar)treffer++});
+  st.querySelectorAll('details.thema').forEach(d=>{const n=d.querySelectorAll('.card:not([hidden])').length;d.hidden=aktiv&&!n;if(aktiv)d.open=true;else d.open=auf.has(d.id)});
+  st.querySelectorAll('.klasse').forEach(k=>k.hidden=aktiv&&!k.querySelector('details.thema:not([hidden])'));
+  st.classList.toggle('ohne',aktiv&&!st.querySelector('.klasse:not([hidden])'));
+ });
+ document.getElementById('leer').hidden=!aktiv||treffer>0;
+};
+feld.addEventListener('input',suche);
+wahl(store.get('gst-index-stufe')||'Alle');
+}
+</script>
+<script>
+{const d=document.getElementById('qrDlg');document.getElementById('qrOpen').onclick=()=>d.showModal();document.getElementById('qrClose').onclick=()=>d.close();d.addEventListener('click',e=>{if(e.target===d)d.close()})}
+</script>
+<script defer src="/brand/feedback.js"></script>
+</body>
+</html>

@@ -1,0 +1,162 @@
+/* Schul-Branding GST – gemeinsam für alle Lernpfade.
+   Farben aus der PowerPoint-Vorlage: Schiefer #3E4B4C, #5F6F74, Graugrün #76989D, #ACBDC3, #C9D2D3, #E4E7E9, Akzentgelb #FCBE00.
+   Schrift: Source Sans 3 (freie Schwesterschrift von Myriad Pro) für Überschriften. Fachliche Farben der Lernpfade bleiben erhalten. */
+:root{--gst-slate:#3E4B4C;--gst-slate2:#5F6F74;--gst-green:#76989D;--gst-blue:#ACBDC3;--gst-grey:#C9D2D3;--gst-light:#E4E7E9;--gst-yellow:#FCBE00;--lab:#3E4B4C}
+h1,h2,h3,h4,.phases b,nav a{font-family:"Source Sans 3",Lexend,system-ui,sans-serif}
+h1{font-weight:700;letter-spacing:-.01em}
+h2,h3{font-weight:700}
+/* Kopfbereich: Schiefer mit Pixel-Mosaik und Farbleiste wie in der Vorlage */
+.hero{background:var(--gst-slate) url(/brand/mosaik-links.svg) no-repeat left top/auto 54px;border-bottom:8px solid;
+ border-image:linear-gradient(90deg,#323d3e 0 26%,var(--gst-slate2) 26% 30%,var(--gst-green) 30% 34%,var(--gst-blue) 34% 38%,var(--gst-grey) 38% 42%,light-dark(var(--gst-light),#3a4547) 42%) 1}
+.hero h1::before{content:"";display:inline-block;width:.32em;height:.32em;background:var(--gst-yellow);margin-right:.18em;vertical-align:baseline}
+.phases a{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.18)}
+.phases a:hover,.phases a:focus-visible{border-color:var(--gst-yellow)}
+.qrbtn:hover,.qrbtn:focus-visible{outline-color:var(--gst-yellow)}
+/* Logo vor dem Link zur Übersicht */
+nav a[href="/"]{display:inline-flex;align-items:center;gap:8px}
+nav a[href="/"]::before{content:"";width:30px;height:25px;background:url(/brand/logo.svg) no-repeat center/contain;border-radius:2px;flex:none}
+footer{border-top:1px solid var(--line)}
+footer .wrap::before{content:"";display:block;width:40px;height:33px;margin-bottom:10px;background:url(/brand/logo.svg) no-repeat left center/contain}
+@media print{.hero{background:none;color:#000;border:0}}
+.hero{padding-top:max(70px,clamp(28px,4vw,60px))}
+/* fest eingebaute Dunkelblau-Flächen in den Kopf-Grafiken an das Schiefergrau angleichen */
+.hero svg [fill="#0e131d"],.hero svg [fill="#182031"],.hero svg [fill="#141c2a"]{fill:#2f393a}
+/* Formelsatz (KaTeX): etwas kleiner als Standard, damit Formeln zum Fließtext passen */
+f-m .katex{font-size:1.07em}
+.formula f-m .katex{font-size:1em}
+
+/* ===== Einheitliches Farbsystem (hell und dunkel) =====
+   Grundfarben aus der Schul-CI, Dunkelmodus in Schiefer-Tönen statt Dunkelblau.
+   Umschalten: /brand/theme.js setzt data-theme="light|dark" auf <html> (sonst folgt die Seite dem Gerät).
+   Fachliche Farben (Laser, Energieformen, Kräfte …) werden hier NICHT verändert. */
+:root{color-scheme:light dark;
+--bg:light-dark(#ffffff,#1b2122);--ink:light-dark(#232b2c,#e9edee);--muted:light-dark(#566467,#a9b6b9);
+--panel:light-dark(#f2f4f5,#232b2d);--paper:light-dark(#fcfdfd,#1f2627);--line:light-dark(#cfd7d9,#3a4547);
+--grid:light-dark(#dde5e7,#2b3436);--hint:light-dark(#fff5d6,#33301c);
+--gst-acc:light-dark(#3f6267,#a3c3c8);--gst-on-acc:light-dark(#ffffff,#162021);
+--gst-mark:#FCBE00;--gst-gold:light-dark(#9a7000,#FCBE00);
+--lab:light-dark(#3E4B4C,#2a3536);--labink:#f1f4f4}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+/* Kopf */
+.hero p{color:#d3dcde}
+.phases a{color:#f1f4f4}
+.phases small{color:#b9c6c9}
+/* Navigation und Fortschritt */
+nav a span{background:var(--gst-acc);color:var(--gst-on-acc)}
+.bar i{background:var(--gst-mark)}
+.prog .bar{background:var(--line)}
+/* Bedienelemente: ruhig in Graugrün, Gelb nur als Markierung */
+button.primary,a.lnk.nx{background:var(--gst-acc);border-color:var(--gst-acc);color:var(--gst-on-acc)}
+button.primary:hover,a.lnk.nx:hover{filter:brightness(1.08)}
+.steps i.on{background:var(--gst-acc);border-color:var(--gst-acc);color:var(--gst-on-acc)}
+input[type=range],.toggles input,.checks input,input[type=checkbox],input[type=radio]{accent-color:var(--gst-acc)}
+button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible,textarea:focus-visible,svg.board:focus-visible{outline:3px solid var(--gst-mark);outline-offset:2px}
+.stars{color:var(--gst-gold)}
+/* Merksätze und Heftaufschrieb */
+.merke{border-color:var(--gst-acc);border-left-width:6px}
+.merke h4{color:var(--gst-acc)}
+.merke h4::before,.heft h3::before{content:"";display:inline-block;width:.42em;height:.42em;background:var(--gst-mark);margin-right:.35em;vertical-align:.08em}
+.heft h3{color:var(--gst-acc)}
+.calc{border-left-color:var(--gst-acc)}
+details.exp summary,.exp h4{color:var(--gst-acc)}
+/* Schalter für hell/dunkel (von theme.js eingefügt) */
+.theme-btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:40px;min-width:40px;padding:6px 10px;border-radius:8px;border:1px solid var(--line);background:transparent;color:var(--ink);font:600 14px "Source Sans 3",system-ui,sans-serif;cursor:pointer}
+.theme-btn:hover{background:var(--panel);border-color:var(--muted)}
+.theme-btn svg{width:18px;height:18px;flex:none}
+nav .theme-btn{margin-left:4px}
+@media print{.theme-btn{display:none}}
+.theme-switch{display:inline-flex;gap:4px;padding:3px;border:1px solid var(--line);border-radius:10px;background:var(--panel)}
+.theme-switch .theme-btn{border-color:transparent;min-height:36px}
+.theme-switch .theme-btn[aria-pressed=true]{background:var(--bg);border-color:var(--line);box-shadow:0 1px 2px rgba(0,0,0,.12)}
+@media(max-width:480px){.theme-switch .theme-btn span{display:none}}
+/* Neutrale Flächen in den Grafiken (Boden, Scheiben, Raum hinter dem Spiegel) an die Grautöne anpassen */
+:root{--behind:light-dark(#edf3f4,#212b2d)}
+.ground{fill:light-dark(#e3e8e9,#2c3537)}
+.disk{fill:light-dark(#f6f8f8,#252d2f)}
+/* ===== Heftaufschrieb: deutlich grün hervorgehoben (alle Lernpfade, hell und dunkel) ===== */
+:root{--gst-heft:light-dark(#2b7a4b,#6cc591);--gst-heft-bg:light-dark(#eef7f1,#1c2b23);--gst-on-heft:light-dark(#ffffff,#10201a)}
+.heft{--grid:light-dark(#d3e8da,#294034);border:3px solid var(--gst-heft);box-shadow:0 0 0 4px color-mix(in srgb,var(--gst-heft) 14%,transparent)}
+.heft h3,.heft h4{color:var(--gst-heft)}
+.heft h3::before{background:var(--gst-heft)}
+/* Heftaufschrieb-Kästen (z. B. Impuls): grüner Rahmen und grüne Kopfzeile */
+.heftbox{border:3px solid var(--gst-heft);box-shadow:0 0 0 4px color-mix(in srgb,var(--gst-heft) 14%,transparent)}
+.heftbox .heft{border:0;box-shadow:none}
+.hb-head{background:var(--gst-heft);color:var(--gst-on-heft)}
+.hb-foot{background:var(--gst-heft-bg)}
+/* Aufklappbare Musterlösung „Heftaufschrieb …“ */
+details.reveal:has(>.heft){border:2px solid var(--gst-heft);border-style:solid;background:var(--gst-heft-bg)}
+details.reveal:has(>.heft)>summary{color:var(--gst-heft);font-weight:700}
+details.reveal:has(>.heft)>summary::after{content:" ✎ Heftaufschrieb";font:700 12px "Source Sans 3",sans-serif;letter-spacing:.04em;text-transform:uppercase;margin-left:8px;padding:2px 8px;border-radius:20px;background:var(--gst-heft);color:var(--gst-on-heft);vertical-align:2px}
+/* Hinweise und Sprungmarken „ins Heft“ */
+.insheft{border-color:var(--gst-heft);color:var(--gst-heft);background:var(--gst-heft-bg)}
+.insheft::before{background:var(--gst-heft)}
+nav a.heftlink span,a.heftlink span{background:var(--gst-heft);color:var(--gst-on-heft)}
+.heft .calc{border-left-color:var(--gst-heft)}
+/* ===== Handy (alle Lernpfade): Navigation einzeilig, Fragen über den Eingabefeldern, kompakte Tabellen ===== */
+@media(max-width:600px){
+ nav[aria-label] .wrap{flex-wrap:nowrap;gap:0 2px;padding:6px 8px}
+ nav[aria-label] a{padding:6px 3px;white-space:nowrap}
+ nav[aria-label] a:has(>span),nav[aria-label] a[href="/"]{font-size:0;gap:0}
+ nav[aria-label] a>span{font-size:13px;margin-right:0}
+ nav[aria-label] .prog{margin-left:auto;font-size:13px;white-space:nowrap}
+ nav[aria-label] .prog .bar{width:56px}
+ .hero .phases,.hero>.wrap>svg{display:none}
+ .hero h1{font-size:clamp(24px,7.4vw,30px);hyphens:auto;-webkit-hyphens:auto;overflow-wrap:break-word}
+ .tf .item,.numq,.steprow{grid-template-columns:minmax(0,1fr);gap:6px}
+ .tf .btns{justify-content:flex-end}
+ .numq>.unit{justify-self:end}
+ .steprow select{width:100%}
+ table.mess,.lab-tbl,.heft table{font-size:13px}
+ table.mess th,table.mess td,.lab-tbl th,.lab-tbl td,.heft td,.heft th{padding:4px 5px}
+}
+/* Dezenter Link zu Impressum und Datenschutz im Fuß */
+footer .rechtl{font-size:13px;margin:.8em 0 0;color:var(--muted)}
+footer .rechtl a{color:inherit}
+
+/* Arbeitsblatt zum Drucken (PDF-Download im Lernpfad) */
+a.arbeitsblatt{display:flex;align-items:center;gap:12px;max-width:560px;margin:0 0 16px;padding:10px 14px;min-height:44px;border:1px solid var(--line);border-left:5px solid var(--gst-acc);border-radius:10px;background:var(--paper,var(--bg));color:var(--ink);text-decoration:none;line-height:1.3}
+a.arbeitsblatt svg{width:28px;height:28px;flex:none;color:var(--gst-acc)}
+a.arbeitsblatt b{display:block;font-family:"Source Sans 3",system-ui,sans-serif;font-size:17px}
+a.arbeitsblatt small{display:block;color:var(--muted);font-size:14px}
+a.arbeitsblatt:hover{border-color:var(--gst-mark);border-left-color:var(--gst-mark)}
+a.arbeitsblatt:focus-visible{outline:3px solid var(--gst-mark);outline-offset:2px}
+.ablinks{display:flex;flex-wrap:wrap;gap:10px 14px;margin:16px 0 0}
+.ablinks a.arbeitsblatt{margin:0;flex:1 1 280px;max-width:none}
+@media print{a.arbeitsblatt{display:none}}
+
+/* ===== Piktogramme zu Aufgaben und Quiz (Symbole in /brand/piktos.svg, Katalog: tools/piktos-katalog.html) =====
+   Einbinden: <svg class="pk" aria-hidden="true"><use href="/brand/piktos.svg#kerze"/></svg>
+   Muster: .mitbild (Bild neben dem Aufgabentext), .mitpk (Bild vor einer Zeile/Auswahl), .mc button mit .pk, .mc.bildwahl (Kacheln). */
+:root{--pk-ink:light-dark(#3E4B4C,#d3dcde);--pk-weiss:light-dark(#ffffff,#36423f);--pk-grau:light-dark(#b5c1c4,#6f7d80);
+--pk-gelb:light-dark(#FCBE00,#e9ae00);--pk-gelbhell:light-dark(#fff0b3,#5a4c12);--pk-orange:light-dark(#e8840c,#f0a040);
+--pk-rot:light-dark(#d9472f,#e36a55);--pk-ziegel:light-dark(#d98f73,#8f5a48);--pk-blau:light-dark(#4a8fcc,#5d9fd8);
+--pk-wasser:light-dark(#cfe6f3,#2f4b5c);--pk-gruen:light-dark(#5aa866,#5fae6b);--pk-gruengelb:light-dark(#cfe05a,#b6c94a);--pk-braun:light-dark(#b07a4a,#9c6d45)}
+svg.pk{width:44px;height:44px;flex:none;color:var(--pk-ink);overflow:visible;vertical-align:middle}
+svg.pk.klein{width:30px;height:30px}
+svg.pk.gross{width:72px;height:72px}
+/* Bild neben dem Aufgabentext */
+.mitbild{display:flex;gap:14px;align-items:center}
+.mitbild>svg.pk{width:64px;height:64px}
+.mitbild>svg.pk.gross{width:84px;height:84px}
+.mitbild>:not(svg){flex:1;min-width:0}
+.mitbild>p,.mitbild>h4{margin-top:0;margin-bottom:0}
+.card>.mitbild,.part>.mitbild{margin-bottom:10px}
+/* Bild vor einer Zeile (Zuordnen, Lückenzeilen, Energieketten): Text immer in eigenem <span> */
+.mitpk{display:flex;gap:10px;align-items:center;min-width:0}
+.mitpk>svg.pk{width:38px;height:38px}
+/* Multiple Choice mit Bild: <button data-k="a"><svg class="pk">…</svg><span>Text</span></button> */
+.mc button:has(>svg.pk){display:flex;align-items:center;gap:12px}
+.mc button>svg.pk{width:40px;height:40px}
+/* Bildkacheln: kurze Antworten mit großem Bild */
+.mc.bildwahl{grid-template-columns:repeat(auto-fit,minmax(130px,1fr))}
+.mc.bildwahl>p,.mc.bildwahl>.fb{grid-column:1/-1}
+.mc.bildwahl button{flex-direction:column;justify-content:flex-start;text-align:center;gap:6px;padding:12px 8px}
+.mc.bildwahl button>svg.pk{width:60px;height:60px}
+@media(max-width:480px){
+ .mitbild{gap:10px}.mitbild>svg.pk{width:48px;height:48px}.mitbild>svg.pk.gross{width:60px;height:60px}
+ .mitpk>svg.pk{width:32px;height:32px}
+ .mc.bildwahl{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media print{svg.pk{color:#3E4B4C}}
+svg.pk.breit{width:66px}
+.mc button>svg.pk.breit{width:62px;height:42px}
