@@ -8,6 +8,9 @@ Schwesterprojekt: Physik-Lernpfade im öffentlichen Repo `y-deiglmayr/gst-lernen
 Fertige Lernpfade und Druckvorlagen dort dienen als **Muster** (bei Bedarf nur lesend klonen: `git clone --depth 1 https://github.com/y-deiglmayr/gst-lernen`); keine Physik-Inhalte hierher übernehmen.
 Ändert sich am gemeinsamen Gerüst etwas Grundsätzliches (z. B. brand.css), nach Absprache in beiden Repos nachziehen.
 
+**Keine Heftaufschriebe in Technik** (Wunsch des Nutzers, 26.11.2026): weder aufklappbar im Lernpfad (`details.reveal .heft`) noch als PDF. Festhalten = Lückentext, Zuordnungen und Merke-Kasten. Ältere Regeln zu Heftaufschrieben unten gelten nur noch für bestehende Seiten.
+**Veröffentlichen:** fertige Lernpfade ohne PR direkt auf `main` pushen (wie bei Physik), auch wenn eine Session auf einem eigenen Zweig startet.
+
 **Diese Regeln gelten zusätzlich zum Skill „gst-lernpfad“ und haben Vorrang, wo der Skill etwas anderes sagt**
 (z. B. beschreibt der Skill noch einen „dunklen Labor-Kopf“ – gilt nicht mehr).
 
@@ -43,11 +46,12 @@ Fertige Lernpfade und Druckvorlagen dort dienen als **Muster** (bei Bedarf nur l
 - Mit Playwright prüfen: keine Konsolen-Warnung „Formel nicht gesetzt“, kein sichtbares `<f-m>` im Text.
 
 ## Didaktik
-- Phasen: Einstieg/Wiederholen → Entdecken → Festhalten → Üben (★/★★/★★★, Tipps, Lösungen).
+- Phasen: Einstieg/Wiederholen → Entdecken → Festhalten (ohne Heftaufschrieb) → Üben (★/★★/★★★, Tipps, Lösungen).
 - Antwortreihenfolge nie fest: `brand/mischen.js` mischt bei jedem Laden Dropdowns (`select` mit `data-a`/`data-ans` oder in `.selbox`/`[data-task]`, Platzhalter „…“ bleibt oben), Multiple-Choice-Knöpfe (`.mc button[data-k]`/`[data-j]`), Mehrfachauswahl (`.multi label`) und Kinder von `[data-mischen]` (z. B. Wortbausteine), auch per JS erzeugte. Prüfen-Logik daher immer über Werte/Kennungen, nie über Positionen. Reine Zahlenlisten bleiben geordnet; Ausnahme per `data-fest`.
 - Multiple Choice: nach Fehlversuch Hinweis und kurze Denkpause (kein Durchraten).
 - Pro Lernpfad 2–3 „Begründe“-Aufträge mit Musterbegründung (erst nach eigenem Satz sichtbar).
 - Konstruktionen: „Erst im Heft konstruieren, dann hier prüfen.“
+- Externe Simulatoren (z. B. Wokwi) nur per Klick laden („Simulation laden“), mit Hinweis auf Datenschutz; im Impressum ist Wokwi genannt. Eigene Simulationen im Browser bleiben erste Wahl.
 - Simulationen dürfen nichts „entdecken“ lassen, was fachlich/technisch nicht stimmt; Modellannahmen (z. B. ohne Reibung, ideale Bauteile) nennen.
 - Normen und Fachsprache der Technik beachten (z. B. DIN-Schaltzeichen, Bemaßung nach Norm, Einheiten nach SI).
 - Fortschritt nur im Browser (localStorage), keine Datenerhebung.
@@ -56,8 +60,8 @@ Fertige Lernpfade und Druckvorlagen dort dienen als **Muster** (bei Bedarf nur l
 - Schüler-Feedback liegt anonym in Cloudflare D1 `gst-feedback` (ID 17e96367-7f67-4c99-b1f8-ff75f1f89423), gemeinsam mit physik.party. Technik-Einträge haben in `seite` das Präfix `/technik` – Abfragen immer mit `seite LIKE '/technik%'` filtern. Abrufen und Auswerten nach `feedback/AUSWERTEN.md`: nur Einträge mit Stellenbezug, die sich nachprüfen lassen und fachlich stimmen; dem Nutzer erst eine Liste vorlegen, dann ändern, danach `status` setzen.
 - `wrangler.jsonc` + `feedback/worker.js` bilden den Worker „lernapps-technik“ (ohne Cron; das tägliche Aufräumen der gemeinsamen Datenbank macht der Physik-Worker „lernapps“); `.assetsignore` hält interne Dateien (CLAUDE.md, tools/, feedback/) aus der Auslieferung.
 
-## Druckversionen (Heftaufschrieb + Übungsblatt)
-Zu jedem Lernpfad (Kachel) schrittweise zwei PDFs; Vorlagen, Bausteine und Befehle in `tools/druck/` (LIESMICH.md, druck.css, pdf.js, qr_einsetzen.py). Muster (im Physik-Repo): `Physik11/schiefe-ebene`, `Physik9/energie*`, `Physik9/lageenergie` mit Vorlagen in `tools/druck/`.
+## Druckversionen (nur Übungsblatt)
+Heftaufschrieb-PDFs entfallen in Technik (siehe oben). Zu jedem Lernpfad schrittweise ein Übungsblatt-PDF; Vorlagen, Bausteine und Befehle in `tools/druck/` (LIESMICH.md, druck.css, pdf.js, qr_einsetzen.py). Muster (im Physik-Repo): `Physik11/schiefe-ebene`, `Physik9/energie*`, `Physik9/lageenergie` mit Vorlagen in `tools/druck/`.
 - **Heftaufschrieb** (`<lernpfad>-heftaufschrieb.pdf`, max. 1–2 A4-Seiten, eher kurz): Lückentext mit nur dem Wichtigsten (nachschaubar), Lücken für Fachbegriffe/Formeln, damit Denkleistung bleibt. Erste Zeichnungen/Diagramme zeichnen die Schüler selbst: leeres Karo-Feld plus nummerierte Schrittliste.
 - Der aufklappbare Heftaufschrieb im Lernpfad (`details.reveal .heft`) ist die Lösung: Wort für Wort gleich, Lückenwörter fett, mit Musterzeichnung (`figure.musterfig`, SVG mit CSS-Variablen, hell/dunkel). Lernpfad dafür bei Bedarf anpassen.
 - **Übungsblatt** (`<lernpfad>-uebungsblatt.pdf`, 2–4 Seiten): Aufgaben gemischt AFB I–III (★/★★/★★★), gleiche Übungsnummern und Teilaufgaben-Buchstaben wie online, Karo-Felder für den Rechenweg, Ergebnisfelder, „online geprüft“ zum Abhaken. Nicht alle Übungen nötig. Begründe-Aufträge mit Schreibzeilen.

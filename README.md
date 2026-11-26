@@ -22,6 +22,7 @@ tools/                      formeln_markieren.py, piktos-katalog.html, druck/ (V
 
 **Klasse 8** (`Technik8/`)
 - Mikrocontroller: `led-blinken.html` – Eine LED blinken lassen (Blink-Labor: Arduino-Uno-Simulation im Browser, setup/loop, digitalWrite, delay, Vorwiderstand)
+- Mikrocontroller: `led-blinken-wokwi.html` – LED blinken mit Wokwi (eingebetteter Online-Simulator Wokwi, lädt erst nach Klick)
 
 Jede Klasse bzw. jedes Fach bekommt einen eigenen Ordner, z. B. `Technik11/` (Eingangsklasse),
 `Technik12/` (J1), `Technik13/` (J2). Die Adresse einer Seite ist der Pfad ohne `.html`, z. B. `/Technik11/beispiel`.
