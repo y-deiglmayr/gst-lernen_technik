@@ -1,0 +1,13 @@
+.git
+.github
+.assetsignore
+wrangler.jsonc
+wrangler.toml
+feedback/
+tools/
+node_modules
+CLAUDE.md
+README.md
+.wrangler
+.gitignore
+WARTESCHLANGE.md

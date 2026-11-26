@@ -1,0 +1,111 @@
+@page{size:A4;margin:11mm 13mm 14mm}
+:root{--slate:#3E4B4C;--slate2:#5F6F74;--green:#76989D;--blue:#ACBDC3;--grey:#C9D2D3;--light:#E4E7E9;--yellow:#FCBE00;
+--acc:#3f6267;--heft:#2b7a4b;--heftbg:#eef7f1;--ink:#26302f;--muted:#5F6F74;--karo:#cfd8da;
+--fg:#1d8a4a;--fh:#d4381e;--fn:#2563c9;--fu:#8a3fc4}
+*{box-sizing:border-box}
+html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{margin:0;color:var(--ink);font:10.4pt/1.42 "Atkinson Hyperlegible",system-ui,sans-serif;background:#fff}
+h1,h2,h3{font-family:"Source Sans 3",system-ui,sans-serif;margin:0;line-height:1.1}
+p{margin:0 0 1.6mm}
+sub{font-size:.72em}
+b{font-weight:700}
+/* Kopf */
+.bar{height:2.6mm;background:linear-gradient(90deg,var(--slate) 0 26%,var(--slate2) 26% 30%,var(--green) 30% 34%,var(--blue) 34% 38%,var(--grey) 38% 42%,var(--light) 42%)}
+.kopf{display:flex;gap:5mm;align-items:center;padding:4mm 0 3mm}
+.kopf .logo{width:15mm;height:auto;flex:none;display:block}
+.kopf .tit{flex:1}
+.kopf .ober{font:600 9pt "Source Sans 3",sans-serif;color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
+.kopf h1{font-size:25pt;font-weight:700;color:var(--slate)}
+.kopf h1::before{content:"";display:inline-block;width:.3em;height:.3em;background:var(--yellow);margin-right:.16em;vertical-align:.08em}
+.kopf .unter{font:600 11.5pt "Source Sans 3",sans-serif;color:var(--acc)}
+.qr{flex:none;width:31mm;text-align:center;font:600 7.4pt/1.2 "Source Sans 3",sans-serif;color:var(--slate)}
+.qr svg{width:21mm;height:21mm;display:block;margin:0 auto 1mm}
+.namen{display:grid;grid-template-columns:1fr 26mm 30mm;gap:6mm;font:600 9pt "Source Sans 3",sans-serif;color:var(--muted);margin:0 0 3.5mm}
+.namen span{border-bottom:.3mm solid var(--slate2);padding-top:4mm}
+/* Hinweisleiste und Heft-Kasten */
+.so{display:grid;grid-template-columns:repeat(3,1fr);gap:3mm;margin:0 0 3.5mm}
+.so div{background:var(--light);border-radius:1.6mm;padding:2mm 2.6mm;font-size:9.2pt;line-height:1.3;position:relative}
+.so b.n{display:inline-grid;place-items:center;width:5mm;height:5mm;background:var(--slate);color:#fff;border-radius:50%;font:700 8.5pt "Source Sans 3",sans-serif;margin-right:1.4mm;box-shadow:inset 0 -.7mm 0 var(--yellow)}
+.heft{border:.35mm solid var(--heft);border-radius:1.6mm;background:var(--heftbg);margin:0 0 4mm;overflow:hidden}
+.heft .hb-head{background:var(--heft);color:#fff;font:700 9.5pt "Source Sans 3",sans-serif;letter-spacing:.05em;padding:1.1mm 3mm}
+.heft .in{display:grid;grid-template-columns:1.05fr 1fr;gap:3mm 6mm;padding:2.4mm 3mm 2.6mm}
+.heft ul{margin:0;padding-left:4.2mm}.heft li{margin:0 0 .8mm}
+.heft ol{margin:0;padding-left:4.6mm;font-size:9.4pt}.heft ol li{margin:0 0 .4mm}
+.heft .f{font-size:10.6pt}
+.heft .h{font:700 9.4pt "Source Sans 3",sans-serif;color:var(--heft);margin:0 0 .8mm}
+/* Aufgaben */
+.aufg{border:.3mm solid var(--grey);border-radius:1.8mm;margin:0 0 4mm;break-inside:avoid;overflow:hidden}
+.ah{display:flex;align-items:center;gap:2.4mm;background:var(--slate);color:#fff;padding:1.3mm 3mm;font:600 11pt "Source Sans 3",sans-serif}
+.ah .nr{background:var(--yellow);color:var(--slate);font-weight:700;border-radius:1mm;padding:0 1.6mm;font-size:10pt}
+.ah .t{flex:1}
+.ah .st{color:var(--yellow);letter-spacing:.06em;font-size:10.5pt}
+.ah .afb{border:.25mm solid #ffffff99;border-radius:5mm;padding:0 2mm;font-size:8.4pt;font-weight:600}
+.ab{padding:2.6mm 3mm 2.8mm}
+.karo{background-color:#fff;background-image:linear-gradient(var(--karo) .18mm,transparent .18mm),linear-gradient(90deg,var(--karo) .18mm,transparent .18mm);background-size:5mm 5mm;background-position:-.09mm -.09mm;border:.25mm solid var(--karo);border-radius:1mm;margin:1.6mm 0 2mm;position:relative}
+.karo .lab{position:absolute;left:1.4mm;top:.8mm;font:600 7.6pt "Source Sans 3",sans-serif;color:var(--muted);background:#fff;padding:0 1mm}
+.erg{display:flex;flex-wrap:wrap;align-items:flex-end;gap:2mm 6mm;font-size:10pt}
+.erg .feld{display:inline-flex;align-items:flex-end;gap:1.4mm}
+.erg .feld i{display:inline-block;width:22mm;border-bottom:.3mm solid var(--slate2);height:5mm}
+.erg .feld i.w{width:30mm}
+.ok{margin-left:auto;display:inline-flex;align-items:center;gap:1.6mm;font:600 8.6pt "Source Sans 3",sans-serif;color:var(--acc);white-space:nowrap}
+.ok::before{content:"";width:3.6mm;height:3.6mm;border:.35mm solid var(--acc);border-radius:.6mm}
+.zeilen{margin:1.4mm 0 1.6mm;background-image:linear-gradient(transparent calc(7.5mm - .25mm),#b9c4c6 calc(7.5mm - .25mm));background-size:100% 7.5mm}
+.beg{font-weight:700;color:var(--acc)}
+.teil{display:grid;grid-template-columns:6mm 1fr;margin:0 0 1mm}
+.teil > b{color:var(--acc)}
+/* Konstruktionen */
+.figs{display:grid;grid-template-columns:1fr 1fr;gap:4mm;margin:1.4mm 0 2mm}
+.fig{border:.25mm solid var(--grey);border-radius:1.4mm;padding:1.6mm 2mm 2mm}
+.fig .fh{font:700 10pt "Source Sans 3",sans-serif;color:var(--slate);margin:0 0 .6mm}
+.fig svg.k{display:block;margin:0 auto}
+.fig .erg{justify-content:space-between;margin-top:1mm}
+.fig .erg .feld i{width:17mm}
+.klein{font-size:8.6pt;color:var(--muted)}
+.zwei{display:grid;grid-template-columns:1fr 46mm;gap:4mm;align-items:start}
+.seite{break-before:page}
+.fuss{margin-top:2mm;display:flex;gap:4mm;align-items:center;font-size:8.6pt;color:var(--muted)}
+.fuss .bar{flex:0 0 30mm;height:2mm}
+f-m{font-style:normal;white-space:nowrap}
+/* Formeln nie umbrechen: KaTeX trennt sonst nach = oder ·. Lange Formeln in eine eigene Zeile setzen. */
+f-m .katex,f-m .katex-html{white-space:nowrap}
+.katex{font-size:1.04em}
+.rf{width:100%;border-collapse:collapse;font-size:9.6pt;margin:1mm 0 2mm}
+.rf th{font:700 8.6pt "Source Sans 3",sans-serif;color:var(--muted);text-align:left;padding:0 1.6mm 1mm}
+.rf td{border-top:.25mm solid var(--grey);padding:1.2mm 1.6mm;vertical-align:middle}
+.rf td:first-child{width:auto}
+.rf td.x{width:7mm;text-align:center}.rf td.x::before{content:"";display:inline-block;width:3.6mm;height:3.6mm;border:.35mm solid var(--slate2);border-radius:.6mm}
+/* Heftaufschrieb zum Ausfüllen */
+body.heftseite{line-height:1.5}
+.heftblatt{border:.45mm solid var(--heft);border-radius:2mm;overflow:hidden}
+.heftblatt > h2{background:var(--heft);color:#fff;font-size:13pt;padding:1.6mm 3.4mm;letter-spacing:.01em}
+.heftblatt > h2 small{font-weight:600;font-size:9.4pt;opacity:.9;margin-left:2mm}
+.hs{padding:2.6mm 3.6mm 1.4mm;break-inside:avoid}
+.hs + .hs{border-top:.25mm dashed #9fc7ad}
+.hs h3{font-size:11pt;color:var(--heft);margin:0 0 1.4mm;display:flex;align-items:center;gap:1.8mm}
+.hs h3::before{content:"";width:2.4mm;height:2.4mm;background:var(--heft);display:inline-block}
+.hs p{margin:0 0 1.8mm;line-height:1.95}
+.l{display:inline-block;border-bottom:.3mm solid var(--slate2);height:1.2em;vertical-align:-.25em;margin:0 .6mm}
+.l.s{width:14mm}.l.m{width:24mm}.l.g{width:34mm}.l.xg{width:46mm}
+.zeichnen{display:grid;grid-template-columns:104mm 1fr;gap:4mm;align-items:start;margin:1mm 0 1.6mm}
+.zeichnen .karo{height:122mm;margin:0}
+.zeichnen ol{margin:0;padding-left:5mm;font-size:9.6pt;line-height:1.4}
+.zeichnen ol li{margin:0 0 1.5mm}
+.c-fg{color:var(--fg);font-weight:700}.c-fh{color:var(--fh);font-weight:700}.c-fn{color:var(--fn);font-weight:700}.c-fu{color:#0b7f96;font-weight:700}
+.kt{width:100%;border-collapse:collapse;font-size:10pt;margin:.6mm 0 2mm}
+.kt th{font:700 8.8pt "Source Sans 3",sans-serif;color:var(--heft);text-align:left;border-bottom:.35mm solid var(--heft);padding:.6mm 1.6mm}
+.kt td{border-bottom:.25mm solid #cfe3d6;padding:1.2mm 1.6mm;line-height:1.9;vertical-align:middle}
+.kt td:first-child{width:27%}.kt td:nth-child(2){width:47%}.kt td{white-space:nowrap}.kt .box,.kt td:last-child{white-space:nowrap}
+.box{display:inline-block;border:.35mm solid var(--ink);border-radius:1mm;padding:0 2mm}
+.sf{display:grid;grid-template-columns:1fr 1fr;gap:3mm;margin:0 0 1.8mm}
+.sf > div{background:var(--heftbg);border-radius:1.4mm;padding:1.4mm 2.6mm;line-height:1.95;font-size:10pt}
+.sf b{color:var(--heft)}
+.schritte{margin:0 0 1.6mm;padding-left:5mm;line-height:1.95}
+.tipp{font-size:8.8pt;color:var(--muted)}
+.hmerke{background:var(--heftbg);border-left:1.2mm solid var(--heft);padding:1.4mm 2.6mm;margin:0 0 2mm;border-radius:1mm;line-height:1.95}
+.hmerke b.t{color:var(--heft)}
+.kt.frei td{white-space:normal}
+.kt.frei td:first-child,.kt.frei td:nth-child(2){width:auto}
+.leerz{border-bottom:.3mm solid var(--slate2);height:7.5mm}
+.c-el{color:#2563c9;font-weight:700}.c-eb{color:#1d8a4a;font-weight:700}.c-eth{color:#d4381e;font-weight:700}
+.teil.gg{grid-template-columns:15mm 1fr;align-items:end;margin:0 0 2.6mm}.teil.gg .l{width:auto;display:block;margin:0}.teil.gg > b{color:var(--heft)}
+.nw{white-space:nowrap}

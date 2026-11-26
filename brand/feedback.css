@@ -1,0 +1,47 @@
+/* Feedback-Formular – wird von /brand/feedback.js selbst geladen (auch auf der Startseite ohne brand.css). */
+.fbdlg,.fb-fuss{--fb-bg:var(--bg,light-dark(#ffffff,#1b2122));--fb-ink:var(--ink,light-dark(#232b2c,#e9edee));--fb-muted:var(--muted,light-dark(#566467,#a9b6b9));--fb-panel:var(--panel,light-dark(#f2f4f5,#232b2d));--fb-paper:var(--paper,light-dark(#fcfdfd,#1f2627));--fb-line:var(--line,light-dark(#cfd7d9,#3a4547));--fb-hint:var(--hint,light-dark(#fff5d6,#33301c));--fb-acc:var(--gst-acc,light-dark(#3f6267,#a3c3c8));--fb-on-acc:var(--gst-on-acc,light-dark(#ffffff,#162021));--fb-heft:var(--gst-heft,light-dark(#2b7a4b,#6cc591));--fb-heft-bg:var(--gst-heft-bg,light-dark(#eef7f1,#1c2b23))}
+
+nav .fb-btn{margin-left:auto}
+nav .fb-btn+.theme-btn,nav .prog~.fb-btn{margin-left:4px}
+.fb-fuss{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;margin:.9em 0 0}
+.fb-fuss .fb-btn{border-color:var(--fb-acc);color:var(--fb-acc)}
+dialog.fbdlg{border:1px solid var(--fb-line);border-radius:14px;padding:0;background:var(--fb-bg);color:var(--fb-ink);width:min(620px,calc(100vw - 24px));max-height:calc(100dvh - 24px);box-shadow:0 12px 40px rgba(0,0,0,.35)}
+dialog.fbdlg::backdrop{background:rgba(20,26,27,.6)}
+.fbdlg form{padding:20px 22px;display:grid;gap:12px}
+.fbdlg h2{margin:0;font-size:22px;color:var(--fb-acc)}
+.fbdlg p{margin:0}
+.fb-info,.fb-dsgvo{font-size:14px;color:var(--fb-muted)}
+.fb-dsgvo a{color:inherit}
+.fb-arten{border:0;padding:0;margin:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}
+.fb-arten legend{font-weight:700;margin-bottom:6px;padding:0}
+.fb-arten label{display:grid;grid-template-columns:auto 1fr;gap:0 8px;align-items:start;border:1px solid var(--fb-line);border-radius:10px;padding:8px 10px;cursor:pointer;background:var(--fb-panel)}
+.fb-arten label:has(input:checked){border-color:var(--fb-acc);box-shadow:inset 0 0 0 1px var(--fb-acc)}
+.fb-arten input{grid-row:span 2;margin:3px 0 0}
+.fb-arten small{color:var(--fb-muted);font-size:13px;line-height:1.3}
+.fb-feld{display:grid;gap:4px;font-weight:700}
+.fb-feld small{font-weight:400;color:var(--fb-muted)}
+.fbdlg select,.fbdlg textarea{font:inherit;font-weight:400;width:100%;box-sizing:border-box;padding:8px 10px;border:1px solid var(--fb-line);border-radius:8px;background:var(--fb-paper);color:var(--fb-ink)}
+.fbdlg textarea{resize:vertical;min-height:4.5em}
+.fb-zaehler{font-size:13px;color:var(--fb-muted);margin-top:-6px!important}
+.fb-zaehler.ok{color:var(--fb-heft)}
+.fb-falle{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.fb-meldung:empty{display:none}
+.fb-meldung{padding:8px 12px;border-radius:8px;background:var(--fb-panel);font-weight:600}
+.fb-meldung.ok{background:var(--fb-heft-bg);color:var(--fb-heft)}
+.fb-meldung.err{background:var(--fb-hint)}
+.fb-knoepfe{display:flex;justify-content:flex-end;gap:10px;flex-wrap:wrap}
+.fb-knoepfe button{min-height:42px;padding:8px 16px;border-radius:8px;border:1px solid var(--fb-line);background:transparent;color:var(--fb-ink);font:600 15px "Source Sans 3",system-ui,sans-serif;cursor:pointer}
+.fb-knoepfe button.primary{background:var(--fb-acc);border-color:var(--fb-acc);color:var(--fb-on-acc)}
+.fb-knoepfe button:disabled{opacity:.6;cursor:wait}
+@media(max-width:600px){nav .fb-btn span{display:none}nav .fb-btn{padding:6px 8px}.fbdlg form{padding:16px}}
+@media print{.fb-btn,.fb-fuss{display:none}}
+
+.fb-fuss .fb-btn{display:inline-flex;align-items:center;gap:6px;min-height:40px;padding:6px 12px;border-radius:8px;border:1px solid var(--fb-acc);background:transparent;color:var(--fb-acc);font:600 14px "Source Sans 3",system-ui,sans-serif;cursor:pointer}
+.fb-fuss .fb-btn svg{width:18px;height:18px}
+.fb-fuss .fb-btn:hover{background:var(--fb-panel)}
+.fb-rolle{border:0;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center}
+.fb-rolle legend{font-weight:700;margin-bottom:6px;padding:0;width:100%}
+.fb-rolle label{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--fb-line);border-radius:10px;padding:7px 12px;cursor:pointer;background:var(--fb-panel)}
+.fb-rolle label:has(input:checked){border-color:var(--fb-acc);box-shadow:inset 0 0 0 1px var(--fb-acc)}
+.fbdlg input[type=radio]{accent-color:var(--fb-acc)}
+.fbdlg .fb-knoepfe button:focus-visible,.fbdlg input:focus-visible,.fbdlg select:focus-visible,.fbdlg textarea:focus-visible{outline:3px solid #FCBE00;outline-offset:2px}
