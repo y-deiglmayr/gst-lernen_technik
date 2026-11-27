@@ -23,6 +23,13 @@ tools/                      formeln_markieren.py, piktos-katalog.html, druck/ (V
 **Klasse 8** (`Technik8/`)
 - Mikrocontroller: `led-blinken.html` – Eine LED blinken lassen (Blink-Labor: Arduino-Uno-Simulation im Browser, setup/loop, digitalWrite, delay, Vorwiderstand)
 - Mikrocontroller: `led-blinken-wokwi.html` – LED blinken mit Wokwi (eingebetteter Online-Simulator Wokwi, lädt erst nach Klick)
+- Technisches Zeichnen: `tz-grundlagen.html` – Grundlagen und Maßstab (Zeichnungsarten, Maßstab-Labor)
+- Technisches Zeichnen: `tz-bemassung.html` – Linienarten und Bemaßung (Bausteine, Regeln, Fehlerdetektiv, R/Ø/t)
+- Technisches Zeichnen: `dreitafelprojektion.html` – Dreitafelprojektion (3D-Labor mit Live-Ansichten, Zeichen-Werkstatt mit automatischer Prüfung)
+- Technisches Zeichnen: `kavalierperspektive.html` – Kavalierperspektive (Kavalier-Labor, Körper zeichnen)
+- Technisches Zeichnen: `isometrie.html` – Isometrie (Isometrie-Blick, Zeichnen auf Isometriepapier)
+
+Die Lernpfade „Technisches Zeichnen“ werden aus `tools/tz/` erzeugt (gemeinsame 3D-/Zeichen-Engine `engine.js`, Quellseiten in `tools/tz/src/`): Änderungen dort machen, dann `python3 tools/tz/build.py` (setzt auch die Formel-Markierung).
 
 Jede Klasse bzw. jedes Fach bekommt einen eigenen Ordner, z. B. `Technik11/` (Eingangsklasse),
 `Technik12/` (J1), `Technik13/` (J2). Die Adresse einer Seite ist der Pfad ohne `.html`, z. B. `/Technik11/beispiel`.

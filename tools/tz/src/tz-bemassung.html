@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Technisches Zeichnen · Linienarten und Bemaßung</title>
+<meta name="description" content="Lernpfad Technik Klasse 8: Linienarten und Bemaßung – Maßlinie, Maßhilfslinie, Maßpfeil und Maßzahl, Bemaßungsregeln, Fehlerdetektiv und besondere Fälle (Radius, Durchmesser, Dicke).">
+<link rel="stylesheet" href="/fonts/fonts.css">
+<script src="/brand/theme.js"></script>
+<style>
+/* Technisches Zeichnen · Linienarten und Bemaßung – Lernpfad Technik Klasse 8. Erzeugt mit tools/tz/build.py aus tools/tz/src/. */
+/*@CSS@*/
+.hero{--pen:#e9edee;--paperb:transparent}
+.herofig svg{display:block;width:100%;max-width:400px;height:auto;margin:18px 0 6px}
+@media(max-width:600px){.herofig{display:none}}
+.mb{stroke:var(--pen);stroke-width:.7;fill:none;stroke-linejoin:round;stroke-linecap:round}
+.mt{stroke:var(--pen);stroke-width:.25;fill:none}
+.mtd{stroke:var(--pen);stroke-width:.25;fill:none;stroke-dasharray:2 1}
+.mtc{stroke:var(--pen);stroke-width:.25;fill:none;stroke-dasharray:6 1 1 1}
+.ma{fill:var(--pen)}
+.mao{fill:none;stroke:var(--pen);stroke-width:.25}
+.mx{fill:var(--pen);font:4.2px "Atkinson Hyperlegible",sans-serif}
+.dimfig svg{display:block;width:100%;max-width:440px;margin:0 auto;height:auto;touch-action:manipulation;user-select:none}
+.hz{fill:transparent;stroke:transparent;stroke-width:3.2;cursor:pointer;stroke-linecap:round}
+.hz.r{stroke-width:0}
+.hz:hover{stroke:color-mix(in srgb,var(--gst-mark) 30%,transparent);fill:color-mix(in srgb,var(--gst-mark) 18%,transparent)}
+.hz.r:hover{stroke:none}
+.hz.good{stroke:color-mix(in srgb,var(--ok) 40%,transparent)!important;fill:color-mix(in srgb,var(--ok) 25%,transparent)!important}
+.hz.nope{stroke:color-mix(in srgb,var(--bad) 35%,transparent)!important;fill:color-mix(in srgb,var(--bad) 20%,transparent)!important}
+.ask{font:600 19px "Source Sans 3",sans-serif;background:var(--hint);border-radius:10px;padding:8px 14px;margin:8px 0;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.ask b{background:var(--gst-acc);color:var(--gst-on-acc);border-radius:6px;padding:2px 10px}
+.found{list-style:none;padding:0;margin:8px 0}
+.found li{border-left:4px solid var(--ok);background:var(--okbg);border-radius:6px;padding:6px 10px;margin:6px 0;font-size:15px}
+.lsample svg{width:120px;height:16px;display:block}
+.lsample{display:flex;align-items:center;gap:12px}
+.lsample .ln{stroke:var(--pen);fill:none}
+.pic6{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:10px 0}
+@media(max-width:700px){.pic6{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.pic6 figure{margin:0;background:var(--paperb);border:1px solid var(--line);border-radius:10px;padding:8px;display:flex;flex-direction:column}
+.pic6 .pv{flex:1;display:grid;place-items:center;min-height:110px}
+.pic6 .pv svg{display:block;width:100%;height:auto;max-height:120px}
+.pic6 select{width:100%;margin-top:6px}
+.dimpick{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.dimpick label{display:flex;gap:8px;align-items:center;padding:6px 12px;border:1px solid var(--line);border-radius:10px;min-height:44px;cursor:pointer;background:var(--bg);font-weight:700}
+.dimpick label.ok{border-color:var(--ok);background:var(--okbg)}.dimpick label.bad{border-color:var(--bad);background:var(--badbg)}
+.lbx{fill:var(--gst-acc);font:700 4.4px "Source Sans 3",sans-serif}
+</style>
+<link rel="stylesheet" href="/brand/brand.css">
+<link rel="stylesheet" href="/katex/katex.min.css">
+<script defer src="/katex/katex.min.js"></script>
+<script defer src="/katex/formel.js"></script>
+<script defer src="/brand/feedback.js"></script>
+<script defer src="/brand/mischen.js"></script>
+</head>
+<body>
+<nav aria-label="Phasen"><div class="wrap">
+<a href="/" title="Alle Lernpfade">← Übersicht</a>
+<a href="#einstieg"><span>1</span>Einstieg</a>
+<a href="#entdecken"><span>2</span>Entdecken</a>
+<a href="#festhalten"><span>3</span>Festhalten</a>
+<a href="#ueben"><span>4</span>Üben</a>
+<div class="prog"><span id="progtxt">0 / 0 gelöst</span><div class="bar"><i id="progbar"></i></div></div>
+</div></nav>
+
+<header class="band hero"><div class="wrap">
+<div class="herohead"><div><h1>Technisches Zeichnen · Linienarten und Bemaßung</h1>
+<p>Dick heißt sichtbar, gestrichelt heißt verdeckt – jede Linie hat eine feste Bedeutung. Und erst die Maße machen aus einer Zeichnung einen Bauplan. Hier lernst du die Linienarten und die Regeln der Bemaßung kennen und wirst zum Fehlerdetektiv.</p></div><!--@QRBTN@--></div>
+<div class="herofig" aria-hidden="true"><svg id="heroFig" viewBox="-24 -16 150 100"></svg></div>
+<div class="phases">
+<a href="#einstieg"><b>1 · Einstieg</b><small>Vier Linienarten</small></a><a href="#entdecken"><b>2 · Entdecken</b><small>Bausteine, Fehlerdetektiv, besondere Fälle</small></a><a href="#festhalten"><b>3 · Festhalten</b><small>Regeln, Lückentext, Merke</small></a><a href="#ueben"><b>4 · Üben</b><small>Maße berechnen, richtig bemaßen</small></a>
+</div>
+</div></header>
+
+<!-- ============ 1 EINSTIEG ============ -->
+<section class="band" id="einstieg"><div class="wrap">
+<h2>1 · Einstieg: Vier Linienarten</h2>
+<p class="intro">In technischen Zeichnungen gibt es keine beliebigen Striche. Jede Linienart hat eine feste Bedeutung – überall auf der Welt gleich (DIN ISO 128).</p>
+<div class="two"><div>
+<div class="card"><div class="tag">Auftrag 1 · Wie heißt die Linie? <span class="stars">★</span> <span class="afb">AFB I</span></div>
+<div class="selbox part" data-task="e1" data-fb="Richtig! Breit und schmal unterscheidet man an der Strichstärke, Strichlinie und Strich-Punkt-Linie am Muster.">
+<div class="steprow"><span class="lsample"><svg viewBox="0 0 120 16" aria-hidden="true"><line x1="4" y1="8" x2="116" y2="8" class="ln" stroke-width="3.4"/></svg>Linie 1</span><select data-a="Volllinie, breit" aria-label="Linie 1"><option value="">…</option><option>Volllinie, breit</option><option>Volllinie, schmal</option><option>Strichlinie, schmal</option><option>Strich-Punkt-Linie, schmal</option></select></div>
+<div class="steprow"><span class="lsample"><svg viewBox="0 0 120 16" aria-hidden="true"><line x1="4" y1="8" x2="116" y2="8" class="ln" stroke-width="1.3" stroke-dasharray="26 4 3 4"/></svg>Linie 2</span><select data-a="Strich-Punkt-Linie, schmal" aria-label="Linie 2"><option value="">…</option><option>Volllinie, breit</option><option>Volllinie, schmal</option><option>Strichlinie, schmal</option><option>Strich-Punkt-Linie, schmal</option></select></div>
+<div class="steprow"><span class="lsample"><svg viewBox="0 0 120 16" aria-hidden="true"><line x1="4" y1="8" x2="116" y2="8" class="ln" stroke-width="1.3"/></svg>Linie 3</span><select data-a="Volllinie, schmal" aria-label="Linie 3"><option value="">…</option><option>Volllinie, breit</option><option>Volllinie, schmal</option><option>Strichlinie, schmal</option><option>Strich-Punkt-Linie, schmal</option></select></div>
+<div class="steprow"><span class="lsample"><svg viewBox="0 0 120 16" aria-hidden="true"><line x1="4" y1="8" x2="116" y2="8" class="ln" stroke-width="1.3" stroke-dasharray="9 4"/></svg>Linie 4</span><select data-a="Strichlinie, schmal" aria-label="Linie 4"><option value="">…</option><option>Volllinie, breit</option><option>Volllinie, schmal</option><option>Strichlinie, schmal</option><option>Strich-Punkt-Linie, schmal</option></select></div>
+<div class="row"><button class="primary sel-check">Prüfen</button></div><p class="fb sfb"></p></div>
+</div>
+</div><div>
+<div class="card"><div class="tag">Auftrag 2 · Wofür steht welche Linie? <span class="stars">★</span> <span class="afb">AFB I</span></div>
+<div class="selbox part" data-task="e2" data-fb="Richtig! Volllinie breit: sichtbare Kanten. Volllinie schmal: Maß- und Hilfslinien. Strichlinie: verdeckte Kanten. Strich-Punkt-Linie: Mittellinien und Symmetrieachsen.">
+<div class="steprow"><span>Volllinie, breit</span><select data-a="sichtbare Kanten und Umrisse" aria-label="Volllinie breit"><option value="">…</option><option>sichtbare Kanten und Umrisse</option><option>Maßlinien, Maßhilfslinien, Hilfslinien</option><option>verdeckte Kanten</option><option>Mittellinien und Symmetrieachsen</option></select></div>
+<div class="steprow"><span>Volllinie, schmal</span><select data-a="Maßlinien, Maßhilfslinien, Hilfslinien" aria-label="Volllinie schmal"><option value="">…</option><option>sichtbare Kanten und Umrisse</option><option>Maßlinien, Maßhilfslinien, Hilfslinien</option><option>verdeckte Kanten</option><option>Mittellinien und Symmetrieachsen</option></select></div>
+<div class="steprow"><span>Strichlinie, schmal</span><select data-a="verdeckte Kanten" aria-label="Strichlinie"><option value="">…</option><option>sichtbare Kanten und Umrisse</option><option>Maßlinien, Maßhilfslinien, Hilfslinien</option><option>verdeckte Kanten</option><option>Mittellinien und Symmetrieachsen</option></select></div>
+<div class="steprow"><span>Strich-Punkt-Linie, schmal</span><select data-a="Mittellinien und Symmetrieachsen" aria-label="Strich-Punkt-Linie"><option value="">…</option><option>sichtbare Kanten und Umrisse</option><option>Maßlinien, Maßhilfslinien, Hilfslinien</option><option>verdeckte Kanten</option><option>Mittellinien und Symmetrieachsen</option></select></div>
+<div class="row"><button class="primary sel-check">Prüfen</button></div><p class="fb sfb"></p></div>
+</div>
+</div></div>
+</div></section>
+
+<!-- ============ 2 ENTDECKEN ============ -->
+<section class="band alt" id="entdecken"><div class="wrap">
+<h2>2 · Entdecken</h2>
+<div class="two"><div>
+<div class="card"><div class="tag">Auftrag 3 · Die vier Bausteine der Bemaßung <span class="stars">★</span> <span class="afb">AFB I</span></div>
+<p>Ein Blechteil, richtig bemaßt (Maße in mm). Tippe in der Zeichnung auf den gesuchten Baustein.</p>
+<div class="ask" id="bsAsk"></div>
+<div class="fig dimfig"><svg id="bsFig" viewBox="-26 -18 152 104" role="img" aria-label="Bemaßtes L-förmiges Blechteil: 104 mm breit, 63 mm hoch, oben links 42 mm breit, rechts 42 mm hoch"></svg></div>
+<p class="fb" id="bsFb"></p>
+<ul class="found" id="bsList"></ul>
+<span hidden data-task="q1"></span>
+</div>
+</div><div>
+<div class="card"><div class="tag">Auftrag 4 · Fehlerdetektiv <span class="stars">★★</span> <span class="afb">AFB II</span></div>
+<div class="mitbild"><svg class="pk" aria-hidden="true"><use href="/brand/piktos.svg#auge"/></svg><p>In dieser Bemaßung stecken <b>5 Fehler</b>. Tippe auf die fehlerhaften Stellen (Maßlinie, Maßzahl …).</p></div>
+<div class="fig dimfig"><svg id="fdFig" viewBox="-28 -22 150 100" role="img" aria-label="Blechteil mit fehlerhafter Bemaßung zum Finden der Fehler"></svg></div>
+<p class="fb" id="fdFb"></p>
+<p id="fdCount" style="font-weight:700;margin:6px 0"></p>
+<ul class="found" id="fdList"></ul>
+<div class="row"><button data-hint="fd">Tipp</button></div><p class="tip" id="fdTip"></p><div class="hintsrc" data-for="fd" hidden><p>Lies die Maßzahlen genau: Steht da wirklich nur eine Zahl?</p><p>Prüfe den Abstand der Maßlinien zur Kante: 10 mm sind 2 Kästchen bei 5-mm-Karos.</p><p>Kann man alle Zahlen von unten oder von rechts lesen? Sitzen alle Zahlen oberhalb der Maßlinie?</p><p>Rechne nach: Ergibt sich ein Maß schon aus anderen Maßen?</p></div>
+<span hidden data-task="q2"></span>
+</div>
+</div></div>
+
+<div class="card"><div class="tag">Auftrag 5 · Bemaßung in besonderen Fällen <span class="stars">★★</span> <span class="afb">AFB II</span></div>
+<p>Für Rundungen, Bohrungen und dünne Bleche gibt es eigene Zeichen. Ordne zu.</p>
+<div class="selbox part" data-task="q3" data-fb="Richtig! R = Radius, Ø = Durchmesser, t = Dicke (thickness) bei flachen Teilen. Mittellinien zeigen Symmetrie, Strichlinien verdeckte Kanten. Ist zu wenig Platz, setzt man die Pfeile außen.">
+<div class="pic6" data-fest>
+<figure><div class="pv"><svg viewBox="-6 -8 64 46" aria-hidden="true"><path d="M0 30V0h40a10 10 0 0 1 10 10v20z" class="mb"/><line x1="40" y1="10" x2="47.07" y2="2.93" class="mt"/><path d="M47.07 2.93l-2.6 .6 1.9 1.9z" class="ma"/><text x="44" y="-2" class="mx">R10</text></svg></div><select data-a="Radius einer Rundung" aria-label="Bild 1"><option value="">…</option><option>Radius einer Rundung</option><option>Durchmesser einer Bohrung</option><option>Dicke eines flachen Teils</option><option>Mittellinie: Teil ist symmetrisch</option><option>verdeckte Kante</option><option>Pfeile außen bei wenig Platz</option></select></figure>
+<figure><div class="pv"><svg viewBox="-6 -10 64 50" aria-hidden="true"><rect x="0" y="0" width="50" height="34" class="mb"/><circle cx="25" cy="17" r="8" class="mb"/><line x1="15" y1="17" x2="35" y2="17" class="mtc"/><line x1="25" y1="7" x2="25" y2="27" class="mtc"/><line x1="19.3" y1="22.7" x2="30.7" y2="11.3" class="mt"/><path d="M30.7 11.3l-2.6 .6 1.9 1.9zM19.3 22.7l2.6 -.6 -1.9 -1.9z" class="ma"/><text x="31" y="9" class="mx">Ø16</text></svg></div><select data-a="Durchmesser einer Bohrung" aria-label="Bild 2"><option value="">…</option><option>Radius einer Rundung</option><option>Durchmesser einer Bohrung</option><option>Dicke eines flachen Teils</option><option>Mittellinie: Teil ist symmetrisch</option><option>verdeckte Kante</option><option>Pfeile außen bei wenig Platz</option></select></figure>
+<figure><div class="pv"><svg viewBox="-4 -6 64 44" aria-hidden="true"><path d="M0 30L50 30L0 4z" class="mb"/><text x="22" y="26" class="mx">t=2</text></svg></div><select data-a="Dicke eines flachen Teils" aria-label="Bild 3"><option value="">…</option><option>Radius einer Rundung</option><option>Durchmesser einer Bohrung</option><option>Dicke eines flachen Teils</option><option>Mittellinie: Teil ist symmetrisch</option><option>verdeckte Kante</option><option>Pfeile außen bei wenig Platz</option></select></figure>
+<figure><div class="pv"><svg viewBox="-4 -8 64 46" aria-hidden="true"><path d="M0 30V10h18V0h20v10h18v20z" class="mb"/><line x1="28" y1="-5" x2="28" y2="35" class="mtc"/></svg></div><select data-a="Mittellinie: Teil ist symmetrisch" aria-label="Bild 4"><option value="">…</option><option>Radius einer Rundung</option><option>Durchmesser einer Bohrung</option><option>Dicke eines flachen Teils</option><option>Mittellinie: Teil ist symmetrisch</option><option>verdeckte Kante</option><option>Pfeile außen bei wenig Platz</option></select></figure>
+<figure><div class="pv"><svg viewBox="-4 -6 64 42" aria-hidden="true"><rect x="0" y="0" width="50" height="30" class="mb"/><path d="M15 30V18h20v12" class="mtd"/></svg></div><select data-a="verdeckte Kante" aria-label="Bild 5"><option value="">…</option><option>Radius einer Rundung</option><option>Durchmesser einer Bohrung</option><option>Dicke eines flachen Teils</option><option>Mittellinie: Teil ist symmetrisch</option><option>verdeckte Kante</option><option>Pfeile außen bei wenig Platz</option></select></figure>
+<figure><div class="pv"><svg viewBox="-14 -14 70 48" aria-hidden="true"><path d="M0 30V0h20v14h4V0h20v30z" class="mb"/><path d="M20 -1V-9M24 -1V-9" class="mt"/><line x1="10" y1="-6" x2="34" y2="-6" class="mt"/><path d="M20 -6l-3 -.8v1.6zM24 -6l3 -.8v1.6z" class="ma"/><text x="22" y="-7.5" text-anchor="middle" class="mx">4</text></svg></div><select data-a="Pfeile außen bei wenig Platz" aria-label="Bild 6"><option value="">…</option><option>Radius einer Rundung</option><option>Durchmesser einer Bohrung</option><option>Dicke eines flachen Teils</option><option>Mittellinie: Teil ist symmetrisch</option><option>verdeckte Kante</option><option>Pfeile außen bei wenig Platz</option></select></figure>
+</div>
+<div class="row"><button class="primary sel-check">Prüfen</button></div><p class="fb sfb"></p></div>
+</div>
+</div></section>
+
+<!-- ============ 3 FESTHALTEN ============ -->
+<section class="band" id="festhalten"><div class="wrap">
+<h2>3 · Festhalten</h2>
+<div class="two"><div>
+<h3 style="margin-top:0">Regeln der Bemaßung</h3>
+<ol class="rules"><li>Maße immer in <b>Millimetern</b>, <b>ohne Einheit</b>: 45, nicht 45 mm.</li><li>Die erste Maßlinie liegt <b>10 mm</b> von der Kante entfernt, jede weitere <b>7 mm</b> dahinter.</li><li>Maßlinien und Maßhilfslinien sind <b>feiner</b> als die Körperkanten.</li><li>Maßhilfslinien ragen etwa <b>2 mm</b> über die Maßpfeile hinaus.</li><li>Maßpfeile fein zeichnen und <b>ausfüllen</b>.</li><li>Maßzahlen <b>mittig und oberhalb</b> der Maßlinie.</li><li>Alle Maße von <b>unten</b> und von <b>rechts</b> lesbar.</li><li>Nur so viele Maße wie nötig – <b>keine Doppelbemaßung</b>.</li></ol>
+</div><div>
+<div class="card"><div class="tag">Lückentext · Bemaßung <span class="stars">★</span> <span class="afb">AFB I</span></div>
+<div class="selbox part" data-task="f1" data-fb="Alles richtig!"><div class="cloze">Eine Bemaßung besteht aus Maßlinie, <select data-a="Maßhilfslinie"><option value="">…</option><option>Maßhilfslinie</option><option>Mittellinie</option><option>Strichlinie</option></select>, Maßpfeil und Maßzahl. Die Maßzahl gibt die <select data-a="echte"><option value="">…</option><option>echte</option><option>gezeichnete</option></select> Länge in Millimetern an und steht <select data-a="oberhalb"><option value="">…</option><option>oberhalb</option><option>unterhalb</option></select> der Maßlinie. Die erste Maßlinie hat <select data-a="10 mm"><option value="">…</option><option>2 mm</option><option>7 mm</option><option>10 mm</option></select> Abstand zur Kante, jede weitere <select data-a="7 mm"><option value="">…</option><option>2 mm</option><option>7 mm</option><option>10 mm</option></select>. Senkrechte Maße schreibt man so, dass man sie von <select data-a="rechts"><option value="">…</option><option>rechts</option><option>links</option></select> lesen kann. Jedes Maß wird nur <select data-a="einmal"><option value="">…</option><option>einmal</option><option>zweimal</option></select> angegeben.</div><div class="row"><button class="primary sel-check">Prüfen</button></div><p class="fb sfb"></p></div>
+</div>
+</div></div>
+<div class="merke"><h4>Merke</h4><ul><li>Linienarten: <b>breit</b> = sichtbare Kanten, <b>schmal</b> = Maß- und Hilfslinien, <b>Strichlinie</b> = verdeckt, <b>Strich-Punkt</b> = Mittellinie.</li><li>Bemaßung: <b>mm ohne Einheit</b>, erste Maßlinie <b>10 mm</b>, jede weitere <b>7 mm</b>, Zahl oberhalb, lesbar von unten und rechts.</li><li>Besondere Zeichen: <b>R</b> Radius, <b>Ø</b> Durchmesser, <b>t</b> Dicke.</li></ul></div>
+</div></section>
+
+<!-- ============ 4 ÜBEN ============ -->
+<section class="band alt" id="ueben"><div class="wrap">
+<h2>4 · Üben</h2>
+<p class="intro"><b>Erst im Heft lösen, dann hier prüfen.</b></p>
+<div class="lvlrow"><span>★ / AFB I: Grundlagen anwenden</span><span>★★ / AFB II: Zusammenhänge herstellen</span><span>★★★ / AFB III: übertragen, beurteilen, begründen</span></div>
+<div class="two"><div>
+<div class="card"><div class="tag">Übung 1 · Abstände der Maßlinien <span class="stars">★</span> <span class="afb">AFB I</span></div>
+<div class="mitbild"><svg class="pk" aria-hidden="true"><use href="/brand/piktos.svg#geodreieck"/></svg><p>An einer Kante liegen drei Maßlinien übereinander. Wie weit ist jede von der Kante entfernt?</p></div>
+<div class="numbox part" data-task="u1" data-fb="Richtig! 10 mm für die erste, dann jeweils 7 mm mehr: 17 mm und 24 mm.">
+<div class="numq"><span>1. Maßlinie</span><span class="unit"><input type="text" inputmode="decimal" data-a="10" data-tol="0.001" aria-label="1. Maßlinie"> mm</span></div>
+<div class="numq"><span>2. Maßlinie</span><span class="unit"><input type="text" inputmode="decimal" data-a="17" data-tol="0.001" aria-label="2. Maßlinie"> mm</span></div>
+<div class="numq"><span>3. Maßlinie</span><span class="unit"><input type="text" inputmode="decimal" data-a="24" data-tol="0.001" aria-label="3. Maßlinie"> mm</span></div>
+<div class="row"><button class="primary num-check">Prüfen</button></div><p class="fb nfb"></p></div>
+</div>
+<div class="card"><div class="tag">Übung 2 · Fehlende Maße berechnen <span class="stars">★★</span> <span class="afb">AFB II</span></div>
+<div class="mitbild"><svg class="pk" aria-hidden="true"><use href="/brand/piktos.svg#zahnrad"/></svg><p>Berechne die beiden Maße, die in der Zeichnung nicht stehen. Rechne nur mit den Maßzahlen, miss nicht nach.</p></div>
+<div class="fig dimfig"><svg id="u2Fig" style="max-width:300px" viewBox="-26 -18 118 100" role="img" aria-label="Blechteil mit den Maßen 69 breit, 30 oben links breit, 60 hoch, rechts 41 hoch; gesucht sind x und y"></svg></div>
+<div class="numbox part" data-task="u2" data-fb="Richtig! x = 69 − 30 = 39 und y = 60 − 41 = 19.">
+<div class="numq"><span>x (Breite der unteren rechten Stufe oben)</span><span class="unit"><input type="text" inputmode="decimal" data-a="39" data-tol="0.001" aria-label="x"> mm</span></div>
+<div class="numq"><span>y (Höhe der Stufe)</span><span class="unit"><input type="text" inputmode="decimal" data-a="19" data-tol="0.001" aria-label="y"> mm</span></div>
+<div class="row"><button class="primary num-check">Prüfen</button><button data-sol="u2Sol">Lösung zeigen</button></div><p class="fb nfb"></p><div class="sol" id="u2Sol" hidden><p>x = 69 − 30 = 39 · y = 60 − 41 = 19</p></div></div>
+</div>
+</div><div>
+<div class="card"><div class="tag">Übung 3 · Vollständig, aber ohne Doppelbemaßung <span class="stars">★★★</span> <span class="afb">AFB III</span></div>
+<p>Hier stehen sechs mögliche Maße (a bis f). Wähle so aus, dass das Teil <b>vollständig</b> bemaßt ist, aber <b>kein Maß doppelt</b> vorkommt (kein Maß lässt sich aus anderen ausrechnen).</p>
+<div class="fig dimfig"><svg id="u3Fig" style="max-width:340px" viewBox="-34 -26 140 118" role="img" aria-label="Blechteil mit sechs möglichen Maßen a bis f"></svg></div>
+<div class="part" data-task="u3"><div class="dimpick" id="u3pick" data-fest></div>
+<div class="row"><button class="primary" id="u3check">Prüfen</button><button data-hint="u3">Tipp</button></div><p class="fb" id="u3fb"></p><p class="tip" id="u3Tip"></p><div class="hintsrc" data-for="u3" hidden><p>Für die Breiten gibt es drei Maße (a, b, c). Aus zwei davon kannst du das dritte ausrechnen.</p><p>Für die Höhen gilt dasselbe (d, e, f). Du brauchst also genau zwei Breiten und zwei Höhen.</p></div></div>
+</div>
+<div class="card"><div class="tag">Übung 4 · Stimmt das? <span class="stars">★</span> <span class="afb">AFB I</span></div>
+<div class="tf part" data-task="u4">
+<div class="item" data-v="0"><span>„Maßlinien zeichnet man genauso dick wie die Körperkanten.“</span><span class="btns"><button data-v="1">richtig</button><button data-v="0">falsch</button></span><p class="fb"></p><span class="ex">Maßlinien und Maßhilfslinien sind schmal (fein), damit man sie nicht mit Körperkanten verwechselt.</span></div>
+<div class="item" data-v="1"><span>„Ø 8 bedeutet: Die Bohrung hat 8 mm Durchmesser.“</span><span class="btns"><button data-v="1">richtig</button><button data-v="0">falsch</button></span><p class="fb"></p><span class="ex">Das Zeichen Ø steht für den Durchmesser.</span></div>
+<div class="item" data-v="0"><span>„Eine senkrechte Maßzahl schreibe ich so, dass man sie von links lesen kann.“</span><span class="btns"><button data-v="1">richtig</button><button data-v="0">falsch</button></span><p class="fb"></p><span class="ex">Maße müssen von unten und von rechts lesbar sein. Senkrechte Maße drehst du nach links.</span></div>
+<div class="item" data-v="1"><span>„Wird ein Teil im Maßstab 1 : 2 gezeichnet, schreibe ich trotzdem die echten Maße hin.“</span><span class="btns"><button data-v="1">richtig</button><button data-v="0">falsch</button></span><p class="fb"></p><span class="ex">Die Maßzahl ist immer das echte Maß.</span></div>
+</div>
+</div>
+</div></div>
+<div class="two"><div>
+<div class="card"><div class="tag">Übung 5 · Warum keine Doppelbemaßung? <span class="stars">★★★</span> <span class="afb">AFB III</span></div>
+<div class="part why" data-task="u5"><div class="mitbild"><svg class="pk" aria-hidden="true"><use href="/brand/piktos.svg#person"/></svg><h4>✍ Lea schreibt an ihr Blechteil die Breite 104 und zusätzlich die beiden Teilmaße 42 und 62. Begründe, warum man das vermeiden soll.</h4></div>
+<textarea data-store="u5" rows="3" placeholder="Schreib deine Begründung hier (oder ins Heft) – mindestens einen ganzen Satz." aria-label="Deine Begründung"></textarea>
+<label class="cbl"><input type="checkbox">Ich habe meine Begründung ins Heft geschrieben.</label>
+<div class="row"><button class="why-show">Mit Musterbegründung vergleichen</button></div>
+<div class="sol" hidden><p><b>Musterbegründung:</b> Das dritte Maß lässt sich aus den anderen beiden <b>ausrechnen</b>: 104 = 42 + 62. Wird später ein Maß <b>geändert</b> (z. B. 42 auf 45), aber das andere vergessen, <b>widersprechen</b> sich die Maße. Dann weiß in der Werkstatt niemand, welches Maß gilt. Darum gibt man jedes Maß nur <b>einmal</b> an.</p><p class="caption" style="margin:0 0 6px">Vergleiche: Hast du die fett gedruckten Begriffe verwendet? Ergänze sonst deine Begründung.</p><div class="row"><button class="why-ok">Meine Begründung enthält das Wichtigste</button></div></div></div>
+</div>
+</div><div>
+<div class="card"><div class="tag">Übung 6 · Warum mit Abstand und fein? <span class="stars">★★</span> <span class="afb">AFB II</span></div>
+<div class="part why" data-task="u6"><div class="mitbild"><svg class="pk" aria-hidden="true"><use href="/brand/piktos.svg#auge"/></svg><h4>✍ Begründe, warum Maßlinien 10 mm Abstand zur Kante haben und feiner gezeichnet werden als die Körperkanten.</h4></div>
+<textarea data-store="u6" rows="3" placeholder="Schreib deine Begründung hier (oder ins Heft) – mindestens einen ganzen Satz." aria-label="Deine Begründung"></textarea>
+<label class="cbl"><input type="checkbox">Ich habe meine Begründung ins Heft geschrieben.</label>
+<div class="row"><button class="why-show">Mit Musterbegründung vergleichen</button></div>
+<div class="sol" hidden><p><b>Musterbegründung:</b> Durch den <b>Abstand</b> liegen die Maße <b>außerhalb</b> des Körpers und stören die Zeichnung nicht. Weil Maßlinien <b>feiner</b> sind, kann man sie nicht mit <b>Körperkanten verwechseln</b>. So bleibt die Zeichnung <b>übersichtlich</b> und eindeutig.</p><p class="caption" style="margin:0 0 6px">Vergleiche: Hast du die fett gedruckten Begriffe verwendet? Ergänze sonst deine Begründung.</p><div class="row"><button class="why-ok">Meine Begründung enthält das Wichtigste</button></div></div></div>
+</div>
+</div></div>
+<div class="row" style="margin-top:12px"><a class="lnk" href="/Technik8/tz-grundlagen">← Grundlagen und Maßstab</a><a class="lnk nx" href="/Technik8/dreitafelprojektion">Weiter: Dreitafelprojektion →</a></div>
+</div></section>
+
+<section class="band"><div class="wrap">
+<div class="row" style="margin-top:8px"><button id="resetAll">Fortschritt zurücksetzen</button></div>
+</div></section>
+<footer class="band"><div class="wrap">
+<p>Lernpfad Technik Klasse 8 · Technisches Zeichnen: Linienarten (DIN ISO 128) und Bemaßung (Maßlinie, Maßhilfslinie, Maßpfeil, Maßzahl, Regeln, Radius, Durchmesser, Dicke). Alles läuft in deinem Browser. Dein Fortschritt wird nur in diesem Browser gespeichert, es werden keine Daten übertragen (nur Feedback, das du selbst abschickst).</p>
+<p class="rechtl"><a href="/impressum">Impressum · Datenschutz</a></p></div></footer>
+<!--@QRDLG@-->
+<script>
+{
+/*@COMMON@*/
+/* ---------- Bemaßung zeichnen (mm, y nach unten) ----------
+   dH: waagrechtes Maß von x1 bis x2, Körperkante bei yk, Maßlinie bei ym. dV: senkrechtes Maß von y1 bis y2, Kante bei xk, Maßlinie bei xm.
+   o.unit: Einheit mit hinschreiben (Fehler), o.under: Zahl unter die Linie (Fehler), o.rot: Zahl falsch gedreht (Fehler), o.id: Kennung für Klickflächen */
+const AL=3,AW=.75;
+function arrow(x,y,dx,dy,open){const nx=-dy,ny=dx;const p=`${x},${y} ${x-dx*AL+nx*AW},${y-dy*AL+ny*AW} ${x-dx*AL-nx*AW},${y-dy*AL-ny*AW}`;return open?`<polyline points="${x-dx*AL+nx*AW},${y-dy*AL+ny*AW} ${x},${y} ${x-dx*AL-nx*AW},${y-dy*AL-ny*AW}" class="mao"/>`:`<polygon points="${p}" class="ma"/>`}
+function dH(x1,x2,yk1,yk2,ym,t,o={}){const s=ym<yk1?-1:1,e=2;let r='';
+ r+=`<line x1="${x1}" y1="${yk1+s}" x2="${x1}" y2="${ym+s*e}" class="mt"/><line x1="${x2}" y1="${yk2+s}" x2="${x2}" y2="${ym+s*e}" class="mt"/>`;
+ r+=`<line x1="${x1}" y1="${ym}" x2="${x2}" y2="${ym}" class="mt"/>`+arrow(x1,ym,-1,0,o.open)+arrow(x2,ym,1,0,o.open);
+ const ty=o.under?ym+4.6:ym-1.2;r+=`<text x="${(x1+x2)/2}" y="${ty}" text-anchor="middle" class="mx">${t}${o.unit?' mm':''}</text>`;
+ return {svg:r,geo:{ml:[[x1,ym,x2,ym]],mhl:[[x1,yk1+s,x1,ym+s*e],[x2,yk2+s,x2,ym+s*e]],pf:[[x1,ym],[x2,ym]],mz:[(x1+x2)/2,ty-1.5,(String(t).length+(o.unit?3:0))*2.4+2,5]}}}
+function dV(y1,y2,xk1,xk2,xm,t,o={}){const s=xm<xk1?-1:1,e=2;let r='';
+ r+=`<line x1="${xk1+s}" y1="${y1}" x2="${xm+s*e}" y2="${y1}" class="mt"/><line x1="${xk2+s}" y1="${y2}" x2="${xm+s*e}" y2="${y2}" class="mt"/>`;
+ r+=`<line x1="${xm}" y1="${y1}" x2="${xm}" y2="${y2}" class="mt"/>`+arrow(xm,y1,0,-1,o.open)+arrow(xm,y2,0,1,o.open);
+ const cy=(y1+y2)/2,tx=o.under?xm+1.2:xm-1.2;
+ r+=o.rot?`<text x="${tx+3.2}" y="${cy}" text-anchor="middle" class="mx" transform="rotate(90 ${tx+3.2} ${cy})">${t}</text>`:`<text x="${o.under?tx+3.2:tx}" y="${cy}" text-anchor="middle" class="mx" transform="rotate(-90 ${o.under?tx+3.2:tx} ${cy})">${t}</text>`;
+ return {svg:r,geo:{ml:[[xm,y1,xm,y2]],mhl:[[xk1+s,y1,xm+s*e,y1],[xk2+s,y2,xm+s*e,y2]],pf:[[xm,y1],[xm,y2]],mz:[o.under?tx+.2:tx-4,cy,5,String(t).length*2.4+2,true]}}}
+const poly=pts=>`<path d="M${pts.map(p=>p.join(' ')).join('L')}Z" class="mb"/>`;
+/* Blechteil aus dem Unterricht: 104 breit, 63 hoch, oben links 42 breit, rechts 42 hoch */
+const BT=[[0,0],[42,0],[42,21],[104,21],[104,63],[0,63]];
+const btDims=()=>[dH(0,104,63,63,73,104),dV(0,63,0,0,-10,63),dH(0,42,0,0,-10,42),dV(21,63,104,104,114,42)];
+{let s=poly(BT)+btDims().map(d=>d.svg).join('');$('#heroFig').innerHTML=s}
+/* ---------- Auftrag 3: Bausteine ---------- */
+{const dims=btDims(),svg=$('#bsFig');let s=poly(BT)+dims.map(d=>d.svg).join('');
+ const Z=[];dims.forEach(d=>{d.geo.ml.forEach(l=>Z.push(['ml',`<line x1="${l[0]}" y1="${l[1]}" x2="${l[2]}" y2="${l[3]}" class="hz" data-p="ml"/>`]));
+  d.geo.mhl.forEach(l=>Z.push(['mhl',`<line x1="${l[0]}" y1="${l[1]}" x2="${l[2]}" y2="${l[3]}" class="hz" data-p="mhl"/>`]));
+  d.geo.pf.forEach(p=>Z.push(['pf',`<circle cx="${p[0]}" cy="${p[1]}" r="2.6" class="hz r" data-p="pf"/>`]));
+  const m=d.geo.mz;Z.push(['mz',m[4]?`<rect x="${m[0]}" y="${m[1]-m[3]/2}" width="${m[2]}" height="${m[3]}" class="hz r" data-p="mz"/>`:`<rect x="${m[0]-m[2]/2}" y="${m[1]-m[3]/2}" width="${m[2]}" height="${m[3]}" class="hz r" data-p="mz"/>`])});
+ /* Pfeile und Zahlen zuletzt, damit sie über den Linien liegen */
+ const ord={mhl:0,ml:1,pf:2,mz:3};Z.sort((a,b)=>ord[a[0]]-ord[b[0]]);
+ svg.innerHTML=s+`<path d="${BT.map((p,i)=>(i?'L':'M')+p.join(' ')).join('')}Z" class="hz" data-p="kk" style="fill:none"/>`+Z.map(z=>z[1]).join('');
+ const N={ml:'Maßlinie',mhl:'Maßhilfslinie',pf:'Maßpfeil',mz:'Maßzahl',kk:'Körperkante'};
+ const INFO={ml:'<b>Maßlinie:</b> zeigt, welche Länge gemessen wird. Sie liegt parallel zur Kante.',mhl:'<b>Maßhilfslinie:</b> verlängert die Kante des Körpers nach außen bis zur Maßlinie (etwa 2 mm darüber hinaus).',pf:'<b>Maßpfeil:</b> begrenzt die Maßlinie an beiden Enden. Fein gezeichnet und ausgefüllt.',mz:'<b>Maßzahl:</b> gibt die echte Länge in Millimetern an – ohne Einheit.'};
+ const order=['ml','mhl','pf','mz'];let i=0;const fb=$('#bsFb');
+ const ask=()=>{$('#bsAsk').innerHTML=i<order.length?`Tippe auf eine <b>${N[order[i]]}</b>`:'✓ Alle vier Bausteine gefunden!'};
+ if(done.has('q1')){i=4;$('#bsList').innerHTML=order.map(k=>`<li>${INFO[k]}</li>`).join('')}
+ svg.addEventListener('click',e=>{const z=e.target.closest('[data-p]');if(!z||!z.classList.contains('hz')||i>=order.length)return;const p=z.dataset.p;
+  if(p===order[i]){z.classList.add('good');setTimeout(()=>z.classList.remove('good'),900);$('#bsList').insertAdjacentHTML('beforeend',`<li>${INFO[p]}</li>`);fb.className='fb ok';fb.textContent='Richtig!';i++;if(i>=order.length)mark('q1')}
+  else{z.classList.add('nope');setTimeout(()=>z.classList.remove('nope'),900);fb.className='fb hint';fb.innerHTML=`Das ist ${p==='kk'?'eine':p==='ml'||p==='mhl'||p==='mz'?'eine':'ein'} <b>${N[p]}</b>. Gesucht ist ${order[i]==='pf'?'ein':'eine'} ${N[order[i]]}.`}
+  ask()});
+ ask()}
+/* ---------- Auftrag 4: Fehlerdetektiv ---------- */
+{const P=[[0,0],[50,0],[50,20],[80,20],[80,50],[0,50]];
+ const d1=dH(0,50,0,0,-10,50,{unit:true}),d2=dV(0,50,0,0,-10,50,{under:true}),d3=dV(20,50,80,80,90,30,{rot:true}),d4=dV(0,20,50,80,97,20),d5=dH(0,80,50,50,53,80);
+ const F=[
+  {k:'unit',d:d1,t:'<b>Einheit hingeschrieben:</b> „50 mm“ ist falsch. Maße stehen immer in mm, aber <b>ohne Einheit</b>: 50.',z:'mz'},
+  {k:'under',d:d2,t:'<b>Maßzahl auf der falschen Seite:</b> Die Zahl muss <b>oberhalb</b> der Maßlinie stehen – bei senkrechten Maßen also links davon, außerhalb des Körpers.',z:'mz'},
+  {k:'rot',d:d3,t:'<b>Falsch gedreht:</b> Die 30 kann man nur von links lesen. Maße müssen von <b>unten und von rechts</b> lesbar sein.',z:'mz'},
+  {k:'doppel',d:d4,t:'<b>Doppelbemaßung:</b> Die 20 ergibt sich schon aus 50 − 30. Jedes Maß nur <b>einmal</b> angeben.',z:'all'},
+  {k:'nah',d:d5,t:'<b>Maßlinie zu nah:</b> Die Maßlinie für 80 liegt nur 3 mm unter der Kante. Richtig sind <b>10 mm</b> Abstand.',z:'ml'}];
+ let s=poly(P)+F.map(f=>f.d.svg).join('');
+ const hz=[];F.forEach((f,i)=>{const g=f.d.geo;
+  if(f.z==='mz'||f.z==='all'){const m=g.mz;hz.push(m[4]?`<rect x="${m[0]-1}" y="${m[1]-m[3]/2-1}" width="${m[2]+2}" height="${m[3]+2}" class="hz r" data-f="${i}"/>`:`<rect x="${m[0]-m[2]/2-1}" y="${m[1]-m[3]/2-1}" width="${m[2]+2}" height="${m[3]+2}" class="hz r" data-f="${i}"/>`)}
+  if(f.z==='ml'||f.z==='all')g.ml.forEach(l=>hz.push(`<line x1="${l[0]}" y1="${l[1]}" x2="${l[2]}" y2="${l[3]}" class="hz" data-f="${i}"/>`))});
+ /* richtige Stellen: andere Maßlinien und Körperkanten */
+ const okz=[];[d1,d2,d3].forEach(d=>d.geo.ml.forEach(l=>okz.push(`<line x1="${l[0]}" y1="${l[1]}" x2="${l[2]}" y2="${l[3]}" class="hz" data-ok="1"/>`)));
+ const svg=$('#fdFig');svg.innerHTML=s+`<path d="${P.map((p,i)=>(i?'L':'M')+p.join(' ')).join('')}Z" class="hz" data-ok="1" style="fill:none"/>`+okz.join('')+hz.join('');
+ const found=new Set(),fb=$('#fdFb');
+ const upd=()=>{$('#fdCount').textContent=`${found.size} von 5 Fehlern gefunden`;$('#fdList').innerHTML=[...found].map(i=>`<li>${F[i].t}</li>`).join('');if(found.size===5){fb.className='fb ok';fb.textContent='Super, du hast alle Fehler gefunden!';mark('q2')}};
+ if(done.has('q2'))F.forEach((f,i)=>found.add(i));
+ svg.addEventListener('click',e=>{const z=e.target.closest('.hz');if(!z)return;
+  if(z.dataset.f!=null){const i=+z.dataset.f;if(!found.has(i)){found.add(i);fb.className='fb ok';fb.textContent='Gefunden!'}else{fb.className='fb';fb.textContent='Diesen Fehler hast du schon gefunden.'}
+   svg.querySelectorAll(`[data-f="${i}"]`).forEach(x=>x.classList.add('good'));upd()}
+  else{z.classList.add('nope');setTimeout(()=>z.classList.remove('nope'),900);fb.className='fb hint';fb.textContent='Hier ist alles in Ordnung. Such weiter!'}});
+ F.forEach((f,i)=>{if(found.has(i))svg.querySelectorAll(`[data-f="${i}"]`).forEach(x=>x.classList.add('good'))});upd()}
+/* ---------- Übung 2 und 3: Blechteil 69 × 60 ---------- */
+const B2=[[0,0],[30,0],[30,19],[69,19],[69,60],[0,60]];
+{const ds=[dH(0,69,60,60,70,69),dH(0,30,0,0,-10,30),dV(0,60,0,0,-10,60),dV(19,60,69,69,79,41),dH(30,69,19,19,9,'x'),dV(0,19,30,30,40,'y')];
+ $('#u2Fig').innerHTML=poly(B2)+ds.map(d=>d.svg).join('')}
+{const L=(t,x,y)=>`<text x="${x}" y="${y}" class="lbx">${t}</text>`;
+ const ds=[dH(0,69,60,60,70,69),dH(0,30,0,0,-10,30),dH(30,69,19,19,9,39),dV(0,60,0,0,-10,60),dV(19,60,69,69,79,41),dV(0,19,30,30,44,19)];
+ const labs=L('a',32,76)+L('b',13,-17)+L('c',47,4)+L('d',-21,32)+L('e',83,42)+L('f',47,11);
+ $('#u3Fig').innerHTML=poly(B2)+ds.map(d=>d.svg).join('')+labs;
+ const items=[['a','69 (ganze Breite)','w'],['b','30 (oben links)','w'],['c','39 (oben rechts)','w'],['d','60 (ganze Höhe)','h'],['e','41 (rechts)','h'],['f','19 (Stufe)','h']];
+ $('#u3pick').innerHTML=items.map(it=>`<label data-g="${it[2]}"><input type="checkbox" value="${it[0]}">${it[0]} = ${it[1]}</label>`).join('');
+ $('#u3check').onclick=()=>{const ls=[...$$('#u3pick label')],w=ls.filter(l=>l.dataset.g==='w'&&l.querySelector('input').checked).length,h=ls.filter(l=>l.dataset.g==='h'&&l.querySelector('input').checked).length,fb=$('#u3fb');
+  ls.forEach(l=>l.className='');
+  if(w===2&&h===2){fb.className='fb ok';fb.innerHTML='Richtig! Zwei Breiten und zwei Höhen reichen – das dritte Maß kann man jeweils ausrechnen. Am übersichtlichsten sind meist die Gesamtmaße (a und d) plus je ein Teilmaß.';ls.forEach(l=>{if(l.querySelector('input').checked)l.className='ok'});mark('u3');return}
+  let t=[];if(w<2)t.push('Bei den Breiten fehlt noch ein Maß.');if(w>2)t.push('Bei den Breiten hast du eine Doppelbemaßung: a = b + c.');if(h<2)t.push('Bei den Höhen fehlt noch ein Maß.');if(h>2)t.push('Bei den Höhen hast du eine Doppelbemaßung: d = e + f.');
+  ls.forEach(l=>{const g=l.dataset.g,n=g==='w'?w:h;if(n!==2&&l.querySelector('input').checked)l.className='bad'});
+  fb.className='fb hint';fb.textContent=t.join(' ')}}
+initCommon();
+}
+</script>
+</body>
+</html>

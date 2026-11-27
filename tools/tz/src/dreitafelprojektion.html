@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Technisches Zeichnen · Dreitafelprojektion</title>
+<meta name="description" content="Lernpfad Technik Klasse 8: Dreitafelprojektion – Körper drehen, Vorderansicht, Seitenansicht und Draufsicht verstehen und in der Zeichen-Werkstatt selbst zeichnen.">
+<link rel="stylesheet" href="/fonts/fonts.css">
+<script src="/brand/theme.js"></script>
+<style>
+/* Dreitafelprojektion – Lernpfad Technik Klasse 8 (Technisches Zeichnen). Erzeugt mit tools/tz/build.py aus tools/tz/src/. */
+/*@CSS@*/
+.herofig{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1fr);gap:20px;align-items:center;max-width:760px;margin:18px 0 6px}
+.herofig svg{display:block;width:100%;height:auto;max-height:230px}
+.hero{--pen:#e9edee;--paperb:transparent;--muted:#9fb0b3;--gst-acc:#FCBE00}
+.hero .tz-lbl{fill:#FCBE00}
+@media(max-width:600px){.herofig{display:none}}
+.lego svg{display:block;width:100%;height:auto}
+.twobodies{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:8px 0}
+.twobodies figure{margin:0;background:var(--paperb);border:1px solid var(--line);border-radius:10px;padding:8px}
+.twobodies figcaption{font-size:14px;color:var(--muted);text-align:center}
+.twobodies .tz-mini{max-height:90px}
+.livev{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:8px}
+.livev figure{margin:0;border:2px solid var(--line);border-radius:10px;padding:6px;background:var(--paperb);transition:border-color .3s}
+.livev figure.on{border-color:var(--gst-mark)}
+.livev figcaption{font-size:13px;color:var(--muted);text-align:center}
+.livev .tz-mini{max-height:96px}
+.axfig svg{display:block;width:100%;height:auto;max-width:440px;margin:0 auto}
+.axfig .tz-ax{stroke-width:.7}.axfig .tz-hl{stroke-width:.45}
+.axfig .hl-on{stroke:var(--gst-mark)!important;stroke-width:1.3!important;opacity:1}
+.place text{font:600 5px "Source Sans 3",sans-serif;fill:var(--muted)}
+.ablese svg{display:block;width:100%;height:auto;max-width:420px}
+</style>
+<link rel="stylesheet" href="/brand/brand.css">
+<link rel="stylesheet" href="/katex/katex.min.css">
+<script defer src="/katex/katex.min.js"></script>
+<script defer src="/katex/formel.js"></script>
+<script defer src="/brand/feedback.js"></script>
+<script defer src="/brand/mischen.js"></script>
+</head>
+<body>
+<nav aria-label="Phasen"><div class="wrap">
+<a href="/" title="Alle Lernpfade">← Übersicht</a>
+<a href="#einstieg"><span>1</span>Einstieg</a>
+<a href="#entdecken"><span>2</span>Entdecken</a>
+<a href="#festhalten"><span>3</span>Festhalten</a>
+<a href="#ueben"><span>4</span>Üben</a>
+<div class="prog"><span id="progtxt">0 / 0 gelöst</span><div class="bar"><i id="progbar"></i></div></div>
+</div></nav>
+
+<header class="band hero"><div class="wrap">
+<div class="herohead"><div><h1>Technisches Zeichnen · Dreitafelprojektion</h1>
+<p>Ein Bild von einem Körper zeigt nie alles. Darum zeichnet man ihn in der Technik aus drei Richtungen: von vorn, von links und von oben. Hier drehst du Körper in 3D, entdeckst die drei Ansichten und zeichnest sie in der Zeichen-Werkstatt selbst.</p></div><!--@QRBTN@--></div>
+<div class="herofig" aria-hidden="true"><svg id="heroBody"></svg><svg id="heroViews"></svg></div>
+<div class="phases">
+<a href="#einstieg"><b>1 · Einstieg</b><small>Warum reicht eine Ansicht nicht?</small></a><a href="#entdecken"><b>2 · Entdecken</b><small>3D-Labor: Körper drehen, Ansichten A, B, C</small></a><a href="#festhalten"><b>3 · Festhalten</b><small>Lückentext und Regeln</small></a><a href="#ueben"><b>4 · Üben</b><small>Zeichen-Werkstatt mit 8 Körpern ★ bis ★★★</small></a>
+</div>
+</div></header>
+
+<!-- ============ 1 EINSTIEG ============ -->
+<section class="band" id="einstieg"><div class="wrap">
+<h2>1 · Einstieg: Ein Bild reicht nicht</h2>
+<p class="intro">In der Werkstatt soll jemand ein Teil genau nach deiner Zeichnung bauen. Dafür muss die Zeichnung <b>eindeutig</b> sein: Breite, Höhe und Tiefe und jede Kante müssen klar erkennbar sein.</p>
+<div class="two"><div>
+<div class="card"><div class="tag">Auftrag 1 · Der Legostein <span class="stars">★</span> <span class="afb">AFB I</span></div>
+<div class="lego fig"><svg viewBox="0 0 520 170" role="img" aria-label="Ein Legostein mit acht Noppen in drei Ansichten: Ansicht 1 und 2 zeigen Rechtecke mit kleinen Rechtecken obendrauf, Ansicht 3 zeigt ein Rechteck mit acht Kreisen.">
+<g class="dl s" style="stroke-width:1.6"><rect x="20" y="70" width="160" height="58"/><rect x="28" y="58" width="24" height="12"/><rect x="68" y="58" width="24" height="12"/><rect x="108" y="58" width="24" height="12"/><rect x="148" y="58" width="24" height="12"/>
+<rect x="215" y="70" width="80" height="58"/><rect x="223" y="58" width="24" height="12"/><rect x="263" y="58" width="24" height="12"/>
+<rect x="330" y="50" width="160" height="80"/><circle cx="350" cy="70" r="12"/><circle cx="390" cy="70" r="12"/><circle cx="430" cy="70" r="12"/><circle cx="470" cy="70" r="12"/><circle cx="350" cy="110" r="12"/><circle cx="390" cy="110" r="12"/><circle cx="430" cy="110" r="12"/><circle cx="470" cy="110" r="12"/></g>
+<text x="100" y="156" text-anchor="middle" class="dimt">Ansicht 1</text><text x="255" y="156" text-anchor="middle" class="dimt">Ansicht 2</text><text x="410" y="156" text-anchor="middle" class="dimt">Ansicht 3</text>
+</svg></div>
+<div class="part" data-task="e1"><h4>Ein Legostein mit 2 × 4 Noppen, aus drei Richtungen gezeichnet. In welcher Ansicht erkennst du, dass die Noppen rund sind?</h4>
+<div class="mc" data-correct="c" data-task="e1" data-tipp="Rund sind die Noppen nur, wenn du genau auf ihre Oberseite schaust."><button data-k="a" data-fb="Nein. Von vorn sieht eine Noppe aus wie ein Rechteck – genau wie ein kleiner Würfel.">Ansicht 1 (von vorn)</button><button data-k="b" data-fb="Nein. Auch von der Seite siehst du nur Rechtecke.">Ansicht 2 (von der Seite)</button><button data-k="c" data-fb="Richtig! Erst <b>von oben</b> erkennst du die Noppen als Kreise. Von vorn und von der Seite könnten es auch kleine Quader sein. Deshalb braucht man mehrere Ansichten.">Ansicht 3 (von oben)</button><p class="fb"></p></div></div>
+</div>
+</div><div>
+<div class="card"><div class="tag">Auftrag 2 · Gleiche Vorderansicht, andere Körper <span class="stars">★</span> <span class="afb">AFB I</span></div>
+<p>Ein Würfel und eine dünne Platte. Von vorn sehen beide gleich aus.</p>
+<div class="twobodies"><figure><svg class="tz-3d" id="eiW" style="max-height:150px" aria-label="Würfel, drehbar"></svg><div id="eiWv"></div><figcaption>Würfel: Vorderansicht</figcaption></figure><figure><svg class="tz-3d" id="eiP" style="max-height:150px" aria-label="Platte, drehbar"></svg><div id="eiPv"></div><figcaption>Platte: Vorderansicht</figcaption></figure></div>
+<div class="part" data-task="e2"><h4>Was kannst du aus der Vorderansicht allein nicht ablesen?</h4>
+<div class="mc" data-correct="b" data-task="e2" data-tipp="Vergleiche: Worin unterscheiden sich Würfel und Platte? Dreh die beiden Körper mit der Maus oder dem Finger."><button data-k="a" data-fb="Nein. Die Breite siehst du in der Vorderansicht genau.">die Breite</button><button data-k="b" data-fb="Richtig! Die <b>Tiefe</b> zeigt die Vorderansicht nicht. Dafür braucht man eine zweite Ansicht, z. B. von der Seite oder von oben.">die Tiefe</button><button data-k="c" data-fb="Nein. Die Höhe siehst du in der Vorderansicht genau.">die Höhe</button><p class="fb"></p></div></div>
+</div>
+</div></div>
+</div></section>
+
+<!-- ============ 2 ENTDECKEN ============ -->
+<section class="band alt" id="entdecken"><div class="wrap">
+<h2>2 · Entdecken: Das 3D-Labor</h2>
+<p class="intro">Dreh den Körper mit der Maus oder dem Finger (am PC auch mit den Pfeiltasten). Die Pfeile zeigen die drei Blickrichtungen. Mit den Knöpfen schaust du genau aus einer Richtung auf den Körper – vergleiche mit den Ansichten darunter. Ein Würfel des Körpers ist 10 mm groß.</p>
+<div class="two"><div>
+<div class="fig"><svg class="tz-3d" id="lab3d" aria-label="Drehbarer Körper mit den Blickrichtungen A, B und C"></svg></div>
+<div class="vbtns" data-fest><button data-v="A"><b>A</b>von vorn</button><button data-v="B"><b>B</b>von links</button><button data-v="C"><b>C</b>von oben</button><button data-v="schraeg">schräg</button></div>
+<div class="bodytabs" id="labTabs" data-fest></div>
+</div><div class="stick">
+<div class="livev" id="labViews"></div>
+<p class="caption">Die drei Ansichten des Körpers. Gestrichelt: Kanten, die man aus dieser Richtung nicht sieht (verdeckte Kanten).</p>
+<div class="card" style="margin-top:12px"><div class="tag">Auftrag 3 · Beobachte im Labor <span class="stars">★</span> <span class="afb">AFB I</span></div>
+<div class="part" data-task="q1"><h4>Wähle den Körper „Treppe“ und klicke auf B. Was siehst du in der Seitenansicht?</h4>
+<div class="mc" data-correct="a" data-task="q1" data-tipp="Bei B schaust du von links auf die Treppe. Die Stufen liegen hintereinander."><button data-k="a" data-fb="Richtig! Von links siehst du die Stirnseiten der drei Stufen als drei Rechtecke übereinander. Die Treppenform siehst du nur in der Vorderansicht A.">ein Rechteck mit zwei waagrechten Linien</button><button data-k="b" data-fb="Nein. Die Treppenform siehst du nur, wenn du von vorn schaust.">die Treppenform</button><button data-k="c" data-fb="Nein. Drei senkrechte Streifen siehst du von oben (Draufsicht C).">drei senkrechte Streifen</button><p class="fb"></p></div></div>
+<div class="part" data-task="q2"><h4>Wähle den Körper „Tunnel“. Warum ist in der Vorderansicht A ein Teil gestrichelt?</h4>
+<div class="mc" data-correct="b" data-task="q2" data-tipp="Dreh den Tunnel so, dass du von hinten und von unten darauf schaust."><button data-k="a" data-fb="Nein. Die Strichlinie zeigt keine Hilfslinie, sondern echte Kanten.">Dort ist eine Hilfslinie zum Abmessen.</button><button data-k="b" data-fb="Richtig! Der Tunnel ist hinten unten im Körper. Von vorn ist er <b>verdeckt</b>. Verdeckte Kanten zeichnet man als <b>Strichlinie</b>.">Der Tunnel liegt hinten. Seine Kanten sieht man von vorn nicht, sie sind verdeckt.</button><button data-k="c" data-fb="Nein. Dort ist kein Loch durch den ganzen Körper. Dreh ihn und schau von hinten.">Dort geht ein Loch ganz durch den Körper.</button><p class="fb"></p></div></div>
+</div>
+</div></div>
+
+<div class="two" style="margin-top:18px"><div>
+<div class="card"><div class="tag">Auftrag 4 · Wo liegt welche Ansicht? <span class="stars">★</span> <span class="afb">AFB I</span></div>
+<p>Auf dem Blatt hat jede Ansicht ihren festen Platz. Ordne zu.</p>
+<div class="axfig"><svg id="placeFig" viewBox="0 0 150 120" role="img" aria-label="Achsenkreuz mit drei Feldern: oben links, oben rechts und unten links. Unten rechts liegt die Spiegelachse."></svg></div>
+<div class="selbox part" data-task="q3" data-fb="Richtig! <b>A</b> (Vorderansicht) oben links, <b>B</b> (Seitenansicht, Blick von links) rechts daneben auf gleicher Höhe, <b>C</b> (Draufsicht) unter A. Unten rechts liegt nur die Spiegelachse.">
+<div class="steprow"><span>Feld 1 (oben links)</span><select data-a="A" aria-label="Feld 1"><option value="">…</option><option value="A">Vorderansicht A</option><option value="B">Seitenansicht B</option><option value="C">Draufsicht C</option></select></div>
+<div class="steprow"><span>Feld 2 (oben rechts)</span><select data-a="B" aria-label="Feld 2"><option value="">…</option><option value="A">Vorderansicht A</option><option value="B">Seitenansicht B</option><option value="C">Draufsicht C</option></select></div>
+<div class="steprow"><span>Feld 3 (unten links)</span><select data-a="C" aria-label="Feld 3"><option value="">…</option><option value="A">Vorderansicht A</option><option value="B">Seitenansicht B</option><option value="C">Draufsicht C</option></select></div>
+<div class="row"><button class="primary sel-check">Prüfen</button></div><p class="fb sfb"></p></div>
+</div>
+</div><div>
+<div class="card"><div class="tag">Auftrag 5 · Welche Ansicht ist das? <span class="stars">★★</span> <span class="afb">AFB II</span></div>
+<div class="mitbild"><svg class="tz-3d" id="q4body" style="width:150px;flex:none" aria-label="Winkel, drehbar"></svg><p>Hier siehst du den Körper „Winkel“ und seine drei Ansichten in falscher Reihenfolge. Ordne jeder Ansicht den richtigen Buchstaben zu.</p></div>
+<div class="selbox part" data-task="q4" data-fb="Richtig! Von vorn (A) siehst du das L. Von links (B) siehst du das niedrige Teil vorn und dahinter das hohe Teil. Von oben (C) siehst du zwei Flächen: unten die Oberseite des niedrigen Teils, rechts das hohe Teil.">
+<div class="views3" data-fest><figure><div id="q4v1"></div><select data-a="B" aria-label="Ansicht 1"><option value="">…</option><option value="A">A · Vorderansicht</option><option value="B">B · Seitenansicht</option><option value="C">C · Draufsicht</option></select></figure><figure><div id="q4v2"></div><select data-a="C" aria-label="Ansicht 2"><option value="">…</option><option value="A">A · Vorderansicht</option><option value="B">B · Seitenansicht</option><option value="C">C · Draufsicht</option></select></figure><figure><div id="q4v3"></div><select data-a="A" aria-label="Ansicht 3"><option value="">…</option><option value="A">A · Vorderansicht</option><option value="B">B · Seitenansicht</option><option value="C">C · Draufsicht</option></select></figure></div>
+<div class="row"><button class="primary sel-check">Prüfen</button></div><p class="fb sfb"></p></div>
+</div>
+</div></div>
+
+<div class="card stepper" data-task="q5"><div class="tag">Auftrag 6 · Das Achsenkreuz in vier Schritten <span class="stars">★</span> <span class="afb">AFB I</span></div>
+<p>Bevor du zeichnest, legst du mit dem Achsenkreuz fest, wo jede Ansicht hinkommt. Klicke dich durch die Schritte.</p>
+<div class="two"><div class="axfig"><svg id="axFig" viewBox="0 0 150 150" role="img" aria-label="Achsenkreuz Schritt für Schritt"></svg></div><div>
+<div class="steps"></div>
+<div class="stepbox"><p><b>Schritt 1 · Achsen zeichnen:</b> Zeichne die X-Achse (waagrecht) und die Y-Achse (senkrecht) mittig auf das Blatt.</p></div>
+<div class="stepbox"><p><b>Schritt 2 · Hilfslinien:</b> Zeichne im Abstand von <b>10 mm</b> zu beiden Achsen je eine Hilfslinie, etwas dünner als die Achsen.</p></div>
+<div class="stepbox"><p><b>Schritt 3 · Rand frei lassen:</b> Alle Linien enden etwa <b>20 bis 30 mm</b> vor dem Blattrand.</p></div>
+<div class="stepbox"><p><b>Schritt 4 · Spiegelachse:</b> Zeichne unten rechts eine Linie im <b>45°-Winkel</b>. Mit ihr überträgst du die Tiefe von der Draufsicht C in die Seitenansicht B.</p></div>
+<div class="row"><button class="st-back">← zurück</button><button class="st-next primary">weiter →</button></div>
+</div></div>
+</div>
+
+<div class="card"><div class="tag">Auftrag 7 · Warum auf gleicher Höhe? <span class="stars">★★</span> <span class="afb">AFB II</span></div>
+<div class="part why" data-task="q6"><h4>✍ Begründe, warum die Seitenansicht B genau auf gleicher Höhe neben die Vorderansicht A gezeichnet wird.</h4>
+<textarea data-store="q6" rows="3" placeholder="Schreib deine Begründung hier (oder ins Heft) – mindestens einen ganzen Satz." aria-label="Deine Begründung"></textarea>
+<label class="cbl"><input type="checkbox">Ich habe meine Begründung ins Heft geschrieben.</label>
+<div class="row"><button class="why-show">Mit Musterbegründung vergleichen</button></div>
+<div class="sol" hidden><p><b>Musterbegründung:</b> In A und B ist die <b>Höhe</b> des Körpers gleich. Liegen beide Ansichten auf gleicher Höhe, liegen gleiche Kanten <b>auf einer Linie</b>. So kann man Höhen einfach mit einer waagrechten Linie <b>übertragen</b>, ohne neu zu messen, und man erkennt sofort, welche Kanten zusammengehören.</p><p class="caption" style="margin:0 0 6px">Vergleiche: Hast du die fett gedruckten Begriffe verwendet? Ergänze sonst deine Begründung.</p><div class="row"><button class="why-ok">Meine Begründung enthält das Wichtigste</button></div></div></div>
+</div>
+</div></section>
+
+<!-- ============ 3 FESTHALTEN ============ -->
+<section class="band" id="festhalten"><div class="wrap">
+<h2>3 · Festhalten</h2>
+<div class="card"><div class="tag">Lückentext · Dreitafelprojektion <span class="stars">★</span> <span class="afb">AFB I</span></div>
+<div class="selbox part" data-task="f1" data-fb="Alles richtig! Lies dir unten noch einmal die Regeln durch."><div class="cloze">Bei der Dreitafelprojektion wird ein Körper aus <select data-a="drei"><option value="">…</option><option>zwei</option><option>drei</option><option>vier</option></select> Richtungen gezeichnet. Zuerst stellt man ihn so hin, wie er <select data-a="benutzt wird"><option value="">…</option><option>benutzt wird</option><option>am kleinsten ist</option><option>am schönsten aussieht</option></select>, und blickt senkrecht auf die Vorderseite: die <select data-a="Vorderansicht"><option value="">…</option><option>Vorderansicht</option><option>Seitenansicht</option><option>Draufsicht</option></select> A. Die Seitenansicht B zeigt den Körper von <select data-a="links"><option value="">…</option><option>links</option><option>rechts</option><option>hinten</option></select> und wird <select data-a="rechts neben"><option value="">…</option><option>rechts neben</option><option>links neben</option><option>über</option></select> A auf gleicher Höhe gezeichnet. Die Draufsicht C zeigt den Körper von oben und steht <select data-a="unter"><option value="">…</option><option>unter</option><option>über</option><option>neben</option></select> A. Sichtbare Kanten zeichnet man als <select data-a="breite Volllinie"><option value="">…</option><option>breite Volllinie</option><option>Strichlinie</option><option>Strich-Punkt-Linie</option></select>, verdeckte Kanten als <select data-a="Strichlinie"><option value="">…</option><option>breite Volllinie</option><option>Strichlinie</option><option>Strich-Punkt-Linie</option></select>. Mit der <select data-a="Spiegelachse"><option value="">…</option><option>Spiegelachse</option><option>Mittellinie</option><option>Maßlinie</option></select> im 45°-Winkel überträgt man die Tiefe von C nach B.</div><div class="row"><button class="primary sel-check">Prüfen</button></div><p class="fb sfb"></p></div>
+</div>
+<div class="two"><div>
+<h3 style="margin-top:0">Regeln für die Dreitafelprojektion</h3>
+<ol class="rules"><li><b>Dicke Körperlinien:</b> Körperkanten dicker zeichnen als die Hilfslinien.</li><li><b>In der Ecke ansetzen:</b> Jede Ansicht beginnt am Kreuzungspunkt der Hilfslinien.</li><li><b>Genau ausrichten:</b> gleicher Maßstab, gleiche Kanten liegen waagrecht und senkrecht auf einer Linie.</li><li><b>Maße verteilen:</b> Maße sinnvoll auf die Ansichten aufteilen, keine Doppelbemaßung.</li><li><b>Außen bemaßen:</b> Maße gut lesbar außerhalb des Körpers eintragen.</li><li><b>Verdeckt = gestrichelt:</b> Kanten, die man nicht sieht, als Strichlinie zeichnen.</li></ol>
+</div><div>
+<div class="fig"><div id="merkeFig"></div><p class="caption">Beispiel: Der Körper „Treppe“ in Dreitafelprojektion. A oben links, B rechts daneben, C darunter.</p></div>
+</div></div>
+<div class="merke"><h4>Merke</h4><ul><li><b>A</b> Vorderansicht (von vorn) · <b>B</b> Seitenansicht (von links, rechts neben A) · <b>C</b> Draufsicht (von oben, unter A).</li><li>Gleiche Kanten liegen in den Ansichten auf einer Linie. Die Tiefe überträgst du mit der <b>Spiegelachse</b> (45°).</li><li>Sichtbare Kanten: <b>breite Volllinie</b>. Verdeckte Kanten: <b>Strichlinie</b>.</li></ul></div>
+</div></section>
+
+<!-- ============ 4 ÜBEN ============ -->
+<section class="band alt" id="ueben"><div class="wrap">
+<h2>4 · Üben</h2>
+<p class="intro"><b>Erst im Heft konstruieren, dann hier prüfen.</b> In der Zeichen-Werkstatt kannst du jede Lösung auch direkt am Bildschirm zeichnen.</p>
+<div class="lvlrow"><span>★ / AFB I: Grundlagen anwenden</span><span>★★ / AFB II: Zusammenhänge herstellen</span><span>★★★ / AFB III: übertragen, beurteilen, begründen</span></div>
+
+<div class="card" id="werkstatt"><div class="tag">Übung 1 · Zeichen-Werkstatt <span class="stars">★ – ★★★</span> <span class="afb">AFB I–III</span></div>
+<p>Wähle einen Körper. Zeichne seine Vorderansicht A, Seitenansicht B und Draufsicht C in die richtigen Felder. <b>1 Kästchen = 5 mm</b>, ein Würfel des Körpers ist 10 mm groß (2 Kästchen).</p>
+<div class="bodytabs" id="wsTabs" data-fest></div>
+<div class="ws">
+<div class="side">
+<div class="fig"><svg class="tz-3d" id="ws3d" aria-label="Drehbarer Körper zur Zeichenaufgabe"></svg></div>
+<div class="vbtns" id="wsV" data-fest><button data-v="A"><b>A</b>von vorn</button><button data-v="B"><b>B</b>von links</button><button data-v="C"><b>C</b>von oben</button><button data-v="schraeg">schräg</button></div>
+<details class="exp"><summary>So zeichnest du am Bildschirm</summary><ul><li><b>Zeichnen:</b> Auf einen Kästchenpunkt drücken, ziehen, loslassen. Linien laufen immer waagrecht oder senkrecht.</li><li><b>Linientyp</b> vor dem Zeichnen wählen: breite Volllinie für sichtbare Kanten, Strichlinie für verdeckte Kanten.</li><li><b>Radieren:</b> Radierer wählen und auf eine Linie tippen.</li><li>Auf dem Handy hilft „Groß“ oben rechts am Zeichenbrett.</li></ul></details>
+</div>
+<div>
+<div class="tz-tools" data-fest><button id="tDraw" aria-pressed="true">✏ Zeichnen</button><button id="tErase" aria-pressed="false">⌫ Radieren</button><span class="sep"></span><button id="tVis" aria-pressed="true" title="sichtbare Kante"><svg class="ls" viewBox="0 0 30 10"><line x1="2" y1="5" x2="28" y2="5" stroke="currentColor" stroke-width="3"/></svg>sichtbar</button><button id="tHid" aria-pressed="false" title="verdeckte Kante"><svg class="ls" viewBox="0 0 30 10"><line x1="2" y1="5" x2="28" y2="5" stroke="currentColor" stroke-width="1.6" stroke-dasharray="5 3"/></svg>verdeckt</button><span class="sep"></span><button id="tUndo">↶ Zurück</button><button id="tClear">Alles löschen</button></div>
+<div class="vt"><div class="fig" style="padding:4px"><button class="vt-max" id="wsMax">⤢ Groß</button><svg id="wsBoard" aria-label="Zeichenbrett mit Achsenkreuz für die Dreitafelprojektion"></svg></div></div>
+<div class="row"><button class="primary" id="wsCheck">Prüfen</button><button id="wsDiff" disabled>Fehler zeigen</button><button id="wsSol" disabled>Lösung zeigen</button></div>
+<div class="tz-res" id="wsRes" aria-live="polite"></div>
+<div class="tz-legend" id="wsLeg" hidden><span><i style="background:var(--gst-mark)"></i>fehlt</span><span><i style="background:var(--wrongc)"></i>falscher Linientyp</span><span><i style="background:var(--bad)"></i>zu viel oder falsche Stelle</span></div>
+<div class="sol" id="wsSolBox" hidden></div>
+</div></div>
+<span hidden data-task="dt-wuerfel"></span><span hidden data-task="dt-saeule"></span><span hidden data-task="dt-winkel"></span><span hidden data-task="dt-treppe"></span><span hidden data-task="dt-absatz"></span><span hidden data-task="dt-nut"></span><span hidden data-task="dt-rahmen"></span><span hidden data-task="dt-tunnel"></span>
+</div>
+
+<div class="two"><div>
+<div class="card"><div class="tag">Übung 2 · Welche Seitenansicht passt? <span class="stars">★★</span> <span class="afb">AFB II</span></div>
+<p>Gegeben sind die Vorderansicht A und die Draufsicht C eines Körpers. Welche Seitenansicht B gehört dazu?</p>
+<div class="twobodies"><figure><div id="u2A"></div><figcaption>Vorderansicht A</figcaption></figure><figure><div id="u2C"></div><figcaption>Draufsicht C</figcaption></figure></div>
+<div class="part" data-task="u2"><div class="mc choice3" data-correct="b" data-task="u2" data-tipp="Die Tiefe von B findest du in C. In der Draufsicht siehst du: Das hohe Teil steht hinten. Bei B liegt die Rückseite links an der Hilfslinie, die Vorderseite rechts."><button data-k="a" data-fb="Nein. Diese Ansicht ist gespiegelt: Sie zeigt den Körper von rechts."><span id="u2a"></span>Ansicht 1</button><button data-k="b" data-fb="Richtig! Das hohe Teil steht hinten. Von links gesehen liegt die Rückseite links (an der Hilfslinie) und die Vorderseite rechts."><span id="u2b"></span>Ansicht 2</button><button data-k="c" data-fb="Nein. Die Tiefe stimmt nicht mit der Draufsicht überein."><span id="u2c"></span>Ansicht 3</button><p class="fb"></p></div></div>
+</div>
+
+<div class="card"><div class="tag">Übung 3 · Maße ablesen <span class="stars">★</span> <span class="afb">AFB I</span></div>
+<p>Die Dreitafelprojektion ist im Maßstab 1:1 auf Karopapier gezeichnet (1 Kästchen = 5 mm). Lies die Maße des Körpers ab.</p>
+<div class="ablese" id="u3fig"></div>
+<div class="numbox part" data-task="u3" data-fb="Richtig! Die Breite liest du in A oder C ab, die Höhe in A oder B, die Tiefe in B oder C.">
+<div class="numq"><span>Breite (von links nach rechts in A)</span><span class="unit"><input type="text" inputmode="decimal" data-a="40" data-tol="0.001" aria-label="Breite"> mm</span></div>
+<div class="numq"><span>Höhe</span><span class="unit"><input type="text" inputmode="decimal" data-a="30" data-tol="0.001" aria-label="Höhe"> mm</span></div>
+<div class="numq"><span>Tiefe</span><span class="unit"><input type="text" inputmode="decimal" data-a="40" data-tol="0.001" aria-label="Tiefe"> mm</span></div>
+<div class="row"><button class="primary num-check">Prüfen</button><button data-hint="u3">Tipp</button><button data-sol="u3Sol">Lösung zeigen</button></div><p class="fb nfb"></p><p class="tip" id="u3Tip"></p><div class="hintsrc" data-for="u3" hidden><p>Zähle die Kästchen und rechne mal 5 mm.</p><p>Die Tiefe siehst du in der Seitenansicht B von links nach rechts oder in der Draufsicht C von oben nach unten.</p></div><div class="sol" id="u3Sol" hidden><p>Breite 8 Kästchen = 40 mm, Höhe 6 Kästchen = 30 mm, Tiefe 8 Kästchen = 40 mm.</p></div></div>
+</div>
+</div><div>
+<div class="card"><div class="tag">Übung 4 · Stimmt das? <span class="stars">★</span> <span class="afb">AFB I</span></div>
+<div class="tf part" data-task="u4">
+<div class="item" data-v="0"><span>„Die Seitenansicht B zeigt den Körper von rechts.“</span><span class="btns"><button data-v="1">richtig</button><button data-v="0">falsch</button></span><p class="fb"></p><span class="ex">B zeigt den Körper von links. Gezeichnet wird B aber rechts neben A.</span></div>
+<div class="item" data-v="1"><span>„In der Draufsicht C kann man die Breite und die Tiefe ablesen.“</span><span class="btns"><button data-v="1">richtig</button><button data-v="0">falsch</button></span><p class="fb"></p><span class="ex">Von oben siehst du die Breite (links–rechts) und die Tiefe (vorn–hinten), aber nicht die Höhe.</span></div>
+<div class="item" data-v="0"><span>„Verdeckte Kanten lässt man in der Dreitafelprojektion einfach weg.“</span><span class="btns"><button data-v="1">richtig</button><button data-v="0">falsch</button></span><p class="fb"></p><span class="ex">Verdeckte Kanten werden als Strichlinie gezeichnet. Sonst fehlen wichtige Informationen, z. B. über Löcher oder Nuten.</span></div>
+<div class="item" data-v="1"><span>„Die Höhe des Körpers ist in A und B gleich groß.“</span><span class="btns"><button data-v="1">richtig</button><button data-v="0">falsch</button></span><p class="fb"></p><span class="ex">Darum liegen A und B auf gleicher Höhe nebeneinander.</span></div>
+<div class="item" data-v="1"><span>„Mit der Spiegelachse überträgt man die Tiefe von der Draufsicht in die Seitenansicht.“</span><span class="btns"><button data-v="1">richtig</button><button data-v="0">falsch</button></span><p class="fb"></p><span class="ex">Die 45°-Linie „lenkt“ die Tiefenmaße von C nach B um.</span></div>
+</div>
+</div>
+
+<div class="card"><div class="tag">Übung 5 · Ohne Strichlinie? <span class="stars">★★★</span> <span class="afb">AFB III</span></div>
+<div class="part why" data-task="u5"><h4>✍ Ben zeichnet den Körper „Tunnel“ und lässt in A und C die Strichlinien weg. Begründe, warum die Zeichnung dann für die Werkstatt nicht reicht.</h4>
+<textarea data-store="u5" rows="3" placeholder="Schreib deine Begründung hier (oder ins Heft) – mindestens einen ganzen Satz." aria-label="Deine Begründung"></textarea>
+<label class="cbl"><input type="checkbox">Ich habe meine Begründung ins Heft geschrieben.</label>
+<div class="row"><button class="why-show">Mit Musterbegründung vergleichen</button></div>
+<div class="sol" hidden><p><b>Musterbegründung:</b> Ohne Strichlinien fehlt der <b>Tunnel</b> in A und C. Der Tunnel ist nur in B als Strichlinie zu erkennen – aber dort sieht man nicht, wie <b>breit</b> er ist. Die Zeichnung ist dann <b>nicht eindeutig</b>, und in der Werkstatt würde das Teil <b>falsch</b> gefertigt. Darum zeichnet man <b>verdeckte Kanten</b> als Strichlinie.</p><p class="caption" style="margin:0 0 6px">Vergleiche: Hast du die fett gedruckten Begriffe verwendet? Ergänze sonst deine Begründung.</p><div class="row"><button class="why-ok">Meine Begründung enthält das Wichtigste</button></div></div></div>
+</div>
+</div></div>
+<div class="row" style="margin-top:12px"><a class="lnk" href="/Technik8/tz-bemassung">← Linienarten und Bemaßung</a><a class="lnk nx" href="/Technik8/kavalierperspektive">Weiter: Kavalierperspektive →</a></div>
+</div></section>
+
+<section class="band"><div class="wrap">
+<div class="row" style="margin-top:8px"><button id="resetAll">Fortschritt zurücksetzen</button></div>
+</div></section>
+<footer class="band"><div class="wrap">
+<p>Lernpfad Technik Klasse 8 · Technisches Zeichnen: Dreitafelprojektion (Vorderansicht, Seitenansicht, Draufsicht, Achsenkreuz, verdeckte Kanten). Projektionsmethode 1 wie im Unterricht: Seitenansicht von links rechts neben der Vorderansicht. 3D-Ansicht und Zeichen-Werkstatt laufen vollständig in deinem Browser. Dein Fortschritt und deine Zeichnungen werden nur in diesem Browser gespeichert, es werden keine Daten übertragen (nur Feedback, das du selbst abschickst).</p>
+<p class="rechtl"><a href="/impressum">Impressum · Datenschutz</a></p></div></footer>
+<!--@QRDLG@-->
+<script>
+{
+/*@COMMON@*/
+/*@ENGINE@*/
+const BY=Object.fromEntries(BODIES.map(d=>[d.id,d]));
+const B=id=>TZ.body(BY[id]);
+/* ---------- Kopfbild ---------- */
+{const v=TZ.viewer($('#heroBody'),B('treppe'),{yaw:32,pitch:24});
+ $('#heroViews').outerHTML=TZ.threeViewSVG(B('treppe')).replace('<svg ','<svg id="heroViews" ')}
+/* ---------- Einstieg: Würfel und Platte ---------- */
+{const w={id:'w',size:[3,3,3],boxes:[[0,0,0,3,3,3]]},p={id:'p',size:[3,3,1],boxes:[[0,0,0,3,3,1]]};
+ TZ.viewer($('#eiW'),TZ.body(w),{arrows:false,yaw:35,pitch:22});TZ.viewer($('#eiP'),TZ.body(p),{arrows:false,yaw:35,pitch:22});
+ $('#eiWv').innerHTML=TZ.viewSVG(TZ.lines(TZ.body(w),TZ.PROJ.front),'Vorderansicht Würfel: Quadrat');$('#eiPv').innerHTML=TZ.viewSVG(TZ.lines(TZ.body(p),TZ.PROJ.front),'Vorderansicht Platte: Quadrat')}
+/* ---------- 3D-Labor ---------- */
+{const ids=['winkel','treppe','absatz','nut','rahmen','tunnel'];let cur='winkel';
+ const v=TZ.viewer($('#lab3d'),B(cur));
+ const tabs=$('#labTabs');tabs.innerHTML=ids.map(i=>`<button data-b="${i}" aria-pressed="${i===cur}">${BY[i].name}</button>`).join('');
+ const views=()=>{const b=B(cur);$('#labViews').innerHTML=[['A','Vorderansicht',TZ.PROJ.front],['B','Seitenansicht',TZ.PROJ.left],['C','Draufsicht',TZ.PROJ.top]].map(([k,n,P])=>`<figure data-v="${k}">${TZ.viewSVG(TZ.lines(b,P),n)}<figcaption><b>${k}</b> ${n}</figcaption></figure>`).join('')};
+ tabs.querySelectorAll('button').forEach(bt=>bt.onclick=()=>{cur=bt.dataset.b;tabs.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===bt));v.set(B(cur));views();hl()});
+ let on=null;const hl=()=>$$('#labViews figure').forEach(f=>f.classList.toggle('on',f.dataset.v===on));
+ $$('#entdecken .vbtns button').forEach(bt=>bt.onclick=()=>{const k=bt.dataset.v;on=k==='schraeg'?null:k;v.to(...TZ.VIEWS[k]);hl()});
+ $('#lab3d').addEventListener('pointerdown',()=>{on=null;hl()});
+ views()}
+/* Auftrag 4: Plätze */
+{const AX=60,AY=55,g=8,w=150,h=120;let s=TZ.axesSVG({AX,AY,g,w,h,m:6});
+ s+=`<g class="place"><rect x="14" y="14" width="${AX-g-20}" height="${AY-g-20}" rx="3" style="fill:var(--panel);stroke:var(--line)"/><text x="${(14+AX-g-6)/2}" y="${(14+AY-g-6)/2+2}" text-anchor="middle">Feld 1</text>`;
+ s+=`<rect x="${AX+g+6}" y="14" width="${w-AX-g-20}" height="${AY-g-20}" rx="3" style="fill:var(--panel);stroke:var(--line)"/><text x="${(AX+g+6+w-14)/2}" y="${(14+AY-g-6)/2+2}" text-anchor="middle">Feld 2</text>`;
+ s+=`<rect x="14" y="${AY+g+6}" width="${AX-g-20}" height="${h-AY-g-20}" rx="3" style="fill:var(--panel);stroke:var(--line)"/><text x="${(14+AX-g-6)/2}" y="${(AY+g+6+h-14)/2+2}" text-anchor="middle">Feld 3</text></g>`;
+ $('#placeFig').innerHTML=s}
+/* Auftrag 5: Ansichten zuordnen (Reihenfolge fest: B, C, A) */
+{const b=B('winkel');TZ.viewer($('#q4body'),b,{arrows:true});
+ $('#q4v1').innerHTML=TZ.viewSVG(TZ.lines(b,TZ.PROJ.left),'Ansicht 1');$('#q4v2').innerHTML=TZ.viewSVG(TZ.lines(b,TZ.PROJ.top),'Ansicht 2');$('#q4v3').innerHTML=TZ.viewSVG(TZ.lines(b,TZ.PROJ.front),'Ansicht 3')}
+/* Auftrag 6: Achsenkreuz Schritt für Schritt */
+{const svg=$('#axFig'),AX=70,AY=70,g=10,w=150,h=150,m=22;
+ const steps=[()=>`<line x1="${m}" y1="${AY}" x2="${w-m}" y2="${AY}" class="tz-ax"/><line x1="${AX}" y1="${m}" x2="${AX}" y2="${h-m}" class="tz-ax"/><text x="${w-m}" y="${AY-2}" text-anchor="end" class="tz-areal">X-Achse</text><text x="${AX+2}" y="${m+4}" class="tz-areal">Y-Achse</text>`,
+  ()=>[AY-g,AY+g].map(y=>`<line x1="${m}" y1="${y}" x2="${w-m}" y2="${y}" class="tz-hl hl-on"/>`).join('')+[AX-g,AX+g].map(x=>`<line x1="${x}" y1="${m}" x2="${x}" y2="${h-m}" class="tz-hl hl-on"/>`).join('')+`<text x="${m}" y="${AY-g-2}" class="tz-areal">10 mm</text>`,
+  ()=>`<rect x="1" y="1" width="${w-2}" height="${h-2}" style="fill:none;stroke:var(--muted)" stroke-width=".6"/><path d="M1 ${AY+30} H${m}" style="stroke:var(--gst-mark)" stroke-width="1.2"/><text x="3" y="${AY+28}" class="tz-areal">20–30 mm</text>`,
+  ()=>`<line x1="${AX+g}" y1="${AY+g}" x2="${w-m}" y2="${h-m}" class="tz-hl hl-on"/><text x="${AX+g+30}" y="${AY+g+20}" class="tz-areal">45°</text>`];
+ const st=$('#axFig').closest('.stepper');
+ const draw=()=>{const n=st.querySelectorAll('.stepbox:not([hidden])').length;let s='';for(let i=0;i<n;i++){let t=steps[i]();if(i<n-1)t=t.replace(/ hl-on/g,'');s+=t}svg.innerHTML=s};
+ st.querySelectorAll('.st-next,.st-back').forEach(b=>b.addEventListener('click',()=>setTimeout(draw)));setTimeout(draw)}
+/* Festhalten: Beispiel */
+$('#merkeFig').innerHTML=TZ.threeViewSVG(B('treppe'),{label:'Dreitafelprojektion der Treppe'});
+/* Übung 2: Seitenansicht wählen */
+{const b=B('absatz'),mir=s=>s.map(q=>({a:[-q.a[0],q.a[1]],b:[-q.b[0],q.b[1]],vis:q.vis}));
+ $('#u2A').innerHTML=TZ.viewSVG(TZ.lines(b,TZ.PROJ.front),'Vorderansicht');$('#u2C').innerHTML=TZ.viewSVG(TZ.lines(b,TZ.PROJ.top),'Draufsicht');
+ const L=TZ.lines(b,TZ.PROJ.left);$('#u2b').innerHTML=TZ.viewSVG(L,'Ansicht 2');$('#u2a').innerHTML=TZ.viewSVG(mir(L),'Ansicht 1');
+ const o=TZ.body({size:[4,3,4],boxes:[[0,0,0,4,2,4],[0,2,1,4,3,4]]});$('#u2c').innerHTML=TZ.viewSVG(TZ.lines(o,TZ.PROJ.left),'Ansicht 3')}
+/* Übung 3: Maße ablesen (Körper 4 × 3 × 4 Würfel = 40 × 30 × 40 mm) */
+{const b=TZ.body({size:[4,3,4],boxes:[[0,0,0,4,3,4]],cut:[[0,2,0,4,3,2],[0,0,0,1,2,1]]});
+ const s=TZ.threeViewSVG(b,{labels:true,label:'Dreitafelprojektion auf Karopapier'});
+ let grid='';for(let i=0;i<=200;i+=5){grid+=`<line x1="${i}" y1="0" x2="${i}" y2="200" class="tz-g"/><line x1="0" y1="${i}" x2="200" y2="${i}" class="tz-g"/>`}
+ $('#u3fig').innerHTML=s.replace(/(<svg[^>]*>)/,'$1<g style="--karo:var(--karo2)">'+grid+'</g>')}
+/* ---------- Zeichen-Werkstatt ---------- */
+{const ORDER=[['wuerfel','★'],['saeule','★'],['winkel','★'],['treppe','★★'],['absatz','★★'],['nut','★★'],['rahmen','★★★'],['tunnel','★★★']];
+ const AX=70,AY=70,g=10,u=10,W=150,H=150;let cur='wuerfel',checked=false,last=null;
+ const under=TZ.axesSVG({AX,AY,g,w:W,h:H,m:6})+`<text x="4" y="6" class="tz-areal">A · Vorderansicht</text><text x="${AX+g+2}" y="6" class="tz-areal">B · Seitenansicht</text><text x="4" y="${H-3}" class="tz-areal">C · Draufsicht</text><text x="${W-4}" y="${H-3}" text-anchor="end" class="tz-areal">Spiegelachse</text>`;
+ const v3=TZ.viewer($('#ws3d'),B(cur));
+ const bd=TZ.board($('#wsBoard'),{w:W,h:H,mode:'karo',step:5,under,onchange:()=>{try{localStorage.setItem(KEY+'-dt-'+cur,JSON.stringify(bd.segs))}catch(e){}}});
+ const tabs=$('#wsTabs');tabs.innerHTML=ORDER.map(([i,s])=>`<button data-b="${i}" data-for="dt-${i}" aria-pressed="${i===cur}">${BY[i].name} <span class="stars">${s}</span></button>`).join('');
+ const load=()=>{let s=[];try{s=JSON.parse(localStorage.getItem(KEY+'-dt-'+cur)||'[]')}catch(e){}bd.load(s);bd.undo=[];bd.clearOvl();$('#wsRes').innerHTML='';$('#wsLeg').hidden=true;$('#wsSolBox').hidden=true;$('#wsDiff').disabled=true;$('#wsSol').disabled=true;$('#wsSol').textContent='Lösung zeigen';checked=false;last=null};
+ tabs.querySelectorAll('button').forEach(bt=>bt.onclick=()=>{cur=bt.dataset.b;tabs.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===bt));v3.set(B(cur));v3.to(...TZ.VIEWS.schraeg,300);load()});
+ $$('#wsV button').forEach(bt=>bt.onclick=()=>v3.to(...TZ.VIEWS[bt.dataset.v]));
+ const press=(a,b)=>{a.setAttribute('aria-pressed','true');b.setAttribute('aria-pressed','false')};
+ $('#tDraw').onclick=()=>{bd.setTool('draw');press($('#tDraw'),$('#tErase'))};$('#tErase').onclick=()=>{bd.setTool('erase');press($('#tErase'),$('#tDraw'))};
+ $('#tVis').onclick=()=>{bd.setType('v');press($('#tVis'),$('#tHid'));$('#tDraw').click()};$('#tHid').onclick=()=>{bd.setType('h');press($('#tHid'),$('#tVis'));$('#tDraw').click()};
+ $('#tUndo').onclick=()=>bd.undoStep();$('#tClear').onclick=()=>bd.clear();
+ const NAMES={A:'Vorderansicht A',B:'Seitenansicht B',C:'Draufsicht C'};
+ const region=s=>{const x=(s.a[0]+s.b[0])/2,y=(s.a[1]+s.b[1])/2;return x<AX&&y<AY?'A':x>AX&&y<AY?'B':x<AX&&y>AY?'C':'X'};
+ $('#wsCheck').onclick=()=>{const b=B(cur),exp=TZ.threeViews(b,{AX,AY,g,u}),D=b.D*u;let all=true,html='<ul>',diff='',nX=0;
+  for(const k of ['A','B','C']){const st=bd.segs.filter(s=>region(s)===k),r=TZ.compare(exp[k],st,{tol:.7});diff+=TZ.diffSVG(r);
+   if(r.ok){html+=`<li class="ok">✓ ${NAMES[k]} stimmt.</li>`;continue}all=false;
+   let t=[];if(!st.length)t.push('fehlt noch');else{
+    let extra='';
+    if(TZ.compareFree(exp[k],st,{tol:.7}).ok)extra=' Die Form stimmt, aber sie liegt an der falschen Stelle: Setze die Ansicht genau in die Ecke der Hilfslinien.';
+    else if(k==='B'&&TZ.compare(exp.B.map(s=>({...s,a:[2*(AX+g)+D-s.a[0],s.a[1]],b:[2*(AX+g)+D-s.b[0],s.b[1]]})),st,{tol:.7}).ok)extra=' Deine Seitenansicht ist gespiegelt. Bei B schaust du von links: Die Vorderseite des Körpers liegt in B rechts, die Rückseite links an der Hilfslinie.';
+    else if(k==='C'&&TZ.compare(exp.C.map(s=>({...s,a:[s.a[0],2*(AY+g)+D-s.a[1]],b:[s.b[0],2*(AY+g)+D-s.b[1]]})),st,{tol:.7}).ok)extra=' Deine Draufsicht ist gespiegelt. In C liegt die Rückseite oben an der Hilfslinie, die Vorderseite unten.';
+    if(r.nMiss)t.push(r.nMiss+(r.nMiss===1?' Linie fehlt oder ist zu kurz':' Linien fehlen oder sind zu kurz'));
+    if(r.nWrong)t.push(r.nWrong+(r.nWrong===1?' Linie hat den falschen Linientyp':' Linien haben den falschen Linientyp')+' (sichtbar ↔ verdeckt)');
+    if(r.nExtra)t.push(r.nExtra+(r.nExtra===1?' Linie ist zu viel oder liegt falsch':' Linien sind zu viel oder liegen falsch'));
+    if(extra)t=[extra.trim().replace(/\.$/,'')]}
+   html+=`<li class="bad">${NAMES[k]}: ${t.join('. ')}.</li>`}
+  const xs=bd.segs.filter(s=>region(s)==='X');if(xs.length){all=false;nX=xs.length;html+=`<li class="bad">Im Feld unten rechts wird nichts gezeichnet – dort liegt nur die Spiegelachse.</li>`;diff+=xs.map(s=>`<line x1="${s.a[0]}" y1="${s.a[1]}" x2="${s.b[0]}" y2="${s.b[1]}" class="tz-extra"/>`).join('')}
+  html+='</ul>';
+  if(all){html=`<p class="fb ok">Super, alle drei Ansichten stimmen! ${cur==='tunnel'||cur==='rahmen'||cur==='nut'?'Auch die verdeckten Kanten sind richtig.':''}</p>`;mark('dt-'+cur)}
+  else html='<p style="margin:0">Noch nicht ganz:</p>'+html;
+  $('#wsRes').innerHTML=html;last=diff;checked=true;$('#wsDiff').disabled=all;$('#wsSol').disabled=false;bd.clearOvl();$('#wsLeg').hidden=true};
+ $('#wsDiff').onclick=()=>{if(last!=null){bd.overlay(last);$('#wsLeg').hidden=false}};
+ $('#wsSol').onclick=()=>{const box=$('#wsSolBox');box.hidden=!box.hidden;$('#wsSol').textContent=box.hidden?'Lösung zeigen':'Lösung ausblenden';
+  if(!box.hidden)box.innerHTML=`<p><b>Lösung „${BY[cur].name}“:</b></p><div style="max-width:420px">${TZ.threeViewSVG(B(cur),{label:'Lösung'})}</div>`};
+ /* Groß-Ansicht */
+ $('#wsMax').onclick=()=>{const vt=$('#wsMax').closest('.vt'),on=!vt.classList.contains('vtmax');vt.classList.toggle('vtmax',on);document.documentElement.classList.toggle('noscroll',on);$('#wsMax').textContent=on?'✕ Schließen':'⤢ Groß';
+  if(on){vt.prepend($('.tz-tools'))}else{$('#wsBoard').closest('.vt').before($('.tz-tools'))}};
+ load()}
+initCommon();
+}
+</script>
+</body>
+</html>

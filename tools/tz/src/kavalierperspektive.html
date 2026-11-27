@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Technisches Zeichnen · Kavalierperspektive</title>
+<meta name="description" content="Lernpfad Technik Klasse 8: Kavalierperspektive – Vorderseite unverzerrt, Tiefe im 45°-Winkel und halb so lang. Mit Kavalier-Labor und Zeichenbrett zum Selbstzeichnen.">
+<link rel="stylesheet" href="/fonts/fonts.css">
+<script src="/brand/theme.js"></script>
+<style>
+/* Kavalierperspektive – Lernpfad Technik Klasse 8 (Technisches Zeichnen). Erzeugt mit tools/tz/build.py aus tools/tz/src/. */
+/*@CSS@*/
+.herofig{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;align-items:end;max-width:780px;margin:18px 0 6px}
+.herofig svg{display:block;width:100%;height:auto;max-height:200px}
+.hero{--pen:#e9edee;--paperb:transparent;--muted:#b9c6c9}
+.hero .ht{fill:#FCBE00;font:700 13px "Source Sans 3",sans-serif}
+@media(max-width:600px){.herofig{display:none}}
+.cavfig svg{display:block;width:100%;height:auto;max-height:420px}
+.cl{font:600 6px "Source Sans 3",sans-serif;fill:var(--muted)}.cl.a{fill:var(--ca)}.cl.b{fill:var(--cb)}.cl.c{fill:var(--cc)}
+.arcl{fill:none;stroke:var(--gst-gold);stroke-width:.6}
+:root{--ca:light-dark(#c0561c,#ff9a5c);--cb:light-dark(#2b7a4b,#6cc591);--cc:light-dark(#2563c9,#6aa5ff)}
+.ea{stroke:var(--ca)!important}.eb{stroke:var(--cb)!important}.ec{stroke:var(--cc)!important}
+.cmp{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:8px 0}
+.cmp figure{margin:0;background:var(--paperb);border:1px solid var(--line);border-radius:10px;padding:8px}
+.cmp figcaption{font-size:14px;color:var(--muted);text-align:center;margin-top:4px}
+.cmp svg{display:block;width:100%;height:auto;max-height:170px}
+.seg button[aria-pressed=true]{background:var(--gst-acc);border-color:var(--gst-acc);color:var(--gst-on-acc)}
+.stepfig svg{display:block;width:100%;height:auto;max-width:360px;margin:0 auto}
+.stepfig .new{stroke:var(--gst-gold)!important}
+</style>
+<link rel="stylesheet" href="/brand/brand.css">
+<link rel="stylesheet" href="/katex/katex.min.css">
+<script defer src="/katex/katex.min.js"></script>
+<script defer src="/katex/formel.js"></script>
+<script defer src="/brand/feedback.js"></script>
+<script defer src="/brand/mischen.js"></script>
+</head>
+<body>
+<nav aria-label="Phasen"><div class="wrap">
+<a href="/" title="Alle Lernpfade">← Übersicht</a>
+<a href="#einstieg"><span>1</span>Einstieg</a>
+<a href="#entdecken"><span>2</span>Entdecken</a>
+<a href="#festhalten"><span>3</span>Festhalten</a>
+<a href="#ueben"><span>4</span>Üben</a>
+<div class="prog"><span id="progtxt">0 / 0 gelöst</span><div class="bar"><i id="progbar"></i></div></div>
+</div></nav>
+
+<header class="band hero"><div class="wrap">
+<div class="herohead"><div><h1>Technisches Zeichnen · Kavalierperspektive</h1>
+<p>Die Dreitafelprojektion ist genau, aber man muss sich den Körper erst vorstellen. Mit der Kavalierperspektive zeichnest du einen Körper räumlich – schnell und mit Geodreieck. Die Vorderseite bleibt wie sie ist, die Tiefe läuft schräg nach hinten.</p></div><!--@QRBTN@--></div>
+<div class="herofig" aria-hidden="true"><svg id="h1"></svg><svg id="h2"></svg><svg id="h3"></svg></div>
+<div class="phases">
+<a href="#einstieg"><b>1 · Einstieg</b><small>Räumlich zeichnen – warum?</small></a><a href="#entdecken"><b>2 · Entdecken</b><small>Kavalier-Labor: Winkel und Verkürzung</small></a><a href="#festhalten"><b>3 · Festhalten</b><small>Lückentext und Merke</small></a><a href="#ueben"><b>4 · Üben</b><small>Rechnen, Fehler finden, selbst zeichnen</small></a>
+</div>
+</div></header>
+
+<!-- ============ 1 EINSTIEG ============ -->
+<section class="band" id="einstieg"><div class="wrap">
+<h2>1 · Einstieg: Räumlich zeichnen</h2>
+<p class="intro">Links siehst du einen Körper in Dreitafelprojektion, rechts denselben Körper in Kavalierperspektive.</p>
+<div class="two"><div>
+<div class="cmp"><figure><div id="eDt"></div><figcaption>Dreitafelprojektion</figcaption></figure><figure><div id="eCav"></div><figcaption>Kavalierperspektive</figcaption></figure></div>
+</div><div>
+<div class="card"><div class="tag">Auftrag 1 · Vergleiche <span class="stars">★</span> <span class="afb">AFB I</span></div>
+<div class="multi part" data-task="e1" data-fb="Richtig! Die Kavalierperspektive zeigt den Körper <b>in einem Bild</b> und räumlich – gut für schnelle Skizzen. Für die Fertigung ist die Dreitafelprojektion genauer, weil alle Maße in wahrer Größe abgelesen werden können." data-tipp="Überlege: Wo erkennst du die Form sofort? Wo sind alle Kanten in echter Länge gezeichnet?"><p>Kreuze <b>alle</b> richtigen Aussagen an.</p><div class="checks"><label data-ok="1"><input type="checkbox">In der Kavalierperspektive erkennt man die Form auf einen Blick.</label><label data-ok="1"><input type="checkbox">Die Kavalierperspektive braucht nur ein Bild statt drei.</label><label data-ok="0"><input type="checkbox">In der Kavalierperspektive sind alle Kanten in echter Länge gezeichnet.</label><label data-ok="1"><input type="checkbox">Die Vorderseite sieht in beiden Darstellungen gleich aus.</label></div><div class="row"><button class="primary multi-check">Prüfen</button><p class="fb"></p></div></div>
+</div>
+</div></div>
+</div></section>
+
+<!-- ============ 2 ENTDECKEN ============ -->
+<section class="band alt" id="entdecken"><div class="wrap">
+<h2>2 · Entdecken: Das Kavalier-Labor</h2>
+<p class="intro">Stell die Maße des Quaders ein und probiere verschiedene Winkel und Verkürzungen für die Tiefe aus. Orange: Länge <b>a</b>, grün: Höhe <b>b</b>, blau: Tiefe <b>c</b>.</p>
+<div class="lab-wrap" data-fest>
+<div><div class="fig cavfig"><svg id="cav" role="img" aria-label="Quader in Schrägbild-Darstellung mit einstellbarem Winkel und einstellbarer Verkürzung"></svg></div>
+<div class="sim-read" id="cavRead"></div></div>
+<div class="stick">
+<div class="ctrl" style="grid-template-columns:1fr">
+<div><label for="sa">Länge a: <span id="va"></span> mm</label><input type="range" id="sa" min="10" max="80" step="10" value="50"></div>
+<div><label for="sb">Höhe b: <span id="vb"></span> mm</label><input type="range" id="sb" min="10" max="80" step="10" value="40"></div>
+<div><label for="sc">Tiefe c: <span id="vc"></span> mm</label><input type="range" id="sc" min="10" max="80" step="10" value="80"></div>
+</div>
+<p style="margin:10px 0 4px"><b>Winkel der Tiefenlinien</b></p><div class="seg" id="sw"><button data-w="30" aria-pressed="false">30°</button><button data-w="45" aria-pressed="true">45°</button><button data-w="60" aria-pressed="false">60°</button></div>
+<p style="margin:10px 0 4px"><b>Tiefe gezeichnet als</b></p><div class="seg" id="sk"><button data-k="1" aria-pressed="false">ganze Länge</button><button data-k="0.5" aria-pressed="true">halbe Länge (½)</button></div>
+<div class="toggles"><label><input type="checkbox" id="sh" checked>verdeckte Kanten zeigen</label></div>
+<div class="fig" style="max-width:260px;margin-top:6px"><svg class="tz-3d" id="cav3d" aria-label="Der Quader als drehbares 3D-Modell"></svg></div><p class="caption">So sieht der Quader echt aus (drehbar).</p>
+</div></div>
+
+<div class="two" style="margin-top:18px"><div>
+<div class="card"><div class="tag">Auftrag 2 · Beobachte im Labor <span class="stars">★</span> <span class="afb">AFB I</span></div>
+<div class="part" data-task="q1"><h4>a) Stell den Quader 50 × 40 × 80 ein (a × b × c). Wähle 45° und „ganze Länge“. Wie wirkt der Quader im Vergleich zum echten Quader?</h4>
+<div class="mc" data-correct="a" data-task="q1" data-tipp="Vergleiche das Schrägbild mit dem drehbaren Quader rechts. Ist der Quader wirklich so tief?"><button data-k="a" data-fb="Richtig! Mit ganzer Tiefe wirkt der Körper zu tief und lang gezogen. Darum zeichnet man die Tiefe in der Kavalierperspektive nur <b>halb so lang</b>.">viel zu tief, wie lang gezogen</button><button data-k="b" data-fb="Nein. Schau genau hin: Wirkt der Quader nicht deutlich tiefer als das 3D-Modell?">genau richtig</button><button data-k="c" data-fb="Nein. Der Quader wirkt nicht flacher, sondern tiefer.">zu flach</button><p class="fb"></p></div></div>
+<div class="part" data-task="q2"><h4>b) Welche Seite des Quaders ändert ihre Form nie, egal welchen Winkel und welche Verkürzung du wählst?</h4>
+<div class="mc" data-correct="b" data-task="q2" data-tipp="Probier alle Winkel aus und achte auf die orange und grüne Kante."><button data-k="a" data-fb="Nein. Die Oberseite wird mit dem Winkel schräger oder steiler.">die Oberseite</button><button data-k="b" data-fb="Richtig! Die <b>Vorderseite</b> wird immer rechtwinklig und in echter Größe gezeichnet: Länge a und Höhe b bleiben unverändert.">die Vorderseite</button><button data-k="c" data-fb="Nein. Die rechte Seite ändert sich mit Winkel und Verkürzung.">die rechte Seite</button><p class="fb"></p></div></div>
+</div>
+</div><div>
+<div class="card"><div class="tag">Auftrag 3 · Gezeichnete Tiefe <span class="stars">★</span> <span class="afb">AFB I</span></div>
+<p>Stell 45° und „halbe Länge“ ein. Wie lang zeichnest du die Tiefenlinie? Prüfe mit dem Labor.</p>
+<div class="numbox part" data-task="q3" data-fb="Richtig! Die Tiefe wird halbiert: c : 2. Bemaßt wird aber die echte Tiefe.">
+<div class="numq"><span>Quader 1: c = 80 mm, gezeichnet:</span><span class="unit"><input type="text" inputmode="decimal" data-a="40" data-tol="0.001" aria-label="gezeichnete Tiefe Quader 1"> mm</span></div>
+<div class="numq"><span>Quader 2: c = 60 mm, gezeichnet:</span><span class="unit"><input type="text" inputmode="decimal" data-a="30" data-tol="0.001" aria-label="gezeichnete Tiefe Quader 2"> mm</span></div>
+<div class="row"><button class="primary num-check">Prüfen</button></div><p class="fb nfb"></p></div>
+</div>
+</div></div>
+
+<div class="card stepper" data-task="q4"><div class="tag">Auftrag 4 · Kavalierperspektive in 4 Schritten <span class="stars">★</span> <span class="afb">AFB I</span></div>
+<div class="two"><div class="stepfig"><svg id="stepFig" viewBox="-6 -76 96 82" role="img" aria-label="Quader in Kavalierperspektive, Schritt für Schritt"></svg></div><div>
+<p>Quader 1: a = 50 mm, b = 40 mm, c = 80 mm. Immer von vorn nach hinten arbeiten.</p>
+<div class="steps"></div>
+<div class="stepbox"><p><b>1 · Vorderseite zeichnen:</b> Länge a = 50 mm und Höhe b = 40 mm in echter Größe, rechtwinklig.</p></div>
+<div class="stepbox"><p><b>2 · Tiefenlinien ziehen:</b> Von jeder sichtbaren Ecke im <b>45°-Winkel</b> nach hinten, <b>halbe Länge</b>: 80 mm : 2 = 40 mm.</p></div>
+<div class="stepbox"><p><b>3 · Rückseite ergänzen:</b> Die hinteren waagrechten und senkrechten Linien verbinden die Enden der Tiefenlinien.</p></div>
+<div class="stepbox"><p><b>4 · Verdeckte Kanten:</b> Die drei Kanten, die man nicht sieht, als <b>Strichlinie</b> eintragen.</p></div>
+<div class="row"><button class="st-back">← zurück</button><button class="st-next primary">weiter →</button></div>
+<p class="note">Profi-Tipps: Auf dem Geodreieck ist die 45°-Linie eingezeichnet. Erst dünn vorzeichnen, am Ende die Körperkanten kräftig nachziehen.</p>
+</div></div>
+</div>
+
+<div class="card"><div class="tag">Auftrag 5 · Zeichne Quader 1 <span class="stars">★★</span> <span class="afb">AFB II</span></div>
+<p><b>Erst im Heft konstruieren, dann hier prüfen.</b> Zeichne den Quader mit a = 50 mm, b = 40 mm, c = 80 mm in Kavalierperspektive – mit verdeckten Kanten. 1 Kästchen = 5 mm. Wo du anfängst, ist egal.</p>
+<div id="t1"></div>
+<span hidden data-task="z1"></span>
+</div>
+</div></section>
+
+<!-- ============ 3 FESTHALTEN ============ -->
+<section class="band" id="festhalten"><div class="wrap">
+<h2>3 · Festhalten</h2>
+<div class="card"><div class="tag">Lückentext · Kavalierperspektive <span class="stars">★</span> <span class="afb">AFB I</span></div>
+<div class="selbox part" data-task="f1" data-fb="Alles richtig!"><div class="cloze">Die Kavalierperspektive ist eine <select data-a="räumliche"><option value="">…</option><option>räumliche</option><option>flache</option></select> Darstellung. Die <select data-a="Vorderseite"><option value="">…</option><option>Vorderseite</option><option>Oberseite</option><option>Rückseite</option></select> wird rechtwinklig und in echter Größe gezeichnet. Die Tiefenlinien laufen im Winkel von <select data-a="45°"><option value="">…</option><option>30°</option><option>45°</option><option>90°</option></select> nach hinten und werden <select data-a="halb so lang"><option value="">…</option><option>halb so lang</option><option>doppelt so lang</option><option>in echter Länge</option></select> gezeichnet. Das Maßverhältnis ist a : b : c = <select data-a="1 : 1 : ½"><option value="">…</option><option>1 : 1 : ½</option><option>1 : 1 : 1</option><option>½ : 1 : 1</option></select>. Bemaßt wird trotzdem die <select data-a="echte"><option value="">…</option><option>echte</option><option>gezeichnete</option></select> Tiefe. Verdeckte Kanten zeichnet man als <select data-a="Strichlinie"><option value="">…</option><option>Strichlinie</option><option>Volllinie</option></select>.</div><div class="row"><button class="primary sel-check">Prüfen</button></div><p class="fb sfb"></p></div>
+</div>
+<div class="merke"><h4>Merke</h4><ul><li>Vorderseite <b>unverzerrt</b>: Länge a und Höhe b in echter Größe, rechtwinklig.</li><li>Tiefe c im <b>45°-Winkel</b> nach hinten, <b>halb so lang</b>: a : b : c = 1 : 1 : ½.</li><li>Bemaßt wird immer das <b>echte</b> Maß (z. B. 80, obwohl 40 mm gezeichnet sind).</li><li>Reihenfolge: Vorderseite → Tiefenlinien → Rückseite → verdeckte Kanten.</li></ul></div>
+<p class="note">Gut zu wissen: Im Material heißt diese Darstellung auch Kabinettperspektive. In der Norm (DIN ISO 5456) wird die Darstellung mit halber Tiefe genau genommen Kabinettprojektion genannt, die mit ganzer Tiefe Kavalierprojektion. Im Unterricht zeichnen wir mit halber Tiefe.</p>
+</div></section>
+
+<!-- ============ 4 ÜBEN ============ -->
+<section class="band alt" id="ueben"><div class="wrap">
+<h2>4 · Üben</h2>
+<p class="intro"><b>Erst im Heft konstruieren, dann hier prüfen.</b></p>
+<div class="lvlrow"><span>★ / AFB I: Grundlagen anwenden</span><span>★★ / AFB II: Zusammenhänge herstellen</span><span>★★★ / AFB III: übertragen, beurteilen, begründen</span></div>
+<div class="two"><div>
+<div class="card"><div class="tag">Übung 1 · Wie lang zeichnen? <span class="stars">★</span> <span class="afb">AFB I</span></div>
+<p>Berechne die gezeichnete Länge der Tiefenlinie (45°, halbe Länge).</p>
+<div class="numbox part" data-task="u1" data-fb="Richtig! Gezeichnete Tiefe = echte Tiefe : 2.">
+<div class="numq"><span>a) c = 50 mm</span><span class="unit"><input type="text" inputmode="decimal" data-a="25" data-tol="0.001" aria-label="c = 50 mm"> mm</span></div>
+<div class="numq"><span>b) c = 36 mm</span><span class="unit"><input type="text" inputmode="decimal" data-a="18" data-tol="0.001" aria-label="c = 36 mm"> mm</span></div>
+<div class="numq"><span>c) c = 15 mm</span><span class="unit"><input type="text" inputmode="decimal" data-a="7.5" data-tol="0.001" aria-label="c = 15 mm"> mm</span></div>
+<div class="numq"><span>d) gezeichnet 35 mm, echte Tiefe c =</span><span class="unit"><input type="text" inputmode="decimal" data-a="70" data-tol="0.001" aria-label="echte Tiefe"> mm</span></div>
+<div class="row"><button class="primary num-check">Prüfen</button><button data-hint="u1">Tipp</button><button data-sol="u1Sol">Lösung zeigen</button></div><p class="fb nfb"></p><p class="tip" id="u1Tip"></p><div class="hintsrc" data-for="u1" hidden><p>Die Tiefe wird halbiert: durch 2 teilen.</p><p>Bei d) rechnest du rückwärts: Die gezeichnete Länge ist die Hälfte, also mal 2.</p></div><div class="sol" id="u1Sol" hidden><p>a) 50 mm : 2 = 25 mm &nbsp; b) 36 mm : 2 = 18 mm &nbsp; c) 15 mm : 2 = 7,5 mm &nbsp; d) 35 mm · 2 = 70 mm</p></div></div>
+</div>
+<div class="card"><div class="tag">Übung 2 · Welche Zeichnung ist richtig? <span class="stars">★★</span> <span class="afb">AFB II</span></div>
+<p>Drei Schüler haben den Quader 50 × 40 × 80 (a × b × c) in Kavalierperspektive gezeichnet. Nur eine Zeichnung ist richtig.</p>
+<div class="part" data-task="u2"><div class="mc choice3" data-correct="b" data-task="u2" data-tipp="Miss nach: Die Vorderseite muss 50 × 40 mm groß sein, die Tiefenlinie halb so lang wie 80 mm."><button data-k="a" data-fb="Nein. Hier ist die Tiefe in ganzer Länge gezeichnet – der Quader wirkt zu tief."><span id="u2a"></span>Zeichnung 1</button><button data-k="b" data-fb="Richtig! Vorderseite 50 × 40 mm in echter Größe, Tiefe 40 mm im 45°-Winkel, verdeckte Kanten gestrichelt."><span id="u2b"></span>Zeichnung 2</button><button data-k="c" data-fb="Nein. Hier wurde die Höhe halbiert statt der Tiefe. Die Vorderseite muss in echter Größe bleiben."><span id="u2c"></span>Zeichnung 3</button><p class="fb"></p></div></div>
+</div>
+<div class="card"><div class="tag">Übung 3 · Stimmt das? <span class="stars">★</span> <span class="afb">AFB I</span></div>
+<div class="tf part" data-task="u3">
+<div class="item" data-v="0"><span>„In der Kavalierperspektive schreibe ich als Maß der Tiefe die gezeichnete Länge hin.“</span><span class="btns"><button data-v="1">richtig</button><button data-v="0">falsch</button></span><p class="fb"></p><span class="ex">Bemaßt wird immer das echte Maß, z. B. 80 – auch wenn nur 40 mm gezeichnet sind.</span></div>
+<div class="item" data-v="1"><span>„Auf Karopapier läuft die 45°-Linie genau durch die Ecken der Kästchen.“</span><span class="btns"><button data-v="1">richtig</button><button data-v="0">falsch</button></span><p class="fb"></p><span class="ex">Ein Kästchen schräg ist etwa 7 mm lang (bei 5-mm-Kästchen).</span></div>
+<div class="item" data-v="1"><span>„Man arbeitet von vorn nach hinten.“</span><span class="btns"><button data-v="1">richtig</button><button data-v="0">falsch</button></span><p class="fb"></p><span class="ex">Erst die Vorderseite, dann die Tiefenlinien, dann die Rückseite.</span></div>
+</div>
+</div>
+</div><div>
+<div class="card"><div class="tag">Übung 4 · Zeichne Quader 2 <span class="stars">★★</span> <span class="afb">AFB II</span></div>
+<p>Quader 2: a = 70 mm, b = 20 mm, c = 60 mm. Zeichne ihn in Kavalierperspektive mit verdeckten Kanten.</p>
+<div id="t2"></div><span hidden data-task="z2"></span>
+</div>
+</div></div>
+<div class="card"><div class="tag">Übung 5 · Zeichne den Winkel <span class="stars">★★★</span> <span class="afb">AFB III</span></div>
+<div class="two"><div><p>Zeichne den Körper „Winkel“ in Kavalierperspektive. Ein Würfel ist 10 mm groß. Der gelbe Pfeil A zeigt auf die Vorderseite. Dreh den Körper, um alle Maße zu erkennen. <b>Verdeckte Kanten darfst du hier weglassen.</b></p>
+<div class="fig" style="max-width:320px"><svg class="tz-3d" id="t3body" aria-label="Körper Winkel, drehbar"></svg></div></div>
+<div><div id="t3"></div><span hidden data-task="z3"></span></div></div>
+</div>
+<div class="card"><div class="tag">Übung 6 · Warum halbieren? <span class="stars">★★★</span> <span class="afb">AFB III</span></div>
+<div class="part why" data-task="u6"><h4>✍ Begründe, warum man die Tiefe in der Kavalierperspektive halbiert, beim Bemaßen aber die echte Tiefe einträgt.</h4>
+<textarea data-store="u6" rows="3" placeholder="Schreib deine Begründung hier (oder ins Heft) – mindestens einen ganzen Satz." aria-label="Deine Begründung"></textarea>
+<label class="cbl"><input type="checkbox">Ich habe meine Begründung ins Heft geschrieben.</label>
+<div class="row"><button class="why-show">Mit Musterbegründung vergleichen</button></div>
+<div class="sol" hidden><p><b>Musterbegründung:</b> Mit ganzer Tiefe wirkt der Körper <b>zu tief und verzerrt</b>. Mit halber Tiefe sieht er für unser Auge <b>natürlicher</b> aus. Die Zeichnung ist aber auch ein Bauplan: Wer das Teil fertigt, muss die <b>echten Maße</b> ablesen können, ohne umzurechnen. Darum steht an der Tiefe immer das <b>echte Maß</b>.</p><p class="caption" style="margin:0 0 6px">Vergleiche: Hast du die fett gedruckten Begriffe verwendet? Ergänze sonst deine Begründung.</p><div class="row"><button class="why-ok">Meine Begründung enthält das Wichtigste</button></div></div></div>
+</div>
+<div class="row" style="margin-top:12px"><a class="lnk" href="/Technik8/dreitafelprojektion">← Dreitafelprojektion</a><a class="lnk nx" href="/Technik8/isometrie">Weiter: Isometrie →</a></div>
+</div></section>
+
+<section class="band"><div class="wrap">
+<div class="row" style="margin-top:8px"><button id="resetAll">Fortschritt zurücksetzen</button></div>
+</div></section>
+<footer class="band"><div class="wrap">
+<p>Lernpfad Technik Klasse 8 · Technisches Zeichnen: Kavalierperspektive (45°, Tiefe halbiert, a : b : c = 1 : 1 : ½). Modell im Labor: Parallelprojektion, ideale Linien. Alles läuft in deinem Browser. Fortschritt und Zeichnungen werden nur in diesem Browser gespeichert, es werden keine Daten übertragen (nur Feedback, das du selbst abschickst).</p>
+<p class="rechtl"><a href="/impressum">Impressum · Datenschutz</a></p></div></footer>
+<!--@QRDLG@-->
+<script>
+{
+/*@COMMON@*/
+/*@ENGINE@*/
+const BY=Object.fromEntries(BODIES.map(d=>[d.id,d]));
+const quader=(a,b,c)=>TZ.body({size:[a,b,c],boxes:[[0,0,0,a,b,c]]});
+const fitSVG=(segs,cls,pad=5,extra='')=>{const bb=TZ.bbox(segs);return `<svg class="${cls||'tz-sp'}" viewBox="${bb[0]-pad} ${bb[1]-pad} ${bb[2]-bb[0]+2*pad} ${bb[3]-bb[1]+2*pad}" role="img" aria-label="Zeichnung">${TZ.segSVG(segs)}${extra}</svg>`};
+/* Kopf */
+{const q=quader(5,4,8);
+ $('#h1').outerHTML=fitSVG(TZ.spatial(q,TZ.PROJ.front,10),'',6).replace('<svg ','<svg id="h1" ');
+ $('#h2').outerHTML=fitSVG(TZ.spatial(q,TZ.PROJ.cav(.5,45),10).filter(s=>s.vis),'',6).replace('<svg ','<svg id="h2" ');
+ $('#h3').outerHTML=fitSVG(TZ.spatial(q,TZ.PROJ.cav(.5,45),10),'',6).replace('<svg ','<svg id="h3" ')}
+/* Einstieg */
+{const b=TZ.body(BY.winkel);$('#eDt').innerHTML=TZ.threeViewSVG(b,{labels:true});$('#eCav').innerHTML=fitSVG(TZ.spatial(b,TZ.PROJ.cav(.5,45),10),'tz-sp',4)}
+/* ---------- Kavalier-Labor ---------- */
+{let w=45,k=.5;const v3=TZ.viewer($('#cav3d'),quader(5,4,8),{arrows:false,yaw:-30,pitch:22});
+ function draw(){const a=+$('#sa').value,b=+$('#sb').value,c=+$('#sc').value;$('#va').textContent=a;$('#vb').textContent=b;$('#vc').textContent=c;
+  const q=quader(a/10,b/10,c/10);let L=TZ.spatial(q,TZ.PROJ.cav(k,w),10);if(!$('#sh').checked)L=L.filter(s=>s.vis);
+  const dx=k*c*Math.cos(w*Math.PI/180),dy=k*c*Math.sin(w*Math.PI/180);
+  const ec=(s,cls)=>`<line x1="${s[0]}" y1="${s[1]}" x2="${s[2]}" y2="${s[3]}" class="tz-v ${cls}"/>`;
+  let ex=ec([0,0,a,0],'ea')+ec([0,0,0,-b],'eb')+ec([a,0,a+dx,-dy],'ec');
+  const R=10;ex+=`<path d="M${a+R} 0 A${R} ${R} 0 0 0 ${a+R*Math.cos(w*Math.PI/180)} ${-R*Math.sin(w*Math.PI/180)}" class="arcl"/><text x="${a+R+2}" y="-2" class="cl">${w}°</text>`;
+  ex+=`<text x="${a/2}" y="8" text-anchor="middle" class="cl a">a = ${a}</text><text x="-3" y="${-b/2}" text-anchor="end" class="cl b">b = ${b}</text><text x="${a+dx/2+3}" y="${-dy/2+4}" class="cl c">c = ${c}</text>`;
+  const bb=TZ.bbox(L),p=14;
+  $('#cav').setAttribute('viewBox',`${bb[0]-p-10} ${bb[1]-p} ${bb[2]-bb[0]+2*p+30} ${bb[3]-bb[1]+2*p+6}`);
+  $('#cav').innerHTML=TZ.segSVG(L)+ex;$('#cav').classList.add('tz-sp');
+  const cz=k*c;$('#cavRead').innerHTML=`<div>Vorderseite<b>${a} × ${b} mm</b></div><div>echte Tiefe c<b>${c} mm</b></div><div>gezeichnete Tiefe<b>${fmtS(cz,1)} mm</b></div><div>Verhältnis a : b : c<b>1 : 1 : ${k===1?'1':'½'}</b></div>`;
+  v3.set(quader(a/10,b/10,c/10))}
+ ['sa','sb','sc'].forEach(i=>$('#'+i).oninput=draw);$('#sh').onchange=draw;
+ $$('#sw button').forEach(b=>b.onclick=()=>{w=+b.dataset.w;$$('#sw button').forEach(x=>x.setAttribute('aria-pressed',x===b));draw()});
+ $$('#sk button').forEach(b=>b.onclick=()=>{k=+b.dataset.k;$$('#sk button').forEach(x=>x.setAttribute('aria-pressed',x===b));draw()});
+ draw()}
+/* Schritte */
+{const o=40/Math.SQRT2,st=$('#stepFig').closest('.stepper');
+ const L=(x1,y1,x2,y2,c='tz-v')=>`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" class="${c}"/>`;
+ const S=[L(0,0,50,0)+L(50,0,50,-40)+L(50,-40,0,-40)+L(0,-40,0,0),
+  L(0,-40,o,-40-o)+L(50,-40,50+o,-40-o)+L(50,0,50+o,-o)+`<path d="M60 0 A10 10 0 0 0 ${50+10*Math.SQRT1_2} ${-10*Math.SQRT1_2}" class="arcl"/><text x="61" y="-3" class="cl">45°</text>`,
+  L(o,-40-o,50+o,-40-o)+L(50+o,-40-o,50+o,-o),
+  L(0,0,o,-o,'tz-h')+L(o,-o,50+o,-o,'tz-h')+L(o,-o,o,-40-o,'tz-h')];
+ const draw=()=>{const n=st.querySelectorAll('.stepbox:not([hidden])').length;let s='';for(let i=0;i<n;i++)s+=i===n-1&&i>0?S[i].replace(/class="(tz-[vh])"/g,'class="$1 new"'):S[i];$('#stepFig').innerHTML=s};
+ $('#stepFig').classList.add('tz-sp');st.querySelectorAll('.st-next,.st-back').forEach(b=>b.addEventListener('click',()=>setTimeout(draw)));setTimeout(draw)}
+/* Zeichenaufgaben */
+const hintCav=(a,b,c)=>(segs)=>{const q=quader(a,b,c);
+ if(TZ.compareFree(TZ.spatial(q,TZ.PROJ.cav(1,45),10),segs,{tol:.9}).ok)return 'Die Form stimmt, aber die Tiefe ist nicht halbiert.';
+ if(TZ.compareFree(TZ.spatial(q,TZ.PROJ.cav(.5,30),10),segs,{tol:.9}).ok||TZ.compareFree(TZ.spatial(q,TZ.PROJ.cav(.5,60),10),segs,{tol:.9}).ok)return 'Die Tiefenlinien müssen im 45°-Winkel laufen.';
+ const vis=s=>s.filter(x=>x.t==='v');if(TZ.compareFree(TZ.spatial(q,TZ.PROJ.cav(.5,45),10),vis(segs),{tol:.9,ignoreHidden:true}).ok)return 'Die sichtbaren Kanten stimmen. Es fehlen die verdeckten Kanten als Strichlinie (oder sie liegen falsch).';
+ return 'Tipp: Vorderseite a × b, Tiefenlinien im 45°-Winkel mit halber Länge.'};
+TZ.task($('#t1'),{id:'q1',mode:'frei',w:140,h:110,expected:()=>TZ.spatial(quader(5,4,8),TZ.PROJ.cav(.5,45),10),onok:()=>mark('z1'),hint:hintCav(5,4,8),okText:'Richtig! Vorderseite 50 × 40 mm, Tiefe 40 mm im 45°-Winkel und drei verdeckte Kanten.',solText:'Quader 1 (50 × 40 × 80), Tiefe gezeichnet 40 mm.'});
+TZ.task($('#t2'),{id:'q2',mode:'frei',w:140,h:90,expected:()=>TZ.spatial(quader(7,2,6),TZ.PROJ.cav(.5,45),10),onok:()=>mark('z2'),hint:hintCav(7,2,6),okText:'Richtig! Vorderseite 70 × 20 mm, Tiefe 30 mm im 45°-Winkel.',solText:'Quader 2 (70 × 20 × 60), Tiefe gezeichnet 30 mm.'});
+{const b=TZ.body(BY.winkel);TZ.viewer($('#t3body'),b,{yaw:-30,pitch:22});
+ TZ.task($('#t3'),{id:'q3',mode:'frei',w:120,h:100,ignoreHidden:true,expected:()=>TZ.spatial(b,TZ.PROJ.cav(.5,45),10),onok:()=>mark('z3'),okText:'Richtig! Alle sichtbaren Kanten stimmen.',solText:'Winkel: 40 × 40 mm Vorderseite, Tiefe 30 mm (gezeichnet 15 mm).'})}
+/* Übung 2: drei Zeichnungen */
+{const q=quader(5,4,8),fs=(L)=>fitSVG(L,'tz-mini',4);
+ $('#u2a').innerHTML=fs(TZ.spatial(q,TZ.PROJ.cav(1,45),10));$('#u2b').innerHTML=fs(TZ.spatial(q,TZ.PROJ.cav(.5,45),10));
+ $('#u2c').innerHTML=fs(TZ.spatial(quader(5,2,8),TZ.PROJ.cav(1,45),10).map(s=>({...s})));}
+initCommon();
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Technisches Zeichnen · Isometrie</title>
+<meta name="description" content="Lernpfad Technik Klasse 8: Isometrische Darstellung – Kanten im 30°-Winkel, alle Längen in echter Größe. Mit 3D-Labor, Isometriepapier und Zeichenbrett.">
+<link rel="stylesheet" href="/fonts/fonts.css">
+<script src="/brand/theme.js"></script>
+<style>
+/* Isometrie – Lernpfad Technik Klasse 8 (Technisches Zeichnen). Erzeugt mit tools/tz/build.py aus tools/tz/src/. */
+/*@CSS@*/
+.herofig{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;align-items:end;max-width:780px;margin:18px 0 6px}
+.herofig svg{display:block;width:100%;height:auto;max-height:190px}
+.hero{--pen:#e9edee;--paperb:transparent;--muted:#b9c6c9;--karo:#56676a}
+@media(max-width:600px){.herofig{display:none}}
+.isofig svg{display:block;width:100%;height:auto;max-height:340px}
+.cl{font:600 5px "Source Sans 3",sans-serif;fill:var(--muted)}
+.arcl{fill:none;stroke:var(--gst-gold);stroke-width:.5}
+.stepfig svg{display:block;width:100%;height:auto;max-width:340px;margin:0 auto}
+.stepfig .new{stroke:var(--gst-gold)!important}
+.cmpt{border-collapse:collapse;width:100%;font-size:16px}.cmpt th,.cmpt td{border:1px solid var(--line);padding:6px 8px;text-align:left}.cmpt th{background:var(--panel)}
+.cmpt select{width:100%}
+.given svg{max-width:360px}
+</style>
+<link rel="stylesheet" href="/brand/brand.css">
+<link rel="stylesheet" href="/katex/katex.min.css">
+<script defer src="/katex/katex.min.js"></script>
+<script defer src="/katex/formel.js"></script>
+<script defer src="/brand/feedback.js"></script>
+<script defer src="/brand/mischen.js"></script>
+</head>
+<body>
+<nav aria-label="Phasen"><div class="wrap">
+<a href="/" title="Alle Lernpfade">← Übersicht</a>
+<a href="#einstieg"><span>1</span>Einstieg</a>
+<a href="#entdecken"><span>2</span>Entdecken</a>
+<a href="#festhalten"><span>3</span>Festhalten</a>
+<a href="#ueben"><span>4</span>Üben</a>
+<div class="prog"><span id="progtxt">0 / 0 gelöst</span><div class="bar"><i id="progbar"></i></div></div>
+</div></nav>
+
+<header class="band hero"><div class="wrap">
+<div class="herohead"><div><h1>Technisches Zeichnen · Isometrie</h1>
+<p>Vorderseite, Seite und Oberseite auf einen Blick: In der isometrischen Darstellung laufen die Kanten im 30°-Winkel schräg nach oben – und alle Kanten haben ihre echte Länge. So sehen viele Bauanleitungen aus.</p></div><!--@QRBTN@--></div>
+<div class="herofig" aria-hidden="true"><svg id="h1"></svg><svg id="h2"></svg><svg id="h3"></svg></div>
+<div class="phases">
+<a href="#einstieg"><b>1 · Einstieg</b><small>Kavalier und Isometrie im Vergleich</small></a><a href="#entdecken"><b>2 · Entdecken</b><small>3D-Labor, Isometriepapier, Würfel zeichnen</small></a><a href="#festhalten"><b>3 · Festhalten</b><small>Lückentext und Merke</small></a><a href="#ueben"><b>4 · Üben</b><small>Von der Dreitafelprojektion zur Isometrie</small></a>
+</div>
+</div></header>
+
+<!-- ============ 1 EINSTIEG ============ -->
+<section class="band" id="einstieg"><div class="wrap">
+<h2>1 · Einstieg: Zwei Arten, räumlich zu zeichnen</h2>
+<div class="two"><div>
+<div class="pic3"><figure><div id="eCav"></div><figcaption>Kavalierperspektive</figcaption></figure><figure><div id="eIso"></div><figcaption>Isometrie</figcaption></figure></div>
+<p class="caption">Derselbe Würfel mit 40 mm Kantenlänge.</p>
+</div><div>
+<div class="card"><div class="tag">Auftrag 1 · Vergleiche <span class="stars">★</span> <span class="afb">AFB I</span></div>
+<p>Schau dir beide Würfel genau an (du kannst auch nachmessen). Ergänze die Tabelle.</p>
+<div class="selbox part" data-task="e1" data-fb="Richtig! Kavalier: Vorderseite unverzerrt, Tiefe 45° und halb so lang. Isometrie: alle Kanten 30° schräg bzw. senkrecht und in echter Länge – dafür ist keine Fläche unverzerrt.">
+<table class="cmpt"><tr><th></th><th>Kavalier</th><th>Isometrie</th></tr>
+<tr><td>Winkel der schrägen Kanten</td><td><select data-a="45°" aria-label="Winkel Kavalier"><option value="">…</option><option>30°</option><option>45°</option><option>90°</option></select></td><td><select data-a="30°" aria-label="Winkel Isometrie"><option value="">…</option><option>30°</option><option>45°</option><option>90°</option></select></td></tr>
+<tr><td>Länge der Tiefe</td><td><select data-a="halbiert" aria-label="Tiefe Kavalier"><option value="">…</option><option>halbiert</option><option>echte Länge</option></select></td><td><select data-a="echte Länge" aria-label="Tiefe Isometrie"><option value="">…</option><option>halbiert</option><option>echte Länge</option></select></td></tr>
+<tr><td>Vorderseite rechtwinklig?</td><td><select data-a="ja" aria-label="Vorderseite Kavalier"><option value="">…</option><option>ja</option><option>nein</option></select></td><td><select data-a="nein" aria-label="Vorderseite Isometrie"><option value="">…</option><option>ja</option><option>nein</option></select></td></tr></table>
+<div class="row"><button class="primary sel-check">Prüfen</button></div><p class="fb sfb"></p></div>
+</div>
+</div></div>
+</div></section>
+
+<!-- ============ 2 ENTDECKEN ============ -->
+<section class="band alt" id="entdecken"><div class="wrap">
+<h2>2 · Entdecken</h2>
+<h3 style="margin-top:0">Das 3D-Labor: der Isometrie-Blick</h3>
+<p class="intro">Dreh den Körper. Mit „Isometrie-Blick“ schaust du so schräg von vorn rechts oben, dass Breite, Tiefe und Höhe gleich stark zu sehen sind. Rechts siehst du die isometrische Zeichnung.</p>
+<div class="lab-wrap" data-fest>
+<div><div class="fig"><svg class="tz-3d" id="lab3d" aria-label="Drehbarer Körper" style="max-height:380px"></svg></div>
+<div class="vbtns"><button data-v="iso" class="primary">Isometrie-Blick</button><button data-v="A"><b>A</b>von vorn</button><button data-v="schraeg">frei</button></div>
+<div class="bodytabs" id="labTabs"></div></div>
+<div class="stick"><div class="fig isofig"><svg id="labIso" role="img" aria-label="Isometrische Zeichnung des Körpers"></svg></div>
+<p class="caption">Isometrische Zeichnung: Breite und Tiefe 30° schräg, Höhe senkrecht, alle Kanten in echter Länge.</p>
+<p class="note">Modell: Beim echten Blick schräg auf den Körper wirken alle Kanten etwas kürzer (etwa 82 %). In der isometrischen Zeichnung nimmt man der Einfachheit halber die echte Länge – die Zeichnung ist dadurch etwas größer, die Form bleibt gleich.</p>
+</div></div>
+<div class="two" style="margin-top:18px"><div>
+<div class="card"><div class="tag">Auftrag 2 · Winkel in der Isometrie <span class="stars">★</span> <span class="afb">AFB I</span></div>
+<div class="part" data-task="q1"><h4>a) Wähle den Würfel. In welchem Winkel zum unteren Blattrand laufen Breite und Tiefe in der Zeichnung?</h4>
+<div class="mc" data-correct="b" data-task="q1" data-tipp="Schau dir die Linien unten an der vordersten Ecke an. Wie steil gehen sie nach links und rechts?"><button data-k="a" data-fb="Nein. 45° gilt für die Tiefenlinien der Kavalierperspektive.">45°</button><button data-k="b" data-fb="Richtig! Breite und Tiefe laufen 30° schräg nach oben, die Höhe senkrecht (90°).">30°</button><button data-k="c" data-fb="Nein. Bei 60° wären die Linien viel steiler.">60°</button><p class="fb"></p></div></div>
+<div class="part" data-task="q2"><h4>b) Die drei Kanten an der oberen vorderen Ecke des Würfels bilden im Bild drei gleich große Winkel. Wie groß ist jeder?</h4>
+<div class="mc" data-correct="c" data-task="q2" data-tipp="Die drei Winkel ergeben zusammen einen ganzen Kreis: 360°."><button data-k="a" data-fb="Nein. Drei rechte Winkel ergeben nur 270°, nicht 360°.">90°</button><button data-k="b" data-fb="Nein. Drei Winkel mit 60° ergeben nur 180°.">60°</button><button data-k="c" data-fb="Richtig! 360° : 3 = 120°. Deshalb heißt die Darstellung <b>Isometrie</b> (griechisch: „gleiches Maß“).">120°</button><p class="fb"></p></div></div>
+</div>
+</div><div>
+<div class="card"><div class="tag">Auftrag 3 · Isometriepapier <span class="stars">★</span> <span class="afb">AFB I</span></div>
+<p>Auf Isometriepapier sind die 30°-Linien schon vorgedruckt. Die Dreiecke haben hier eine Seitenlänge von <b>5 mm</b>. Wie viele Dreiecksseiten lang zeichnest du eine Kante?</p>
+<div class="numbox part" data-task="q3" data-fb="Richtig! Kantenlänge : 5 mm = Anzahl der Dreiecksseiten. Ein Würfel mit 40 mm Kante: 40 : 5 = 8.">
+<div class="numq"><span>Kante 40 mm</span><span class="unit"><input type="text" inputmode="decimal" data-a="8" data-tol="0.001" aria-label="40 mm"> Seiten</span></div>
+<div class="numq"><span>Kante 25 mm</span><span class="unit"><input type="text" inputmode="decimal" data-a="5" data-tol="0.001" aria-label="25 mm"> Seiten</span></div>
+<div class="numq"><span>Kante 60 mm</span><span class="unit"><input type="text" inputmode="decimal" data-a="12" data-tol="0.001" aria-label="60 mm"> Seiten</span></div>
+<div class="row"><button class="primary num-check">Prüfen</button></div><p class="fb nfb"></p></div>
+</div>
+</div></div>
+
+<div class="card stepper" data-task="q4"><div class="tag">Auftrag 4 · Ein Würfel in Isometrie <span class="stars">★</span> <span class="afb">AFB I</span></div>
+<div class="two"><div class="stepfig"><svg id="stepFig" role="img" aria-label="Würfel auf Isometriepapier, Schritt für Schritt"></svg></div><div>
+<p>Würfel mit 40 mm Kante: jede Kante ist 8 Dreiecksseiten lang.</p>
+<div class="steps"></div>
+<div class="stepbox"><p><b>1 ·</b> Starte mit der <b>vordersten senkrechten Kante</b>.</p></div>
+<div class="stepbox"><p><b>2 ·</b> Zeichne von ihren Enden die Linien im <b>30°-Winkel</b> nach links und nach rechts.</p></div>
+<div class="stepbox"><p><b>3 ·</b> Ergänze die <b>senkrechten Linien</b>, die die schrägen Linien verbinden.</p></div>
+<div class="stepbox"><p><b>4 ·</b> Ergänze die restlichen schrägen Linien für die <b>Oberseite</b>.</p></div>
+<div class="stepbox"><p><b>5 ·</b> Zeichne die <b>verdeckten Kanten</b> als Strichlinie.</p></div>
+<div class="row"><button class="st-back">← zurück</button><button class="st-next primary">weiter →</button></div>
+</div></div>
+</div>
+
+<div class="card"><div class="tag">Auftrag 5 · Zeichne den Würfel <span class="stars">★★</span> <span class="afb">AFB II</span></div>
+<p><b>Erst auf Isometriepapier zeichnen, dann hier prüfen.</b> Würfel mit 40 mm Kante, mit verdeckten Kanten. Wo du anfängst, ist egal.</p>
+<div id="t1"></div><span hidden data-task="z1"></span>
+</div>
+</div></section>
+
+<!-- ============ 3 FESTHALTEN ============ -->
+<section class="band" id="festhalten"><div class="wrap">
+<h2>3 · Festhalten</h2>
+<div class="card"><div class="tag">Lückentext · Isometrie <span class="stars">★</span> <span class="afb">AFB I</span></div>
+<div class="selbox part" data-task="f1" data-fb="Alles richtig!"><div class="cloze">In der isometrischen Darstellung sieht man Vorderseite, Seite und Oberseite <select data-a="gleichzeitig"><option value="">…</option><option>gleichzeitig</option><option>nacheinander</option></select>. Länge a und Breite c laufen im <select data-a="30°"><option value="">…</option><option>30°</option><option>45°</option><option>60°</option></select>-Winkel schräg nach oben, die Höhe b zeigt <select data-a="senkrecht"><option value="">…</option><option>senkrecht</option><option>waagrecht</option></select> nach oben. Alle Kanten werden in <select data-a="echter Länge"><option value="">…</option><option>echter Länge</option><option>halber Länge</option></select> gezeichnet, das Maßverhältnis ist a : b : c = <select data-a="1 : 1 : 1"><option value="">…</option><option>1 : 1 : 1</option><option>1 : 1 : ½</option></select>. Zum Zeichnen nimmt man gern <select data-a="Isometriepapier"><option value="">…</option><option>Isometriepapier</option><option>Millimeterpapier</option></select>. Man beginnt mit der <select data-a="vordersten senkrechten Kante"><option value="">…</option><option>vordersten senkrechten Kante</option><option>hintersten Kante</option></select>.</div><div class="row"><button class="primary sel-check">Prüfen</button></div><p class="fb sfb"></p></div>
+</div>
+<div class="merke"><h4>Merke</h4><ul><li>Länge a und Breite c im <b>30°-Winkel</b> schräg nach oben, Höhe b <b>senkrecht</b>.</li><li>Keine Verkürzung: a : b : c = <b>1 : 1 : 1</b>, alle Kanten in echter Länge.</li><li>Isometriepapier mit 5-mm-Dreiecken: Kantenlänge : 5 = Anzahl der Dreiecksseiten.</li><li>Kavalier: <b>45° und ½</b> · Isometrie: <b>30° und 1 : 1 : 1</b>.</li></ul></div>
+</div></section>
+
+<!-- ============ 4 ÜBEN ============ -->
+<section class="band alt" id="ueben"><div class="wrap">
+<h2>4 · Üben</h2>
+<p class="intro"><b>Erst auf Isometriepapier zeichnen, dann hier prüfen.</b> Ein Würfel der Körper ist 10 mm groß (2 Dreiecksseiten).</p>
+<div class="lvlrow"><span>★ / AFB I: Grundlagen anwenden</span><span>★★ / AFB II: Zusammenhänge herstellen</span><span>★★★ / AFB III: übertragen, beurteilen, begründen</span></div>
+<div class="two"><div>
+<div class="card"><div class="tag">Übung 1 · Zeichne die Treppe <span class="stars">★★</span> <span class="afb">AFB II</span></div>
+<div class="mitbild"><svg class="tz-3d" id="u1body" style="width:150px;flex:none" aria-label="Treppe, drehbar"></svg><p>Zeichne die Treppe isometrisch: 30 mm breit, 30 mm hoch, 20 mm tief, drei Stufen. Die Vorderseite mit der Treppenform zeigt nach links vorn. <b>Verdeckte Kanten darfst du weglassen.</b></p></div>
+<div id="t2"></div><span hidden data-task="z2"></span>
+</div>
+</div><div>
+<div class="card"><div class="tag">Übung 2 · Welches Bild passt? <span class="stars">★★</span> <span class="afb">AFB II</span></div>
+<p>Welche isometrische Zeichnung gehört zu dieser Dreitafelprojektion?</p>
+<div class="given" id="u3dt"></div>
+<div class="part" data-task="u3"><div class="mc choice3" data-correct="a" data-task="u3" data-tipp="Schau in die Seitenansicht B: Liegt die höhere Stufe vorn oder hinten? (In B ist rechts vorn.)"><button data-k="a" data-fb="Richtig! Die niedrige Stufe liegt vorn, die hohe hinten – genau wie in B zu sehen."><span id="u3a"></span>Bild 1</button><button data-k="b" data-fb="Nein. Hier steht die hohe Stufe vorn. In B ist aber rechts (vorn) die niedrige Stufe."><span id="u3b"></span>Bild 2</button><button data-k="c" data-fb="Nein. Die Vorderansicht A ist ein Rechteck mit einer waagrechten Linie, kein L."><span id="u3c"></span>Bild 3</button><p class="fb"></p></div></div>
+</div>
+<div class="card"><div class="tag">Übung 3 · Stimmt das? <span class="stars">★</span> <span class="afb">AFB I</span></div>
+<div class="tf part" data-task="u4">
+<div class="item" data-v="1"><span>„In der Isometrie sind alle Kanten des Würfels gleich lang gezeichnet.“</span><span class="btns"><button data-v="1">richtig</button><button data-v="0">falsch</button></span><p class="fb"></p><span class="ex">Keine Verkürzung: a : b : c = 1 : 1 : 1.</span></div>
+<div class="item" data-v="0"><span>„In der Isometrie bleibt die Vorderseite rechtwinklig.“</span><span class="btns"><button data-v="1">richtig</button><button data-v="0">falsch</button></span><p class="fb"></p><span class="ex">Das gilt für die Kavalierperspektive. In der Isometrie wird jede Seite schräg (als Raute) gezeichnet.</span></div>
+<div class="item" data-v="1"><span>„Senkrechte Kanten bleiben in der Isometrie senkrecht.“</span><span class="btns"><button data-v="1">richtig</button><button data-v="0">falsch</button></span><p class="fb"></p><span class="ex">Die Höhe b wird immer senkrecht gezeichnet.</span></div>
+</div>
+</div>
+</div></div>
+<div class="card"><div class="tag">Übung 4 · Von der Dreitafelprojektion zur Isometrie <span class="stars">★★★</span> <span class="afb">AFB III</span></div>
+<div class="two"><div><p>Gegeben ist die Dreitafelprojektion eines Körpers (1 Würfel = 10 mm). Zeichne ihn isometrisch. Die Vorderseite A zeigt nach links vorn. <b>Verdeckte Kanten darfst du weglassen.</b></p><div class="given" id="u5dt"></div>
+<details class="exp"><summary>Tipp</summary><p>Zeichne zuerst den umhüllenden Quader (50 × 30 × 30 mm) ganz dünn vor. Schneide dann die Nut aus: Sie ist 10 mm breit, 20 mm tief nach unten und geht von vorn bis hinten durch.</p></details></div>
+<div><div id="t3"></div><span hidden data-task="z3"></span></div></div>
+</div>
+<div class="card"><div class="tag">Übung 5 · Wofür Isometrie? <span class="stars">★★★</span> <span class="afb">AFB III</span></div>
+<div class="part why" data-task="u6"><h4>✍ Möbel-Bauanleitungen sind meist isometrisch gezeichnet. Begründe, warum diese Darstellung dafür gut geeignet ist.</h4>
+<textarea data-store="u6" rows="3" placeholder="Schreib deine Begründung hier (oder ins Heft) – mindestens einen ganzen Satz." aria-label="Deine Begründung"></textarea>
+<label class="cbl"><input type="checkbox">Ich habe meine Begründung ins Heft geschrieben.</label>
+<div class="row"><button class="why-show">Mit Musterbegründung vergleichen</button></div>
+<div class="sol" hidden><p><b>Musterbegründung:</b> In der Isometrie sieht man <b>drei Seiten gleichzeitig</b> und gleich gut: vorn, Seite und oben. Dadurch erkennt man die <b>räumliche Form</b> sofort, auch ohne Fachwissen. Weil alle Kanten in <b>echter Länge</b> gezeichnet sind, stimmen die Größenverhältnisse der Bauteile. So versteht jeder ohne Worte, welches Teil wohin gehört.</p><p class="caption" style="margin:0 0 6px">Vergleiche: Hast du die fett gedruckten Begriffe verwendet? Ergänze sonst deine Begründung.</p><div class="row"><button class="why-ok">Meine Begründung enthält das Wichtigste</button></div></div></div>
+</div>
+<div class="row" style="margin-top:12px"><a class="lnk" href="/Technik8/kavalierperspektive">← Kavalierperspektive</a><a class="lnk nx" href="/">Zur Übersicht</a></div>
+</div></section>
+
+<section class="band"><div class="wrap">
+<div class="row" style="margin-top:8px"><button id="resetAll">Fortschritt zurücksetzen</button></div>
+</div></section>
+<footer class="band"><div class="wrap">
+<p>Lernpfad Technik Klasse 8 · Technisches Zeichnen: Isometrische Darstellung (30°, a : b : c = 1 : 1 : 1, Isometriepapier). 3D-Labor und Zeichenbrett laufen vollständig in deinem Browser. Fortschritt und Zeichnungen werden nur in diesem Browser gespeichert, es werden keine Daten übertragen (nur Feedback, das du selbst abschickst).</p>
+<p class="rechtl"><a href="/impressum">Impressum · Datenschutz</a></p></div></footer>
+<!--@QRDLG@-->
+<script>
+{
+/*@COMMON@*/
+/*@ENGINE@*/
+const BY=Object.fromEntries(BODIES.map(d=>[d.id,d]));
+const quader=(a,b,c)=>TZ.body({size:[a,b,c],boxes:[[0,0,0,a,b,c]]});
+const fitSVG=(segs,cls,pad=5,extra='')=>{const bb=TZ.bbox(segs);return `<svg class="${cls||'tz-sp'}" viewBox="${bb[0]-pad} ${bb[1]-pad} ${bb[2]-bb[0]+2*pad} ${bb[3]-bb[1]+2*pad}" role="img" aria-label="Zeichnung">${TZ.segSVG(segs)}${extra}</svg>`};
+const iso=(b,u=10)=>TZ.spatial(b,TZ.PROJ.iso,u);
+/* Kopf */
+['wuerfel','treppe','rahmen'].forEach((k,i)=>{$('#h'+(i+1)).outerHTML=fitSVG(iso(TZ.body(BY[k])),'',4).replace('<svg ','<svg id="h'+(i+1)+'" ')});
+/* Einstieg */
+{const w=quader(4,4,4);$('#eCav').innerHTML=fitSVG(TZ.spatial(w,TZ.PROJ.cav(.5,45),10),'tz-mini',4);$('#eIso').innerHTML=fitSVG(iso(w),'tz-mini',4)}
+/* 3D-Labor */
+{const ids=['wuerfel','treppe','winkel','rahmen','nut'];let cur='wuerfel';const v=TZ.viewer($('#lab3d'),TZ.body(BY[cur]),{arrows:false,yaw:20,pitch:15});
+ const draw=()=>{const b=TZ.body(BY[cur]),L=iso(b);let ex='';
+  if(cur==='wuerfel'){const F=[40*TZ.C30,20],R=10;ex=`<path d="M${F[0]-R} ${F[1]} H${F[0]+R}" style="stroke:var(--muted)" stroke-width=".3" stroke-dasharray="1 1"/><path d="M${F[0]+R} ${F[1]} A${R} ${R} 0 0 0 ${F[0]+R*TZ.C30} ${F[1]-R/2}" class="arcl"/><text x="${F[0]+R+1}" y="${F[1]-.5}" class="cl">30°</text><path d="M${F[0]-R} ${F[1]} A${R} ${R} 0 0 1 ${F[0]-R*TZ.C30} ${F[1]-R/2}" class="arcl"/><text x="${F[0]-R-1}" y="${F[1]-.5}" text-anchor="end" class="cl">30°</text>`}
+  const bb=TZ.bbox(L),p=8;$('#labIso').setAttribute('viewBox',`${bb[0]-p} ${bb[1]-p} ${bb[2]-bb[0]+2*p} ${bb[3]-bb[1]+2*p}`);$('#labIso').innerHTML=TZ.segSVG(L)+ex;$('#labIso').classList.add('tz-sp')};
+ const tabs=$('#labTabs');tabs.innerHTML=ids.map(i=>`<button data-b="${i}" aria-pressed="${i===cur}">${BY[i].name}</button>`).join('');
+ tabs.querySelectorAll('button').forEach(bt=>bt.onclick=()=>{cur=bt.dataset.b;tabs.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===bt));v.set(TZ.body(BY[cur]));draw()});
+ $$('#entdecken .vbtns button').forEach(bt=>bt.onclick=()=>v.to(...TZ.VIEWS[bt.dataset.v]));
+ draw();setTimeout(()=>v.to(...TZ.VIEWS.iso,1400),600)}
+/* Schritte: Würfel 40 mm auf Isometriepapier */
+{const s=5,P=(x,y,d)=>[(x+d)*TZ.C30*s,-(y+(d-x)/2)*s],W=8,st=$('#stepFig').closest('.stepper');
+ const L=(a,b,c='tz-v')=>{const p=P(...a),q=P(...b);return `<line x1="${p[0]}" y1="${p[1]}" x2="${q[0]}" y2="${q[1]}" class="${c}"/>`};
+ const S=[L([W,0,0],[W,W,0]),
+  L([W,0,0],[0,0,0])+L([W,0,0],[W,0,W])+L([W,W,0],[0,W,0])+L([W,W,0],[W,W,W]),
+  L([0,0,0],[0,W,0])+L([W,0,W],[W,W,W]),
+  L([0,W,0],[0,W,W])+L([W,W,W],[0,W,W]),
+  L([0,0,W],[0,0,0],'tz-h')+L([0,0,W],[W,0,W],'tz-h')+L([0,0,W],[0,W,W],'tz-h')];
+ const x0=-6,y0=-12*s,w=16*TZ.C30*s+12,h=12*s+20+6;let grid='';
+ for(let a=-2;a<=18;a++)for(let b=-14;b<=8;b++){const X=a*TZ.C30*s,Y=(b+a/2)*s;if(X<x0||X>x0+w||Y<y0-6||Y>y0+h)continue;grid+=`<circle cx="${X}" cy="${Y}" r=".35" style="fill:var(--karo2)"/>`}
+ $('#stepFig').setAttribute('viewBox',`${x0} ${y0-6} ${w} ${h}`);$('#stepFig').classList.add('tz-sp');
+ const draw=()=>{const n=st.querySelectorAll('.stepbox:not([hidden])').length;let t=grid;for(let i=0;i<n;i++)t+=i===n-1&&i>0?S[i].replace(/class="(tz-[vh])"/g,'class="$1 new"'):S[i];$('#stepFig').innerHTML=t};
+ st.querySelectorAll('.st-next,.st-back').forEach(b=>b.addEventListener('click',()=>setTimeout(draw)));setTimeout(draw)}
+/* Zeichenaufgaben */
+TZ.task($('#t1'),{id:'i1',mode:'iso',w:120,h:105,expected:()=>iso(quader(4,4,4)),onok:()=>mark('z1'),
+ hint:(segs)=>TZ.compareFree(iso(quader(4,4,4)),segs.filter(s=>s.t==='v'),{tol:.8,ignoreHidden:true}).ok?'Die sichtbaren Kanten stimmen. Es fehlen die drei verdeckten Kanten als Strichlinie (oder sie liegen falsch).':'Tipp: Jede Kante ist 8 Dreiecksseiten lang. Starte mit der vordersten senkrechten Kante.',
+ okText:'Richtig! Neun sichtbare Kanten, alle 8 Dreiecksseiten lang, und drei verdeckte Kanten.',solText:'Würfel mit 40 mm Kante.'});
+{const b=TZ.body(BY.treppe);TZ.viewer($('#u1body'),b,{arrows:false,yaw:-45,pitch:30});
+ TZ.task($('#t2'),{id:'i2',mode:'iso',w:110,h:90,ignoreHidden:true,expected:()=>iso(b),onok:()=>mark('z2'),okText:'Richtig! Alle sichtbaren Kanten der Treppe stimmen.',solText:'Treppe 30 × 30 × 20 mm.'})}
+/* Übung 2: Welches Bild passt? */
+{const b=TZ.body(BY.absatz);$('#u3dt').innerHTML=TZ.threeViewSVG(b,{label:'Dreitafelprojektion des gesuchten Körpers'});
+ const alt=TZ.body({size:[4,3,4],boxes:[[0,0,0,4,2,4],[0,2,0,4,3,2]]});
+ $('#u3a').innerHTML=fitSVG(iso(b),'tz-mini',3);$('#u3b').innerHTML=fitSVG(iso(alt),'tz-mini',3);$('#u3c').innerHTML=fitSVG(iso(TZ.body(BY.winkel)),'tz-mini',3)}
+/* Übung 4: Von der Dreitafelprojektion zur Isometrie */
+{const b=TZ.body(BY.nut);$('#u5dt').innerHTML=TZ.threeViewSVG(b,{label:'Dreitafelprojektion: U-Profil'});
+ TZ.task($('#t3'),{id:'i3',mode:'iso',w:120,h:100,ignoreHidden:true,expected:()=>iso(b),onok:()=>mark('z3'),okText:'Richtig! Du hast aus drei Ansichten ein räumliches Bild gemacht.',solText:'U-Profil 50 × 30 × 30 mm mit Nut 10 mm breit und 20 mm tief.'})}
+initCommon();
+}
+</script>
+</body>
+</html>

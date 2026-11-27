@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Technisches Zeichnen · Dreitafelprojektion</title>
+<meta name="description" content="Lernpfad Technik Klasse 8: Dreitafelprojektion – Körper drehen, Vorderansicht, Seitenansicht und Draufsicht verstehen und in der Zeichen-Werkstatt selbst zeichnen.">
+<link rel="stylesheet" href="/fonts/fonts.css">
+<script src="/brand/theme.js"></script>
+<style>
+/* Dreitafelprojektion – Lernpfad Technik Klasse 8 (Technisches Zeichnen). Erzeugt mit tools/tz/build.py aus tools/tz/src/. */
+:root{color-scheme:light dark;
+--bg:light-dark(#ffffff,#11141b);--ink:light-dark(#1b1e27,#e9ebf1);--muted:light-dark(#5a6070,#a5abba);
+--panel:light-dark(#f3f6fa,#191e28);--line:light-dark(#d6dde8,#2d3544);--grid:light-dark(#d4e2f2,#232c3b);
+--paper:light-dark(#fdfeff,#151a23);
+--acc:light-dark(#c2410c,#ff9a4d);--acc2:light-dark(#1d62c9,#64a6ff);
+--el:light-dark(#2563c9,#6aa5ff);--eb:light-dark(#1d8a4a,#4fd27f);--eth:light-dark(#d4381e,#ff7a5c);--esp:light-dark(#8a3fc4,#c08cff);
+--ok:light-dark(#137a3a,#4fd27f);--okbg:light-dark(#e6f5ec,#15301f);--bad:light-dark(#b8322a,#ff8075);--badbg:light-dark(#fbeceb,#3a1c1a);
+--hint:light-dark(#fff6dc,#2e2815);--lab:#0e131d;--labink:#eef1f7}
+*{box-sizing:border-box;min-width:0}
+html{scroll-padding-top:80px;scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 "Atkinson Hyperlegible",system-ui,sans-serif;overflow-x:clip}
+h1,h2,h3,h4{font-family:Lexend,system-ui,sans-serif;line-height:1.15;text-wrap:balance;margin:0 0 .5em}
+h1{font-size:clamp(32px,5vw,50px);font-weight:700}
+h2{font-size:clamp(26px,3.4vw,36px);font-weight:700}
+h3{font-size:21px;font-weight:600;margin-top:1.6em}
+h4{font-size:17px;font-weight:600;margin:0 0 .3em}
+p{margin:0 0 .8em}
+sub{font-size:.72em}
+.wrap{max-width:1180px;margin:0 auto}
+.band{padding:clamp(28px,4vw,60px) max(5vw,16px)}
+.alt{background:var(--panel)}
+nav{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;padding:8px max(4vw,12px)}
+nav a{color:var(--ink);text-decoration:none;font:600 15px Lexend,sans-serif;padding:8px 10px;border-radius:8px}
+nav a:hover,nav a:focus-visible{background:var(--panel)}
+nav a span{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--acc);color:#fff;font-size:13px;margin-right:6px}
+.prog{margin-left:auto;display:flex;align-items:center;gap:10px;font-size:14px;color:var(--muted)}
+.bar{width:140px;height:10px;border-radius:6px;background:var(--line);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--acc);transition:width .4s}
+.hero{background:var(--lab);color:var(--labink)}
+.hero p{color:#c6ccd8;max-width:64ch}
+.hero svg{width:100%;height:auto;display:block;margin:18px 0 8px}
+.phases{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:10px}
+.phases a{display:block;padding:14px 16px;border-radius:12px;background:#182031;color:#eef1f7;text-decoration:none;border:1px solid #2a3448}
+.phases a:hover{border-color:#ff9a4d}
+.phases b{font-family:Lexend,system-ui,sans-serif;display:block;font-size:17px}
+.phases small{color:#a9b2c4;font-size:14px}
+.two{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:28px;align-items:start}
+@media(max-width:900px){.two{grid-template-columns:minmax(0,1fr)}}
+@media(min-width:901px){.stick{position:sticky;top:70px}}
+.fig{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:8px}
+.fig svg{display:block;width:100%;height:auto;touch-action:manipulation;user-select:none}
+.caption{font-size:14px;color:var(--muted);margin:6px 4px 0}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin-bottom:14px}
+.card.done{border-color:var(--ok)}
+.card .tag{font:600 13px Lexend,system-ui,sans-serif;color:var(--muted);margin-bottom:4px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.card.done>.tag::after{content:"✓ gelöst";color:var(--ok)}
+.stars{color:var(--acc);letter-spacing:2px}
+.intro{max-width:72ch;color:var(--muted)}
+.merke{border:2px solid var(--acc);border-radius:14px;padding:16px 20px;margin:18px 0;background:var(--bg)}
+.merke h4{color:var(--acc)}
+.merke ul{margin:.3em 0;padding-left:1.2em}
+details.reveal{border:1px dashed var(--line);border-radius:12px;padding:10px 14px;margin:14px 0;background:var(--bg)}
+details.reveal summary{cursor:pointer;font:600 16px Lexend,system-ui,sans-serif;padding:4px 0}
+button{font:600 16px "Atkinson Hyperlegible",sans-serif;min-height:44px;padding:8px 16px;border-radius:10px;border:1px solid var(--line);background:var(--panel);color:var(--ink);cursor:pointer}
+.alt button{background:var(--bg)}
+button:hover{border-color:var(--ink)}
+button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{outline:3px solid var(--acc2);outline-offset:2px}
+button.primary{background:var(--acc);border-color:var(--acc);color:light-dark(#fff,#11141b)}
+button[aria-pressed=true]{background:var(--ink);color:var(--bg)}
+input[type=text],select{font:16px "Atkinson Hyperlegible",sans-serif;min-height:44px;padding:6px 10px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}
+input[type=range]{width:100%;accent-color:var(--acc);min-height:36px}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:10px 0}
+.ctrl{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:4px 18px;margin-top:8px}
+.ctrl label{font-weight:700;font-size:15px}
+.toggles{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.toggles label{display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);cursor:pointer;min-height:44px;font-size:15px}
+.toggles input{width:18px;height:18px;accent-color:var(--acc)}
+.mc{display:grid;gap:8px;margin-top:8px}
+.mc button{text-align:left;font-weight:400}
+.mc button.ok,.tf button.ok{background:var(--okbg);border-color:var(--ok)}
+.mc button.bad,.tf button.bad{background:var(--badbg);border-color:var(--bad)}
+.fb{min-height:1em;margin:8px 0 0;font-size:16px}
+.fb:empty{display:none}
+.fb.ok{color:var(--ok)}.fb.bad{color:var(--bad)}
+.fb.hint{background:var(--hint);color:var(--ink);padding:8px 12px;border-radius:8px}
+input.ok,select.ok{border-color:var(--ok);background:var(--okbg)}
+input.bad,select.bad{border-color:var(--bad);background:var(--badbg)}
+.cloze{line-height:2.5;font-size:17px}
+.cloze select{min-height:38px;padding:2px 6px;margin:0 2px}
+.tf{display:grid;gap:4px}
+.tf .item{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
+.tf .item .fb{grid-column:1/-1;margin:0}
+.tf .btns{display:flex;gap:6px}
+.numq{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 12px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line)}
+.numq input{width:110px;text-align:right}
+.numq .mcq{grid-column:1/-1}
+.unit{white-space:nowrap}
+.sol{background:var(--panel);border-radius:10px;padding:10px 14px;margin-top:10px;font-size:16px}
+.sol p{margin:.3em 0}
+.calc{font-family:"Atkinson Hyperlegible",sans-serif;background:var(--bg);border-left:4px solid var(--acc);padding:6px 12px;margin:6px 0;border-radius:4px}
+.steps{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.steps i{font-style:normal;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--line);font:600 14px Lexend,system-ui,sans-serif}
+.steps i.on{background:var(--acc);color:#fff;border-color:var(--acc)}
+.steptext{min-height:7em}
+.heft{background:var(--paper);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:20px 20px;border:1px solid var(--line);border-radius:12px;padding:22px clamp(16px,3vw,34px)}
+.heft h3{margin-top:.8em;color:var(--acc)}
+.heft h3:first-child{margin-top:0}
+.heft .box{border:2px solid var(--ink);padding:8px 14px;border-radius:6px;background:var(--paper);display:inline-block}
+.checks{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.checks label{display:flex;gap:8px;align-items:center;padding:8px 14px;border:1px solid var(--line);border-radius:10px;min-height:44px;cursor:pointer;font-size:16px;background:var(--bg)}
+.checks label.ok{border-color:var(--ok);background:var(--okbg)}.checks label.bad{border-color:var(--bad);background:var(--badbg)}
+.checks input{width:18px;height:18px;accent-color:var(--acc)}
+.chain{display:grid;grid-template-columns:minmax(0,1.3fr) auto auto auto;gap:6px 10px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line)}
+@media(max-width:640px){.chain{grid-template-columns:auto auto auto}.chain>span:first-child{grid-column:1/-1}}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:14px;color:var(--muted);margin:6px 4px 0}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.given{background:var(--panel);border-radius:10px;padding:8px 14px;font-size:15px;margin:8px 0}
+footer{font-size:14px;color:var(--muted)}
+/* svg */
+.gl{stroke:var(--grid);stroke-width:1}
+.thin{stroke:var(--ink);stroke-width:1.4;fill:none}
+.dashl{stroke:var(--muted);stroke-width:1.4;stroke-dasharray:6 5;fill:none}
+.tx{fill:var(--ink);font:15px "Atkinson Hyperlegible",sans-serif}
+.txs{fill:var(--muted);font:13px "Atkinson Hyperlegible",sans-serif}
+.txb{fill:var(--ink);font:600 15px Lexend,sans-serif}
+.fel{fill:var(--el)}.feb{fill:var(--eb)}.feth{fill:var(--eth)}.fesp{fill:var(--esp)}
+.tel{fill:var(--el);font:600 14px Lexend,sans-serif}.teb{fill:var(--eb);font:600 14px Lexend,sans-serif}.teth{fill:var(--eth);font:600 14px Lexend,sans-serif}
+.ges{fill:none;stroke:var(--ink);stroke-width:2;stroke-dasharray:5 4}
+.ball{fill:light-dark(#f2b632,#f2b632);stroke:var(--ink);stroke-width:1.5}
+.ghost{opacity:.35}
+.ground{fill:light-dark(#e9edf3,#202736)}
+.track{fill:none;stroke:var(--ink);stroke-width:3;stroke-linecap:round}
+.hit{fill:transparent;cursor:pointer}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.bar i{transition:none}}
+@media(max-width:600px){body{font-size:16px}.prog .bar{width:80px}nav a{padding:6px}}
+.herohead{display:flex;gap:24px;align-items:flex-start;justify-content:space-between}
+.qrbtn{flex:none;width:136px;background:#fff;border:0;border-radius:12px;padding:8px 8px 4px;cursor:pointer;color:#1b1e27;font:600 12px Lexend,sans-serif;text-align:center}
+.qrbtn svg{display:block;width:120px;height:120px}
+.qrbtn:hover{outline:3px solid #ff5c50}
+dialog.qrdlg{border:0;border-radius:18px;padding:24px;background:#fff;color:#1b1e27;text-align:center;max-width:95vw}
+dialog.qrdlg::backdrop{background:rgba(8,10,16,.8)}
+dialog.qrdlg svg{width:min(70vh,80vw);height:min(70vh,80vw);display:block;margin:0 auto}
+dialog.qrdlg p{font:600 clamp(16px,2.4vw,26px) Lexend,sans-serif;margin:12px 0;word-break:break-all}
+dialog.qrdlg button{background:#f3f6fa;color:#1b1e27}
+@media(max-width:640px){.qrbtn{width:96px}.qrbtn svg{width:80px;height:80px}}
+@media print{nav,.qrbtn{display:none}}
+:root{--ech:light-dark(#8a5a2b,#e0a86a);--eelk:light-dark(#0b7f96,#4fd0e8);--estr:light-dark(#a37a00,#ffd54a)}
+.fech{fill:var(--ech)}.feelk{fill:var(--eelk)}.festr{fill:var(--estr)}
+.part{border-left:4px solid var(--line);padding:4px 0 4px 14px;margin:16px 0}
+.part.done{border-color:var(--ok)}
+.part.done>h4::after{content:"  ✓";color:var(--ok)}
+.tip:empty{display:none}
+.lvl{display:inline-block;font:600 14px Lexend,system-ui,sans-serif;padding:4px 10px;border-radius:20px;background:var(--bg);border:1px solid var(--line);margin-bottom:10px}
+.readout{font:600 18px Lexend,system-ui,sans-serif;color:var(--acc)}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 16px}
+.tabs button{display:flex;align-items:center;gap:8px;font-size:15px;padding:8px 12px}
+.tabs button i{width:14px;height:14px;border-radius:50%;display:inline-block;flex:none}
+.tabs button[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.tabs button.solved::after{content:"✓";color:var(--ok);font-weight:700}
+.tabs button[aria-pressed=true].solved::after{color:var(--bg)}
+.exp{background:var(--bg);border:1px dashed var(--line);border-radius:12px;padding:12px 16px;margin:10px 0}
+.exp h4{color:var(--acc)}
+.exp ol,.exp ul{margin:.3em 0 .6em;padding-left:1.3em}
+.safe{color:var(--bad);font-weight:600}
+.badge{display:inline-block;font:600 13px Lexend,sans-serif;padding:2px 10px;border-radius:20px;color:#fff;margin-bottom:6px}
+table.mess{border-collapse:collapse;font-size:15px;width:100%}
+table.mess th,table.mess td{border:1px solid var(--line);padding:5px 8px;text-align:center}
+table.mess th{background:var(--panel)}
+.scroll{overflow-x:auto}
+.formula{font:600 clamp(22px,3vw,30px) Lexend,sans-serif;margin:.3em 0}
+.fig.narrow{max-width:760px}
+input[inputmode=decimal]{width:110px;text-align:right}
+textarea{width:100%;font:16px "Atkinson Hyperlegible",sans-serif;padding:8px 10px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink);resize:vertical}
+.why .sol{border-left:4px solid var(--ok)}
+.why label.cbl{display:flex;gap:8px;align-items:center;font-size:15px;margin:6px 0;cursor:pointer}
+.mc button:disabled{opacity:.55;cursor:not-allowed}
+.mc button.bad:disabled{opacity:1}
+details.exp summary{cursor:pointer;font:600 16px Lexend,sans-serif;color:var(--acc)}
+.steprow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 12px;align-items:center;padding:6px 0;border-bottom:1px solid var(--line)}
+#protokoll{display:none}
+@media print{body.printprot>*:not(#protokoll){display:none!important}#protokoll{display:block!important;padding:20px;color:#000;background:#fff}#protokoll h2{margin:0 0 10px}#protokoll .pr{border:1px solid #999;padding:8px 12px;margin:8px 0;min-height:70px;white-space:pre-wrap}}
+.massbtns{display:flex;gap:8px;flex-wrap:wrap}
+.two>*{min-width:0}svg.board{overflow:hidden}.card select{max-width:100%}
+:root{--f1:light-dark(#1d62c9,#6aa5ff);--f2:light-dark(#8a3fc4,#c08cff);--f3:light-dark(#0b7f96,#4fd0e8);--fr:light-dark(#d4381e,#ff7a5c);
+--fg:light-dark(#1d8a4a,#4fd27f);--fh:light-dark(#d4381e,#ff7a5c);--fnn:light-dark(#1d62c9,#6aa5ff);--grid2:light-dark(#e8eff8,#1c2330)}
+.gl2{stroke:var(--grid2);stroke-width:1}
+svg.board{display:block;width:100%;height:auto;user-select:none;-webkit-user-select:none;border-radius:8px}
+svg.board:focus-visible{outline:3px solid var(--acc2);outline-offset:2px}
+.hdl{fill:color-mix(in srgb,var(--paper) 55%,transparent);stroke-width:3;cursor:grab}
+.hdl.act{stroke-dasharray:5 3;stroke-width:3.5}
+.flab{font:italic 700 20px "Atkinson Hyperlegible",serif}
+.rayl{stroke:var(--muted);stroke-width:1.6;stroke-dasharray:2 5;fill:none}
+.ruler{font-size:15px;color:var(--muted);margin:6px 4px 0}
+.ruler b{color:var(--ink)}
+.afb{display:inline-block;font:600 12px Lexend,sans-serif;padding:1px 8px;border-radius:20px;border:1px solid var(--line);color:var(--muted)}
+.vt .fig{max-width:720px;position:relative}.vt-max{position:absolute;top:6px;right:6px;z-index:2;padding:4px 10px;font-size:14px;min-height:0}html.noscroll,html.noscroll body{overflow:hidden}.vt.vtmax{position:fixed;inset:0;z-index:1000;margin:0;border-radius:0;overflow:auto;overscroll-behavior:contain;background:var(--bg,var(--paper));padding:10px 10px 24px}.vt.vtmax .fig{max-width:none!important;margin:0}.vt.vtmax svg.board{max-height:calc(100dvh - 150px);margin:0 auto}
+.fig svg.board{margin:0 auto}
+.vt .numq input{width:110px}
+.vt-ask{border-top:1px dashed var(--line);margin-top:10px;padding-top:6px}
+.lvlrow{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:14px;color:var(--muted);margin:4px 0 14px}
+.trig{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:8px 0}
+.trig div{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:8px 12px;text-align:center}
+.stepbox{min-height:5.5em}
+table.mess td.l{text-align:left}
+.pill{display:inline-block;padding:1px 9px;border-radius:20px;font:600 14px Lexend,sans-serif;color:#fff}
+.multi label{max-width:100%}
+.ex{display:none}
+.sim-read{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:10px 0}
+.sim-read div{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:6px 10px;font-size:15px}
+.sim-read b{display:block;font:600 19px Lexend,sans-serif}
+
+a.lnk{text-decoration:none;display:inline-flex;align-items:center;font:600 16px Lexend,sans-serif;padding:8px 16px;border-radius:10px;border:1px solid var(--line);color:var(--ink)}
+a.lnk.nx{background:var(--acc);border-color:var(--acc);color:light-dark(#fff,#11141b)}
+
+/* ===== Impuls-Lernpfade: Ergänzungen ===== */
+:root{--acc:var(--gst-acc,#3f6267);--acc2:var(--gst-acc,#3f6267);--pg:light-dark(#b8322a,#ff8a7a);--ekin:light-dark(#1d8a4a,#4fd27f);--eth:light-dark(#d4381e,#ff7a5c)}
+/* Heftaufschrieb deutlich hervorheben */
+.heftbox{border:2px solid var(--gst-acc);border-radius:14px;margin:22px 0;background:var(--paper);overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.08)}
+.hb-head{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;background:var(--gst-acc);color:var(--gst-on-acc);padding:10px 18px}
+.hb-head b{font:700 19px "Source Sans 3",Lexend,sans-serif;letter-spacing:.02em;display:flex;align-items:center;gap:10px}
+.hb-head b::before{content:"";width:14px;height:14px;background:var(--gst-mark);flex:none}
+.hb-head small{font-size:14px;opacity:.92}
+.heftbox .heft{border:0;border-radius:0}
+.hb-foot{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;padding:10px 18px;border-top:1px dashed var(--line);background:var(--panel);font-size:15px}
+.heftbox.done{border-color:var(--ok)}
+.heftbox.done .hb-done{background:var(--okbg);border-color:var(--ok)}
+.insheft{display:inline-flex;align-items:center;gap:6px;font:600 13px "Source Sans 3",Lexend,sans-serif;padding:2px 10px;border-radius:20px;border:1px solid var(--gst-acc);color:var(--gst-acc);vertical-align:middle;margin-left:6px;white-space:nowrap}
+.insheft::before{content:"";width:8px;height:8px;background:var(--gst-mark)}
+nav a.heftlink span{background:var(--gst-mark);color:#2f393a}
+.heft .fig2{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin:8px 0}
+.heft .fig2 svg{width:100%;height:auto;display:block;background:var(--paper);border:1px solid var(--line);border-radius:8px}
+.heft table{border-collapse:collapse;margin:6px 0;font-size:16px}.heft td,.heft th{border:1px solid var(--line);padding:4px 10px;background:var(--paper)}
+.stepper .stepbox{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:8px 0}
+.stepper .stepbox p{margin:.3em 0}
+.lab-tbl{border-collapse:collapse;width:100%;font-size:15px}.lab-tbl th,.lab-tbl td{border:1px solid var(--line);padding:5px 8px;text-align:center}.lab-tbl th{background:var(--panel)}
+.lab-tbl td.sum{font-weight:700}
+.seg{display:inline-flex;flex-wrap:wrap;gap:6px}
+.tc1{color:var(--f1)}.tc2{color:var(--f2)}.tcg{color:var(--pg)}
+.ctrl{grid-template-columns:repeat(2,minmax(0,1fr))}
+/* Handy: Navigation in einer Zeile, Simulation mit Reglern auf einen Bildschirm */
+@media(max-width:600px){
+ nav .wrap{flex-wrap:nowrap;gap:0 2px;padding:6px 8px}
+ nav a{font-size:0;padding:6px 3px;white-space:nowrap}
+ nav a span{font-size:13px;margin-right:0}
+ nav a[href="/"]{font-size:0;gap:0}
+ nav .prog{margin-left:auto;font-size:13px;white-space:nowrap}nav .prog .bar{width:56px}
+ .hero>.wrap>svg,.hero .phases{display:none}
+ .ctrl{grid-template-columns:1fr 1fr;gap:0 12px}
+ .ctrl label{font-size:13px}
+ .ctrl input[type=range]{min-height:30px}
+ .toggles{gap:6px;margin:6px 0}.toggles label{min-height:36px;padding:4px 10px;font-size:14px}
+ .stick .row{margin:6px 0;gap:6px}.stick .row button{padding:6px 10px;min-height:38px;font-size:14px}
+ .fig svg:not(.board) .txb{font-size:21px}.fig svg:not(.board):not(#ramp) .txs{font-size:18px}
+ .sim-read{grid-template-columns:1fr 1fr;gap:6px;margin:6px 0}.sim-read div{font-size:13px;padding:4px 8px}.sim-read b{font-size:16px}
+}
+/* Handy: Fragen über den Eingabefeldern statt daneben, Tabellen kompakt */
+@media(max-width:600px){
+ .hero h1{font-size:clamp(24px,7.4vw,30px);hyphens:auto;-webkit-hyphens:auto;overflow-wrap:break-word}
+ .tf .item,.numq,.steprow{grid-template-columns:minmax(0,1fr);gap:6px}
+ .tf .btns{justify-content:flex-end}
+ .numq>.unit{justify-self:end}
+ .steprow select{width:100%}
+ .lab-tbl,table.mess,.heft table{font-size:13px}
+ .lab-tbl th,.lab-tbl td,table.mess th,table.mess td,.heft td,.heft th{padding:4px 5px}
+ .stick .row .caption{font-size:13px}.stick .row button.lPre{padding:6px 10px;min-width:0}
+}
+.lbl{paint-order:stroke;stroke:var(--paper);stroke-width:4px;stroke-linejoin:round}
+
+
+
+
+/* ===== Klasse 8 · Kräfte: Ergänzungen ===== */
+.big{font-size:18px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.labbox{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:10px 12px}
+.kv{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin:8px 0}
+.kv div{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:6px 10px;font-size:15px}
+.kv b{display:block;font:600 19px "Source Sans 3",Lexend,sans-serif}
+.lab-tbl input{width:80px;text-align:right;min-height:36px;font:15px "Atkinson Hyperlegible",sans-serif;padding:4px 6px;border-radius:6px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}
+.lab-tbl input.ok{border-color:var(--ok);background:var(--okbg)}.lab-tbl input.bad{border-color:var(--bad);background:var(--badbg)}
+.fehler{border-left:4px solid var(--gst-mark);background:var(--panel);border-radius:8px;padding:8px 14px;margin:10px 0;font-size:15px}
+.pic{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:10px 0}
+.pic figure{margin:0;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:8px}
+.pic svg{width:100%;height:auto;display:block}
+.pic figcaption{font-size:14px;color:var(--muted);margin:4px 2px 0}
+
+#ball,#press{background:light-dark(#f4f7f2,#1f2627)}
+.musterfig{margin:6px 0 14px;max-width:460px}
+.musterfig svg{display:block;width:100%;height:auto}
+.musterfig .tx{font:5px "Atkinson Hyperlegible",system-ui,sans-serif}
+.musterfig figcaption{font-size:14px;color:var(--muted)}
+
+[hidden]{display:none!important}
+/* ===== Technisches Zeichnen: gemeinsame Bausteine =====
+   Fachfarben Technisches Zeichnen (einheitlich in allen TZ-Lernpfaden):
+   Körperflächen in Graugrün-Tönen (--kf vorn, --kt oben, --ks seitlich), Zeichenlinien in Tinte (--ink),
+   Rückmeldung: fehlt = Akzentgelb (--gst-mark), falscher Linientyp = --wrongc, zu viel = --bad. */
+:root{--kf:light-dark(#8fb3b8,#4f7479);--kt:light-dark(#d2e1e3,#76989d);--ks:light-dark(#b0c9cc,#5f8287);--kedge:light-dark(#1f2829,#0d1213);
+ --wrongc:light-dark(#8a3fc4,#c08cff);--pen:var(--ink);--paperb:light-dark(#fdfefe,#1c2324);--karo:light-dark(#d7e2e4,#2e3a3c);--karo2:light-dark(#b9c9cc,#3f4d50)}
+.tz-f2{fill:var(--kf)}.tz-f1{fill:var(--kt)}.tz-f0{fill:var(--ks)}.tz-f0,.tz-f1,.tz-f2{stroke:var(--kedge);stroke-opacity:.22;stroke-width:.025;stroke-linejoin:round}
+.tz-e{stroke:var(--kedge);stroke-width:.06;fill:none;stroke-linecap:round}
+.tz-arr{stroke:var(--gst-mark);stroke-width:.12;fill:none}.tz-arrh{fill:var(--gst-mark)}
+.tz-arrc{fill:var(--gst-acc)}.tz-arrt{fill:var(--gst-on-acc);font:700 .46px "Source Sans 3",sans-serif}
+.tz-v{stroke:var(--pen);stroke-width:.75;stroke-linecap:round;fill:none}
+.tz-h{stroke:var(--pen);stroke-width:.4;stroke-dasharray:2.2 1.3;fill:none}
+.tz-ax{stroke:var(--muted);stroke-width:.45}.tz-hl{stroke:var(--muted);stroke-width:.25;opacity:.8}
+.tz-lbl{font:700 5px "Source Sans 3",sans-serif;fill:var(--gst-acc)}
+.tz-mini{display:block;width:100%;height:auto;max-height:150px}
+.tz-mini .tz-v,.tz-dt .tz-v,.tz-sp .tz-v{stroke-width:2.2px;vector-effect:non-scaling-stroke}
+.tz-mini .tz-h,.tz-dt .tz-h,.tz-sp .tz-h{stroke-width:1.2px;stroke-dasharray:6 4;vector-effect:non-scaling-stroke}
+.tz-dt{display:block;width:100%;height:auto}
+.tz-dt .tz-ax,.tz-dt .tz-hl{vector-effect:non-scaling-stroke;stroke-width:1px}.tz-dt .tz-ax{stroke-width:1.4px}
+.tz-paper{fill:var(--paperb)}.tz-g{stroke:var(--karo);stroke-width:.18}
+svg.tz-board{display:block;width:100%;height:auto;touch-action:none;user-select:none;-webkit-user-select:none;border:1px solid var(--line);border-radius:8px;cursor:crosshair;background:var(--paperb)}
+svg.tz-board.erasing{cursor:pointer}
+.tz-snap{fill:var(--gst-mark);stroke:var(--ink);stroke-width:.25}
+.tz-prev{opacity:.7}
+.tz-len{fill:var(--ink);font-family:"Source Sans 3",sans-serif;font-weight:700;paint-order:stroke;stroke:var(--paperb);stroke-width:1px}
+.tz-miss{stroke:var(--gst-mark);stroke-width:2.2;stroke-linecap:round;opacity:.85}
+.tz-wrong{stroke:var(--wrongc);stroke-width:2;stroke-linecap:round;opacity:.7}
+.tz-extra{stroke:var(--bad);stroke-width:1.6;stroke-linecap:round;opacity:.75}
+.tz-areal{font:600 4.2px "Source Sans 3",sans-serif;fill:var(--muted)}
+svg.tz-3d{display:block;width:100%;height:auto;touch-action:none;cursor:grab;border-radius:10px;background:radial-gradient(circle at 50% 40%,var(--paper),var(--panel))}
+svg.tz-3d:active{cursor:grabbing}
+.tz-tools{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:8px 0}
+.tz-tools button{min-height:40px;padding:6px 12px;font-size:15px;display:inline-flex;align-items:center;gap:6px}
+.tz-tools .sep{width:1px;align-self:stretch;background:var(--line);margin:0 2px}
+.tz-tools button[aria-pressed=true]{background:var(--gst-acc);border-color:var(--gst-acc);color:var(--gst-on-acc)}
+.tz-tools svg.ls{width:30px;height:10px}
+.tz-legend{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:14px;color:var(--muted);margin:6px 2px}
+.tz-legend i{display:inline-block;width:18px;height:5px;border-radius:3px;margin-right:6px;vertical-align:2px}
+.tz-res{margin:8px 0}
+.tz-res ul{margin:.3em 0;padding-left:1.2em}
+.tz-res li.ok{color:var(--ok)}.tz-res li.bad{color:var(--bad)}
+.ws{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:20px;align-items:start}
+@media(max-width:900px){.ws{grid-template-columns:minmax(0,1fr)}}
+.ws .side{position:sticky;top:70px}
+@media(max-width:900px){.ws .side{position:static}}
+.vbtns{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.vbtns button{min-height:38px;padding:4px 12px;font-size:15px}
+.vbtns b{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--gst-acc);color:var(--gst-on-acc);font-size:13px;margin-right:4px}
+.bodytabs{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 12px}
+.bodytabs button{min-height:40px;padding:6px 12px;font-size:15px}
+.bodytabs button[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.bodytabs button.solved::after{content:" ✓";color:var(--ok);font-weight:700}
+.bodytabs button[aria-pressed=true].solved::after{color:var(--bg)}
+.views3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:10px 0}
+.views3 figure{margin:0;background:var(--paperb);border:1px solid var(--line);border-radius:10px;padding:10px}
+.views3 figcaption{font-size:14px;color:var(--muted);margin-top:6px;text-align:center}
+.views3 select{width:100%;margin-top:6px}
+@media(max-width:560px){.views3{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.choice3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:10px 0}
+.choice3 button{display:block;padding:10px;background:var(--paperb);text-align:center;font-weight:600}
+.choice3 button .tz-mini{max-height:120px;margin-bottom:6px}
+.choice3 button.ok{background:var(--okbg);border-color:var(--ok)}.choice3 button.bad{background:var(--badbg);border-color:var(--bad)}
+.choice3 button:disabled{opacity:.55;cursor:not-allowed}.choice3 button.bad:disabled{opacity:1}
+@media(max-width:560px){.choice3{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.pic3{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:10px 0}
+.pic3 figure{margin:0;background:var(--paperb);border:1px solid var(--line);border-radius:10px;padding:8px}
+.pic3 figure svg{display:block;width:100%;height:auto;max-height:140px}
+.pic3 figcaption{font-size:14px;color:var(--muted);margin-top:4px}
+.pic3 select{width:100%;margin-top:6px}
+.note{font-size:14px;color:var(--muted);border-left:3px solid var(--line);padding:2px 10px;margin:8px 0}
+.rules{counter-reset:r;list-style:none;padding:0;margin:8px 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:8px}
+.rules li{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:8px 12px 8px 44px;position:relative;font-size:16px}
+.rules li::before{counter-increment:r;content:counter(r);position:absolute;left:10px;top:8px;width:24px;height:24px;border-radius:50%;background:var(--gst-acc);color:var(--gst-on-acc);display:grid;place-items:center;font:700 13px "Source Sans 3",sans-serif}
+.dl{stroke:var(--pen);fill:none}
+.dl.b{stroke-width:2.4}.dl.s{stroke-width:1.1}.dl.d{stroke-width:1.1;stroke-dasharray:7 4}.dl.c{stroke-width:1.1;stroke-dasharray:16 3 2 3}
+.dimt{fill:var(--pen);font:15px "Atkinson Hyperlegible",sans-serif}
+.arrowf{fill:var(--pen)}
+.hitz{fill:transparent;stroke:transparent;stroke-width:14;cursor:pointer}
+.hitz:hover,.hitz:focus-visible{stroke:color-mix(in srgb,var(--gst-mark) 35%,transparent)}
+.found{stroke:color-mix(in srgb,var(--ok) 45%,transparent)!important}
+.flash{stroke:color-mix(in srgb,var(--bad) 40%,transparent)!important}
+button:disabled{opacity:.5;cursor:not-allowed}
+.lab-wrap{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:22px;align-items:start}
+@media(max-width:900px){.lab-wrap{grid-template-columns:minmax(0,1fr)}}
+.lab-wrap>*{min-width:0}
+
+.herofig{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1fr);gap:20px;align-items:center;max-width:760px;margin:18px 0 6px}
+.herofig svg{display:block;width:100%;height:auto;max-height:230px}
+.hero{--pen:#e9edee;--paperb:transparent;--muted:#9fb0b3;--gst-acc:#FCBE00}
+.hero .tz-lbl{fill:#FCBE00}
+@media(max-width:600px){.herofig{display:none}}
+.lego svg{display:block;width:100%;height:auto}
+.twobodies{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:8px 0}
+.twobodies figure{margin:0;background:var(--paperb);border:1px solid var(--line);border-radius:10px;padding:8px}
+.twobodies figcaption{font-size:14px;color:var(--muted);text-align:center}
+.twobodies .tz-mini{max-height:90px}
+.livev{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:8px}
+.livev figure{margin:0;border:2px solid var(--line);border-radius:10px;padding:6px;background:var(--paperb);transition:border-color .3s}
+.livev figure.on{border-color:var(--gst-mark)}
+.livev figcaption{font-size:13px;color:var(--muted);text-align:center}
+.livev .tz-mini{max-height:96px}
+.axfig svg{display:block;width:100%;height:auto;max-width:440px;margin:0 auto}
+.axfig .tz-ax{stroke-width:.7}.axfig .tz-hl{stroke-width:.45}
+.axfig .hl-on{stroke:var(--gst-mark)!important;stroke-width:1.3!important;opacity:1}
+.place text{font:600 5px "Source Sans 3",sans-serif;fill:var(--muted)}
+.ablese svg{display:block;width:100%;height:auto;max-width:420px}
+</style>
+<link rel="stylesheet" href="/brand/brand.css">
+<link rel="stylesheet" href="/katex/katex.min.css">
+<script defer src="/katex/katex.min.js"></script>
+<script defer src="/katex/formel.js"></script>
+<script defer src="/brand/feedback.js"></script>
+<script defer src="/brand/mischen.js"></script>
+</head>
+<body>
+<nav aria-label="Phasen"><div class="wrap">
+<a href="/" title="Alle Lernpfade">← Übersicht</a>
+<a href="#einstieg"><span>1</span>Einstieg</a>
+<a href="#entdecken"><span>2</span>Entdecken</a>
+<a href="#festhalten"><span>3</span>Festhalten</a>
+<a href="#ueben"><span>4</span>Üben</a>
+<div class="prog"><span id="progtxt">0 / 0 gelöst</span><div class="bar"><i id="progbar"></i></div></div>
+</div></nav>
+
+<header class="band hero"><div class="wrap">
+<div class="herohead"><div><h1>Technisches Zeichnen · Dreitafelprojektion</h1>
+<p>Ein Bild von einem Körper zeigt nie alles. Darum zeichnet man ihn in der Technik aus drei Richtungen: von vorn, von links und von oben. Hier drehst du Körper in 3D, entdeckst die drei Ansichten und zeichnest sie in der Zeichen-Werkstatt selbst.</p></div><button class="qrbtn" id="qrOpen" title="QR-Code groß anzeigen"><svg role="img" aria-label="QR-Code: https://technik.physik.party/Technik8/dreitafelprojektion" viewBox="0 0 41 41" class="segno"><path fill="#fff" d="M0 0h41v41h-41z"/><path class="qrline" stroke="#000" d="M4 4.5h7m2 0h2m1 0h10m1 0h1m2 0h7m-33 1h1m5 0h1m2 0h1m1 0h1m1 0h6m1 0h1m1 0h1m1 0h1m1 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m2 0h3m2 0h1m4 0h1m1 0h1m2 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h4m2 0h1m1 0h2m1 0h1m2 0h3m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h2m2 0h1m2 0h1m1 0h1m1 0h2m2 0h1m2 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m1 0h3m1 0h1m1 0h5m1 0h2m4 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-25 1h2m1 0h1m3 0h1m4 0h3m1 0h1m-25 1h1m1 0h5m3 0h1m1 0h4m1 0h2m3 0h1m1 0h1m1 0h5m-29 1h3m3 0h3m1 0h1m5 0h4m1 0h1m2 0h2m1 0h2m1 0h1m-27 1h2m1 0h4m2 0h2m3 0h3m1 0h2m2 0h1m1 0h2m-32 1h1m3 0h1m2 0h1m1 0h1m2 0h1m1 0h2m2 0h2m1 0h2m1 0h1m3 0h3m-30 1h1m1 0h1m1 0h4m1 0h1m1 0h1m4 0h1m4 0h4m1 0h3m2 0h1m-33 1h1m1 0h1m4 0h1m3 0h1m2 0h7m2 0h1m1 0h2m2 0h1m1 0h2m-32 1h1m4 0h1m4 0h1m1 0h1m3 0h1m6 0h3m1 0h1m2 0h1m-32 1h1m1 0h4m2 0h2m3 0h2m1 0h1m1 0h2m1 0h2m2 0h2m1 0h3m-30 1h1m1 0h4m1 0h1m2 0h2m3 0h2m1 0h2m3 0h2m1 0h2m3 0h1m-29 1h1m2 0h2m2 0h3m2 0h2m1 0h2m2 0h1m1 0h3m1 0h2m1 0h1m-33 1h1m1 0h2m2 0h1m1 0h1m1 0h2m2 0h2m2 0h1m1 0h3m4 0h2m1 0h2m-32 1h2m3 0h1m2 0h1m2 0h3m1 0h2m4 0h1m1 0h2m1 0h7m-33 1h1m2 0h9m1 0h3m1 0h1m1 0h1m2 0h1m2 0h1m1 0h3m-30 1h6m3 0h1m5 0h1m2 0h3m1 0h2m2 0h2m4 0h1m-33 1h1m3 0h3m3 0h2m1 0h1m1 0h1m2 0h1m1 0h1m1 0h1m2 0h1m1 0h1m1 0h3m-32 1h1m2 0h2m5 0h1m1 0h1m2 0h1m2 0h4m2 0h1m2 0h5m-32 1h1m2 0h5m3 0h2m1 0h4m1 0h2m1 0h7m3 0h1m-25 1h1m3 0h3m1 0h7m1 0h1m3 0h1m1 0h1m1 0h1m-33 1h7m4 0h1m3 0h1m1 0h1m3 0h1m1 0h2m1 0h1m1 0h1m1 0h2m-32 1h1m5 0h1m1 0h1m2 0h1m1 0h1m7 0h1m1 0h2m3 0h4m-32 1h1m1 0h3m1 0h1m1 0h2m2 0h4m1 0h1m1 0h1m2 0h1m1 0h6m1 0h1m-32 1h1m1 0h3m1 0h1m1 0h2m1 0h1m1 0h1m1 0h1m2 0h8m2 0h1m2 0h2m-33 1h1m1 0h3m1 0h1m1 0h3m1 0h2m1 0h1m2 0h1m2 0h1m1 0h2m1 0h2m1 0h1m-30 1h1m5 0h1m3 0h4m2 0h1m2 0h1m1 0h1m3 0h1m2 0h1m1 0h1m-31 1h7m1 0h2m1 0h1m2 0h1m1 0h2m4 0h4m1 0h1m1 0h1m1 0h1"/></svg>
+QR groß zeigen</button></div>
+<div class="herofig" aria-hidden="true"><svg id="heroBody"></svg><svg id="heroViews"></svg></div>
+<div class="phases">
+<a href="#einstieg"><b>1 · Einstieg</b><small>Warum reicht eine Ansicht nicht?</small></a><a href="#entdecken"><b>2 · Entdecken</b><small>3D-Labor: Körper drehen, Ansichten A, B, C</small></a><a href="#festhalten"><b>3 · Festhalten</b><small>Lückentext und Regeln</small></a><a href="#ueben"><b>4 · Üben</b><small>Zeichen-Werkstatt mit 8 Körpern ★ bis ★★★</small></a>
+</div>
+</div></header>
+
+<!-- ============ 1 EINSTIEG ============ -->
+<section class="band" id="einstieg"><div class="wrap">
+<h2>1 · Einstieg: Ein Bild reicht nicht</h2>
+<p class="intro">In der Werkstatt soll jemand ein Teil genau nach deiner Zeichnung bauen. Dafür muss die Zeichnung <b>eindeutig</b> sein: Breite, Höhe und Tiefe und jede Kante müssen klar erkennbar sein.</p>
+<div class="two"><div>
+<div class="card"><div class="tag">Auftrag 1 · Der Legostein <span class="stars">★</span> <span class="afb">AFB I</span></div>
+<div class="lego fig"><svg viewBox="0 0 520 170" role="img" aria-label="Ein Legostein mit acht Noppen in drei Ansichten: Ansicht 1 und 2 zeigen Rechtecke mit kleinen Rechtecken obendrauf, Ansicht 3 zeigt ein Rechteck mit acht Kreisen.">
+<g class="dl s" style="stroke-width:1.6"><rect x="20" y="70" width="160" height="58"/><rect x="28" y="58" width="24" height="12"/><rect x="68" y="58" width="24" height="12"/><rect x="108" y="58" width="24" height="12"/><rect x="148" y="58" width="24" height="12"/>
+<rect x="215" y="70" width="80" height="58"/><rect x="223" y="58" width="24" height="12"/><rect x="263" y="58" width="24" height="12"/>
+<rect x="330" y="50" width="160" height="80"/><circle cx="350" cy="70" r="12"/><circle cx="390" cy="70" r="12"/><circle cx="430" cy="70" r="12"/><circle cx="470" cy="70" r="12"/><circle cx="350" cy="110" r="12"/><circle cx="390" cy="110" r="12"/><circle cx="430" cy="110" r="12"/><circle cx="470" cy="110" r="12"/></g>
+<text x="100" y="156" text-anchor="middle" class="dimt">Ansicht 1</text><text x="255" y="156" text-anchor="middle" class="dimt">Ansicht 2</text><text x="410" y="156" text-anchor="middle" class="dimt">Ansicht 3</text>
+</svg></div>
+<div class="part" data-task="e1"><h4>Ein Legostein mit <f-m>2 × 4</f-m> Noppen, aus drei Richtungen gezeichnet. In welcher Ansicht erkennst du, dass die Noppen rund sind?</h4>
+<div class="mc" data-correct="c" data-task="e1" data-tipp="Rund sind die Noppen nur, wenn du genau auf ihre Oberseite schaust."><button data-k="a" data-fb="Nein. Von vorn sieht eine Noppe aus wie ein Rechteck – genau wie ein kleiner Würfel.">Ansicht 1 (von vorn)</button><button data-k="b" data-fb="Nein. Auch von der Seite siehst du nur Rechtecke.">Ansicht 2 (von der Seite)</button><button data-k="c" data-fb="Richtig! Erst <b>von oben</b> erkennst du die Noppen als Kreise. Von vorn und von der Seite könnten es auch kleine Quader sein. Deshalb braucht man mehrere Ansichten.">Ansicht 3 (von oben)</button><p class="fb"></p></div></div>
+</div>
+</div><div>
+<div class="card"><div class="tag">Auftrag 2 · Gleiche Vorderansicht, andere Körper <span class="stars">★</span> <span class="afb">AFB I</span></div>
+<p>Ein Würfel und eine dünne Platte. Von vorn sehen beide gleich aus.</p>
+<div class="twobodies"><figure><svg class="tz-3d" id="eiW" style="max-height:150px" aria-label="Würfel, drehbar"></svg><div id="eiWv"></div><figcaption>Würfel: Vorderansicht</figcaption></figure><figure><svg class="tz-3d" id="eiP" style="max-height:150px" aria-label="Platte, drehbar"></svg><div id="eiPv"></div><figcaption>Platte: Vorderansicht</figcaption></figure></div>
+<div class="part" data-task="e2"><h4>Was kannst du aus der Vorderansicht allein nicht ablesen?</h4>
+<div class="mc" data-correct="b" data-task="e2" data-tipp="Vergleiche: Worin unterscheiden sich Würfel und Platte? Dreh die beiden Körper mit der Maus oder dem Finger."><button data-k="a" data-fb="Nein. Die Breite siehst du in der Vorderansicht genau.">die Breite</button><button data-k="b" data-fb="Richtig! Die <b>Tiefe</b> zeigt die Vorderansicht nicht. Dafür braucht man eine zweite Ansicht, z. B. von der Seite oder von oben.">die Tiefe</button><button data-k="c" data-fb="Nein. Die Höhe siehst du in der Vorderansicht genau.">die Höhe</button><p class="fb"></p></div></div>
+</div>
+</div></div>
+</div></section>
+
+<!-- ============ 2 ENTDECKEN ============ -->
+<section class="band alt" id="entdecken"><div class="wrap">
+<h2>2 · Entdecken: Das 3D-Labor</h2>
+<p class="intro">Dreh den Körper mit der Maus oder dem Finger (am PC auch mit den Pfeiltasten). Die Pfeile zeigen die drei Blickrichtungen. Mit den Knöpfen schaust du genau aus einer Richtung auf den Körper – vergleiche mit den Ansichten darunter. Ein Würfel des Körpers ist 10 mm groß.</p>
+<div class="two"><div>
+<div class="fig"><svg class="tz-3d" id="lab3d" aria-label="Drehbarer Körper mit den Blickrichtungen A, B und C"></svg></div>
+<div class="vbtns" data-fest><button data-v="A"><b>A</b>von vorn</button><button data-v="B"><b>B</b>von links</button><button data-v="C"><b>C</b>von oben</button><button data-v="schraeg">schräg</button></div>
+<div class="bodytabs" id="labTabs" data-fest></div>
+</div><div class="stick">
+<div class="livev" id="labViews"></div>
+<p class="caption">Die drei Ansichten des Körpers. Gestrichelt: Kanten, die man aus dieser Richtung nicht sieht (verdeckte Kanten).</p>
+<div class="card" style="margin-top:12px"><div class="tag">Auftrag 3 · Beobachte im Labor <span class="stars">★</span> <span class="afb">AFB I</span></div>
+<div class="part" data-task="q1"><h4>Wähle den Körper „Treppe“ und klicke auf B. Was siehst du in der Seitenansicht?</h4>
+<div class="mc" data-correct="a" data-task="q1" data-tipp="Bei B schaust du von links auf die Treppe. Die Stufen liegen hintereinander."><button data-k="a" data-fb="Richtig! Von links siehst du die Stirnseiten der drei Stufen als drei Rechtecke übereinander. Die Treppenform siehst du nur in der Vorderansicht A.">ein Rechteck mit zwei waagrechten Linien</button><button data-k="b" data-fb="Nein. Die Treppenform siehst du nur, wenn du von vorn schaust.">die Treppenform</button><button data-k="c" data-fb="Nein. Drei senkrechte Streifen siehst du von oben (Draufsicht C).">drei senkrechte Streifen</button><p class="fb"></p></div></div>
+<div class="part" data-task="q2"><h4>Wähle den Körper „Tunnel“. Warum ist in der Vorderansicht A ein Teil gestrichelt?</h4>
+<div class="mc" data-correct="b" data-task="q2" data-tipp="Dreh den Tunnel so, dass du von hinten und von unten darauf schaust."><button data-k="a" data-fb="Nein. Die Strichlinie zeigt keine Hilfslinie, sondern echte Kanten.">Dort ist eine Hilfslinie zum Abmessen.</button><button data-k="b" data-fb="Richtig! Der Tunnel ist hinten unten im Körper. Von vorn ist er <b>verdeckt</b>. Verdeckte Kanten zeichnet man als <b>Strichlinie</b>.">Der Tunnel liegt hinten. Seine Kanten sieht man von vorn nicht, sie sind verdeckt.</button><button data-k="c" data-fb="Nein. Dort ist kein Loch durch den ganzen Körper. Dreh ihn und schau von hinten.">Dort geht ein Loch ganz durch den Körper.</button><p class="fb"></p></div></div>
+</div>
+</div></div>
+
+<div class="two" style="margin-top:18px"><div>
+<div class="card"><div class="tag">Auftrag 4 · Wo liegt welche Ansicht? <span class="stars">★</span> <span class="afb">AFB I</span></div>
+<p>Auf dem Blatt hat jede Ansicht ihren festen Platz. Ordne zu.</p>
+<div class="axfig"><svg id="placeFig" viewBox="0 0 150 120" role="img" aria-label="Achsenkreuz mit drei Feldern: oben links, oben rechts und unten links. Unten rechts liegt die Spiegelachse."></svg></div>
+<div class="selbox part" data-task="q3" data-fb="Richtig! <b>A</b> (Vorderansicht) oben links, <b>B</b> (Seitenansicht, Blick von links) rechts daneben auf gleicher Höhe, <b>C</b> (Draufsicht) unter A. Unten rechts liegt nur die Spiegelachse.">
+<div class="steprow"><span>Feld 1 (oben links)</span><select data-a="A" aria-label="Feld 1"><option value="">…</option><option value="A">Vorderansicht A</option><option value="B">Seitenansicht B</option><option value="C">Draufsicht C</option></select></div>
+<div class="steprow"><span>Feld 2 (oben rechts)</span><select data-a="B" aria-label="Feld 2"><option value="">…</option><option value="A">Vorderansicht A</option><option value="B">Seitenansicht B</option><option value="C">Draufsicht C</option></select></div>
+<div class="steprow"><span>Feld 3 (unten links)</span><select data-a="C" aria-label="Feld 3"><option value="">…</option><option value="A">Vorderansicht A</option><option value="B">Seitenansicht B</option><option value="C">Draufsicht C</option></select></div>
+<div class="row"><button class="primary sel-check">Prüfen</button></div><p class="fb sfb"></p></div>
+</div>
+</div><div>
+<div class="card"><div class="tag">Auftrag 5 · Welche Ansicht ist das? <span class="stars">★★</span> <span class="afb">AFB II</span></div>
+<div class="mitbild"><svg class="tz-3d" id="q4body" style="width:150px;flex:none" aria-label="Winkel, drehbar"></svg><p>Hier siehst du den Körper „Winkel“ und seine drei Ansichten in falscher Reihenfolge. Ordne jeder Ansicht den richtigen Buchstaben zu.</p></div>
+<div class="selbox part" data-task="q4" data-fb="Richtig! Von vorn (A) siehst du das L. Von links (B) siehst du das niedrige Teil vorn und dahinter das hohe Teil. Von oben (C) siehst du zwei Flächen: unten die Oberseite des niedrigen Teils, rechts das hohe Teil.">
+<div class="views3" data-fest><figure><div id="q4v1"></div><select data-a="B" aria-label="Ansicht 1"><option value="">…</option><option value="A">A · Vorderansicht</option><option value="B">B · Seitenansicht</option><option value="C">C · Draufsicht</option></select></figure><figure><div id="q4v2"></div><select data-a="C" aria-label="Ansicht 2"><option value="">…</option><option value="A">A · Vorderansicht</option><option value="B">B · Seitenansicht</option><option value="C">C · Draufsicht</option></select></figure><figure><div id="q4v3"></div><select data-a="A" aria-label="Ansicht 3"><option value="">…</option><option value="A">A · Vorderansicht</option><option value="B">B · Seitenansicht</option><option value="C">C · Draufsicht</option></select></figure></div>
+<div class="row"><button class="primary sel-check">Prüfen</button></div><p class="fb sfb"></p></div>
+</div>
+</div></div>
+
+<div class="card stepper" data-task="q5"><div class="tag">Auftrag 6 · Das Achsenkreuz in vier Schritten <span class="stars">★</span> <span class="afb">AFB I</span></div>
+<p>Bevor du zeichnest, legst du mit dem Achsenkreuz fest, wo jede Ansicht hinkommt. Klicke dich durch die Schritte.</p>
+<div class="two"><div class="axfig"><svg id="axFig" viewBox="0 0 150 150" role="img" aria-label="Achsenkreuz Schritt für Schritt"></svg></div><div>
+<div class="steps"></div>
+<div class="stepbox"><p><b>Schritt 1 · Achsen zeichnen:</b> Zeichne die X-Achse (waagrecht) und die Y-Achse (senkrecht) mittig auf das Blatt.</p></div>
+<div class="stepbox"><p><b>Schritt 2 · Hilfslinien:</b> Zeichne im Abstand von <b>10 mm</b> zu beiden Achsen je eine Hilfslinie, etwas dünner als die Achsen.</p></div>
+<div class="stepbox"><p><b>Schritt 3 · Rand frei lassen:</b> Alle Linien enden etwa <b>20 bis 30 mm</b> vor dem Blattrand.</p></div>
+<div class="stepbox"><p><b>Schritt 4 · Spiegelachse:</b> Zeichne unten rechts eine Linie im <b>45°-Winkel</b>. Mit ihr überträgst du die Tiefe von der Draufsicht C in die Seitenansicht B.</p></div>
+<div class="row"><button class="st-back">← zurück</button><button class="st-next primary">weiter →</button></div>
+</div></div>
+</div>
+
+<div class="card"><div class="tag">Auftrag 7 · Warum auf gleicher Höhe? <span class="stars">★★</span> <span class="afb">AFB II</span></div>
+<div class="part why" data-task="q6"><h4>✍ Begründe, warum die Seitenansicht B genau auf gleicher Höhe neben die Vorderansicht A gezeichnet wird.</h4>
+<textarea data-store="q6" rows="3" placeholder="Schreib deine Begründung hier (oder ins Heft) – mindestens einen ganzen Satz." aria-label="Deine Begründung"></textarea>
+<label class="cbl"><input type="checkbox">Ich habe meine Begründung ins Heft geschrieben.</label>
+<div class="row"><button class="why-show">Mit Musterbegründung vergleichen</button></div>
+<div class="sol" hidden><p><b>Musterbegründung:</b> In A und B ist die <b>Höhe</b> des Körpers gleich. Liegen beide Ansichten auf gleicher Höhe, liegen gleiche Kanten <b>auf einer Linie</b>. So kann man Höhen einfach mit einer waagrechten Linie <b>übertragen</b>, ohne neu zu messen, und man erkennt sofort, welche Kanten zusammengehören.</p><p class="caption" style="margin:0 0 6px">Vergleiche: Hast du die fett gedruckten Begriffe verwendet? Ergänze sonst deine Begründung.</p><div class="row"><button class="why-ok">Meine Begründung enthält das Wichtigste</button></div></div></div>
+</div>
+</div></section>
+
+<!-- ============ 3 FESTHALTEN ============ -->
+<section class="band" id="festhalten"><div class="wrap">
+<h2>3 · Festhalten</h2>
+<div class="card"><div class="tag">Lückentext · Dreitafelprojektion <span class="stars">★</span> <span class="afb">AFB I</span></div>
+<div class="selbox part" data-task="f1" data-fb="Alles richtig! Lies dir unten noch einmal die Regeln durch."><div class="cloze">Bei der Dreitafelprojektion wird ein Körper aus <select data-a="drei"><option value="">…</option><option>zwei</option><option>drei</option><option>vier</option></select> Richtungen gezeichnet. Zuerst stellt man ihn so hin, wie er <select data-a="benutzt wird"><option value="">…</option><option>benutzt wird</option><option>am kleinsten ist</option><option>am schönsten aussieht</option></select>, und blickt senkrecht auf die Vorderseite: die <select data-a="Vorderansicht"><option value="">…</option><option>Vorderansicht</option><option>Seitenansicht</option><option>Draufsicht</option></select> A. Die Seitenansicht B zeigt den Körper von <select data-a="links"><option value="">…</option><option>links</option><option>rechts</option><option>hinten</option></select> und wird <select data-a="rechts neben"><option value="">…</option><option>rechts neben</option><option>links neben</option><option>über</option></select> A auf gleicher Höhe gezeichnet. Die Draufsicht C zeigt den Körper von oben und steht <select data-a="unter"><option value="">…</option><option>unter</option><option>über</option><option>neben</option></select> A. Sichtbare Kanten zeichnet man als <select data-a="breite Volllinie"><option value="">…</option><option>breite Volllinie</option><option>Strichlinie</option><option>Strich-Punkt-Linie</option></select>, verdeckte Kanten als <select data-a="Strichlinie"><option value="">…</option><option>breite Volllinie</option><option>Strichlinie</option><option>Strich-Punkt-Linie</option></select>. Mit der <select data-a="Spiegelachse"><option value="">…</option><option>Spiegelachse</option><option>Mittellinie</option><option>Maßlinie</option></select> im 45°-Winkel überträgt man die Tiefe von C nach B.</div><div class="row"><button class="primary sel-check">Prüfen</button></div><p class="fb sfb"></p></div>
+</div>
+<div class="two"><div>
+<h3 style="margin-top:0">Regeln für die Dreitafelprojektion</h3>
+<ol class="rules"><li><b>Dicke Körperlinien:</b> Körperkanten dicker zeichnen als die Hilfslinien.</li><li><b>In der Ecke ansetzen:</b> Jede Ansicht beginnt am Kreuzungspunkt der Hilfslinien.</li><li><b>Genau ausrichten:</b> gleicher Maßstab, gleiche Kanten liegen waagrecht und senkrecht auf einer Linie.</li><li><b>Maße verteilen:</b> Maße sinnvoll auf die Ansichten aufteilen, keine Doppelbemaßung.</li><li><b>Außen bemaßen:</b> Maße gut lesbar außerhalb des Körpers eintragen.</li><li><b>Verdeckt = gestrichelt:</b> Kanten, die man nicht sieht, als Strichlinie zeichnen.</li></ol>
+</div><div>
+<div class="fig"><div id="merkeFig"></div><p class="caption">Beispiel: Der Körper „Treppe“ in Dreitafelprojektion. A oben links, B rechts daneben, C darunter.</p></div>
+</div></div>
+<div class="merke"><h4>Merke</h4><ul><li><b>A</b> Vorderansicht (von vorn) · <b>B</b> Seitenansicht (von links, rechts neben A) · <b>C</b> Draufsicht (von oben, unter A).</li><li>Gleiche Kanten liegen in den Ansichten auf einer Linie. Die Tiefe überträgst du mit der <b>Spiegelachse</b> (45°).</li><li>Sichtbare Kanten: <b>breite Volllinie</b>. Verdeckte Kanten: <b>Strichlinie</b>.</li></ul></div>
+</div></section>
+
+<!-- ============ 4 ÜBEN ============ -->
+<section class="band alt" id="ueben"><div class="wrap">
+<h2>4 · Üben</h2>
+<p class="intro"><b>Erst im Heft konstruieren, dann hier prüfen.</b> In der Zeichen-Werkstatt kannst du jede Lösung auch direkt am Bildschirm zeichnen.</p>
+<div class="lvlrow"><span>★ / AFB I: Grundlagen anwenden</span><span>★★ / AFB II: Zusammenhänge herstellen</span><span>★★★ / AFB III: übertragen, beurteilen, begründen</span></div>
+
+<div class="card" id="werkstatt"><div class="tag">Übung 1 · Zeichen-Werkstatt <span class="stars">★ – ★★★</span> <span class="afb">AFB I–III</span></div>
+<p>Wähle einen Körper. Zeichne seine Vorderansicht A, Seitenansicht B und Draufsicht C in die richtigen Felder. <b>1 Kästchen = 5 mm</b>, ein Würfel des Körpers ist 10 mm groß (2 Kästchen).</p>
+<div class="bodytabs" id="wsTabs" data-fest></div>
+<div class="ws">
+<div class="side">
+<div class="fig"><svg class="tz-3d" id="ws3d" aria-label="Drehbarer Körper zur Zeichenaufgabe"></svg></div>
+<div class="vbtns" id="wsV" data-fest><button data-v="A"><b>A</b>von vorn</button><button data-v="B"><b>B</b>von links</button><button data-v="C"><b>C</b>von oben</button><button data-v="schraeg">schräg</button></div>
+<details class="exp"><summary>So zeichnest du am Bildschirm</summary><ul><li><b>Zeichnen:</b> Auf einen Kästchenpunkt drücken, ziehen, loslassen. Linien laufen immer waagrecht oder senkrecht.</li><li><b>Linientyp</b> vor dem Zeichnen wählen: breite Volllinie für sichtbare Kanten, Strichlinie für verdeckte Kanten.</li><li><b>Radieren:</b> Radierer wählen und auf eine Linie tippen.</li><li>Auf dem Handy hilft „Groß“ oben rechts am Zeichenbrett.</li></ul></details>
+</div>
+<div>
+<div class="tz-tools" data-fest><button id="tDraw" aria-pressed="true">✏ Zeichnen</button><button id="tErase" aria-pressed="false">⌫ Radieren</button><span class="sep"></span><button id="tVis" aria-pressed="true" title="sichtbare Kante"><svg class="ls" viewBox="0 0 30 10"><line x1="2" y1="5" x2="28" y2="5" stroke="currentColor" stroke-width="3"/></svg>sichtbar</button><button id="tHid" aria-pressed="false" title="verdeckte Kante"><svg class="ls" viewBox="0 0 30 10"><line x1="2" y1="5" x2="28" y2="5" stroke="currentColor" stroke-width="1.6" stroke-dasharray="5 3"/></svg>verdeckt</button><span class="sep"></span><button id="tUndo">↶ Zurück</button><button id="tClear">Alles löschen</button></div>
+<div class="vt"><div class="fig" style="padding:4px"><button class="vt-max" id="wsMax">⤢ Groß</button><svg id="wsBoard" aria-label="Zeichenbrett mit Achsenkreuz für die Dreitafelprojektion"></svg></div></div>
+<div class="row"><button class="primary" id="wsCheck">Prüfen</button><button id="wsDiff" disabled>Fehler zeigen</button><button id="wsSol" disabled>Lösung zeigen</button></div>
+<div class="tz-res" id="wsRes" aria-live="polite"></div>
+<div class="tz-legend" id="wsLeg" hidden><span><i style="background:var(--gst-mark)"></i>fehlt</span><span><i style="background:var(--wrongc)"></i>falscher Linientyp</span><span><i style="background:var(--bad)"></i>zu viel oder falsche Stelle</span></div>
+<div class="sol" id="wsSolBox" hidden></div>
+</div></div>
+<span hidden data-task="dt-wuerfel"></span><span hidden data-task="dt-saeule"></span><span hidden data-task="dt-winkel"></span><span hidden data-task="dt-treppe"></span><span hidden data-task="dt-absatz"></span><span hidden data-task="dt-nut"></span><span hidden data-task="dt-rahmen"></span><span hidden data-task="dt-tunnel"></span>
+</div>
+
+<div class="two"><div>
+<div class="card"><div class="tag">Übung 2 · Welche Seitenansicht passt? <span class="stars">★★</span> <span class="afb">AFB II</span></div>
+<p>Gegeben sind die Vorderansicht A und die Draufsicht C eines Körpers. Welche Seitenansicht B gehört dazu?</p>
+<div class="twobodies"><figure><div id="u2A"></div><figcaption>Vorderansicht A</figcaption></figure><figure><div id="u2C"></div><figcaption>Draufsicht C</figcaption></figure></div>
+<div class="part" data-task="u2"><div class="mc choice3" data-correct="b" data-task="u2" data-tipp="Die Tiefe von B findest du in C. In der Draufsicht siehst du: Das hohe Teil steht hinten. Bei B liegt die Rückseite links an der Hilfslinie, die Vorderseite rechts."><button data-k="a" data-fb="Nein. Diese Ansicht ist gespiegelt: Sie zeigt den Körper von rechts."><span id="u2a"></span>Ansicht 1</button><button data-k="b" data-fb="Richtig! Das hohe Teil steht hinten. Von links gesehen liegt die Rückseite links (an der Hilfslinie) und die Vorderseite rechts."><span id="u2b"></span>Ansicht 2</button><button data-k="c" data-fb="Nein. Die Tiefe stimmt nicht mit der Draufsicht überein."><span id="u2c"></span>Ansicht 3</button><p class="fb"></p></div></div>
+</div>
+
+<div class="card"><div class="tag">Übung 3 · Maße ablesen <span class="stars">★</span> <span class="afb">AFB I</span></div>
+<p>Die Dreitafelprojektion ist im Maßstab 1:1 auf Karopapier gezeichnet (1 Kästchen = 5 mm). Lies die Maße des Körpers ab.</p>
+<div class="ablese" id="u3fig"></div>
+<div class="numbox part" data-task="u3" data-fb="Richtig! Die Breite liest du in A oder C ab, die Höhe in A oder B, die Tiefe in B oder C.">
+<div class="numq"><span>Breite (von links nach rechts in A)</span><span class="unit"><input type="text" inputmode="decimal" data-a="40" data-tol="0.001" aria-label="Breite"> mm</span></div>
+<div class="numq"><span>Höhe</span><span class="unit"><input type="text" inputmode="decimal" data-a="30" data-tol="0.001" aria-label="Höhe"> mm</span></div>
+<div class="numq"><span>Tiefe</span><span class="unit"><input type="text" inputmode="decimal" data-a="40" data-tol="0.001" aria-label="Tiefe"> mm</span></div>
+<div class="row"><button class="primary num-check">Prüfen</button><button data-hint="u3">Tipp</button><button data-sol="u3Sol">Lösung zeigen</button></div><p class="fb nfb"></p><p class="tip" id="u3Tip"></p><div class="hintsrc" data-for="u3" hidden><p>Zähle die Kästchen und rechne mal 5 mm.</p><p>Die Tiefe siehst du in der Seitenansicht B von links nach rechts oder in der Draufsicht C von oben nach unten.</p></div><div class="sol" id="u3Sol" hidden><p>Breite 8 Kästchen = 40 mm, Höhe 6 Kästchen = 30 mm, Tiefe 8 Kästchen = 40 mm.</p></div></div>
+</div>
+</div><div>
+<div class="card"><div class="tag">Übung 4 · Stimmt das? <span class="stars">★</span> <span class="afb">AFB I</span></div>
+<div class="tf part" data-task="u4">
+<div class="item" data-v="0"><span>„Die Seitenansicht B zeigt den Körper von rechts.“</span><span class="btns"><button data-v="1">richtig</button><button data-v="0">falsch</button></span><p class="fb"></p><span class="ex">B zeigt den Körper von links. Gezeichnet wird B aber rechts neben A.</span></div>
+<div class="item" data-v="1"><span>„In der Draufsicht C kann man die Breite und die Tiefe ablesen.“</span><span class="btns"><button data-v="1">richtig</button><button data-v="0">falsch</button></span><p class="fb"></p><span class="ex">Von oben siehst du die Breite (links–rechts) und die Tiefe (vorn–hinten), aber nicht die Höhe.</span></div>
+<div class="item" data-v="0"><span>„Verdeckte Kanten lässt man in der Dreitafelprojektion einfach weg.“</span><span class="btns"><button data-v="1">richtig</button><button data-v="0">falsch</button></span><p class="fb"></p><span class="ex">Verdeckte Kanten werden als Strichlinie gezeichnet. Sonst fehlen wichtige Informationen, z. B. über Löcher oder Nuten.</span></div>
+<div class="item" data-v="1"><span>„Die Höhe des Körpers ist in A und B gleich groß.“</span><span class="btns"><button data-v="1">richtig</button><button data-v="0">falsch</button></span><p class="fb"></p><span class="ex">Darum liegen A und B auf gleicher Höhe nebeneinander.</span></div>
+<div class="item" data-v="1"><span>„Mit der Spiegelachse überträgt man die Tiefe von der Draufsicht in die Seitenansicht.“</span><span class="btns"><button data-v="1">richtig</button><button data-v="0">falsch</button></span><p class="fb"></p><span class="ex">Die 45°-Linie „lenkt“ die Tiefenmaße von C nach B um.</span></div>
+</div>
+</div>
+
+<div class="card"><div class="tag">Übung 5 · Ohne Strichlinie? <span class="stars">★★★</span> <span class="afb">AFB III</span></div>
+<div class="part why" data-task="u5"><h4>✍ Ben zeichnet den Körper „Tunnel“ und lässt in A und C die Strichlinien weg. Begründe, warum die Zeichnung dann für die Werkstatt nicht reicht.</h4>
+<textarea data-store="u5" rows="3" placeholder="Schreib deine Begründung hier (oder ins Heft) – mindestens einen ganzen Satz." aria-label="Deine Begründung"></textarea>
+<label class="cbl"><input type="checkbox">Ich habe meine Begründung ins Heft geschrieben.</label>
+<div class="row"><button class="why-show">Mit Musterbegründung vergleichen</button></div>
+<div class="sol" hidden><p><b>Musterbegründung:</b> Ohne Strichlinien fehlt der <b>Tunnel</b> in A und C. Der Tunnel ist nur in B als Strichlinie zu erkennen – aber dort sieht man nicht, wie <b>breit</b> er ist. Die Zeichnung ist dann <b>nicht eindeutig</b>, und in der Werkstatt würde das Teil <b>falsch</b> gefertigt. Darum zeichnet man <b>verdeckte Kanten</b> als Strichlinie.</p><p class="caption" style="margin:0 0 6px">Vergleiche: Hast du die fett gedruckten Begriffe verwendet? Ergänze sonst deine Begründung.</p><div class="row"><button class="why-ok">Meine Begründung enthält das Wichtigste</button></div></div></div>
+</div>
+</div></div>
+<div class="row" style="margin-top:12px"><a class="lnk" href="/Technik8/tz-bemassung">← Linienarten und Bemaßung</a><a class="lnk nx" href="/Technik8/kavalierperspektive">Weiter: Kavalierperspektive →</a></div>
+</div></section>
+
+<section class="band"><div class="wrap">
+<div class="row" style="margin-top:8px"><button id="resetAll">Fortschritt zurücksetzen</button></div>
+</div></section>
+<footer class="band"><div class="wrap">
+<p>Lernpfad Technik Klasse 8 · Technisches Zeichnen: Dreitafelprojektion (Vorderansicht, Seitenansicht, Draufsicht, Achsenkreuz, verdeckte Kanten). Projektionsmethode 1 wie im Unterricht: Seitenansicht von links rechts neben der Vorderansicht. 3D-Ansicht und Zeichen-Werkstatt laufen vollständig in deinem Browser. Dein Fortschritt und deine Zeichnungen werden nur in diesem Browser gespeichert, es werden keine Daten übertragen (nur Feedback, das du selbst abschickst).</p>
+<p class="rechtl"><a href="/impressum">Impressum · Datenschutz</a></p></div></footer>
+<dialog class="qrdlg" id="qrDlg" aria-label="QR-Code zu diesem Lernpfad"><svg role="img" aria-label="QR-Code: https://technik.physik.party/Technik8/dreitafelprojektion" viewBox="0 0 41 41" class="segno"><path fill="#fff" d="M0 0h41v41h-41z"/><path class="qrline" stroke="#000" d="M4 4.5h7m2 0h2m1 0h10m1 0h1m2 0h7m-33 1h1m5 0h1m2 0h1m1 0h1m1 0h6m1 0h1m1 0h1m1 0h1m1 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m2 0h3m2 0h1m4 0h1m1 0h1m2 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h4m2 0h1m1 0h2m1 0h1m2 0h3m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h2m2 0h1m2 0h1m1 0h1m1 0h2m2 0h1m2 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m1 0h3m1 0h1m1 0h5m1 0h2m4 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-25 1h2m1 0h1m3 0h1m4 0h3m1 0h1m-25 1h1m1 0h5m3 0h1m1 0h4m1 0h2m3 0h1m1 0h1m1 0h5m-29 1h3m3 0h3m1 0h1m5 0h4m1 0h1m2 0h2m1 0h2m1 0h1m-27 1h2m1 0h4m2 0h2m3 0h3m1 0h2m2 0h1m1 0h2m-32 1h1m3 0h1m2 0h1m1 0h1m2 0h1m1 0h2m2 0h2m1 0h2m1 0h1m3 0h3m-30 1h1m1 0h1m1 0h4m1 0h1m1 0h1m4 0h1m4 0h4m1 0h3m2 0h1m-33 1h1m1 0h1m4 0h1m3 0h1m2 0h7m2 0h1m1 0h2m2 0h1m1 0h2m-32 1h1m4 0h1m4 0h1m1 0h1m3 0h1m6 0h3m1 0h1m2 0h1m-32 1h1m1 0h4m2 0h2m3 0h2m1 0h1m1 0h2m1 0h2m2 0h2m1 0h3m-30 1h1m1 0h4m1 0h1m2 0h2m3 0h2m1 0h2m3 0h2m1 0h2m3 0h1m-29 1h1m2 0h2m2 0h3m2 0h2m1 0h2m2 0h1m1 0h3m1 0h2m1 0h1m-33 1h1m1 0h2m2 0h1m1 0h1m1 0h2m2 0h2m2 0h1m1 0h3m4 0h2m1 0h2m-32 1h2m3 0h1m2 0h1m2 0h3m1 0h2m4 0h1m1 0h2m1 0h7m-33 1h1m2 0h9m1 0h3m1 0h1m1 0h1m2 0h1m2 0h1m1 0h3m-30 1h6m3 0h1m5 0h1m2 0h3m1 0h2m2 0h2m4 0h1m-33 1h1m3 0h3m3 0h2m1 0h1m1 0h1m2 0h1m1 0h1m1 0h1m2 0h1m1 0h1m1 0h3m-32 1h1m2 0h2m5 0h1m1 0h1m2 0h1m2 0h4m2 0h1m2 0h5m-32 1h1m2 0h5m3 0h2m1 0h4m1 0h2m1 0h7m3 0h1m-25 1h1m3 0h3m1 0h7m1 0h1m3 0h1m1 0h1m1 0h1m-33 1h7m4 0h1m3 0h1m1 0h1m3 0h1m1 0h2m1 0h1m1 0h1m1 0h2m-32 1h1m5 0h1m1 0h1m2 0h1m1 0h1m7 0h1m1 0h2m3 0h4m-32 1h1m1 0h3m1 0h1m1 0h2m2 0h4m1 0h1m1 0h1m2 0h1m1 0h6m1 0h1m-32 1h1m1 0h3m1 0h1m1 0h2m1 0h1m1 0h1m1 0h1m2 0h8m2 0h1m2 0h2m-33 1h1m1 0h3m1 0h1m1 0h3m1 0h2m1 0h1m2 0h1m2 0h1m1 0h2m1 0h2m1 0h1m-30 1h1m5 0h1m3 0h4m2 0h1m2 0h1m1 0h1m3 0h1m2 0h1m1 0h1m-31 1h7m1 0h2m1 0h1m2 0h1m1 0h2m4 0h4m1 0h1m1 0h1m1 0h1"/></svg>
+<p>technik.physik.party/Technik8/dreitafelprojektion</p><button id="qrClose">Schließen</button></dialog>
+<script>
+{
+const KEY='t8-dreitafel-done';
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const fmt=(v,n=2)=>(+v).toFixed(n).replace('.',',').replace('-','−');
+const fmtS=(v,n=2)=>fmt(v,n).replace(/(,\d*?)0+$/,'$1').replace(/,$/,'');
+const num=v=>parseFloat(String(v).replace(/[\s ]/g,'').replace(/\.(?=\d{3}(\D|$))/g,'').replace(',','.').replace('−','-'));
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const RAD=Math.PI/180,g=9.81;
+const sind=a=>Math.sin(a*RAD),cosd=a=>Math.cos(a*RAD),tand=a=>Math.tan(a*RAD);
+/* Fortschritt (nur in diesem Browser) */
+let done=new Set();
+try{done=new Set(JSON.parse(localStorage.getItem(KEY)||'[]'))}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify([...done]))}catch(e){}}
+function updProg(){const tasks=[...new Set($$('[data-task]').map(e=>e.dataset.task))];const n=tasks.filter(t=>done.has(t)).length;$('#progtxt').textContent=n+' / '+tasks.length+' gelöst';$('#progbar').style.width=(100*n/Math.max(1,tasks.length))+'%';
+ $$('[data-task]').forEach(e=>e.classList.toggle('done',done.has(e.dataset.task)));$$('.tabs button[data-for]').forEach(b=>b.classList.toggle('solved',done.has(b.dataset.for)))}
+function mark(id){if(!id)return;done.add(id);save();updProg()}
+function svgPt(svg,ev){const p=svg.createSVGPoint();p.x=ev.clientX;p.y=ev.clientY;return p.matrixTransform(svg.getScreenCTM().inverse())}
+function animate(ms,step,end){if(reduce){step(1);end&&end();return}const t0=performance.now();function f(t){const k=Math.min(1,(t-t0)/ms);step(k);if(k<1)requestAnimationFrame(f);else end&&end()}requestAnimationFrame(f)}
+/* Formelzeichen in SVG: "F|res" -> F mit Index res */
+function lab(n){const [b,s]=String(n).split('|');return s?`${b}<tspan dy="5" font-size="75%">${s}</tspan><tspan dy="-5"> </tspan>`:b}
+function labH(n){const [b,s]=String(n).split('|');return s?`${b}<sub>${s}</sub>`:b}
+const COL={f1:'var(--f1)',f2:'var(--f2)',f3:'var(--f3)',fr:'var(--fr)',fg:'var(--fg)',fh:'var(--fh)',fn:'var(--fnn)',ink:'var(--ink)',mut:'var(--muted)',acc:'var(--acc)'};
+const col=c=>COL[c]||c;
+/* ===== Bausteine ===== */
+const hints={};
+function initCommon(){
+ $$('.hintsrc').forEach(d=>{hints[d.dataset.for]=[...d.children].map(p=>p.innerHTML)});
+ $$('[data-hint]').forEach(b=>{let h=0;b.onclick=()=>{const id=b.dataset.hint,arr=hints[id]||[],el=$('#'+id+'Tip');if(!arr.length||!el)return;el.className='fb hint tip';el.innerHTML='Tipp '+(h%arr.length+1)+' von '+arr.length+': '+arr[h%arr.length];h++}});
+ $$('[data-sol]').forEach(b=>b.onclick=()=>{const el=$('#'+b.dataset.sol);el.hidden=!el.hidden;b.textContent=el.hidden?'Lösung zeigen':'Lösung ausblenden'});
+ /* Multiple Choice: nach einem Fehlversuch Hinweis und kurze Denkpause */
+ $$('.mc[data-correct]').forEach(box=>{const fb=box.querySelector('.fb'),btns=[...box.querySelectorAll('button[data-k]')];
+  btns.forEach(b=>b.onclick=()=>{const ok=b.dataset.k===box.dataset.correct;
+   if(ok){btns.forEach(x=>x.classList.remove('bad'));b.classList.add('ok');fb.className='fb ok';fb.innerHTML=b.dataset.fb||'Richtig!';mark(box.dataset.task);return}
+   b.classList.add('bad');b.disabled=true;fb.className='fb hint';
+   fb.innerHTML=(b.dataset.fb||'Das stimmt nicht.')+(box.dataset.tipp?' <b>Hinweis:</b> '+box.dataset.tipp:' Lies die Frage noch einmal genau und denk nach, bevor du weiterklickst.');
+   const free=btns.filter(x=>!x.classList.contains('bad'));free.forEach(x=>x.disabled=true);setTimeout(()=>free.forEach(x=>x.disabled=false),reduce?0:2500)})});
+ /* Mehrfachauswahl */
+ $$('.multi').forEach(box=>{const fb=box.querySelector('.fb');box.querySelector('.multi-check').onclick=()=>{const ls=[...box.querySelectorAll('label')];let bad=0;ls.forEach(l=>{const i=l.querySelector('input'),should=l.dataset.ok==='1';const r=i.checked===should;l.className=i.checked||!r?(r?'ok':'bad'):'';if(!r)bad++});
+  if(!bad){fb.className='fb ok';fb.innerHTML=box.dataset.fb||'Richtig!';mark(box.dataset.task)}else{fb.className='fb hint';fb.innerHTML=bad+(bad===1?' Auswahl stimmt':' Auswahlen stimmen')+' noch nicht. '+(box.dataset.tipp||'')}}});
+ /* Textfelder */
+ $$('textarea[data-store]').forEach(t=>{const k=KEY+'-txt-'+t.dataset.store;try{t.value=localStorage.getItem(k)||''}catch(e){}t.addEventListener('input',()=>{try{localStorage.setItem(k,t.value)}catch(e){}})});
+ /* Begründe-Aufträge */
+ $$('.why').forEach(w=>{const t=w.querySelector('textarea'),cb=w.querySelector('input[type=checkbox]'),show=w.querySelector('.why-show'),sol=w.querySelector('.sol'),okb=w.querySelector('.why-ok');
+  const upd=()=>{show.disabled=!((t&&t.value.trim().length>=15)||(cb&&cb.checked))};if(t)t.addEventListener('input',upd);if(cb)cb.addEventListener('change',upd);upd();
+  show.onclick=()=>{sol.hidden=false;show.hidden=true};okb.onclick=()=>{mark(w.dataset.task);okb.textContent='✓ Abgehakt'}});
+ /* Zahlen-Aufgaben */
+ $$('.numbox').forEach(box=>{const fb=box.querySelector('.nfb');box.querySelector('.num-check').onclick=()=>{const ins=[...box.querySelectorAll('input[data-a]')];let ok=0;
+  ins.forEach(i=>{const v=num(i.value),a=+i.dataset.a,tol=+(i.dataset.tol||0.01),gd=!isNaN(v)&&Math.abs(v-a)<=Math.max(Math.abs(a)*tol,1e-9);i.className=i.value===''?'':(gd?'ok':'bad');if(gd)ok++});
+  if(ok===ins.length){fb.className='fb ok nfb';fb.innerHTML=box.dataset.fb||'Alles richtig!';mark(box.dataset.task)}else{fb.className='fb bad nfb';fb.textContent=ok+' von '+ins.length+' richtig. Prüfe Rechnung, Einheiten und Rundung – oder hol dir einen Tipp.'}}});
+ /* Auswahlfelder (Lückentext, Zuordnung) */
+ $$('.selbox').forEach(box=>{const fb=box.querySelector('.sfb');box.querySelector('.sel-check').onclick=()=>{const s=[...box.querySelectorAll('select')];let ok=0;s.forEach(x=>{const gd=x.value===x.dataset.a;x.className=x.value===''?'':(gd?'ok':'bad');if(gd)ok++});
+  if(ok===s.length){fb.className='fb ok sfb';fb.innerHTML=box.dataset.fb||'Alles richtig!';mark(box.dataset.task)}else{fb.className='fb bad sfb';fb.textContent=ok+' von '+s.length+' richtig. Prüfe die rot markierten Felder.'}}});
+ /* Richtig/Falsch */
+ $$('.tf').forEach(box=>{const rows=[...box.querySelectorAll('.item')],solved=new Set();rows.forEach((row,i)=>{const ex=row.querySelector('.ex'),fb=row.querySelector('.fb');row.querySelectorAll('button').forEach(b=>b.onclick=()=>{const ok=b.dataset.v===row.dataset.v;
+  row.querySelectorAll('button').forEach(x=>x.classList.remove('ok','bad'));b.classList.add(ok?'ok':'bad');fb.className='fb '+(ok?'ok':'bad');fb.innerHTML=(ok?'Stimmt. ':'Nein. ')+ex.innerHTML;if(ok)solved.add(i);if(solved.size===rows.length)mark(box.dataset.task)})})});
+ /* Reiter */
+ $$('.tabs[data-group]').forEach(tb=>{const bs=[...tb.querySelectorAll('button')];bs.forEach(b=>b.onclick=()=>{bs.forEach(x=>{x.setAttribute('aria-pressed',x===b);const p=$('#'+x.dataset.panel);if(p)p.hidden=x!==b});const p=$('#'+b.dataset.panel);p&&p.dispatchEvent(new Event('show'))})});
+ {const d=$('#qrDlg');$('#qrOpen').onclick=()=>d.showModal();$('#qrClose').onclick=()=>d.close();d.addEventListener('click',e=>{if(e.target===d)d.close()})}
+ $('#resetAll').onclick=()=>{done.clear();save();location.reload()};
+ updProg()}
+
+
+/* Heftaufschrieb übernommen */
+$$('.hb-done').forEach(b=>{if(done.has(b.dataset.task))b.textContent='✓ Im Heft';b.onclick=()=>{mark(b.dataset.task);b.textContent='✓ Im Heft'}});
+/* Schritt-für-Schritt */
+$$('.stepper').forEach(st=>{const boxes=[...st.querySelectorAll('.stepbox')],nx=st.querySelector('.st-next'),bk=st.querySelector('.st-back'),dots=st.querySelector('.steps');let i=0;
+ const show=()=>{boxes.forEach((b,k)=>b.hidden=k>i);if(dots)dots.innerHTML=boxes.map((b,k)=>`<i class="${k<=i?'on':''}">${k+1}</i>`).join('');nx.disabled=i>=boxes.length-1;bk.disabled=i===0;if(i>=boxes.length-1&&st.dataset.task)mark(st.dataset.task)};
+ nx.onclick=()=>{i=Math.min(boxes.length-1,i+1);show()};bk.onclick=()=>{i=Math.max(0,i-1);show()};show()});
+
+/* ===== TZ-Baukasten (Technisches Zeichnen): Körper aus Würfeln, Ansichten, drehbare 3D-Ansicht, Zeichenbrett mit Prüfung =====
+   Koordinaten der Körper: x nach rechts, y nach oben, d nach hinten (d = 0 ist die Vorderseite). 1 Einheit = 1 Würfel.
+   Ansichten (Projektionsmethode 1, wie im Unterricht): A von vorn, B von links (rechts neben A), C von oben (unter A).
+   Sichtbarkeit: Ein Kantenstück ist verdeckt, wenn davor auf beiden Seiten der Kante Material liegt. */
+const TZ=(()=>{
+const C30=Math.cos(Math.PI/6),RAD=Math.PI/180;
+/* ---------- Körper ---------- */
+function body(def){
+ const [W,H,D]=def.size,v=new Uint8Array(W*H*D);
+ const fill=(b,val)=>{for(let x=b[0];x<b[3];x++)for(let y=b[1];y<b[4];y++)for(let d=b[2];d<b[5];d++)v[x+W*(y+H*d)]=val};
+ def.boxes.forEach(b=>fill(b,1));(def.cut||[]).forEach(b=>fill(b,0));
+ const get=(x,y,d)=>(x<0||y<0||d<0||x>=W||y>=H||d>=D)?0:v[x+W*(y+H*d)];
+ const faces=[],edges=[],eset=new Set();
+ const key=(a,b)=>{const s=a.join(','),t=b.join(',');return s<t?s+'|'+t:t+'|'+s};
+ for(let x=0;x<W;x++)for(let y=0;y<H;y++)for(let d=0;d<D;d++){if(!get(x,y,d))continue;
+  for(let k=0;k<3;k++)for(const s of [1,-1]){const n=[0,0,0];n[k]=s;if(get(x+n[0],y+n[1],d+n[2]))continue;
+   const base=[x,y,d];if(s>0)base[k]+=1;const i=(k+1)%3,j=(k+2)%3;
+   const c1=base.slice();c1[i]+=1;const c3=base.slice();c3[j]+=1;const c2=c1.slice();c2[j]+=1;
+   faces.push({c:[base,c1,c2,c3],n,k})}}
+ const dims=[W,H,D];
+ for(let k=0;k<3;k++){const i=(k+1)%3,j=(k+2)%3;
+  for(let t=0;t<dims[k];t++)for(let a=0;a<=dims[i];a++)for(let b=0;b<=dims[j];b++){
+   const g=(da,db)=>{const p=[0,0,0];p[k]=t;p[i]=a+da;p[j]=b+db;return get(p[0],p[1],p[2])};
+   const q=[g(-1,-1),g(0,-1),g(-1,0),g(0,0)],n=q[0]+q[1]+q[2]+q[3];
+   if(n===1||n===3||(n===2&&q[0]===q[3])){const p0=[0,0,0];p0[k]=t;p0[i]=a;p0[j]=b;const p1=p0.slice();p1[k]+=1;edges.push([p0,p1]);eset.add(key(p0,p1))}}}
+ return {W,H,D,get,faces,edges,isEdge:(a,b)=>eset.has(key(a,b)),def}}
+/* ---------- Projektionen: p -> [x, y (nach oben), Tiefe]; .v = Blickrichtung in Körperkoordinaten ---------- */
+function mk(f,v){f.v=v;return f}
+const PROJ={
+ front:mk(p=>[p[0],p[1],p[2]],[0,0,1]),
+ left:mk(p=>[-p[2],p[1],p[0]],[1,0,0]),
+ top:mk(p=>[p[0],p[2],-p[1]],[0,-1,0]),
+ iso:mk(p=>[(p[0]+p[2])*C30,p[1]+(p[2]-p[0])*.5,(-p[0]-p[1]+p[2])/Math.sqrt(3)],[-1,-1,1]),
+ cav:(k=.5,a=45)=>{const c=k*Math.cos(a*RAD),s=k*Math.sin(a*RAD);return mk(p=>[p[0]+c*p[2],p[1]+s*p[2],p[2]],[-c,-s,1])},
+ rot:(yaw,pitch)=>{const cy=Math.cos(yaw*RAD),sy=Math.sin(yaw*RAD),cp=Math.cos(pitch*RAD),sp=Math.sin(pitch*RAD);
+  const f=p=>{const X=p[0],Y=p[1],Z=-p[2],X1=X*cy+Z*sy,Z1=-X*sy+Z*cy,Y2=Y*cp-Z1*sp,Z2=Y*sp+Z1*cp;return [X1,Y2,-Z2]};
+  const o=f([0,0,0]),g=e=>f(e)[2]-o[2];return mk(f,[g([1,0,0]),g([0,1,0]),g([0,0,1])])}};
+/* ---------- Linien einer Ansicht (sichtbar/verdeckt) ---------- */
+function lines(b,P){
+ const fq=[];
+ for(const f of b.faces){const c=f.c.map(P),ux=c[1][0]-c[0][0],uy=c[1][1]-c[0][1],vx=c[3][0]-c[0][0],vy=c[3][1]-c[0][1],det=ux*vy-uy*vx;
+  if(Math.abs(det)<1e-9)continue;const xs=c.map(q=>q[0]),ys=c.map(q=>q[1]);
+  fq.push({c,ux,uy,vx,vy,det,x0:Math.min(...xs),x1:Math.max(...xs),y0:Math.min(...ys),y1:Math.max(...ys)})}
+ const cov=(x,y,dep)=>fq.some(q=>{if(x<q.x0||x>q.x1||y<q.y0||y>q.y1)return false;const px=x-q.c[0][0],py=y-q.c[0][1],u=(px*q.vy-py*q.vx)/q.det,v=(q.ux*py-q.uy*px)/q.det;
+  if(u<=1e-7||u>=1-1e-7||v<=1e-7||v>=1-1e-7)return false;return q.c[0][2]+u*(q.c[1][2]-q.c[0][2])+v*(q.c[3][2]-q.c[0][2])<dep-0.05});
+ const m=new Map();
+ for(const [p0,p1] of b.edges){const a=P(p0),c=P(p1),dx=c[0]-a[0],dy=c[1]-a[1],L=Math.hypot(dx,dy);if(L<1e-6)continue;
+  const mx=(a[0]+c[0])/2,my=(a[1]+c[1])/2,md=(a[2]+c[2])/2,nx=-dy/L*.01,ny=dx/L*.01;
+  const vis=!(cov(mx+nx,my+ny,md)&&cov(mx-nx,my-ny,md));
+  const r=v=>Math.round(v*1e4)/1e4,A=[r(a[0]),r(a[1])],B=[r(c[0]),r(c[1])],k=A.join()<B.join()?A.join()+'|'+B.join():B.join()+'|'+A.join();
+  const o=m.get(k);if(o)o.vis=o.vis||vis;else m.set(k,{a:A,b:B,vis})}
+ return merge([...m.values()])}
+function merge(pcs){
+ const groups=new Map();
+ for(const p of pcs){let a=p.a,b=p.b;let dx=b[0]-a[0],dy=b[1]-a[1];if(dx<-1e-9||(Math.abs(dx)<=1e-9&&dy<0)){[a,b]=[b,a];dx=-dx;dy=-dy}
+  const L=Math.hypot(dx,dy),ux=dx/L,uy=dy/L,off=Math.round((a[0]*uy-a[1]*ux)*1e3),ang=Math.round(Math.atan2(uy,ux)*1e3);
+  const k=ang+'|'+off+'|'+p.vis;if(!groups.has(k))groups.set(k,{ux,uy,vis:p.vis,list:[]});const g=groups.get(k);
+  g.list.push([a[0]*ux+a[1]*uy,b[0]*ux+b[1]*uy,a,b])}
+ const out=[];
+ for(const g of groups.values()){g.list.sort((p,q)=>p[0]-q[0]);let cur=null;
+  for(const it of g.list){if(cur&&it[0]<=cur[1]+1e-6){if(it[1]>cur[1]){cur[1]=it[1];cur[3]=it[3]}}else{if(cur)out.push({a:cur[2],b:cur[3],vis:g.vis});cur=it.slice()}}
+  if(cur)out.push({a:cur[2],b:cur[3],vis:g.vis})}
+ /* verdeckte Stücke, die auf sichtbaren liegen, entfernen */
+ const visL=out.filter(s=>s.vis);
+ const onVis=(p,dir)=>visL.some(s=>{const dx=s.b[0]-s.a[0],dy=s.b[1]-s.a[1],L=Math.hypot(dx,dy);if(Math.abs(dir[0]*dy/L-dir[1]*dx/L)>1e-3)return false;return segDist(p,s.a,s.b)<1e-4});
+ const res=[];
+ for(const s of out){if(s.vis){res.push(s);continue}
+  const dx=s.b[0]-s.a[0],dy=s.b[1]-s.a[1],L=Math.hypot(dx,dy),dir=[dx/L,dy/L],n=Math.max(1,Math.round(L*8));let run=null;
+  for(let i=0;i<n;i++){const t0=i/n,t1=(i+1)/n,mid=[s.a[0]+dx*(t0+t1)/2,s.a[1]+dy*(t0+t1)/2],hid=!onVis(mid,dir);
+   if(hid){if(!run)run=[t0,t1];else run[1]=t1}else if(run){res.push(sub(s,run));run=null}}
+  if(run)res.push(sub(s,run))}
+ return res}
+const sub=(s,[t0,t1])=>{const dx=s.b[0]-s.a[0],dy=s.b[1]-s.a[1];return {a:[s.a[0]+dx*t0,s.a[1]+dy*t0],b:[s.a[0]+dx*t1,s.a[1]+dy*t1],vis:s.vis}};
+function segDist(p,a,b){const dx=b[0]-a[0],dy=b[1]-a[1],L2=dx*dx+dy*dy;let t=L2?((p[0]-a[0])*dx+(p[1]-a[1])*dy)/L2:0;t=Math.max(0,Math.min(1,t));return Math.hypot(p[0]-a[0]-t*dx,p[1]-a[1]-t*dy)}
+/* ---------- Ansichten auf dem Blatt (mm, y nach unten) ---------- */
+/* Achsenkreuz bei (AX, AY), Hilfslinien im Abstand g, Würfelgröße u (mm) */
+function threeViews(b,o){const {AX,AY,g,u}=o,{W,D}=b,out={};
+ const tr=(segs,f)=>segs.map(s=>({a:f(s.a),b:f(s.b),vis:s.vis}));
+ out.A=tr(lines(b,PROJ.front),p=>[AX-g-(W-p[0])*u,AY-g-p[1]*u]);
+ out.B=tr(lines(b,PROJ.left),p=>[AX+g+(p[0]+D)*u,AY-g-p[1]*u]);
+ out.C=tr(lines(b,PROJ.top),p=>[AX-g-(W-p[0])*u,AY+g+(D-p[1])*u]);
+ return out}
+function axesSVG(o){const {AX,AY,g,w,h,m=10}=o;let s='';
+ s+=`<line x1="${m}" y1="${AY}" x2="${w-m}" y2="${AY}" class="tz-ax"/><line x1="${AX}" y1="${m}" x2="${AX}" y2="${h-m}" class="tz-ax"/>`;
+ for(const y of [AY-g,AY+g])s+=`<line x1="${m}" y1="${y}" x2="${w-m}" y2="${y}" class="tz-hl"/>`;
+ for(const x of [AX-g,AX+g])s+=`<line x1="${x}" y1="${m}" x2="${x}" y2="${h-m}" class="tz-hl"/>`;
+ const L=Math.min(w,h)-m-Math.max(AX,AY)-g;s+=`<line x1="${AX+g}" y1="${AY+g}" x2="${AX+g+L}" y2="${AY+g+L}" class="tz-hl"/>`;
+ return s}
+const segSVG=(segs,cls='')=>segs.map(s=>`<line x1="${+s.a[0].toFixed(3)}" y1="${+s.a[1].toFixed(3)}" x2="${+s.b[0].toFixed(3)}" y2="${+s.b[1].toFixed(3)}" class="${s.vis?'tz-v':'tz-h'} ${cls}"/>`).join('');
+/* Linienbild einer Ansicht als eigenständiges SVG (Einheiten = Würfel) */
+function viewSVG(segs,label,pad=.5){if(!segs.length)return '';const xs=segs.flatMap(s=>[s.a[0],s.b[0]]),ys=segs.flatMap(s=>[s.a[1],s.b[1]]);
+ const x0=Math.min(...xs)-pad,x1=Math.max(...xs)+pad,y0=Math.min(...ys)-pad,y1=Math.max(...ys)+pad;
+ const fl=segs.map(s=>({a:[s.a[0],-s.a[1]],b:[s.b[0],-s.b[1]],vis:s.vis}));
+ return `<svg class="tz-mini" viewBox="${x0} ${-y1} ${x1-x0} ${y1-y0}" role="img" aria-label="${label||'Ansicht'}">${segSVG(fl)}</svg>`}
+/* Dreitafelprojektion fertig gezeichnet (für Lösungen, Merke, Aufgaben) */
+function threeViewSVG(b,o={}){const u=o.u||10,g=o.g||10,W=b.W*u,H=b.H*u,D=b.D*u,m=8;
+ const AX=m+W+g+6,AY=m+H+g+6,w=AX+g+D+m+6,h=AY+g+D+m+6,v=threeViews(b,{AX,AY,g,u});
+ let s=`<svg class="tz-dt" viewBox="0 0 ${w} ${h}" role="img" aria-label="${o.label||'Dreitafelprojektion'}">`+axesSVG({AX,AY,g,w,h,m:2});
+ s+=segSVG([...v.A,...v.B,...v.C]);
+ if(o.labels!==false){s+=`<text x="${AX-g-W/2}" y="${AY-g-H-2.5}" text-anchor="middle" class="tz-lbl">A</text><text x="${AX+g+D/2}" y="${AY-g-H-2.5}" text-anchor="middle" class="tz-lbl">B</text><text x="${AX-g-W-3}" y="${AY+g+D/2+1.5}" text-anchor="end" class="tz-lbl">C</text>`}
+ return s+'</svg>'}
+/* ---------- Drehbare 3D-Ansicht ---------- */
+function viewer(svg,b0,o={}){
+ let b=b0,yaw=o.yaw??32,pitch=o.pitch??24,mode=o.mode||'rot',cav=o.cav||{k:.5,a:45},anim=null,arrows=o.arrows!==false;
+ const st={};
+ function P(){return mode==='rot'?PROJ.rot(yaw,pitch):mode==='iso'?PROJ.iso:PROJ.cav(cav.k,cav.a)}
+ function draw(){const p=P(),v=p.v,vl=Math.hypot(...v),{W,H,D}=b,cx=W/2,cy=H/2,cd=D/2,R=.5*Math.hypot(W,H,D)+(arrows?2.3:.6);
+  const pc=q=>p([q[0]-cx,q[1]-cy,q[2]-cd]);
+  const items=[];
+  for(const f of b.faces){const dot=f.n[0]*v[0]+f.n[1]*v[1]+f.n[2]*v[2];if(dot>=-1e-9)continue;
+   const c=f.c.map(pc),dep=(f.c.reduce((s,q)=>s+(q[0]-cx)*v[0]+(q[1]-cy)*v[1]+(q[2]-cd)*v[2],0))/4/vl;
+   let e='';for(let i=0;i<4;i++){const A=f.c[i],B=f.c[(i+1)%4];if(b.isEdge(A,B)){const a=c[i],bb=c[(i+1)%4];e+=`M${a[0].toFixed(3)} ${(-a[1]).toFixed(3)}L${bb[0].toFixed(3)} ${(-bb[1]).toFixed(3)}`}}
+   items.push({dep,s:`<path d="M${c.map(q=>q[0].toFixed(3)+' '+(-q[1]).toFixed(3)).join('L')}Z" class="tz-f${f.k}"/>`+(e?`<path d="${e}" class="tz-e"/>`:'')})}
+  if(arrows){const L=1.6,sp=.55;
+   const arr=[['A',[0,0,-1],[cx,cy,-sp]],['B',[-1,0,0],[-sp,cy,cd]],['C',[0,1,0],[cx,H+sp,cd]]];
+   for(const [n,dir,tip] of arr){const tail=[tip[0]+dir[0]*L,tip[1]+dir[1]*L,tip[2]+dir[2]*L],t=pc(tip),a=pc(tail),
+     dep=((tail[0]-cx)*v[0]+(tail[1]-cy)*v[1]+(tail[2]-cd)*v[2])/vl;
+    const dx=t[0]-a[0],dy=t[1]-a[1],l=Math.hypot(dx,dy);let s='';
+    if(l>.15){const ux=dx/l,uy=dy/l,h=.32;s+=`<path d="M${a[0]} ${-a[1]}L${t[0]-ux*h} ${-(t[1]-uy*h)}" class="tz-arr"/><path d="M${t[0]} ${-t[1]}L${t[0]-ux*h-uy*h*.6} ${-(t[1]-uy*h+ux*h*.6)}L${t[0]-ux*h+uy*h*.6} ${-(t[1]-uy*h-ux*h*.6)}Z" class="tz-arrh"/>`}
+    s+=`<circle cx="${a[0]}" cy="${-a[1]}" r=".36" class="tz-arrc"/><text x="${a[0]}" y="${-a[1]+.15}" text-anchor="middle" class="tz-arrt">${n}</text>`;
+    items.push({dep:dep+.3,s})}}
+  items.sort((p,q)=>q.dep-p.dep);
+  svg.setAttribute('viewBox',`${-R} ${-R} ${2*R} ${2*R}`);
+  svg.innerHTML=items.map(i=>i.s).join('');
+  st.onview&&st.onview()}
+ function to(y,p,ms=700){if(anim)cancelAnimationFrame(anim);const y0=yaw,p0=pitch,t0=performance.now();
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches){yaw=y;pitch=p;draw();return}
+  const f=t=>{const k=Math.min(1,(t-t0)/ms),e=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2;yaw=y0+(y-y0)*e;pitch=p0+(p-p0)*e;draw();if(k<1)anim=requestAnimationFrame(f)};anim=requestAnimationFrame(f)}
+ /* Ziehen dreht den Körper */
+ let drag=null;
+ svg.addEventListener('pointerdown',e=>{if(mode!=='rot')return;drag={x:e.clientX,y:e.clientY,yaw,pitch};svg.setPointerCapture(e.pointerId);if(anim)cancelAnimationFrame(anim)});
+ svg.addEventListener('pointermove',e=>{if(!drag)return;yaw=drag.yaw-(e.clientX-drag.x)*.6;pitch=Math.max(-89.9,Math.min(89.9,drag.pitch+(e.clientY-drag.y)*.6));draw()});
+ const end=()=>{drag=null};svg.addEventListener('pointerup',end);svg.addEventListener('pointercancel',end);
+ svg.addEventListener('keydown',e=>{if(mode!=='rot')return;const m={ArrowLeft:[8,0],ArrowRight:[-8,0],ArrowUp:[0,-8],ArrowDown:[0,8]}[e.key];if(!m)return;e.preventDefault();yaw+=m[0];pitch=Math.max(-89.9,Math.min(89.9,pitch+m[1]));draw()});
+ svg.tabIndex=0;
+ Object.assign(st,{draw,to,set:nb=>{b=nb;draw()},mode:(m,c)=>{mode=m;if(c)cav=c;draw()},get yaw(){return yaw},get pitch(){return pitch},arrows:a=>{arrows=a;draw()}});
+ draw();return st}
+const VIEWS={A:[0,0],B:[90,0],C:[0,89.9],schraeg:[32,24],iso:[-45,35.264]};
+/* ---------- Zeichenbrett ---------- */
+/* o: {w,h (mm), mode:'karo'|'iso'|'frei', step (mm), under (SVG-Text unter den Linien), onchange} */
+function board(svg,o){
+ const st={segs:[],type:'v',tool:'draw',undo:[]};const step=o.step||5,w=o.w,h=o.h;
+ svg.setAttribute('viewBox',`0 0 ${w} ${h}`);svg.classList.add('tz-board');
+ let bg='';
+ if(o.mode==='iso'){const dx=step*C30;for(let x=0;x<=w+1e-6;x+=dx)bg+=`<line x1="${x}" y1="0" x2="${x}" y2="${h}" class="tz-g"/>`;
+  const t=Math.tan(Math.PI/6);for(let c=-w*t-h;c<=h+w*t;c+=step){bg+=`<line x1="0" y1="${c}" x2="${w}" y2="${c+w*t}" class="tz-g"/><line x1="0" y1="${c+w*t}" x2="${w}" y2="${c}" class="tz-g"/>`}}
+ else{for(let x=0;x<=w;x+=step)bg+=`<line x1="${x}" y1="0" x2="${x}" y2="${h}" class="tz-g"/>`;for(let y=0;y<=h;y+=step)bg+=`<line x1="0" y1="${y}" x2="${w}" y2="${y}" class="tz-g"/>`}
+ svg.innerHTML=`<rect width="${w}" height="${h}" class="tz-paper"/><g>${bg}</g><g class="tz-under">${o.under||''}</g><g class="tz-segs"></g><g class="tz-ovl"></g><g class="tz-ui"></g>`;
+ const gS=svg.querySelector('.tz-segs'),gO=svg.querySelector('.tz-ovl'),gU=svg.querySelector('.tz-ui');
+ const pt=e=>{const p=svg.createSVGPoint();p.x=e.clientX;p.y=e.clientY;const q=p.matrixTransform(svg.getScreenCTM().inverse());return [q.x,q.y]};
+ const pxmm=()=>svg.getBoundingClientRect().width/w;
+ const ends=()=>st.segs.flatMap(s=>[s.a,s.b]);
+ function snapStart(p){
+  if(o.mode==='iso'){const dx=step*C30,a=Math.round(p[0]/dx),b=Math.round(p[1]/step-a/2);return [a*dx,(b+a/2)*step]}
+  if(o.mode==='frei'){const r=Math.max(2,10/pxmm());let best=null,bd=r;for(const q of ends()){const d=Math.hypot(q[0]-p[0],q[1]-p[1]);if(d<bd){bd=d;best=q}}if(best)return best.slice()}
+  return [Math.round(p[0]/step)*step,Math.round(p[1]/step)*step]}
+ function snapEnd(s,p){const dx=p[0]-s[0],dy=p[1]-s[1];
+  if(o.mode==='karo'){if(Math.abs(dx)>=Math.abs(dy))return {p:[s[0]+Math.round(dx/step)*step,s[1]]};return {p:[s[0],s[1]+Math.round(dy/step)*step]}}
+  if(o.mode==='iso'){const dirs=[[0,1],[0,-1],[C30,.5],[C30,-.5],[-C30,.5],[-C30,-.5]];let best=dirs[0],bd=-1e9;for(const d of dirs){const v=d[0]*dx+d[1]*dy;if(v>bd){bd=v;best=d}}
+   const n=Math.max(0,Math.round(bd/step));return {p:[s[0]+best[0]*n*step,s[1]+best[1]*n*step]}}
+  /* frei: Winkel in 15°-Schritten, Länge in ganzen mm; nahe an einem Endpunkt einrasten */
+  const r=Math.max(1.6,9/pxmm());for(const q of ends()){if(Math.hypot(q[0]-p[0],q[1]-p[1])<r&&(q[0]!==s[0]||q[1]!==s[1]))return {p:q.slice(),snap:true}}
+  const ang=Math.round(Math.atan2(-dy,dx)/(15*RAD))*15,L=Math.max(0,Math.round(dx*Math.cos(ang*RAD)-dy*Math.sin(ang*RAD)));
+  return {p:[s[0]+L*Math.cos(ang*RAD),s[1]-L*Math.sin(ang*RAD)],ang:(ang+360)%360,L}}
+ function render(){gS.innerHTML=segSVG(st.segs.map(s=>({a:s.a,b:s.b,vis:s.t==='v'})));o.onchange&&o.onchange()}
+ let cur=null;
+ svg.addEventListener('pointerdown',e=>{if(e.button>0)return;const p=pt(e);
+  if(st.tool==='erase'){const r=Math.max(2,12/pxmm());let bi=-1,bd=r;st.segs.forEach((s,i)=>{const d=segDist(p,s.a,s.b);if(d<bd){bd=d;bi=i}});
+   if(bi>=0){st.undo.push(st.segs.slice());st.segs.splice(bi,1);render();clearOvl()}return}
+  cur={s:snapStart(p),e:null};svg.setPointerCapture(e.pointerId);e.preventDefault();ui(p)});
+ svg.addEventListener('pointermove',e=>{const p=pt(e);if(!cur){hover(p);return}cur.e=snapEnd(cur.s,p);ui(p)});
+ svg.addEventListener('pointerup',e=>{if(!cur)return;const c=cur;cur=null;gU.innerHTML='';
+  if(c.e){const a=c.s,b=c.e.p;if(Math.hypot(b[0]-a[0],b[1]-a[1])>.5){st.undo.push(st.segs.slice());st.segs.push({a:a.map(v=>+v.toFixed(4)),b:b.map(v=>+v.toFixed(4)),t:st.type});render();clearOvl()}}});
+ svg.addEventListener('pointercancel',()=>{cur=null;gU.innerHTML=''});
+ svg.addEventListener('pointerleave',()=>{if(!cur)gU.innerHTML=''});
+ function hover(p){if(st.tool==='erase'||matchMedia('(pointer:coarse)').matches){gU.innerHTML='';return}const s=snapStart(p);gU.innerHTML=`<circle cx="${s[0]}" cy="${s[1]}" r="1.1" class="tz-snap"/>`}
+ function ui(p){if(!cur)return;let s=`<circle cx="${cur.s[0]}" cy="${cur.s[1]}" r="1.1" class="tz-snap"/>`;
+  if(cur.e){const a=cur.s,b=cur.e.p,L=Math.hypot(b[0]-a[0],b[1]-a[1]);
+   s+=`<line x1="${a[0]}" y1="${a[1]}" x2="${b[0]}" y2="${b[1]}" class="${st.type==='v'?'tz-v':'tz-h'} tz-prev"/><circle cx="${b[0]}" cy="${b[1]}" r="1.1" class="tz-snap"/>`;
+   let t=Math.round(L)+' mm';if(o.mode==='frei'&&!cur.e.snap)t+=' · '+cur.e.ang+'°';
+   const tx=Math.min(w-2,Math.max(2,b[0]+3)),ty=Math.max(6,b[1]-4),fs=Math.max(4,13/pxmm());
+   s+=`<text x="${tx}" y="${ty}" class="tz-len" style="font-size:${fs}px" ${tx>w-30?'text-anchor="end"':''}>${t}</text>`}
+  gU.innerHTML=s}
+ const clearOvl=()=>{gO.innerHTML=''};
+ Object.assign(st,{render,clearOvl,
+  setType:t=>{st.type=t},setTool:t=>{st.tool=t;svg.classList.toggle('erasing',t==='erase')},
+  undoStep:()=>{if(st.undo.length){st.segs=st.undo.pop();render();clearOvl()}},
+  clear:()=>{if(st.segs.length){st.undo.push(st.segs.slice());st.segs=[];render();clearOvl()}},
+  overlay:s=>{gO.innerHTML=s},
+  load:segs=>{st.segs=segs.map(s=>({a:s.a.slice(),b:s.b.slice(),t:s.t}));render()}});
+ return st}
+/* ---------- Vergleich: erwartete Linien <-> gezeichnete Linien (mm) ---------- */
+function compare(exp,stu,o={}){const tol=o.tol||.7,ign=!!o.ignoreHidden;
+ const E=exp.filter(e=>!(ign&&!e.vis)),S=stu.filter(s=>!(ign&&s.t==='h'));
+ const dir=s=>{const dx=s.b[0]-s.a[0],dy=s.b[1]-s.a[1],L=Math.hypot(dx,dy)||1;return [dx/L,dy/L,L]};
+ const par=(d1,d2)=>Math.abs(d1[0]*d2[1]-d1[1]*d2[0])<.06;
+ const miss=[],wrong=[],extra=[];let nMiss=0,nWrong=0;
+ for(const e of E){const de=dir(e),n=Math.max(2,Math.ceil(de[2]/1));let m=0,wr=0,runM=null,runW=null;
+  const pushRun=(arr,r)=>arr.push({a:[e.a[0]+(e.b[0]-e.a[0])*r[0],e.a[1]+(e.b[1]-e.a[1])*r[0]],b:[e.a[0]+(e.b[0]-e.a[0])*r[1],e.a[1]+(e.b[1]-e.a[1])*r[1]],vis:e.vis});
+  for(let i=0;i<n;i++){const t0=i/n,t1=(i+1)/n,t=(t0+t1)/2,p=[e.a[0]+(e.b[0]-e.a[0])*t,e.a[1]+(e.b[1]-e.a[1])*t];
+   let same=false,other=false;for(const s of S){if(!par(de,dir(s)))continue;if(segDist(p,s.a,s.b)<=tol){if((s.t==='v')===e.vis)same=true;else other=true}}
+   const isM=!same&&!other,isW=!same&&other;
+   if(isM){m++;if(!runM)runM=[t0,t1];else runM[1]=t1}else if(runM){pushRun(miss,runM);runM=null}
+   if(isW){wr++;if(!runW)runW=[t0,t1];else runW[1]=t1}else if(runW){pushRun(wrong,runW);runW=null}}
+  if(runM)pushRun(miss,runM);if(runW)pushRun(wrong,runW);
+  if(m*de[2]/n>tol*1.2)nMiss++;if(wr*de[2]/n>tol*1.2)nWrong++}
+ let nExtra=0;
+ for(const s of S){const ds=dir(s),n=Math.max(2,Math.ceil(ds[2]/1));let x=0,run=null;
+  for(let i=0;i<n;i++){const t0=i/n,t1=(i+1)/n,t=(t0+t1)/2,p=[s.a[0]+(s.b[0]-s.a[0])*t,s.a[1]+(s.b[1]-s.a[1])*t];
+   const ok=E.some(e=>par(ds,dir(e))&&segDist(p,e.a,e.b)<=tol)||(ign&&false);
+   if(!ok){x++;if(!run)run=[t0,t1];else run[1]=t1}else if(run){extra.push({a:[s.a[0]+(s.b[0]-s.a[0])*run[0],s.a[1]+(s.b[1]-s.a[1])*run[0]],b:[s.a[0]+(s.b[0]-s.a[0])*run[1],s.a[1]+(s.b[1]-s.a[1])*run[1]]});run=null}}
+  if(run)extra.push({a:[s.a[0]+(s.b[0]-s.a[0])*run[0],s.a[1]+(s.b[1]-s.a[1])*run[0]],b:[s.a[0]+(s.b[0]-s.a[0])*run[1],s.a[1]+(s.b[1]-s.a[1])*run[1]]});
+  if(x*ds[2]/n>tol*1.5)nExtra++}
+ return {ok:!nMiss&&!nWrong&&!nExtra,nMiss,nWrong,nExtra,miss,wrong,extra}}
+function diffSVG(r){const L=(s,c)=>`<line x1="${s.a[0]}" y1="${s.a[1]}" x2="${s.b[0]}" y2="${s.b[1]}" class="${c}"/>`;
+ return r.miss.map(s=>L(s,'tz-miss')).join('')+r.wrong.map(s=>L(s,'tz-wrong')).join('')+r.extra.map(s=>L(s,'tz-extra')).join('')}
+function bbox(segs){const xs=segs.flatMap(s=>[s.a[0],s.b[0]]),ys=segs.flatMap(s=>[s.a[1],s.b[1]]);return [Math.min(...xs),Math.min(...ys),Math.max(...xs),Math.max(...ys)]}
+const shift=(segs,dx,dy)=>segs.map(s=>({...s,a:[s.a[0]+dx,s.a[1]+dy],b:[s.b[0]+dx,s.b[1]+dy]}));
+/* Räumliche Zeichnung (iso/cav) eines Körpers in mm, y nach unten */
+function spatial(b,P,u){return lines(b,P).map(s=>({a:[s.a[0]*u,-s.a[1]*u],b:[s.b[0]*u,-s.b[1]*u],vis:s.vis}))}
+/* gezeichnete Linien an der erwarteten Zeichnung ausrichten (Lage auf dem Blatt ist frei) */
+function compareFree(exp,stu,o){const sv=stu.filter(s=>s.t==='v');if(!sv.length)return compare(exp,stu,o);
+ const be=bbox(exp.filter(e=>e.vis)),bs=bbox(sv);return {...compare(shift(exp,bs[0]-be[0],bs[1]-be[1]),stu,o),dx:bs[0]-be[0],dy:bs[1]-be[1]}}
+return {body,PROJ,lines,threeViews,axesSVG,segSVG,viewSVG,threeViewSVG,viewer,VIEWS,board,compare,compareFree,diffSVG,spatial,shift,bbox,C30}})();
+/* ---------- Zeichenaufgabe mit Werkzeugleiste, Prüfen, Fehler zeigen, Lösung (für Kavalier und Isometrie) ---------- */
+TZ.task=function(root,o){
+ const id=o.id,lbl=o.mode==='iso'?'Linien laufen entlang der Isometrie-Linien (senkrecht oder 30° schräg).':'Linien rasten in 15°-Schritten und ganzen Millimetern ein. Die Länge siehst du beim Ziehen.';
+ root.innerHTML=`<div class="tz-tools" data-fest><button data-t="draw" aria-pressed="true">✏ Zeichnen</button><button data-t="erase" aria-pressed="false">⌫ Radieren</button><span class="sep"></span><button data-l="v" aria-pressed="true"><svg class="ls" viewBox="0 0 30 10"><line x1="2" y1="5" x2="28" y2="5" stroke="currentColor" stroke-width="3"/></svg>sichtbar</button><button data-l="h" aria-pressed="false"><svg class="ls" viewBox="0 0 30 10"><line x1="2" y1="5" x2="28" y2="5" stroke="currentColor" stroke-width="1.6" stroke-dasharray="5 3"/></svg>verdeckt</button><span class="sep"></span><button data-a="undo">↶ Zurück</button><button data-a="clear">Alles löschen</button></div>
+<div class="vt"><div class="fig" style="padding:4px"><button class="vt-max">⤢ Groß</button><svg aria-label="Zeichenbrett"></svg></div></div>
+<p class="caption">${lbl} Auf einen Punkt drücken, ziehen, loslassen.</p>
+<div class="row"><button class="primary" data-a="check">Prüfen</button><button data-a="diff" disabled>Fehler zeigen</button><button data-a="sol" disabled>Lösung zeigen</button></div>
+<div class="tz-res" aria-live="polite"></div>
+<div class="tz-legend" hidden><span><i style="background:var(--gst-mark)"></i>fehlt</span><span><i style="background:var(--wrongc)"></i>falscher Linientyp</span><span><i style="background:var(--bad)"></i>zu viel oder falsche Stelle</span></div>
+<div class="sol" hidden></div>`;
+ const q=s=>root.querySelector(s),svg=q('.vt svg'),res=q('.tz-res'),leg=q('.tz-legend'),solB=q('.sol'),k=KEY+'-zb-'+id;
+ const bd=TZ.board(svg,{w:o.w,h:o.h,mode:o.mode,step:o.step||5,onchange:()=>{try{localStorage.setItem(k,JSON.stringify(bd.segs))}catch(e){}}});
+ try{bd.load(JSON.parse(localStorage.getItem(k)||'[]'))}catch(e){}
+ const set=(sel,attr,val)=>root.querySelectorAll(sel).forEach(b=>b.setAttribute('aria-pressed',b.getAttribute(attr)===val));
+ root.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{bd.setTool(b.dataset.t);set('[data-t]','data-t',b.dataset.t)});
+ root.querySelectorAll('[data-l]').forEach(b=>b.onclick=()=>{bd.setType(b.dataset.l);set('[data-l]','data-l',b.dataset.l);bd.setTool('draw');set('[data-t]','data-t','draw')});
+ let last=null;
+ const exp=()=>o.expected();
+ q('[data-a=undo]').onclick=()=>bd.undoStep();q('[data-a=clear]').onclick=()=>bd.clear();
+ q('[data-a=check]').onclick=()=>{const E=exp(),r=TZ.compareFree(E,bd.segs,{tol:o.tol||.9,ignoreHidden:o.ignoreHidden});last=r;
+  let t=[];
+  if(!bd.segs.length)t.push('Du hast noch nichts gezeichnet.');
+  else if(r.ok){res.innerHTML=`<p class="fb ok">${o.okText||'Richtig gezeichnet!'}</p>`;q('[data-a=diff]').disabled=true;q('[data-a=sol]').disabled=false;bd.clearOvl();leg.hidden=true;o.onok&&o.onok();return}
+  else{if(r.nMiss)t.push(r.nMiss+(r.nMiss===1?' Linie fehlt oder ist zu kurz.':' Linien fehlen oder sind zu kurz.'));
+   if(r.nWrong)t.push(r.nWrong+(r.nWrong===1?' Linie hat den falschen Linientyp (sichtbar ↔ verdeckt).':' Linien haben den falschen Linientyp (sichtbar ↔ verdeckt).'));
+   if(r.nExtra)t.push(r.nExtra+(r.nExtra===1?' Linie ist zu viel, zu lang oder liegt falsch.':' Linien sind zu viel, zu lang oder liegen falsch.'));
+   if(o.hint){const h=o.hint(bd.segs,E);if(h)t.push(h)}}
+  res.innerHTML='<ul>'+t.map(x=>`<li class="bad">${x}</li>`).join('')+'</ul>';q('[data-a=diff]').disabled=!bd.segs.length;q('[data-a=sol]').disabled=false;bd.clearOvl();leg.hidden=true};
+ q('[data-a=diff]').onclick=()=>{if(!last)return;bd.overlay(TZ.diffSVG(last));leg.hidden=false};
+ q('[data-a=sol]').onclick=()=>{solB.hidden=!solB.hidden;q('[data-a=sol]').textContent=solB.hidden?'Lösung zeigen':'Lösung ausblenden';
+  if(!solB.hidden){const E=exp(),bb=TZ.bbox(E),p=6;solB.innerHTML=`<p><b>Lösung:</b> ${o.solText||''}</p><svg class="tz-sp" viewBox="${bb[0]-p} ${bb[1]-p} ${bb[2]-bb[0]+2*p} ${bb[3]-bb[1]+2*p}" style="display:block;width:100%;max-width:${Math.round((bb[2]-bb[0]+2*p)*3.2)}px;height:auto" role="img" aria-label="Lösungszeichnung">${TZ.segSVG(E)}</svg>`}};
+ const mx=q('.vt-max');mx.onclick=()=>{const vt=mx.closest('.vt'),on=!vt.classList.contains('vtmax'),tools=q('.tz-tools');vt.classList.toggle('vtmax',on);document.documentElement.classList.toggle('noscroll',on);mx.textContent=on?'✕ Schließen':'⤢ Groß';
+  if(on)vt.prepend(tools);else vt.before(tools)};
+ return bd};
+/* Körper für die TZ-Lernpfade: size [Breite, Höhe, Tiefe] in Würfeln, boxes/cut als [x0,y0,d0,x1,y1,d1] */
+const BODIES=[
+ {id:'wuerfel',name:'Würfel',size:[3,3,3],boxes:[[0,0,0,3,3,3]]},
+ {id:'saeule',name:'Säule',size:[2,5,2],boxes:[[0,0,0,2,5,2]]},
+ {id:'winkel',name:'Winkel',size:[4,4,3],boxes:[[0,0,0,4,1,3],[3,1,0,4,4,3]]},
+ {id:'treppe',name:'Treppe',size:[3,3,2],boxes:[[0,0,0,3,1,2],[1,1,0,3,2,2],[2,2,0,3,3,2]]},
+ {id:'nut',name:'U-Profil',size:[5,3,3],boxes:[[0,0,0,5,3,3]],cut:[[2,1,0,3,3,3]]},
+ {id:'rahmen',name:'Rahmen',size:[5,4,2],boxes:[[0,0,0,5,4,2]],cut:[[1,1,0,4,3,2]]},
+ {id:'absatz',name:'Absatz',size:[4,3,4],boxes:[[0,0,0,4,2,4],[0,2,2,4,3,4]]},
+ {id:'tunnel',name:'Tunnel',size:[4,3,3],boxes:[[0,0,0,4,3,3]],cut:[[1,0,2,3,1,3]]},
+];
+
+const BY=Object.fromEntries(BODIES.map(d=>[d.id,d]));
+const B=id=>TZ.body(BY[id]);
+/* ---------- Kopfbild ---------- */
+{const v=TZ.viewer($('#heroBody'),B('treppe'),{yaw:32,pitch:24});
+ $('#heroViews').outerHTML=TZ.threeViewSVG(B('treppe')).replace('<svg ','<svg id="heroViews" ')}
+/* ---------- Einstieg: Würfel und Platte ---------- */
+{const w={id:'w',size:[3,3,3],boxes:[[0,0,0,3,3,3]]},p={id:'p',size:[3,3,1],boxes:[[0,0,0,3,3,1]]};
+ TZ.viewer($('#eiW'),TZ.body(w),{arrows:false,yaw:35,pitch:22});TZ.viewer($('#eiP'),TZ.body(p),{arrows:false,yaw:35,pitch:22});
+ $('#eiWv').innerHTML=TZ.viewSVG(TZ.lines(TZ.body(w),TZ.PROJ.front),'Vorderansicht Würfel: Quadrat');$('#eiPv').innerHTML=TZ.viewSVG(TZ.lines(TZ.body(p),TZ.PROJ.front),'Vorderansicht Platte: Quadrat')}
+/* ---------- 3D-Labor ---------- */
+{const ids=['winkel','treppe','absatz','nut','rahmen','tunnel'];let cur='winkel';
+ const v=TZ.viewer($('#lab3d'),B(cur));
+ const tabs=$('#labTabs');tabs.innerHTML=ids.map(i=>`<button data-b="${i}" aria-pressed="${i===cur}">${BY[i].name}</button>`).join('');
+ const views=()=>{const b=B(cur);$('#labViews').innerHTML=[['A','Vorderansicht',TZ.PROJ.front],['B','Seitenansicht',TZ.PROJ.left],['C','Draufsicht',TZ.PROJ.top]].map(([k,n,P])=>`<figure data-v="${k}">${TZ.viewSVG(TZ.lines(b,P),n)}<figcaption><b>${k}</b> ${n}</figcaption></figure>`).join('')};
+ tabs.querySelectorAll('button').forEach(bt=>bt.onclick=()=>{cur=bt.dataset.b;tabs.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===bt));v.set(B(cur));views();hl()});
+ let on=null;const hl=()=>$$('#labViews figure').forEach(f=>f.classList.toggle('on',f.dataset.v===on));
+ $$('#entdecken .vbtns button').forEach(bt=>bt.onclick=()=>{const k=bt.dataset.v;on=k==='schraeg'?null:k;v.to(...TZ.VIEWS[k]);hl()});
+ $('#lab3d').addEventListener('pointerdown',()=>{on=null;hl()});
+ views()}
+/* Auftrag 4: Plätze */
+{const AX=60,AY=55,g=8,w=150,h=120;let s=TZ.axesSVG({AX,AY,g,w,h,m:6});
+ s+=`<g class="place"><rect x="14" y="14" width="${AX-g-20}" height="${AY-g-20}" rx="3" style="fill:var(--panel);stroke:var(--line)"/><text x="${(14+AX-g-6)/2}" y="${(14+AY-g-6)/2+2}" text-anchor="middle">Feld 1</text>`;
+ s+=`<rect x="${AX+g+6}" y="14" width="${w-AX-g-20}" height="${AY-g-20}" rx="3" style="fill:var(--panel);stroke:var(--line)"/><text x="${(AX+g+6+w-14)/2}" y="${(14+AY-g-6)/2+2}" text-anchor="middle">Feld 2</text>`;
+ s+=`<rect x="14" y="${AY+g+6}" width="${AX-g-20}" height="${h-AY-g-20}" rx="3" style="fill:var(--panel);stroke:var(--line)"/><text x="${(14+AX-g-6)/2}" y="${(AY+g+6+h-14)/2+2}" text-anchor="middle">Feld 3</text></g>`;
+ $('#placeFig').innerHTML=s}
+/* Auftrag 5: Ansichten zuordnen (Reihenfolge fest: B, C, A) */
+{const b=B('winkel');TZ.viewer($('#q4body'),b,{arrows:true});
+ $('#q4v1').innerHTML=TZ.viewSVG(TZ.lines(b,TZ.PROJ.left),'Ansicht 1');$('#q4v2').innerHTML=TZ.viewSVG(TZ.lines(b,TZ.PROJ.top),'Ansicht 2');$('#q4v3').innerHTML=TZ.viewSVG(TZ.lines(b,TZ.PROJ.front),'Ansicht 3')}
+/* Auftrag 6: Achsenkreuz Schritt für Schritt */
+{const svg=$('#axFig'),AX=70,AY=70,g=10,w=150,h=150,m=22;
+ const steps=[()=>`<line x1="${m}" y1="${AY}" x2="${w-m}" y2="${AY}" class="tz-ax"/><line x1="${AX}" y1="${m}" x2="${AX}" y2="${h-m}" class="tz-ax"/><text x="${w-m}" y="${AY-2}" text-anchor="end" class="tz-areal">X-Achse</text><text x="${AX+2}" y="${m+4}" class="tz-areal">Y-Achse</text>`,
+  ()=>[AY-g,AY+g].map(y=>`<line x1="${m}" y1="${y}" x2="${w-m}" y2="${y}" class="tz-hl hl-on"/>`).join('')+[AX-g,AX+g].map(x=>`<line x1="${x}" y1="${m}" x2="${x}" y2="${h-m}" class="tz-hl hl-on"/>`).join('')+`<text x="${m}" y="${AY-g-2}" class="tz-areal">10 mm</text>`,
+  ()=>`<rect x="1" y="1" width="${w-2}" height="${h-2}" style="fill:none;stroke:var(--muted)" stroke-width=".6"/><path d="M1 ${AY+30} H${m}" style="stroke:var(--gst-mark)" stroke-width="1.2"/><text x="3" y="${AY+28}" class="tz-areal">20–30 mm</text>`,
+  ()=>`<line x1="${AX+g}" y1="${AY+g}" x2="${w-m}" y2="${h-m}" class="tz-hl hl-on"/><text x="${AX+g+30}" y="${AY+g+20}" class="tz-areal">45°</text>`];
+ const st=$('#axFig').closest('.stepper');
+ const draw=()=>{const n=st.querySelectorAll('.stepbox:not([hidden])').length;let s='';for(let i=0;i<n;i++){let t=steps[i]();if(i<n-1)t=t.replace(/ hl-on/g,'');s+=t}svg.innerHTML=s};
+ st.querySelectorAll('.st-next,.st-back').forEach(b=>b.addEventListener('click',()=>setTimeout(draw)));setTimeout(draw)}
+/* Festhalten: Beispiel */
+$('#merkeFig').innerHTML=TZ.threeViewSVG(B('treppe'),{label:'Dreitafelprojektion der Treppe'});
+/* Übung 2: Seitenansicht wählen */
+{const b=B('absatz'),mir=s=>s.map(q=>({a:[-q.a[0],q.a[1]],b:[-q.b[0],q.b[1]],vis:q.vis}));
+ $('#u2A').innerHTML=TZ.viewSVG(TZ.lines(b,TZ.PROJ.front),'Vorderansicht');$('#u2C').innerHTML=TZ.viewSVG(TZ.lines(b,TZ.PROJ.top),'Draufsicht');
+ const L=TZ.lines(b,TZ.PROJ.left);$('#u2b').innerHTML=TZ.viewSVG(L,'Ansicht 2');$('#u2a').innerHTML=TZ.viewSVG(mir(L),'Ansicht 1');
+ const o=TZ.body({size:[4,3,4],boxes:[[0,0,0,4,2,4],[0,2,1,4,3,4]]});$('#u2c').innerHTML=TZ.viewSVG(TZ.lines(o,TZ.PROJ.left),'Ansicht 3')}
+/* Übung 3: Maße ablesen (Körper 4 × 3 × 4 Würfel = 40 × 30 × 40 mm) */
+{const b=TZ.body({size:[4,3,4],boxes:[[0,0,0,4,3,4]],cut:[[0,2,0,4,3,2],[0,0,0,1,2,1]]});
+ const s=TZ.threeViewSVG(b,{labels:true,label:'Dreitafelprojektion auf Karopapier'});
+ let grid='';for(let i=0;i<=200;i+=5){grid+=`<line x1="${i}" y1="0" x2="${i}" y2="200" class="tz-g"/><line x1="0" y1="${i}" x2="200" y2="${i}" class="tz-g"/>`}
+ $('#u3fig').innerHTML=s.replace(/(<svg[^>]*>)/,'$1<g style="--karo:var(--karo2)">'+grid+'</g>')}
+/* ---------- Zeichen-Werkstatt ---------- */
+{const ORDER=[['wuerfel','★'],['saeule','★'],['winkel','★'],['treppe','★★'],['absatz','★★'],['nut','★★'],['rahmen','★★★'],['tunnel','★★★']];
+ const AX=70,AY=70,g=10,u=10,W=150,H=150;let cur='wuerfel',checked=false,last=null;
+ const under=TZ.axesSVG({AX,AY,g,w:W,h:H,m:6})+`<text x="4" y="6" class="tz-areal">A · Vorderansicht</text><text x="${AX+g+2}" y="6" class="tz-areal">B · Seitenansicht</text><text x="4" y="${H-3}" class="tz-areal">C · Draufsicht</text><text x="${W-4}" y="${H-3}" text-anchor="end" class="tz-areal">Spiegelachse</text>`;
+ const v3=TZ.viewer($('#ws3d'),B(cur));
+ const bd=TZ.board($('#wsBoard'),{w:W,h:H,mode:'karo',step:5,under,onchange:()=>{try{localStorage.setItem(KEY+'-dt-'+cur,JSON.stringify(bd.segs))}catch(e){}}});
+ const tabs=$('#wsTabs');tabs.innerHTML=ORDER.map(([i,s])=>`<button data-b="${i}" data-for="dt-${i}" aria-pressed="${i===cur}">${BY[i].name} <span class="stars">${s}</span></button>`).join('');
+ const load=()=>{let s=[];try{s=JSON.parse(localStorage.getItem(KEY+'-dt-'+cur)||'[]')}catch(e){}bd.load(s);bd.undo=[];bd.clearOvl();$('#wsRes').innerHTML='';$('#wsLeg').hidden=true;$('#wsSolBox').hidden=true;$('#wsDiff').disabled=true;$('#wsSol').disabled=true;$('#wsSol').textContent='Lösung zeigen';checked=false;last=null};
+ tabs.querySelectorAll('button').forEach(bt=>bt.onclick=()=>{cur=bt.dataset.b;tabs.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===bt));v3.set(B(cur));v3.to(...TZ.VIEWS.schraeg,300);load()});
+ $$('#wsV button').forEach(bt=>bt.onclick=()=>v3.to(...TZ.VIEWS[bt.dataset.v]));
+ const press=(a,b)=>{a.setAttribute('aria-pressed','true');b.setAttribute('aria-pressed','false')};
+ $('#tDraw').onclick=()=>{bd.setTool('draw');press($('#tDraw'),$('#tErase'))};$('#tErase').onclick=()=>{bd.setTool('erase');press($('#tErase'),$('#tDraw'))};
+ $('#tVis').onclick=()=>{bd.setType('v');press($('#tVis'),$('#tHid'));$('#tDraw').click()};$('#tHid').onclick=()=>{bd.setType('h');press($('#tHid'),$('#tVis'));$('#tDraw').click()};
+ $('#tUndo').onclick=()=>bd.undoStep();$('#tClear').onclick=()=>bd.clear();
+ const NAMES={A:'Vorderansicht A',B:'Seitenansicht B',C:'Draufsicht C'};
+ const region=s=>{const x=(s.a[0]+s.b[0])/2,y=(s.a[1]+s.b[1])/2;return x<AX&&y<AY?'A':x>AX&&y<AY?'B':x<AX&&y>AY?'C':'X'};
+ $('#wsCheck').onclick=()=>{const b=B(cur),exp=TZ.threeViews(b,{AX,AY,g,u}),D=b.D*u;let all=true,html='<ul>',diff='',nX=0;
+  for(const k of ['A','B','C']){const st=bd.segs.filter(s=>region(s)===k),r=TZ.compare(exp[k],st,{tol:.7});diff+=TZ.diffSVG(r);
+   if(r.ok){html+=`<li class="ok">✓ ${NAMES[k]} stimmt.</li>`;continue}all=false;
+   let t=[];if(!st.length)t.push('fehlt noch');else{
+    let extra='';
+    if(TZ.compareFree(exp[k],st,{tol:.7}).ok)extra=' Die Form stimmt, aber sie liegt an der falschen Stelle: Setze die Ansicht genau in die Ecke der Hilfslinien.';
+    else if(k==='B'&&TZ.compare(exp.B.map(s=>({...s,a:[2*(AX+g)+D-s.a[0],s.a[1]],b:[2*(AX+g)+D-s.b[0],s.b[1]]})),st,{tol:.7}).ok)extra=' Deine Seitenansicht ist gespiegelt. Bei B schaust du von links: Die Vorderseite des Körpers liegt in B rechts, die Rückseite links an der Hilfslinie.';
+    else if(k==='C'&&TZ.compare(exp.C.map(s=>({...s,a:[s.a[0],2*(AY+g)+D-s.a[1]],b:[s.b[0],2*(AY+g)+D-s.b[1]]})),st,{tol:.7}).ok)extra=' Deine Draufsicht ist gespiegelt. In C liegt die Rückseite oben an der Hilfslinie, die Vorderseite unten.';
+    if(r.nMiss)t.push(r.nMiss+(r.nMiss===1?' Linie fehlt oder ist zu kurz':' Linien fehlen oder sind zu kurz'));
+    if(r.nWrong)t.push(r.nWrong+(r.nWrong===1?' Linie hat den falschen Linientyp':' Linien haben den falschen Linientyp')+' (sichtbar ↔ verdeckt)');
+    if(r.nExtra)t.push(r.nExtra+(r.nExtra===1?' Linie ist zu viel oder liegt falsch':' Linien sind zu viel oder liegen falsch'));
+    if(extra)t=[extra.trim().replace(/\.$/,'')]}
+   html+=`<li class="bad">${NAMES[k]}: ${t.join('. ')}.</li>`}
+  const xs=bd.segs.filter(s=>region(s)==='X');if(xs.length){all=false;nX=xs.length;html+=`<li class="bad">Im Feld unten rechts wird nichts gezeichnet – dort liegt nur die Spiegelachse.</li>`;diff+=xs.map(s=>`<line x1="${s.a[0]}" y1="${s.a[1]}" x2="${s.b[0]}" y2="${s.b[1]}" class="tz-extra"/>`).join('')}
+  html+='</ul>';
+  if(all){html=`<p class="fb ok">Super, alle drei Ansichten stimmen! ${cur==='tunnel'||cur==='rahmen'||cur==='nut'?'Auch die verdeckten Kanten sind richtig.':''}</p>`;mark('dt-'+cur)}
+  else html='<p style="margin:0">Noch nicht ganz:</p>'+html;
+  $('#wsRes').innerHTML=html;last=diff;checked=true;$('#wsDiff').disabled=all;$('#wsSol').disabled=false;bd.clearOvl();$('#wsLeg').hidden=true};
+ $('#wsDiff').onclick=()=>{if(last!=null){bd.overlay(last);$('#wsLeg').hidden=false}};
+ $('#wsSol').onclick=()=>{const box=$('#wsSolBox');box.hidden=!box.hidden;$('#wsSol').textContent=box.hidden?'Lösung zeigen':'Lösung ausblenden';
+  if(!box.hidden)box.innerHTML=`<p><b>Lösung „${BY[cur].name}“:</b></p><div style="max-width:420px">${TZ.threeViewSVG(B(cur),{label:'Lösung'})}</div>`};
+ /* Groß-Ansicht */
+ $('#wsMax').onclick=()=>{const vt=$('#wsMax').closest('.vt'),on=!vt.classList.contains('vtmax');vt.classList.toggle('vtmax',on);document.documentElement.classList.toggle('noscroll',on);$('#wsMax').textContent=on?'✕ Schließen':'⤢ Groß';
+  if(on){vt.prepend($('.tz-tools'))}else{$('#wsBoard').closest('.vt').before($('.tz-tools'))}};
+ load()}
+initCommon();
+}
+</script>
+</body>
+</html>
