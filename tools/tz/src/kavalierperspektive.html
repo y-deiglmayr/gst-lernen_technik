@@ -18,6 +18,7 @@
 .cavfig svg{display:block;width:100%;height:auto;max-height:420px}
 .cl{font:600 6px "Source Sans 3",sans-serif;fill:var(--muted)}.cl.a{fill:var(--ca)}.cl.b{fill:var(--cb)}.cl.c{fill:var(--cc)}
 .arcl{fill:none;stroke:var(--gst-gold);stroke-width:.6}
+.hlin{stroke:var(--gst-gold);stroke-width:.35;fill:none}
 :root{--ca:light-dark(#c0561c,#ff9a5c);--cb:light-dark(#2b7a4b,#6cc591);--cc:light-dark(#2563c9,#6aa5ff)}
 .ea{stroke:var(--ca)!important}.eb{stroke:var(--cb)!important}.ec{stroke:var(--cc)!important}
 .cmp{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:8px 0}
@@ -127,9 +128,9 @@
 <section class="band" id="festhalten"><div class="wrap">
 <h2>3 · Festhalten</h2>
 <div class="card"><div class="tag">Lückentext · Kavalierperspektive <span class="stars">★</span> <span class="afb">AFB I</span></div>
-<div class="selbox part" data-task="f1" data-fb="Alles richtig!"><div class="cloze">Die Kavalierperspektive ist eine <select data-a="räumliche"><option value="">…</option><option>räumliche</option><option>flache</option></select> Darstellung. Die <select data-a="Vorderseite"><option value="">…</option><option>Vorderseite</option><option>Oberseite</option><option>Rückseite</option></select> wird rechtwinklig und in echter Größe gezeichnet. Die Tiefenlinien laufen im Winkel von <select data-a="45°"><option value="">…</option><option>30°</option><option>45°</option><option>90°</option></select> nach hinten und werden <select data-a="halb so lang"><option value="">…</option><option>halb so lang</option><option>doppelt so lang</option><option>in echter Länge</option></select> gezeichnet. Das Maßverhältnis ist a : b : c = <select data-a="1 : 1 : ½"><option value="">…</option><option>1 : 1 : ½</option><option>1 : 1 : 1</option><option>½ : 1 : 1</option></select>. Bemaßt wird trotzdem die <select data-a="echte"><option value="">…</option><option>echte</option><option>gezeichnete</option></select> Tiefe. Verdeckte Kanten zeichnet man als <select data-a="Strichlinie"><option value="">…</option><option>Strichlinie</option><option>Volllinie</option></select>.</div><div class="row"><button class="primary sel-check">Prüfen</button></div><p class="fb sfb"></p></div>
+<div class="selbox part" data-task="f1" data-fb="Alles richtig!"><div class="cloze">Die Kavalierperspektive ist eine <select data-a="räumliche"><option value="">…</option><option>räumliche</option><option>flache</option></select> Darstellung. Die <select data-a="Vorderseite"><option value="">…</option><option>Vorderseite</option><option>Oberseite</option><option>Rückseite</option></select> wird rechtwinklig und in echter Größe gezeichnet. Die Tiefenlinien laufen im Winkel von <select data-a="45°"><option value="">…</option><option>30°</option><option>45°</option><option>90°</option></select> nach hinten und werden <select data-a="halb so lang"><option value="">…</option><option>halb so lang</option><option>doppelt so lang</option><option>in echter Länge</option></select> gezeichnet. Das Maßverhältnis ist a ∶ b ∶ c = <select data-a="1 ∶ 1 ∶ ½"><option value="">…</option><option>1 ∶ 1 ∶ ½</option><option>1 ∶ 1 ∶ 1</option><option>½ ∶ 1 ∶ 1</option></select>. Bemaßt wird trotzdem die <select data-a="echte"><option value="">…</option><option>echte</option><option>gezeichnete</option></select> Tiefe. Verdeckte Kanten zeichnet man als <select data-a="Strichlinie"><option value="">…</option><option>Strichlinie</option><option>Volllinie</option></select>.</div><div class="row"><button class="primary sel-check">Prüfen</button></div><p class="fb sfb"></p></div>
 </div>
-<div class="merke"><h4>Merke</h4><ul><li>Vorderseite <b>unverzerrt</b>: Länge a und Höhe b in echter Größe, rechtwinklig.</li><li>Tiefe c im <b>45°-Winkel</b> nach hinten, <b>halb so lang</b>: a : b : c = 1 : 1 : ½.</li><li>Bemaßt wird immer das <b>echte</b> Maß (z. B. 80, obwohl 40 mm gezeichnet sind).</li><li>Reihenfolge: Vorderseite → Tiefenlinien → Rückseite → verdeckte Kanten.</li></ul></div>
+<div class="merke"><h4>Merke</h4><ul><li>Vorderseite <b>unverzerrt</b>: Länge a und Höhe b in echter Größe, rechtwinklig.</li><li>Tiefe c im <b>45°-Winkel</b> nach hinten, <b>halb so lang</b>: a ∶ b ∶ c = 1 ∶ 1 ∶ ½.</li><li>Bemaßt wird immer das <b>echte</b> Maß (z. B. 80, obwohl 40 mm gezeichnet sind).</li><li>Reihenfolge: Vorderseite → Tiefenlinien → Rückseite → verdeckte Kanten.</li></ul></div>
 <p class="note">Gut zu wissen: Im Material heißt diese Darstellung auch Kabinettperspektive. In der Norm (DIN ISO 5456) wird die Darstellung mit halber Tiefe genau genommen Kabinettprojektion genannt, die mit ganzer Tiefe Kavalierprojektion. Im Unterricht zeichnen wir mit halber Tiefe.</p>
 </div></section>
 
@@ -184,7 +185,7 @@
 <div class="row" style="margin-top:8px"><button id="resetAll">Fortschritt zurücksetzen</button></div>
 </div></section>
 <footer class="band"><div class="wrap">
-<p>Lernpfad Technik Klasse 8 · Technisches Zeichnen: Kavalierperspektive (45°, Tiefe halbiert, a : b : c = 1 : 1 : ½). Modell im Labor: Parallelprojektion, ideale Linien. Alles läuft in deinem Browser. Fortschritt und Zeichnungen werden nur in diesem Browser gespeichert, es werden keine Daten übertragen (nur Feedback, das du selbst abschickst).</p>
+<p>Lernpfad Technik Klasse 8 · Technisches Zeichnen: Kavalierperspektive (45°, Tiefe halbiert, a ∶ b ∶ c = 1 ∶ 1 ∶ ½). Modell im Labor: Parallelprojektion, ideale Linien. Alles läuft in deinem Browser. Fortschritt und Zeichnungen werden nur in diesem Browser gespeichert, es werden keine Daten übertragen (nur Feedback, das du selbst abschickst).</p>
 <p class="rechtl"><a href="/impressum">Impressum · Datenschutz</a></p></div></footer>
 <!--@QRDLG@-->
 <script>
@@ -208,12 +209,12 @@ const fitSVG=(segs,cls,pad=5,extra='')=>{const bb=TZ.bbox(segs);return `<svg cla
   const dx=k*c*Math.cos(w*Math.PI/180),dy=k*c*Math.sin(w*Math.PI/180);
   const ec=(s,cls)=>`<line x1="${s[0]}" y1="${s[1]}" x2="${s[2]}" y2="${s[3]}" class="tz-v ${cls}"/>`;
   let ex=ec([0,0,a,0],'ea')+ec([0,0,0,-b],'eb')+ec([a,0,a+dx,-dy],'ec');
-  const R=10;ex+=`<path d="M${a+R} 0 A${R} ${R} 0 0 0 ${a+R*Math.cos(w*Math.PI/180)} ${-R*Math.sin(w*Math.PI/180)}" class="arcl"/><text x="${a+R+2}" y="-2" class="cl">${w}°</text>`;
+  const R=10;ex+=`<line x1="${a}" y1="0" x2="${a+R+5}" y2="0" class="hlin"/><path d="M${a+R} 0 A${R} ${R} 0 0 0 ${a+R*Math.cos(w*Math.PI/180)} ${-R*Math.sin(w*Math.PI/180)}" class="arcl"/><text x="${a+R+2}" y="-2" class="cl">${w}°</text>`;
   ex+=`<text x="${a/2}" y="8" text-anchor="middle" class="cl a">a = ${a}</text><text x="-3" y="${-b/2}" text-anchor="end" class="cl b">b = ${b}</text><text x="${a+dx/2+3}" y="${-dy/2+4}" class="cl c">c = ${c}</text>`;
   const bb=TZ.bbox(L),p=14;
   $('#cav').setAttribute('viewBox',`${bb[0]-p-10} ${bb[1]-p} ${bb[2]-bb[0]+2*p+30} ${bb[3]-bb[1]+2*p+6}`);
   $('#cav').innerHTML=TZ.segSVG(L)+ex;$('#cav').classList.add('tz-sp');
-  const cz=k*c;$('#cavRead').innerHTML=`<div>Vorderseite<b>${a} × ${b} mm</b></div><div>echte Tiefe c<b>${c} mm</b></div><div>gezeichnete Tiefe<b>${fmtS(cz,1)} mm</b></div><div>Verhältnis a : b : c<b>1 : 1 : ${k===1?'1':'½'}</b></div>`;
+  const cz=k*c;$('#cavRead').innerHTML=`<div>Vorderseite<b>${a} × ${b} mm</b></div><div>echte Tiefe c<b>${c} mm</b></div><div>gezeichnete Tiefe<b>${fmtS(cz,1)} mm</b></div><div>Verhältnis a ∶ b ∶ c<b>1 ∶ 1 ∶ ${k===1?'1':'½'}</b></div>`;
   v3.set(quader(a/10,b/10,c/10))}
  ['sa','sb','sc'].forEach(i=>$('#'+i).oninput=draw);$('#sh').onchange=draw;
  $$('#sw button').forEach(b=>b.onclick=()=>{w=+b.dataset.w;$$('#sw button').forEach(x=>x.setAttribute('aria-pressed',x===b));draw()});
@@ -223,7 +224,7 @@ const fitSVG=(segs,cls,pad=5,extra='')=>{const bb=TZ.bbox(segs);return `<svg cla
 {const o=40/Math.SQRT2,st=$('#stepFig').closest('.stepper');
  const L=(x1,y1,x2,y2,c='tz-v')=>`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" class="${c}"/>`;
  const S=[L(0,0,50,0)+L(50,0,50,-40)+L(50,-40,0,-40)+L(0,-40,0,0),
-  L(0,-40,o,-40-o)+L(50,-40,50+o,-40-o)+L(50,0,50+o,-o)+`<path d="M60 0 A10 10 0 0 0 ${50+10*Math.SQRT1_2} ${-10*Math.SQRT1_2}" class="arcl"/><text x="61" y="-3" class="cl">45°</text>`,
+  L(0,-40,o,-40-o)+L(50,-40,50+o,-40-o)+L(50,0,50+o,-o)+`<line x1="50" y1="0" x2="65" y2="0" class="hlin"/><path d="M60 0 A10 10 0 0 0 ${50+10*Math.SQRT1_2} ${-10*Math.SQRT1_2}" class="arcl"/><text x="61" y="-3" class="cl">45°</text>`,
   L(o,-40-o,50+o,-40-o)+L(50+o,-40-o,50+o,-o),
   L(0,0,o,-o,'tz-h')+L(o,-o,50+o,-o,'tz-h')+L(o,-o,o,-40-o,'tz-h')];
  const draw=()=>{const n=st.querySelectorAll('.stepbox:not([hidden])').length;let s='';for(let i=0;i<n;i++)s+=i===n-1&&i>0?S[i].replace(/class="(tz-[vh])"/g,'class="$1 new"'):S[i];$('#stepFig').innerHTML=s};

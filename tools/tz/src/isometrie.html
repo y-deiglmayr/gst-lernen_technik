@@ -16,7 +16,8 @@
 @media(max-width:600px){.herofig{display:none}}
 .isofig svg{display:block;width:100%;height:auto;max-height:340px}
 .cl{font:600 5px "Source Sans 3",sans-serif;fill:var(--muted)}
-.arcl{fill:none;stroke:var(--gst-gold);stroke-width:.5}
+.arcl{fill:none;stroke:var(--gst-gold);stroke-width:.6}
+.hlin{stroke:var(--gst-gold);stroke-width:.35;fill:none}
 .stepfig svg{display:block;width:100%;height:auto;max-width:340px;margin:0 auto}
 .stepfig .new{stroke:var(--gst-gold)!important}
 .cmpt{border-collapse:collapse;width:100%;font-size:16px}.cmpt th,.cmpt td{border:1px solid var(--line);padding:6px 8px;text-align:left}.cmpt th{background:var(--panel)}
@@ -122,9 +123,9 @@
 <section class="band" id="festhalten"><div class="wrap">
 <h2>3 · Festhalten</h2>
 <div class="card"><div class="tag">Lückentext · Isometrie <span class="stars">★</span> <span class="afb">AFB I</span></div>
-<div class="selbox part" data-task="f1" data-fb="Alles richtig!"><div class="cloze">In der isometrischen Darstellung sieht man Vorderseite, Seite und Oberseite <select data-a="gleichzeitig"><option value="">…</option><option>gleichzeitig</option><option>nacheinander</option></select>. Länge a und Breite c laufen im <select data-a="30°"><option value="">…</option><option>30°</option><option>45°</option><option>60°</option></select>-Winkel schräg nach oben, die Höhe b zeigt <select data-a="senkrecht"><option value="">…</option><option>senkrecht</option><option>waagrecht</option></select> nach oben. Alle Kanten werden in <select data-a="echter Länge"><option value="">…</option><option>echter Länge</option><option>halber Länge</option></select> gezeichnet, das Maßverhältnis ist a : b : c = <select data-a="1 : 1 : 1"><option value="">…</option><option>1 : 1 : 1</option><option>1 : 1 : ½</option></select>. Zum Zeichnen nimmt man gern <select data-a="Isometriepapier"><option value="">…</option><option>Isometriepapier</option><option>Millimeterpapier</option></select>. Man beginnt mit der <select data-a="vordersten senkrechten Kante"><option value="">…</option><option>vordersten senkrechten Kante</option><option>hintersten Kante</option></select>.</div><div class="row"><button class="primary sel-check">Prüfen</button></div><p class="fb sfb"></p></div>
+<div class="selbox part" data-task="f1" data-fb="Alles richtig!"><div class="cloze">In der isometrischen Darstellung sieht man Vorderseite, Seite und Oberseite <select data-a="gleichzeitig"><option value="">…</option><option>gleichzeitig</option><option>nacheinander</option></select>. Länge a und Breite c laufen im <select data-a="30°"><option value="">…</option><option>30°</option><option>45°</option><option>60°</option></select>-Winkel schräg nach oben, die Höhe b zeigt <select data-a="senkrecht"><option value="">…</option><option>senkrecht</option><option>waagrecht</option></select> nach oben. Alle Kanten werden in <select data-a="echter Länge"><option value="">…</option><option>echter Länge</option><option>halber Länge</option></select> gezeichnet, das Maßverhältnis ist a ∶ b ∶ c = <select data-a="1 ∶ 1 ∶ 1"><option value="">…</option><option>1 ∶ 1 ∶ 1</option><option>1 ∶ 1 ∶ ½</option></select>. Zum Zeichnen nimmt man gern <select data-a="Isometriepapier"><option value="">…</option><option>Isometriepapier</option><option>Millimeterpapier</option></select>. Man beginnt mit der <select data-a="vordersten senkrechten Kante"><option value="">…</option><option>vordersten senkrechten Kante</option><option>hintersten Kante</option></select>.</div><div class="row"><button class="primary sel-check">Prüfen</button></div><p class="fb sfb"></p></div>
 </div>
-<div class="merke"><h4>Merke</h4><ul><li>Länge a und Breite c im <b>30°-Winkel</b> schräg nach oben, Höhe b <b>senkrecht</b>.</li><li>Keine Verkürzung: a : b : c = <b>1 : 1 : 1</b>, alle Kanten in echter Länge.</li><li>Isometriepapier mit 5-mm-Dreiecken: Kantenlänge : 5 = Anzahl der Dreiecksseiten.</li><li>Kavalier: <b>45° und ½</b> · Isometrie: <b>30° und 1 : 1 : 1</b>.</li></ul></div>
+<div class="merke"><h4>Merke</h4><ul><li>Länge a und Breite c im <b>30°-Winkel</b> schräg nach oben, Höhe b <b>senkrecht</b>.</li><li>Keine Verkürzung: a ∶ b ∶ c = <b>1 ∶ 1 ∶ 1</b>, alle Kanten in echter Länge.</li><li>Isometriepapier mit 5-mm-Dreiecken: Kantenlänge : 5 = Anzahl der Dreiecksseiten.</li><li>Kavalier: <b>45° und ½</b> · Isometrie: <b>30° und 1 ∶ 1 ∶ 1</b>.</li></ul></div>
 </div></section>
 
 <!-- ============ 4 ÜBEN ============ -->
@@ -145,7 +146,7 @@
 </div>
 <div class="card"><div class="tag">Übung 3 · Stimmt das? <span class="stars">★</span> <span class="afb">AFB I</span></div>
 <div class="tf part" data-task="u4">
-<div class="item" data-v="1"><span>„In der Isometrie sind alle Kanten des Würfels gleich lang gezeichnet.“</span><span class="btns"><button data-v="1">richtig</button><button data-v="0">falsch</button></span><p class="fb"></p><span class="ex">Keine Verkürzung: a : b : c = 1 : 1 : 1.</span></div>
+<div class="item" data-v="1"><span>„In der Isometrie sind alle Kanten des Würfels gleich lang gezeichnet.“</span><span class="btns"><button data-v="1">richtig</button><button data-v="0">falsch</button></span><p class="fb"></p><span class="ex">Keine Verkürzung: a ∶ b ∶ c = 1 ∶ 1 ∶ 1.</span></div>
 <div class="item" data-v="0"><span>„In der Isometrie bleibt die Vorderseite rechtwinklig.“</span><span class="btns"><button data-v="1">richtig</button><button data-v="0">falsch</button></span><p class="fb"></p><span class="ex">Das gilt für die Kavalierperspektive. In der Isometrie wird jede Seite schräg (als Raute) gezeichnet.</span></div>
 <div class="item" data-v="1"><span>„Senkrechte Kanten bleiben in der Isometrie senkrecht.“</span><span class="btns"><button data-v="1">richtig</button><button data-v="0">falsch</button></span><p class="fb"></p><span class="ex">Die Höhe b wird immer senkrecht gezeichnet.</span></div>
 </div>
@@ -170,7 +171,7 @@
 <div class="row" style="margin-top:8px"><button id="resetAll">Fortschritt zurücksetzen</button></div>
 </div></section>
 <footer class="band"><div class="wrap">
-<p>Lernpfad Technik Klasse 8 · Technisches Zeichnen: Isometrische Darstellung (30°, a : b : c = 1 : 1 : 1, Isometriepapier). 3D-Labor und Zeichenbrett laufen vollständig in deinem Browser. Fortschritt und Zeichnungen werden nur in diesem Browser gespeichert, es werden keine Daten übertragen (nur Feedback, das du selbst abschickst).</p>
+<p>Lernpfad Technik Klasse 8 · Technisches Zeichnen: Isometrische Darstellung (30°, a ∶ b ∶ c = 1 ∶ 1 ∶ 1, Isometriepapier). 3D-Labor und Zeichenbrett laufen vollständig in deinem Browser. Fortschritt und Zeichnungen werden nur in diesem Browser gespeichert, es werden keine Daten übertragen (nur Feedback, das du selbst abschickst).</p>
 <p class="rechtl"><a href="/impressum">Impressum · Datenschutz</a></p></div></footer>
 <!--@QRDLG@-->
 <script>
@@ -188,7 +189,9 @@ const iso=(b,u=10)=>TZ.spatial(b,TZ.PROJ.iso,u);
 /* 3D-Labor */
 {const ids=['wuerfel','treppe','winkel','rahmen','nut'];let cur='wuerfel';const v=TZ.viewer($('#lab3d'),TZ.body(BY[cur]),{arrows:false,yaw:20,pitch:15});
  const draw=()=>{const b=TZ.body(BY[cur]),L=iso(b);let ex='';
-  if(cur==='wuerfel'){const F=[40*TZ.C30,20],R=10;ex=`<path d="M${F[0]-R} ${F[1]} H${F[0]+R}" style="stroke:var(--muted)" stroke-width=".3" stroke-dasharray="1 1"/><path d="M${F[0]+R} ${F[1]} A${R} ${R} 0 0 0 ${F[0]+R*TZ.C30} ${F[1]-R/2}" class="arcl"/><text x="${F[0]+R+1}" y="${F[1]-.5}" class="cl">30°</text><path d="M${F[0]-R} ${F[1]} A${R} ${R} 0 0 1 ${F[0]-R*TZ.C30} ${F[1]-R/2}" class="arcl"/><text x="${F[0]-R-1}" y="${F[1]-.5}" text-anchor="end" class="cl">30°</text>`}
+  {/* 30°-Winkel an der vordersten unteren Ecke (Breite x = W, Höhe 0, Tiefe 0): zwischen waagrechter Hilfslinie und den beiden unteren Kanten */
+   const W=b.W,F=[W*10*TZ.C30,W*5],R=9,H=R+5;
+   ex=`<path d="M${F[0]-H} ${F[1]} H${F[0]+H}" class="hlin"/><path d="M${F[0]+R} ${F[1]} A${R} ${R} 0 0 0 ${F[0]+R*TZ.C30} ${F[1]-R/2}" class="arcl"/><text x="${F[0]+R+1.5}" y="${F[1]-1}" class="cl">30°</text><path d="M${F[0]-R} ${F[1]} A${R} ${R} 0 0 1 ${F[0]-R*TZ.C30} ${F[1]-R/2}" class="arcl"/><text x="${F[0]-R-1.5}" y="${F[1]-1}" text-anchor="end" class="cl">30°</text>`}
   const bb=TZ.bbox(L),p=8;$('#labIso').setAttribute('viewBox',`${bb[0]-p} ${bb[1]-p} ${bb[2]-bb[0]+2*p} ${bb[3]-bb[1]+2*p}`);$('#labIso').innerHTML=TZ.segSVG(L)+ex;$('#labIso').classList.add('tz-sp')};
  const tabs=$('#labTabs');tabs.innerHTML=ids.map(i=>`<button data-b="${i}" aria-pressed="${i===cur}">${BY[i].name}</button>`).join('');
  tabs.querySelectorAll('button').forEach(bt=>bt.onclick=()=>{cur=bt.dataset.b;tabs.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===bt));v.set(TZ.body(BY[cur]));draw()});

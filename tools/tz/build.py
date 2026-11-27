@@ -25,3 +25,6 @@ for src,(ziel,key) in SEITEN.items():
   assert '@' not in re.sub(r'(?s)<svg.*?</svg>','',t).replace('@media','').replace('@keyframes','') or True
   open(os.path.join(R,ziel+'.html'),'w',encoding='utf-8').write(t);print('gebaut:',ziel)
   subprocess.run([sys.executable,os.path.join(R,'tools','formeln_markieren.py'),os.path.join(R,ziel+'.html')],check=True,stdout=subprocess.DEVNULL)
+  # Formel-Markierung in SVG-Beschriftungen wieder entfernen (dort setzt KaTeX nichts)
+  f=os.path.join(R,ziel+'.html');t=open(f,encoding='utf-8').read()
+  t=re.sub(r'(<text\b[^>]*>)<f-m>(.*?)</f-m>',r'\1\2',t);open(f,'w',encoding='utf-8').write(t)
