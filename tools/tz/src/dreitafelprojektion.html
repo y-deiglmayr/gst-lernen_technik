@@ -30,6 +30,20 @@
 .axfig .hl-on{stroke:var(--gst-mark)!important;stroke-width:1.3!important;opacity:1}
 .place text{font:600 5px "Source Sans 3",sans-serif;fill:var(--muted)}
 .ablese svg{display:block;width:100%;height:auto;max-width:420px}
+.rb{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:20px;align-items:start}
+@media(max-width:900px){.rb{grid-template-columns:minmax(0,1fr)}}
+.rb-h{font-weight:700;margin:0 0 6px}
+#rbPlan svg{display:block;width:100%;max-width:340px;height:auto;margin:0 auto}
+.rb-build{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px}
+@media(max-width:480px){.rb-build{grid-template-columns:minmax(0,1fr)}}
+#rbGrid{display:block;width:100%;max-width:300px;margin:0 auto;height:auto;touch-action:manipulation;user-select:none}
+.rb-c{fill:light-dark(#f4f6f6,#232b2d);stroke:var(--line);stroke-width:.04;cursor:pointer}
+.rb-c.h1{fill:var(--kt)}.rb-c.h2{fill:var(--ks)}.rb-c.h3{fill:var(--kf)}.rb-c.h4{fill:light-dark(#5f8287,#3e5a5e)}
+.rb-c:hover{stroke:var(--gst-mark);stroke-width:.08}
+.rb-n{font:700 .42px "Atkinson Hyperlegible",sans-serif;fill:var(--ink);text-anchor:middle;pointer-events:none}
+.rb-lab{font:.3px "Atkinson Hyperlegible",sans-serif;fill:var(--muted);text-anchor:middle}
+#rbMine svg,#rbSolBox svg{display:block;width:100%;max-width:300px;height:auto}
+.rb-ok{color:var(--ok)}.rb-bad{color:var(--bad)}
 </style>
 <link rel="stylesheet" href="/brand/brand.css">
 <link rel="stylesheet" href="/katex/katex.min.css">
@@ -53,7 +67,7 @@
 <p>Ein Bild von einem Körper zeigt nie alles. Darum zeichnet man ihn in der Technik aus drei Richtungen: von vorn, von links und von oben. Hier drehst du Körper in 3D, entdeckst die drei Ansichten und zeichnest sie in der Zeichen-Werkstatt selbst.</p></div><!--@QRBTN@--></div>
 <div class="herofig" aria-hidden="true"><svg id="heroBody"></svg><svg id="heroViews"></svg></div>
 <div class="phases">
-<a href="#einstieg"><b>1 · Einstieg</b><small>Warum reicht eine Ansicht nicht?</small></a><a href="#entdecken"><b>2 · Entdecken</b><small>3D-Labor: Körper drehen, Ansichten A, B, C</small></a><a href="#festhalten"><b>3 · Festhalten</b><small>Lückentext und Regeln</small></a><a href="#ueben"><b>4 · Üben</b><small>Zeichen-Werkstatt mit 8 Körpern ★ bis ★★★</small></a>
+<a href="#einstieg"><b>1 · Einstieg</b><small>Warum reicht eine Ansicht nicht?</small></a><a href="#entdecken"><b>2 · Entdecken</b><small>3D-Labor: Körper drehen, Ansichten A, B, C</small></a><a href="#festhalten"><b>3 · Festhalten</b><small>Lückentext und Regeln</small></a><a href="#ueben"><b>4 · Üben</b><small>Zeichen-Werkstatt und Körper nach Plan bauen ★ bis ★★★</small></a>
 </div>
 </div></header>
 
@@ -182,14 +196,33 @@
 <span hidden data-task="dt-wuerfel"></span><span hidden data-task="dt-saeule"></span><span hidden data-task="dt-winkel"></span><span hidden data-task="dt-treppe"></span><span hidden data-task="dt-absatz"></span><span hidden data-task="dt-nut"></span><span hidden data-task="dt-rahmen"></span><span hidden data-task="dt-tunnel"></span>
 </div>
 
+<div class="card" id="rueck"><div class="tag">Übung 2 · Rückwärts: vom Plan zum Körper <span class="stars">★ – ★★★</span> <span class="afb">AFB II–III</span></div>
+<div class="mitbild"><svg class="pk" aria-hidden="true"><use href="/brand/piktos.svg#zahnraeder"/></svg><p>Jetzt andersherum: Im Plan siehst du die Dreitafelprojektion eines Körpers aus Würfeln. Baue den Körper nach. <b>Tippe auf ein Feld</b> des Bauplatzes, um dort einen Würfel daraufzusetzen. Der Bauplatz ist wie die Draufsicht C angeordnet: <b>vorn ist unten</b>.</p></div>
+<div class="bodytabs" id="rbTabs" data-fest></div>
+<div class="rb">
+<div><p class="rb-h">Der Plan</p><div class="fig" id="rbPlan"></div></div>
+<div><p class="rb-h">Dein Körper</p>
+<div class="rb-build"><div class="fig rb-gridbox"><svg id="rbGrid" aria-label="Bauplatz von oben: Feld antippen, um einen Würfel daraufzusetzen"></svg></div>
+<div class="fig"><svg class="tz-3d" id="rb3d" aria-label="Dein Körper in 3D, drehbar"></svg></div></div>
+<div class="tz-tools" data-fest><button id="rbAdd" aria-pressed="true">＋ Würfel daraufsetzen</button><button id="rbDel" aria-pressed="false">－ Würfel wegnehmen</button><span class="sep"></span><button id="rbClear">Alles abbauen</button></div>
+<p class="caption">Die Zahl im Feld sagt, wie viele Würfel dort übereinander stehen. Den 3D-Körper kannst du drehen.</p>
+<div class="row"><button class="primary" id="rbCheck">Prüfen</button><button data-hint="rb">Tipp</button><button id="rbSol" disabled>Lösung zeigen</button></div>
+<p class="tip" id="rbTip"></p><div class="hintsrc" data-for="rb" hidden><p>Beginne mit der Draufsicht C: Sie zeigt dir, auf welchen Feldern überhaupt Würfel stehen.</p><p>Die Höhen liest du in A (von vorn) und B (von links) ab. B steht rechts neben A, der vordere Teil des Körpers ist in B also rechts.</p><p>Vergleiche nach dem Prüfen deine Ansichten mit dem Plan: Wo unterscheiden sie sich?</p></div>
+<div class="tz-res" id="rbRes" aria-live="polite"></div>
+<div id="rbMine"></div>
+<div class="sol" id="rbSolBox" hidden></div>
+</div></div>
+<span hidden data-task="rb-stufe"></span><span hidden data-task="rb-turm"></span><span hidden data-task="rb-treppe"></span><span hidden data-task="rb-mauer"></span><span hidden data-task="rb-burg"></span>
+</div>
+
 <div class="two"><div>
-<div class="card"><div class="tag">Übung 2 · Welche Seitenansicht passt? <span class="stars">★★</span> <span class="afb">AFB II</span></div>
+<div class="card"><div class="tag">Übung 3 · Welche Seitenansicht passt? <span class="stars">★★</span> <span class="afb">AFB II</span></div>
 <p>Gegeben sind die Vorderansicht A und die Draufsicht C eines Körpers. Welche Seitenansicht B gehört dazu?</p>
 <div class="twobodies"><figure><div id="u2A"></div><figcaption>Vorderansicht A</figcaption></figure><figure><div id="u2C"></div><figcaption>Draufsicht C</figcaption></figure></div>
 <div class="part" data-task="u2"><div class="mc choice3" data-correct="b" data-task="u2" data-tipp="Die Tiefe von B findest du in C. In der Draufsicht siehst du: Das hohe Teil steht hinten. Bei B liegt die Rückseite links an der Hilfslinie, die Vorderseite rechts."><button data-k="a" data-fb="Nein. Diese Ansicht ist gespiegelt: Sie zeigt den Körper von rechts."><span id="u2a"></span>Ansicht 1</button><button data-k="b" data-fb="Richtig! Das hohe Teil steht hinten. Von links gesehen liegt die Rückseite links (an der Hilfslinie) und die Vorderseite rechts."><span id="u2b"></span>Ansicht 2</button><button data-k="c" data-fb="Nein. Die Tiefe stimmt nicht mit der Draufsicht überein."><span id="u2c"></span>Ansicht 3</button><p class="fb"></p></div></div>
 </div>
 
-<div class="card"><div class="tag">Übung 3 · Maße ablesen <span class="stars">★</span> <span class="afb">AFB I</span></div>
+<div class="card"><div class="tag">Übung 4 · Maße ablesen <span class="stars">★</span> <span class="afb">AFB I</span></div>
 <p>Die Dreitafelprojektion ist im Maßstab 1:1 auf Karopapier gezeichnet (1 Kästchen = 5 mm). Lies die Maße des Körpers ab.</p>
 <div class="ablese" id="u3fig"></div>
 <div class="numbox part" data-task="u3" data-fb="Richtig! Die Breite liest du in A oder C ab, die Höhe in A oder B, die Tiefe in B oder C.">
@@ -199,7 +232,7 @@
 <div class="row"><button class="primary num-check">Prüfen</button><button data-hint="u3">Tipp</button><button data-sol="u3Sol">Lösung zeigen</button></div><p class="fb nfb"></p><p class="tip" id="u3Tip"></p><div class="hintsrc" data-for="u3" hidden><p>Zähle die Kästchen und rechne mal 5 mm.</p><p>Die Tiefe siehst du in der Seitenansicht B von links nach rechts oder in der Draufsicht C von oben nach unten.</p></div><div class="sol" id="u3Sol" hidden><p>Breite 8 Kästchen = 40 mm, Höhe 6 Kästchen = 30 mm, Tiefe 8 Kästchen = 40 mm.</p></div></div>
 </div>
 </div><div>
-<div class="card"><div class="tag">Übung 4 · Stimmt das? <span class="stars">★</span> <span class="afb">AFB I</span></div>
+<div class="card"><div class="tag">Übung 5 · Stimmt das? <span class="stars">★</span> <span class="afb">AFB I</span></div>
 <div class="tf part" data-task="u4">
 <div class="item" data-v="0"><span>„Die Seitenansicht B zeigt den Körper von rechts.“</span><span class="btns"><button data-v="1">richtig</button><button data-v="0">falsch</button></span><p class="fb"></p><span class="ex">B zeigt den Körper von links. Gezeichnet wird B aber rechts neben A.</span></div>
 <div class="item" data-v="1"><span>„In der Draufsicht C kann man die Breite und die Tiefe ablesen.“</span><span class="btns"><button data-v="1">richtig</button><button data-v="0">falsch</button></span><p class="fb"></p><span class="ex">Von oben siehst du die Breite (links–rechts) und die Tiefe (vorn–hinten), aber nicht die Höhe.</span></div>
@@ -209,7 +242,7 @@
 </div>
 </div>
 
-<div class="card"><div class="tag">Übung 5 · Ohne Strichlinie? <span class="stars">★★★</span> <span class="afb">AFB III</span></div>
+<div class="card"><div class="tag">Übung 6 · Ohne Strichlinie? <span class="stars">★★★</span> <span class="afb">AFB III</span></div>
 <div class="part why" data-task="u5"><h4>✍ Ben zeichnet den Körper „Tunnel“ und lässt in A und C die Strichlinien weg. Begründe, warum die Zeichnung dann für die Werkstatt nicht reicht.</h4>
 <textarea data-store="u5" rows="3" placeholder="Schreib deine Begründung hier (oder ins Heft) – mindestens einen ganzen Satz." aria-label="Deine Begründung"></textarea>
 <label class="cbl"><input type="checkbox">Ich habe meine Begründung ins Heft geschrieben.</label>
@@ -270,16 +303,59 @@ const B=id=>TZ.body(BY[id]);
  st.querySelectorAll('.st-next,.st-back').forEach(b=>b.addEventListener('click',()=>setTimeout(draw)));setTimeout(draw)}
 /* Festhalten: Beispiel */
 $('#merkeFig').innerHTML=TZ.threeViewSVG(B('treppe'),{label:'Dreitafelprojektion der Treppe'});
-/* Übung 2: Seitenansicht wählen */
+/* Übung 3: Seitenansicht wählen */
 {const b=B('absatz'),mir=s=>s.map(q=>({a:[-q.a[0],q.a[1]],b:[-q.b[0],q.b[1]],vis:q.vis}));
  $('#u2A').innerHTML=TZ.viewSVG(TZ.lines(b,TZ.PROJ.front),'Vorderansicht');$('#u2C').innerHTML=TZ.viewSVG(TZ.lines(b,TZ.PROJ.top),'Draufsicht');
  const L=TZ.lines(b,TZ.PROJ.left);$('#u2b').innerHTML=TZ.viewSVG(L,'Ansicht 2');$('#u2a').innerHTML=TZ.viewSVG(mir(L),'Ansicht 1');
  const o=TZ.body({size:[4,3,4],boxes:[[0,0,0,4,2,4],[0,2,1,4,3,4]]});$('#u2c').innerHTML=TZ.viewSVG(TZ.lines(o,TZ.PROJ.left),'Ansicht 3')}
-/* Übung 3: Maße ablesen (Körper 4 × 3 × 4 Würfel = 40 × 30 × 40 mm) */
+/* Übung 4: Maße ablesen (Körper 4 × 3 × 4 Würfel = 40 × 30 × 40 mm) */
 {const b=TZ.body({size:[4,3,4],boxes:[[0,0,0,4,3,4]],cut:[[0,2,0,4,3,2],[0,0,0,1,2,1]]});
  const s=TZ.threeViewSVG(b,{labels:true,label:'Dreitafelprojektion auf Karopapier'});
  let grid='';for(let i=0;i<=200;i+=5){grid+=`<line x1="${i}" y1="0" x2="${i}" y2="200" class="tz-g"/><line x1="0" y1="${i}" x2="200" y2="${i}" class="tz-g"/>`}
  $('#u3fig').innerHTML=s.replace(/(<svg[^>]*>)/,'$1<g style="--karo:var(--karo2)">'+grid+'</g>')}
+/* ---------- Übung 2: Rückwärts bauen (Höhenkarte hm[d][x], d = 0 vorn) ---------- */
+{const T=[{id:'stufe',name:'Stufe',st:'★',hm:[[1,1,1],[2,2,2]]},
+  {id:'turm',name:'Ecktürmchen',st:'★',hm:[[1,1,1],[1,1,1],[1,1,3]]},
+  {id:'treppe',name:'Eck-Treppe',st:'★★',hm:[[1,0,0],[2,1,0],[3,2,1]]},
+  {id:'mauer',name:'Mauer',st:'★★',hm:[[2,0,0,2],[2,0,0,2],[2,2,2,2]]},
+  {id:'burg',name:'Burg',st:'★★★',hm:[[2,1,1,2],[1,0,0,1],[1,0,0,1],[2,1,1,2]]}];
+ const mkBody=(hm,Hmin=1)=>{const D=hm.length,W=hm[0].length,boxes=[];let H=Hmin;
+  hm.forEach((row,d)=>row.forEach((h,x)=>{if(h>0){boxes.push([x,0,d,x+1,h,d+1]);H=Math.max(H,h)}}));return TZ.body({size:[W,H,D],boxes})};
+ const sig=(b,P)=>TZ.lines(b,P).map(s=>{const a=s.a.map(v=>v.toFixed(2)).join(),c=s.b.map(v=>v.toFixed(2)).join();return (a<c?a+'|'+c:c+'|'+a)+(s.vis?'v':'h')}).sort().join(';');
+ const VW=[['A','Vorderansicht A',TZ.PROJ.front],['B','Seitenansicht B',TZ.PROJ.left],['C','Draufsicht C',TZ.PROJ.top]];
+ let cur=T[0],hm=null;const MAXH=4;
+ const key=()=>KEY+'-rb-'+cur.id,save=()=>{try{localStorage.setItem(key(),JSON.stringify(hm))}catch(e){}};
+ const v3=TZ.viewer($('#rb3d'),mkBody([[0]]),{arrows:false,yaw:32,pitch:28});
+ let mode=1;
+ const drawGrid=()=>{const D=hm.length,W=hm[0].length;let s='';
+  for(let d=0;d<D;d++)for(let x=0;x<W;x++){const h=hm[d][x],r=D-1-d;
+   s+=`<rect x="${x}" y="${r}" width="1" height="1" class="rb-c h${h}" data-x="${x}" data-d="${d}"/>`+(h?`<text x="${x+.5}" y="${r+.65}" class="rb-n">${h}</text>`:'')}
+  s+=`<text x="${W/2}" y="${D+.38}" class="rb-lab">vorn</text><text x="${W/2}" y="-.14" class="rb-lab">hinten</text>`;
+  const g=$('#rbGrid');g.setAttribute('viewBox',`-.1 -.5 ${W+.2} ${D+1}`);g.innerHTML=s};
+ const upd=()=>{drawGrid();v3.set(mkBody(hm,cur.H));save()};
+ $('#rbGrid').addEventListener('click',e=>{const c=e.target.closest('.rb-c');if(!c)return;const x=+c.dataset.x,d=+c.dataset.d;
+  hm[d][x]=Math.max(0,Math.min(MAXH,hm[d][x]+mode));upd();$('#rbRes').innerHTML='';$('#rbMine').innerHTML=''});
+ const pr=(a,b)=>{a.setAttribute('aria-pressed','true');b.setAttribute('aria-pressed','false')};
+ $('#rbAdd').onclick=()=>{mode=1;pr($('#rbAdd'),$('#rbDel'))};$('#rbDel').onclick=()=>{mode=-1;pr($('#rbDel'),$('#rbAdd'))};
+ $('#rbClear').onclick=()=>{hm=cur.hm.map(r=>r.map(()=>0));upd();$('#rbRes').innerHTML='';$('#rbMine').innerHTML=''};
+ const tabs=$('#rbTabs');tabs.innerHTML=T.map(t=>`<button data-b="${t.id}" data-for="rb-${t.id}" aria-pressed="${t===cur}">${t.name} <span class="stars">${t.st}</span></button>`).join('');
+ const load=()=>{cur.H=Math.max(...cur.hm.flat());const tb=mkBody(cur.hm);$('#rbPlan').innerHTML=TZ.threeViewSVG(tb,{u:10,g:10,label:'Plan: Dreitafelprojektion des gesuchten Körpers'});
+  hm=null;try{hm=JSON.parse(localStorage.getItem(key()))}catch(e){}
+  if(!Array.isArray(hm)||hm.length!==cur.hm.length||hm[0].length!==cur.hm[0].length)hm=cur.hm.map(r=>r.map(()=>0));
+  $('#rbRes').innerHTML='';$('#rbMine').innerHTML='';$('#rbSolBox').hidden=true;$('#rbSol').disabled=!done.has('rb-'+cur.id);$('#rbSol').textContent='Lösung zeigen';upd()};
+ tabs.querySelectorAll('button').forEach(bt=>bt.onclick=()=>{cur=T.find(t=>t.id===bt.dataset.b);tabs.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===bt));load()});
+ const tries={};
+ $('#rbCheck').onclick=()=>{const tb=mkBody(cur.hm),mb=mkBody(hm,cur.H);
+  if(!hm.flat().some(h=>h>0)){$('#rbRes').innerHTML='<p class="fb hint">Du hast noch keinen Würfel gesetzt. Tippe auf ein Feld des Bauplatzes.</p>';return}
+  const res=VW.map(([k,n,P])=>[n,sig(tb,P)===sig(mb,P)]),ok=res.every(r=>r[1]);
+  if(ok){$('#rbRes').innerHTML=`<p class="fb ok">Richtig gebaut! Dein Körper passt in allen drei Ansichten zum Plan.</p>`;$('#rbMine').innerHTML='';mark('rb-'+cur.id);$('#rbSol').disabled=false;return}
+  tries[cur.id]=(tries[cur.id]||0)+1;if(tries[cur.id]>=2)$('#rbSol').disabled=false;
+  $('#rbRes').innerHTML='<ul>'+res.map(([n,r])=>`<li class="${r?'rb-ok':'rb-bad'}">${r?'✓':'✗'} ${n} ${r?'passt.':'passt noch nicht.'}</li>`).join('')+'</ul>';
+  $('#rbMine').innerHTML='<p class="caption" style="margin:8px 0 4px">So sieht die Dreitafelprojektion deines Körpers aus. Vergleiche mit dem Plan:</p>'+TZ.threeViewSVG(mb,{u:10,g:10,label:'Dreitafelprojektion deines Körpers'})};
+ $('#rbSol').onclick=()=>{const b=$('#rbSolBox');b.hidden=!b.hidden;$('#rbSol').textContent=b.hidden?'Lösung zeigen':'Lösung ausblenden';
+  if(!b.hidden){const D=cur.hm.length,W=cur.hm[0].length;let g='';for(let d=0;d<D;d++)for(let x=0;x<W;x++){const h=cur.hm[d][x],r=D-1-d;g+=`<rect x="${x}" y="${r}" width="1" height="1" class="rb-c h${h}" style="cursor:default"/>`+(h?`<text x="${x+.5}" y="${r+.65}" class="rb-n">${h}</text>`:'')}
+   b.innerHTML=`<p><b>Lösung:</b> So viele Würfel stehen auf jedem Feld (von oben gesehen, vorn ist unten). Oft gibt es nur diese eine Lösung – manchmal passt auch ein anderer Körper zu allen drei Ansichten.</p><svg viewBox="-.1 -.1 ${W+.2} ${D+.2}" style="max-width:${W*44}px" role="img" aria-label="Lösung als Höhenkarte">${g}</svg>`}};
+ load()}
 /* ---------- Zeichen-Werkstatt ---------- */
 {const ORDER=[['wuerfel','★'],['saeule','★'],['winkel','★'],['treppe','★★'],['absatz','★★'],['nut','★★'],['rahmen','★★★'],['tunnel','★★★']];
  const AX=70,AY=70,g=10,u=10,W=150,H=150;let cur='wuerfel',checked=false,last=null;
