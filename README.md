@@ -28,8 +28,10 @@ tools/                      formeln_markieren.py, piktos-katalog.html, druck/ (V
 - Technisches Zeichnen: `dreitafelprojektion.html` – Dreitafelprojektion (3D-Labor mit Live-Ansichten, Zeichen-Werkstatt mit automatischer Prüfung)
 - Technisches Zeichnen: `kavalierperspektive.html` – Kavalierperspektive (Kavalier-Labor, Körper zeichnen)
 - Technisches Zeichnen: `isometrie.html` – Isometrie (Isometrie-Blick, Zeichnen auf Isometriepapier)
+- Projekt Schlüsselanhänger: `anhaenger-konstruktion.html` – CAD-Konstruktion (Planen in 5 Schritten, Grundkörper, additiv/subtraktiv, Bohrung und Gruppieren, Anhänger-Werkstatt in 3D mit Druckbarkeits-Check, Fehlerdetektiv, Planungsblatt)
+- Projekt Schlüsselanhänger: `3d-druck.html` – 3D-Druck (FDM-Drucker, Filament, STL/G-Code, Slicer-Labor, 45°-Regel, Haftung, Probleme, Sicherheit)
 
-Die Lernpfade „Technisches Zeichnen“ werden aus `tools/tz/` erzeugt (gemeinsame 3D-/Zeichen-Engine `engine.js`, Quellseiten in `tools/tz/src/`): Änderungen dort machen, dann `python3 tools/tz/build.py` (setzt auch die Formel-Markierung).
+Die Lernpfade „Technisches Zeichnen“ werden aus `tools/tz/` erzeugt (gemeinsame 3D-/Zeichen-Engine `engine.js`, Quellseiten in `tools/tz/src/`). Auch die beiden Lernpfade „Projekt Schlüsselanhänger“ entstehen dort (Anhänger-Werkstatt `anh.js`/`anh.css`): Änderungen dort machen, dann `python3 tools/tz/build.py` (setzt auch die Formel-Markierung).
 
 Jede Klasse bzw. jedes Fach bekommt einen eigenen Ordner, z. B. `Technik11/` (Eingangsklasse),
 `Technik12/` (J1), `Technik13/` (J2). Die Adresse einer Seite ist der Pfad ohne `.html`, z. B. `/Technik11/beispiel`.

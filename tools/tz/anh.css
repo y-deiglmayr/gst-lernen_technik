@@ -1,0 +1,39 @@
+/* ===== Projekt Schlüsselanhänger: Fachfarben CAD (einheitlich in beiden Lernpfaden) =====
+   Körper/Grundplatte blau (--anh-p), Schrift rot (--anh-t), Bohrung grau (--anh-h), Arbeitsebene hellblau mit Raster. */
+:root{--anh-p:light-dark(#3f86c6,#4f93cf);--anh-t:light-dark(#d9472f,#e36a55);--anh-h:light-dark(#9aa6a9,#7d898c);
+ --anh-plane:light-dark(#eef6fb,#1e2a30);--anh-grid:light-dark(#bcd8ea,#33505e);--anh-dim:light-dark(#1f2829,#e9edee)}
+.anh{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:16px 20px;align-items:start}
+.anh-view{position:sticky;top:70px}
+@media(max-width:900px){.anh{grid-template-columns:minmax(0,1fr)}.anh-view{position:static}}
+svg.anh-svg{display:block;width:100%;height:auto;touch-action:none;cursor:grab;border-radius:10px;background:radial-gradient(circle at 50% 40%,var(--paper),var(--panel))}
+svg.anh-svg:active{cursor:grabbing}
+.anh-plane{fill:var(--anh-plane)}.anh-grid{stroke:var(--anh-grid);stroke-width:.15;fill:none}
+.anh-w{stroke-width:.08;stroke-linejoin:round}
+.anh-top{stroke:color-mix(in srgb,var(--anh-p) 55%,#000);stroke-width:.18;stroke-linejoin:round}
+.anh-tside{fill:color-mix(in srgb,var(--anh-t) 70%,#000);font-family:Lexend,"Atkinson Hyperlegible",sans-serif;font-weight:700}
+.anh-ttop{fill:var(--anh-t);stroke:color-mix(in srgb,var(--anh-t) 50%,#000);stroke-width:.12;font-family:Lexend,"Atkinson Hyperlegible",sans-serif;font-weight:700}
+path.anh-tside{stroke:color-mix(in srgb,var(--anh-t) 50%,#000);stroke-width:.12}
+.anh-bohr{opacity:.55}.anh-bohr .anh-ctop{stroke:var(--anh-dim);stroke-width:.2;stroke-dasharray:1 .7}
+.anh-cyl .anh-ctop{stroke:color-mix(in srgb,var(--anh-p) 55%,#000);stroke-width:.18}
+.anh-dl{stroke:var(--anh-dim);stroke-width:.18;fill:none}.anh-da{stroke:var(--anh-dim);stroke-width:.18;fill:var(--anh-dim)}
+.anh-dt{fill:var(--anh-dim);font-family:"Source Sans 3",sans-serif;font-weight:600}
+.anh-ctl fieldset{border:1px solid var(--line);border-left:5px solid var(--fc);border-radius:10px;margin:0 0 10px;padding:6px 12px 8px;background:var(--paper)}
+.anh-ctl legend{font:600 16px "Source Sans 3",sans-serif;padding:0 6px}
+.anh-r{display:grid;grid-template-columns:minmax(0,9.5em) minmax(0,1fr) 4.6em;gap:8px;align-items:center;font-size:15px;min-height:40px}
+.anh-r input[type=range]{width:100%;margin:0}
+.anh-r output{font:600 15px "Source Sans 3",sans-serif;text-align:right;white-space:nowrap}
+.anh-r input[type=text]{grid-column:2/4;font:700 17px Lexend,sans-serif;letter-spacing:.04em}
+.anh-seg{display:flex;gap:6px;margin:4px 0 6px}.anh-seg button{min-height:38px;padding:4px 14px;font-size:15px}
+.anh-seg button[aria-pressed=true]{background:var(--gst-acc);border-color:var(--gst-acc);color:var(--gst-on-acc)}
+.anh-grp{display:flex;gap:10px;align-items:center;background:var(--paper);border:2px dashed var(--line);border-radius:10px;padding:8px 12px;font-size:15px;cursor:pointer}
+.anh-grp input{width:22px;height:22px;flex:none}
+.anh-dimt{display:inline-flex;align-items:center;gap:6px;font-size:15px;margin-left:4px}
+.anh-dimt input{width:20px;height:20px}
+.anh-chk{margin-top:10px;background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:8px 14px}
+.anh-chk h4{margin:4px 0 6px}
+.anh-chk ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:4px 18px}
+.anh-chk li{padding:3px 0;font-size:15px}.anh-chk li b{display:inline-block;width:1.3em}
+.anh-chk li.ok b{color:var(--ok)}.anh-chk li.bad b{color:var(--bad)}
+.anh-chk li small{display:block;color:var(--bad);margin-left:1.3em;font-size:14px}
+.anh-sum{margin:6px 0 2px;font-weight:600}.anh-sum.ok{color:var(--ok)}
+@media(max-width:600px){.anh-r{grid-template-columns:minmax(0,7.2em) minmax(0,1fr) 4.2em;font-size:14px}}

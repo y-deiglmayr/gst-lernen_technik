@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Projekt Schlüsselanhänger · CAD-Konstruktion</title>
+<meta name="description" content="Lernpfad Technik Klasse 8: Einen Schlüsselanhänger am Computer konstruieren – erst planen, Grundkörper, additiv und subtraktiv, Bohrung und Gruppieren, Druckbarkeits-Check. Mit Anhänger-Werkstatt in 3D.">
+<link rel="stylesheet" href="/fonts/fonts.css">
+<script src="/brand/theme.js"></script>
+<style>
+/* Projekt Schlüsselanhänger · CAD-Konstruktion – Lernpfad Technik Klasse 8. Erzeugt mit tools/tz/build.py aus tools/tz/src/. */
+/*@CSS@*/
+/*@ANHCSS@*/
+.herofig{max-width:520px;margin:14px 0 4px}
+.herofig svg{display:block;width:100%;height:auto;margin:0;background:none!important}
+@media(max-width:600px){.herofig{display:none}}
+.cmp{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:8px 0}
+.cmp>div{border:1px solid var(--line);border-radius:10px;padding:8px 12px;background:var(--paper)}
+.cmp h4{margin:2px 0 4px}
+.schritte{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin:10px 0}
+.schritte>div{border:1px solid var(--line);border-radius:10px;padding:8px;background:var(--paper);text-align:center;font-size:15px}
+.schritte b{display:block;font:700 22px Lexend,sans-serif;color:var(--gst-acc)}
+.schritte .p{border-top:5px solid var(--gst-green)}.schritte .u{border-top:5px solid var(--anh-p)}
+@media(max-width:700px){.schritte{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.gl{display:grid;grid-template-columns:1fr auto 1fr auto 1.25fr;gap:8px;align-items:center;text-align:center;margin:8px 0}
+.gl .op{font:700 30px Lexend,sans-serif;color:var(--gst-acc)}
+.gl figure{margin:0}.gl figcaption{font-size:14px;color:var(--muted)}
+.gl svg.pk{width:64px;height:64px}
+.gl svg.mini3d{display:block;width:100%;height:auto;max-height:120px}
+.plan svg{display:block;width:100%;height:auto;max-width:560px}
+.plan .pl{fill:var(--anh-p);fill-opacity:.18;stroke:var(--anh-dim);stroke-width:1.6}
+.plan .pt{fill:var(--anh-t);fill-opacity:.35;stroke:var(--anh-dim);stroke-width:1.2}
+.plan .dl{stroke:var(--anh-dim);stroke-width:.8;fill:none}.plan .da{fill:var(--anh-dim)}
+.plan text{fill:var(--anh-dim);font:600 12px "Source Sans 3",sans-serif}
+.plan .ml{stroke:var(--anh-dim);stroke-width:.6;stroke-dasharray:8 2 1.5 2}
+.obj3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:8px 0}
+.obj3 figure{margin:0;border:1px solid var(--line);border-radius:10px;padding:8px;background:var(--paper)}
+.obj3 figcaption{font-weight:600;text-align:center;margin-bottom:4px}
+.obj3 svg{display:block;width:100%;height:auto;max-height:110px}
+.obj3 label{display:block;font-size:14px;margin-top:6px}.obj3 select{width:100%}
+@media(max-width:700px){.obj3{grid-template-columns:minmax(0,1fr)}}
+.o-top{fill:var(--anh-p)}.o-side{fill:color-mix(in srgb,var(--anh-p) 70%,#000)}.o-side2{fill:color-mix(in srgb,var(--anh-p) 82%,#000)}
+.o-roof{fill:var(--anh-t)}.o-roof2{fill:color-mix(in srgb,var(--anh-t) 75%,#000)}
+.o-hole{fill:color-mix(in srgb,var(--anh-p) 45%,#000)}.obj3 svg path,.obj3 svg ellipse{stroke:var(--anh-dim);stroke-width:.8;stroke-linejoin:round}
+.keys{display:inline-block;font:600 14px Lexend,sans-serif;border:1px solid var(--line);border-bottom-width:3px;border-radius:6px;padding:1px 7px;background:var(--paper);white-space:nowrap}
+.entw{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.entw button[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.planblatt{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 16px}
+.planblatt label{font-weight:600;font-size:15px}.planblatt textarea{width:100%}
+@media(max-width:700px){.planblatt,.cmp{grid-template-columns:minmax(0,1fr)}}
+.extlink{background:var(--hint);border-radius:10px;padding:8px 12px;font-size:15px}
+</style>
+<link rel="stylesheet" href="/brand/brand.css">
+<link rel="stylesheet" href="/katex/katex.min.css">
+<script defer src="/katex/katex.min.js"></script>
+<script defer src="/katex/formel.js"></script>
+<script defer src="/brand/feedback.js"></script>
+<script defer src="/brand/mischen.js"></script>
+</head>
+<body>
+<nav aria-label="Phasen"><div class="wrap">
+<a href="/" title="Alle Lernpfade">← Übersicht</a>
+<a href="#einstieg"><span>1</span>Einstieg</a>
+<a href="#entdecken"><span>2</span>Entdecken</a>
+<a href="#festhalten"><span>3</span>Festhalten</a>
+<a href="#ueben"><span>4</span>Üben</a>
+<div class="prog"><span id="progtxt">0 / 0 gelöst</span><div class="bar"><i id="progbar"></i></div></div>
+</div></nav>
+
+<header class="band hero"><div class="wrap">
+<div class="herohead"><div><h1>Projekt Schlüsselanhänger · CAD-Konstruktion</h1>
+<p>Du konstruierst deinen eigenen Schlüsselanhänger am Computer, danach druckt ihn der 3D-Drucker. Hier lernst du, wie man so ein CAD-Projekt angeht: erst planen, dann aus Grundkörpern bauen, Löcher ausschneiden und prüfen, ob das Modell druckbar ist.</p></div><!--@QRBTN@--></div>
+<div class="herofig" aria-hidden="true"><svg id="heroAnh"></svg></div>
+<div class="phases">
+<a href="#einstieg"><b>1 · Einstieg</b><small>Erst planen, dann klicken</small></a><a href="#entdecken"><b>2 · Entdecken</b><small>Grundkörper, additiv und subtraktiv, Anhänger-Werkstatt</small></a><a href="#festhalten"><b>3 · Festhalten</b><small>Lückentext und Merke</small></a><a href="#ueben"><b>4 · Üben</b><small>Zerlegen, Fehlerdetektiv, eigener Entwurf</small></a>
+</div>
+</div></header>
+
+<!-- ============ 1 EINSTIEG ============ -->
+<section class="band" id="einstieg"><div class="wrap">
+<h2>1 · Einstieg: Erst planen, dann klicken</h2>
+<p class="intro">Viele öffnen das CAD-Programm und legen sofort los. Am Ende passen die Maße nicht, und der Drucker scheitert am Modell. Wer zuerst plant, ist schneller fertig.</p>
+<div class="two"><div>
+<div class="card"><div class="tag">Auftrag 1 · Mit Plan oder ohne? <span class="stars">★</span> <span class="afb">AFB I</span></div>
+<div class="mitbild"><svg class="pk" aria-hidden="true"><use href="/brand/piktos.svg#skizze"/></svg><p>Was passiert, wenn man einfach drauflosbastelt – und was, wenn man zuerst plant? Ordne zu.</p></div>
+<div class="selbox part" data-task="e1" data-fb="Richtig! Mit Skizze, festgelegten Grundkörpern und klarer Reihenfolge passen die Maße und das Modell lässt sich sicher drucken. Darum gilt: <b>Erst das Planungsblatt ausfüllen – dann das CAD-Programm öffnen.</b>">
+<div class="steprow"><span>Die Maße passen am Ende nicht.</span><select data-a="ohne" aria-label="Aussage 1"><option value="">…</option><option value="ohne">ohne Plan</option><option value="mit">mit Plan</option></select></div>
+<div class="steprow"><span>Die Grundkörper sind vorher festgelegt.</span><select data-a="mit" aria-label="Aussage 2"><option value="">…</option><option value="ohne">ohne Plan</option><option value="mit">mit Plan</option></select></div>
+<div class="steprow"><span>Teile schweben lose in der Luft.</span><select data-a="ohne" aria-label="Aussage 3"><option value="">…</option><option value="ohne">ohne Plan</option><option value="mit">mit Plan</option></select></div>
+<div class="steprow"><span>Es gibt eine Skizze mit Maßen auf Papier.</span><select data-a="mit" aria-label="Aussage 4"><option value="">…</option><option value="ohne">ohne Plan</option><option value="mit">mit Plan</option></select></div>
+<div class="steprow"><span>Man löscht ständig und fängt neu an.</span><select data-a="ohne" aria-label="Aussage 5"><option value="">…</option><option value="ohne">ohne Plan</option><option value="mit">mit Plan</option></select></div>
+<div class="steprow"><span>Die Reihenfolge der Schritte ist klar.</span><select data-a="mit" aria-label="Aussage 6"><option value="">…</option><option value="ohne">ohne Plan</option><option value="mit">mit Plan</option></select></div>
+<div class="row"><button class="primary sel-check">Prüfen</button></div><p class="fb sfb"></p></div>
+</div>
+</div><div>
+<div class="card"><div class="tag">Auftrag 2 · In 5 Schritten zum Anhänger <span class="stars">★</span> <span class="afb">AFB I</span></div>
+<p>Die Schritte 1 bis 3 machst du auf <b>Papier</b> (planen), die Schritte 4 und 5 am <b>Computer</b> (umsetzen). Welcher Schritt passt zu welcher Beschreibung?</p>
+<div class="selbox part" data-task="e2" data-fb="Richtig! <b>1 Idee finden → 2 Skizze zeichnen → 3 Zerlegen</b> (auf Papier), dann <b>4 Modellieren → 5 Prüfen</b> (am Computer).">
+<div class="steprow"><span>Form und Motiv überlegen: Name, Initialen oder Symbol?</span><select data-a="1" aria-label="Schritt zu Beschreibung 1"><option value="">…</option><option value="1">1 · Idee finden</option><option value="2">2 · Skizze zeichnen</option><option value="3">3 · Zerlegen</option><option value="4">4 · Modellieren</option><option value="5">5 · Prüfen</option></select></div>
+<div class="steprow"><span>Ansicht von oben zeichnen und alle Maße in mm eintragen.</span><select data-a="2" aria-label="Schritt zu Beschreibung 2"><option value="">…</option><option value="1">1 · Idee finden</option><option value="2">2 · Skizze zeichnen</option><option value="3">3 · Zerlegen</option><option value="4">4 · Modellieren</option><option value="5">5 · Prüfen</option></select></div>
+<div class="steprow"><span>Welche Grundkörper brauche ich? Was kommt dazu (+), was wird abgezogen (−)?</span><select data-a="3" aria-label="Schritt zu Beschreibung 3"><option value="">…</option><option value="1">1 · Idee finden</option><option value="2">2 · Skizze zeichnen</option><option value="3">3 · Zerlegen</option><option value="4">4 · Modellieren</option><option value="5">5 · Prüfen</option></select></div>
+<div class="steprow"><span>Im CAD-Programm Schritt für Schritt nach der Skizze bauen.</span><select data-a="4" aria-label="Schritt zu Beschreibung 4"><option value="">…</option><option value="1">1 · Idee finden</option><option value="2">2 · Skizze zeichnen</option><option value="3">3 · Zerlegen</option><option value="4">4 · Modellieren</option><option value="5">5 · Prüfen</option></select></div>
+<div class="steprow"><span>Checkliste abhaken, alles gruppieren, als STL-Datei exportieren.</span><select data-a="5" aria-label="Schritt zu Beschreibung 5"><option value="">…</option><option value="1">1 · Idee finden</option><option value="2">2 · Skizze zeichnen</option><option value="3">3 · Zerlegen</option><option value="4">4 · Modellieren</option><option value="5">5 · Prüfen</option></select></div>
+<div class="row"><button class="primary sel-check">Prüfen</button></div><p class="fb sfb"></p></div>
+<div class="part" data-task="e3"><h4>Wann zeigst du deine Skizze der Lehrkraft?</h4>
+<div class="mc" data-correct="b" data-task="e3" data-tipp="Die Lehrkraft soll Fehler finden, bevor du am Computer Zeit investierst."><button data-k="a" data-fb="Nein. Dann hast du schon alles gebaut – Fehler in der Planung kosten jetzt viel Zeit.">nach Schritt 5, mit dem fertigen Modell</button><button data-k="b" data-fb="Richtig! Die Lehrkraft prüft deine Skizze <b>bevor du mit Schritt 4 (Modellieren)</b> beginnst. Dann baust du gleich das Richtige.">vor Schritt 4, bevor du am Computer modellierst</button><button data-k="c" data-fb="Nein. In Schritt 1 gibt es noch keine Skizze, nur eine Idee.">nach Schritt 1, wenn du eine Idee hast</button><p class="fb"></p></div></div>
+</div>
+</div></div>
+</div></section>
+
+<!-- ============ 2 ENTDECKEN ============ -->
+<section class="band alt" id="entdecken"><div class="wrap">
+<h2>2 · Entdecken: Bauen mit Grundkörpern</h2>
+<p class="intro">Im CAD-Programm (z. B. Tinkercad) baust du jedes Modell aus einfachen <b>Grundkörpern</b>. Du fügst Körper zusammen oder schneidest mit einer <b>Bohrung</b> Material heraus.</p>
+<div class="two"><div>
+<div class="card"><div class="tag">Auftrag 3 · Wofür welcher Grundkörper? <span class="stars">★</span> <span class="afb">AFB I</span></div>
+<div class="selbox part" data-task="q1" data-fb="Richtig! Die <b>Grundplatte</b> ist ein Quader, das <b>Loch</b> ein Zylinder, Spitzen und Sterne entstehen aus Pyramiden, Knöpfe aus Kugeln – und der Name kommt mit dem Grundkörper <b>Text</b>.">
+<div class="steprow"><span class="mitpk"><svg class="pk" aria-hidden="true"><use href="/brand/piktos.svg#quader"/></svg><span>Quader</span></span><select data-a="platte" aria-label="Quader"><option value="">…</option><option value="platte">Grundplatte des Anhängers</option><option value="loch">Loch für den Ring, runde Formen</option><option value="knopf">Verzierungen, Knöpfe</option><option value="spitze">Spitzen, Sterne, Pfeile</option><option value="name">Name oder Initialen</option></select></div>
+<div class="steprow"><span class="mitpk"><svg class="pk" aria-hidden="true"><use href="/brand/piktos.svg#zylinder"/></svg><span>Zylinder</span></span><select data-a="loch" aria-label="Zylinder"><option value="">…</option><option value="platte">Grundplatte des Anhängers</option><option value="loch">Loch für den Ring, runde Formen</option><option value="knopf">Verzierungen, Knöpfe</option><option value="spitze">Spitzen, Sterne, Pfeile</option><option value="name">Name oder Initialen</option></select></div>
+<div class="steprow"><span class="mitpk"><svg class="pk" aria-hidden="true"><use href="/brand/piktos.svg#kugel"/></svg><span>Kugel</span></span><select data-a="knopf" aria-label="Kugel"><option value="">…</option><option value="platte">Grundplatte des Anhängers</option><option value="loch">Loch für den Ring, runde Formen</option><option value="knopf">Verzierungen, Knöpfe</option><option value="spitze">Spitzen, Sterne, Pfeile</option><option value="name">Name oder Initialen</option></select></div>
+<div class="steprow"><span class="mitpk"><svg class="pk" aria-hidden="true"><use href="/brand/piktos.svg#pyramide"/></svg><span>Pyramide</span></span><select data-a="spitze" aria-label="Pyramide"><option value="">…</option><option value="platte">Grundplatte des Anhängers</option><option value="loch">Loch für den Ring, runde Formen</option><option value="knopf">Verzierungen, Knöpfe</option><option value="spitze">Spitzen, Sterne, Pfeile</option><option value="name">Name oder Initialen</option></select></div>
+<div class="steprow"><span class="mitpk"><span class="keys" aria-hidden="true" style="font-size:18px">Abc</span><span>Text</span></span><select data-a="name" aria-label="Text"><option value="">…</option><option value="platte">Grundplatte des Anhängers</option><option value="loch">Loch für den Ring, runde Formen</option><option value="knopf">Verzierungen, Knöpfe</option><option value="spitze">Spitzen, Sterne, Pfeile</option><option value="name">Name oder Initialen</option></select></div>
+<div class="row"><button class="primary sel-check">Prüfen</button></div><p class="fb sfb"></p></div>
+</div>
+</div><div>
+<div class="card"><div class="tag">Auftrag 4 · Zwei Arten zu konstruieren <span class="stars">★</span> <span class="afb">AFB I</span></div>
+<p><b>Additiv</b> (lat. addere = hinzufügen): Körper werden zusammengefügt.</p>
+<div class="gl" aria-label="Quader plus Zylinder als Körper ergibt einen festen Körper"><figure><svg class="pk" aria-hidden="true"><use href="/brand/piktos.svg#quader"/></svg><figcaption>Quader</figcaption></figure><span class="op">+</span><figure><svg class="pk" aria-hidden="true"><use href="/brand/piktos.svg#zylinder"/></svg><figcaption>Zylinder (Körper)</figcaption></figure><span class="op">=</span><figure><svg class="mini3d" id="glAdd" aria-hidden="true"></svg><figcaption>ein fester Körper</figcaption></figure></div>
+<p><b>Subtraktiv</b> (lat. subtrahere = wegnehmen): Eine Bohrung zieht Material ab.</p>
+<div class="gl" aria-label="Quader minus Zylinder als Bohrung ergibt Quader mit Loch"><figure><svg class="pk" aria-hidden="true"><use href="/brand/piktos.svg#quader"/></svg><figcaption>Quader</figcaption></figure><span class="op">−</span><figure><svg class="pk" aria-hidden="true" style="opacity:.55"><use href="/brand/piktos.svg#zylinder"/></svg><figcaption>Zylinder (Bohrung)</figcaption></figure><span class="op">=</span><figure><svg class="mini3d" id="glSub" aria-hidden="true"></svg><figcaption>Quader mit Loch</figcaption></figure></div>
+<div class="part" data-task="q2"><h4>Beim Anhänger kommt die Schrift auf die Platte, das Loch wird herausgeschnitten. Welche Aussage stimmt?</h4>
+<div class="mc" data-correct="c" data-task="q2" data-tipp="Hinzufügen = additiv, wegnehmen = subtraktiv."><button data-k="a" data-fb="Nein. Die Schrift wird hinzugefügt – das ist additiv.">Schrift: subtraktiv, Loch: additiv</button><button data-k="b" data-fb="Nein. Das Loch nimmt Material weg.">Schrift und Loch: beide additiv</button><button data-k="c" data-fb="Richtig! Die Schrift wird <b>hinzugefügt</b> (additiv), das Loch <b>zieht Material ab</b> (subtraktiv). Der Anhänger nutzt also beide Arten.">Schrift: additiv, Loch: subtraktiv</button><p class="fb"></p></div></div>
+</div>
+</div></div>
+
+<div class="card" id="werkstatt"><div class="tag">Auftrag 5 · Die Anhänger-Werkstatt <span class="stars">★★</span> <span class="afb">AFB II</span></div>
+<p>Hier baust du einen Anhänger wie im CAD-Programm: eine <b>Grundplatte</b> (Quader), ein <b>Zylinder</b> für das Loch und eine <b>Schrift</b>. Rechts stellst du die Maße ein, unten prüft die Checkliste, ob dein Anhänger druckbar ist.</p>
+<div class="plan fig"><svg viewBox="0 0 560 166" role="img" aria-label="Bauplan MAX: Draufsicht 50 mm lang, 20 mm breit, Loch Durchmesser 5 mm, Lochmitte 6 mm vom linken Rand. Seitenansicht: 3 mm Platte und 1 mm Schrift.">
+<text x="10" y="12">Draufsicht (von oben)</text>
+<g transform="translate(0 16)"><rect x="20" y="30" width="250" height="100" rx="20" class="pl"/><circle cx="50" cy="80" r="12.5" class="pl" style="fill-opacity:0"/>
+<path d="M30 80h40M50 60v40" class="ml"/>
+<text x="165" y="96" text-anchor="middle" style="font:700 46px Lexend,sans-serif;fill:var(--anh-t);fill-opacity:.8">MAX</text>
+<path d="M20 133v12M270 133v12M20 141h250" class="dl"/><path d="M20 141l8-3v6zM270 141l-8-3v6z" class="da"/><text x="145" y="138" text-anchor="middle">50</text>
+<path d="M273 30h14M273 130h14M283 30v100" class="dl"/><path d="M283 30l-3 8h6zM283 130l-3-8h6z" class="da"/><text x="298" y="84" text-anchor="middle" transform="rotate(-90 298 84)">20</text>
+<path d="M20 27v-12M50 66v-51M20 20h30" class="dl"/><path d="M20 20l7-3v6zM50 20l-7-3v6z" class="da"/><text x="35" y="16" text-anchor="middle">6</text>
+<path d="M59 71l22-22h22" class="dl"/><text x="84" y="45">Ø5</text>
+</g><text x="330" y="12">Seitenansicht (von vorn), nicht maßstäblich</text><g transform="translate(0 16)">
+<rect x="340" y="80" width="190" height="24" class="pl"/><rect x="400" y="68" width="110" height="12" class="pt"/>
+<path d="M533 104h16M533 80h16M545 80v24" class="dl"/><text x="551" y="96">3</text>
+<path d="M513 68h36M545 68v12" class="dl"/><text x="551" y="76">1</text>
+<text x="340" y="126">Gesamtdicke: 3 mm + 1 mm = 4 mm</text></g>
+</svg></div>
+<div id="lab1"></div>
+<div class="part" data-task="q3" style="margin-top:12px"><h4>Bau den Anhänger „MAX“ genau nach dem Bauplan oben. Eckenradius und Buchstabenhöhe darfst du frei wählen.</h4>
+<div class="row"><button class="primary" id="q3check">Mit dem Bauplan vergleichen</button><button id="q3reset">Werkstatt zurücksetzen</button></div><div class="tz-res" id="q3res" aria-live="polite"></div></div>
+</div>
+
+<div class="card"><div class="tag">Auftrag 6 · Probier es in der Werkstatt aus <span class="stars">★★</span> <span class="afb">AFB II</span></div>
+<div class="two"><div>
+<div class="part" data-task="q4"><h4>Nimm das Häkchen bei „Alles markieren und gruppieren“ weg. Was passiert mit dem Loch?</h4>
+<div class="mc" data-correct="b" data-task="q4" data-tipp="Schau genau auf den grauen Zylinder. Ist die Platte darunter noch ganz?"><button data-k="a" data-fb="Nein. Schau genau hin: Die Platte ist an dieser Stelle wieder geschlossen.">Das Loch bleibt, die Bohrung ist nur unsichtbar.</button><button data-k="b" data-fb="Richtig! Die Bohrung steht nur als durchsichtiger grauer Zylinder in der Platte. <b>Eine Bohrung wirkt erst, wenn du sie mit dem Körper gruppierst.</b>">Die Bohrung ist nur ein grauer Zylinder, die Platte hat kein Loch.</button><button data-k="c" data-fb="Nein. Die Platte bleibt in Tinkercad ganz normal liegen.">Die Platte verschwindet.</button><p class="fb"></p></div></div>
+<div class="part" data-task="q5"><h4>Stell die Unterkante der Schrift auf 0 mm (Arbeitsebene). Warum ist die Schrift jetzt weg?</h4>
+<div class="mc" data-correct="a" data-task="q5" data-tipp="Die Platte ist 3 mm dick. Wie hoch reicht die Schrift, wenn sie bei 0 mm beginnt?"><button data-k="a" data-fb="Richtig! Die Schrift reicht nur von 0 bis 1 mm – sie steckt <b>ganz in der Platte</b>. Damit man sie sieht, muss sie <b>auf</b> der Platte liegen: Unterkante = Plattendicke.">Sie steckt ganz in der 3 mm dicken Platte.</button><button data-k="b" data-fb="Nein. Die Schrift ist noch da, nur an einer anderen Stelle.">Das Programm hat sie gelöscht.</button><button data-k="c" data-fb="Nein. Unter der Arbeitsebene liegt nichts – sie beginnt genau bei 0 mm.">Sie liegt unter der Arbeitsebene.</button><p class="fb"></p></div></div>
+</div><div>
+<div class="part" data-task="q6"><h4>Stell die Unterkante der Schrift auf 4 mm. Was meldet die Checkliste – und warum ist das ein Problem?</h4>
+<div class="mc" data-correct="c" data-task="q6" data-tipp="Zwischen Platte (3 mm) und Schrift (ab 4 mm) ist eine Lücke."><button data-k="a" data-fb="Nein. Die Gesamtdicke ist noch erlaubt. Schau auf den Punkt „Schrift“.">Der Anhänger ist zu dick.</button><button data-k="b" data-fb="Nein. Das Loch hat mit der Schrift nichts zu tun.">Das Loch ist zu klein.</button><button data-k="c" data-fb="Richtig! Die Schrift <b>schwebt</b> 1 mm über der Platte. Teile, die sich nicht berühren oder überlappen, sind nicht verbunden – nach dem Druck fällt die Schrift ab (oder der Drucker druckt sie in die Luft).">Die Schrift schwebt – sie ist nicht mit der Platte verbunden.</button><p class="fb"></p></div></div>
+<div class="part" data-task="q7"><h4>Schieb das Loch so weit nach links, dass die Mitte nur 3 mm vom Rand entfernt ist. Was zeigt die Checkliste?</h4>
+<div class="mc" data-correct="a" data-task="q7" data-tipp="Wie viel Material bleibt links neben dem Loch, wenn der Radius 2,5 mm ist?"><button data-k="a" data-fb="Richtig! Bei Ø 5 mm (Radius 2,5 mm) bleiben links nur 3 − 2,5 = 0,5 mm Material. Am Schlüsselring <b>reißt das Loch aus</b>. Nötig sind mindestens 2 mm Rand.">Der Rand ums Loch ist zu schmal – es reißt aus.</button><button data-k="b" data-fb="Nein. Der Durchmesser ändert sich beim Verschieben nicht.">Das Loch ist zu klein.</button><button data-k="c" data-fb="Nein. Ein Punkt der Checkliste ist jetzt rot. Schau noch einmal hin.">Alles bleibt grün.</button><p class="fb"></p></div></div>
+</div></div>
+</div>
+
+<div class="two"><div>
+<div class="card"><div class="tag">Auftrag 7 · Die wichtigsten Werkzeuge in Tinkercad <span class="stars">★</span> <span class="afb">AFB I</span></div>
+<div class="selbox part" data-task="q8" data-fb="Richtig! Diese Tasten sparen viel Zeit. Die wichtigste: <b>Strg + G</b> – erst damit werden Körper fest verbunden und Bohrungen ausgeschnitten.">
+<div class="steprow"><span><span class="keys">Strg</span> + <span class="keys">G</span></span><select data-a="grp" aria-label="Strg + G"><option value="">…</option><option value="grp">gruppieren: Körper fest verbinden, Bohrungen ausschneiden</option><option value="bohr">aus dem Körper eine Bohrung machen</option><option value="fest">aus der Bohrung wieder einen festen Körper machen</option><option value="ebene">Körper auf die Arbeitsebene legen</option><option value="aus">mehrere Körper bündig oder mittig ausrichten</option><option value="dup">Körper kopieren (duplizieren)</option></select></div>
+<div class="steprow"><span><span class="keys">H</span></span><select data-a="bohr" aria-label="Taste H"><option value="">…</option><option value="grp">gruppieren: Körper fest verbinden, Bohrungen ausschneiden</option><option value="bohr">aus dem Körper eine Bohrung machen</option><option value="fest">aus der Bohrung wieder einen festen Körper machen</option><option value="ebene">Körper auf die Arbeitsebene legen</option><option value="aus">mehrere Körper bündig oder mittig ausrichten</option><option value="dup">Körper kopieren (duplizieren)</option></select></div>
+<div class="steprow"><span><span class="keys">S</span></span><select data-a="fest" aria-label="Taste S"><option value="">…</option><option value="grp">gruppieren: Körper fest verbinden, Bohrungen ausschneiden</option><option value="bohr">aus dem Körper eine Bohrung machen</option><option value="fest">aus der Bohrung wieder einen festen Körper machen</option><option value="ebene">Körper auf die Arbeitsebene legen</option><option value="aus">mehrere Körper bündig oder mittig ausrichten</option><option value="dup">Körper kopieren (duplizieren)</option></select></div>
+<div class="steprow"><span><span class="keys">D</span></span><select data-a="ebene" aria-label="Taste D"><option value="">…</option><option value="grp">gruppieren: Körper fest verbinden, Bohrungen ausschneiden</option><option value="bohr">aus dem Körper eine Bohrung machen</option><option value="fest">aus der Bohrung wieder einen festen Körper machen</option><option value="ebene">Körper auf die Arbeitsebene legen</option><option value="aus">mehrere Körper bündig oder mittig ausrichten</option><option value="dup">Körper kopieren (duplizieren)</option></select></div>
+<div class="steprow"><span><span class="keys">L</span></span><select data-a="aus" aria-label="Taste L"><option value="">…</option><option value="grp">gruppieren: Körper fest verbinden, Bohrungen ausschneiden</option><option value="bohr">aus dem Körper eine Bohrung machen</option><option value="fest">aus der Bohrung wieder einen festen Körper machen</option><option value="ebene">Körper auf die Arbeitsebene legen</option><option value="aus">mehrere Körper bündig oder mittig ausrichten</option><option value="dup">Körper kopieren (duplizieren)</option></select></div>
+<div class="steprow"><span><span class="keys">Strg</span> + <span class="keys">D</span></span><select data-a="dup" aria-label="Strg + D"><option value="">…</option><option value="grp">gruppieren: Körper fest verbinden, Bohrungen ausschneiden</option><option value="bohr">aus dem Körper eine Bohrung machen</option><option value="fest">aus der Bohrung wieder einen festen Körper machen</option><option value="ebene">Körper auf die Arbeitsebene legen</option><option value="aus">mehrere Körper bündig oder mittig ausrichten</option><option value="dup">Körper kopieren (duplizieren)</option></select></div>
+<div class="row"><button class="primary sel-check">Prüfen</button></div><p class="fb sfb"></p></div>
+<details class="exp"><summary>Weitere Bedienung in Tinkercad</summary><ul><li><b>Ansicht drehen:</b> rechte Maustaste gedrückt halten · <b>Zoomen:</b> Mausrad</li><li><b>Verschieben:</b> Körper mit der Maus ziehen oder Pfeiltasten</li><li><b>Größe ändern:</b> weiße Punkte ziehen oder Maße in mm direkt eintippen</li><li><b>Drehen:</b> am gebogenen Pfeil ziehen, mit Shift in 45°-Schritten</li><li><b>Rückgängig:</b> <span class="keys">Strg</span> + <span class="keys">Z</span></li></ul></details>
+<p class="extlink">Tinkercad öffnest du mit den Zugangsdaten deiner Lehrkraft: <a href="https://www.tinkercad.com" target="_blank" rel="noopener">www.tinkercad.com</a> (externe Seite, öffnet sich in einem neuen Tab). Bearbeite dort zuerst die Aktivität „Learn Tinkercad“ der Reihe nach.</p>
+</div>
+</div><div>
+<div class="card"><div class="tag">Auftrag 8 · Überlappen statt berühren <span class="stars">★★</span> <span class="afb">AFB II</span></div>
+<div class="part why" data-task="q9"><h4>✍ Begründe, warum sich zwei Körper, die zusammengehören, im CAD-Modell überlappen (oder mindestens berühren) und gruppiert sein müssen.</h4>
+<textarea data-store="q9" rows="3" placeholder="Schreib deine Begründung hier (oder ins Heft) – mindestens einen ganzen Satz." aria-label="Deine Begründung"></textarea>
+<label class="cbl"><input type="checkbox">Ich habe meine Begründung ins Heft geschrieben.</label>
+<div class="row"><button class="why-show">Mit Musterbegründung vergleichen</button></div>
+<div class="sol" hidden><p><b>Musterbegründung:</b> Der 3D-Drucker druckt nur Material, das <b>verbunden</b> ist. Berühren oder überlappen sich zwei Körper nicht, entsteht eine <b>Lücke</b>: Das obere Teil müsste in der Luft gedruckt werden oder <b>fällt nach dem Druck ab</b>. Erst durch das <b>Gruppieren</b> werden die Körper zu <b>einem festen Körper</b>.</p><p class="caption" style="margin:0 0 6px">Vergleiche: Hast du die fett gedruckten Begriffe verwendet? Ergänze sonst deine Begründung.</p><div class="row"><button class="why-ok">Meine Begründung enthält das Wichtigste</button></div></div></div>
+</div>
+</div></div>
+</div></section>
+
+<!-- ============ 3 FESTHALTEN ============ -->
+<section class="band" id="festhalten"><div class="wrap">
+<h2>3 · Festhalten</h2>
+<div class="card"><div class="tag">Lückentext · CAD-Konstruktion <span class="stars">★</span> <span class="afb">AFB I</span></div>
+<div class="selbox part" data-task="f1" data-fb="Alles richtig! Lies dir unten noch einmal den Merke-Kasten durch."><div class="cloze">Bevor ich das CAD-Programm öffne, zeichne ich eine <select data-a="Skizze"><option value="">…</option><option>Skizze</option><option>Bohrung</option><option>STL-Datei</option></select> von oben und trage alle Maße in <select data-a="mm"><option value="">…</option><option>mm</option><option>cm</option><option>m</option></select> ein. Jedes Modell baue ich aus <select data-a="Grundkörpern"><option value="">…</option><option>Grundkörpern</option><option>Fotos</option><option>Linien</option></select> wie Quader, Zylinder, Kugel, Pyramide und Text. Füge ich Körper zusammen, konstruiere ich <select data-a="additiv"><option value="">…</option><option>additiv</option><option>subtraktiv</option></select>. Ziehe ich Material ab, konstruiere ich <select data-a="subtraktiv"><option value="">…</option><option>additiv</option><option>subtraktiv</option></select>: Dazu stelle ich einen Körper auf <select data-a="Bohrung"><option value="">…</option><option>Bohrung</option><option>Körper</option><option>Text</option></select>. Teile müssen sich <select data-a="überlappen"><option value="">…</option><option>überlappen</option><option>nicht berühren</option><option>schweben</option></select>, sonst fallen sie nach dem Druck auseinander. Eine Bohrung wirkt erst, wenn ich sie mit dem Körper <select data-a="gruppiere"><option value="">…</option><option>gruppiere</option><option>kopiere</option><option>drehe</option></select>. Zum Schluss prüfe ich die Checkliste und exportiere das Modell als <select data-a="STL-Datei"><option value="">…</option><option>STL-Datei</option><option>Foto</option><option>Textdatei</option></select>.</div><div class="row"><button class="primary sel-check">Prüfen</button></div><p class="fb sfb"></p></div>
+</div>
+<div class="merke"><h4>Merke</h4><ul>
+<li><b>Erst planen, dann klicken:</b> 1 Idee finden · 2 Skizze von oben mit Maßen in mm · 3 Zerlegen in Grundkörper (+) und Bohrungen (−) · 4 Modellieren · 5 Prüfen und als STL exportieren.</li>
+<li><b>Additiv:</b> Körper zusammenfügen (z. B. Platte + Schrift). <b>Subtraktiv:</b> Material abziehen mit einer Bohrung (z. B. Loch für den Ring).</li>
+<li>Teile müssen sich <b>überlappen</b>, und erst das <b>Gruppieren</b> (Strg + G) verbindet sie fest und schneidet Bohrungen aus.</li>
+<li><b>Druckbar?</b> Länge 40–60 mm · Dicke 3–5 mm · Loch mindestens Ø 4 mm · mindestens 2 mm Rand ums Loch · Schrift mindestens 1 mm hoch und auf der Platte · alles gruppiert.</li></ul></div>
+</div></section>
+
+<!-- ============ 4 ÜBEN ============ -->
+<section class="band alt" id="ueben"><div class="wrap">
+<h2>4 · Üben</h2>
+<div class="lvlrow"><span>★ / AFB I: Grundlagen anwenden</span><span>★★ / AFB II: Zusammenhänge herstellen</span><span>★★★ / AFB III: übertragen, beurteilen, begründen</span></div>
+
+<div class="card"><div class="tag">Übung 1 · In Grundkörper zerlegen <span class="stars">★</span> <span class="afb">AFB I</span></div>
+<p>Aus welchen Grundkörpern (+) und Bohrungen (−) ist jedes Teil gebaut?</p>
+<div class="selbox part" data-task="u1" data-fb="Richtig! Zerlegen heißt: Was kommt dazu (+), was wird abgezogen (−)? Genau das trägst du im Planungsblatt ein.">
+<div class="obj3" data-fest>
+<figure><figcaption>a) Unterlegscheibe</figcaption><svg viewBox="0 0 120 80" aria-hidden="true"><path d="M20 34v14a40 16 0 0 0 80 0V34" class="o-side"/><ellipse cx="60" cy="34" rx="40" ry="16" class="o-top"/><path d="M44 34a16 6.4 0 0 1 32 0v5a16 6.4 0 0 0-32 0z" class="o-hole"/><path d="M44 39a16 6.4 0 0 0 32 0" style="fill:var(--paper);stroke:none"/><ellipse cx="60" cy="34" rx="16" ry="6.4" style="fill:none"/></svg>
+<label>Körper (+) <select data-a="z" aria-label="a) Körper"><option value="">…</option><option value="q">Quader</option><option value="z">Zylinder</option><option value="qz">Quader und Zylinder</option><option value="qp">Quader und Pyramide</option></select></label>
+<label>Bohrung (−) <select data-a="z" aria-label="a) Bohrung"><option value="">…</option><option value="z">Zylinder</option><option value="q">Quader</option><option value="k">keine</option></select></label></figure>
+<figure><figcaption>b) Anhänger mit rundem Ende</figcaption><svg viewBox="0 0 120 80" aria-hidden="true"><path d="M105 52v10H40a18 8.1 0 0 1-18-8.1v-10a18 8.1 0 0 0 18 8.1z" class="o-side"/><path d="M105 52H40a18 8.1 0 0 1 0-16.2H105z" class="o-top"/><ellipse cx="38" cy="43.9" rx="7" ry="3.15" class="o-hole"/></svg>
+<label>Körper (+) <select data-a="qz" aria-label="b) Körper"><option value="">…</option><option value="q">Quader</option><option value="z">Zylinder</option><option value="qz">Quader und Zylinder</option><option value="qp">Quader und Pyramide</option></select></label>
+<label>Bohrung (−) <select data-a="z" aria-label="b) Bohrung"><option value="">…</option><option value="z">Zylinder</option><option value="q">Quader</option><option value="k">keine</option></select></label></figure>
+<figure><figcaption>c) Häuschen</figcaption><svg viewBox="0 0 120 80" aria-hidden="true"><path d="M80 45l20-12v35l-20 12z" class="o-side2"/><path d="M30 45h50v35H30z" class="o-side"/><path d="M50 62h12v18H50z" class="o-hole"/><path d="M80 45l20-12L65 8z" class="o-roof2"/><path d="M30 45h50L65 8z" class="o-roof"/></svg>
+<label>Körper (+) <select data-a="qp" aria-label="c) Körper"><option value="">…</option><option value="q">Quader</option><option value="z">Zylinder</option><option value="qz">Quader und Zylinder</option><option value="qp">Quader und Pyramide</option></select></label>
+<label>Bohrung (−) <select data-a="q" aria-label="c) Bohrung"><option value="">…</option><option value="z">Zylinder</option><option value="q">Quader</option><option value="k">keine</option></select></label></figure>
+</div>
+<div class="row"><button class="primary sel-check">Prüfen</button></div><p class="fb sfb"></p></div>
+</div>
+
+<div class="two"><div>
+<div class="card"><div class="tag">Übung 2 · Maße planen <span class="stars">★★</span> <span class="afb">AFB II</span></div>
+<div class="mitbild"><svg class="pk" aria-hidden="true"><use href="/brand/piktos.svg#anhaenger"/></svg><p>Mia plant ihren Anhänger: Platte 3,5 mm dick, Schrift 1,5 mm hoch, Loch Ø 5 mm. Um das Loch sollen mindestens 2 mm Material bleiben.</p></div>
+<div class="numbox part" data-task="u2" data-fb="Richtig! Gesamtdicke 3,5 mm + 1,5 mm = 5 mm (gerade noch erlaubt). Lochmitte: 2,5 mm + 2 mm = 4,5 mm (Radius + Rand). Breite: 2 mm + 5 mm + 2 mm = 9 mm.">
+<div class="numq"><span>a) Gesamtdicke des Anhängers</span><span class="unit"><input type="text" inputmode="decimal" data-a="5" data-tol="0.001" aria-label="Gesamtdicke"> mm</span></div>
+<div class="numq"><span>b) Abstand der Lochmitte vom Rand mindestens</span><span class="unit"><input type="text" inputmode="decimal" data-a="4.5" data-tol="0.001" aria-label="Abstand Lochmitte"> mm</span></div>
+<div class="numq"><span>c) kleinste mögliche Breite der Platte</span><span class="unit"><input type="text" inputmode="decimal" data-a="9" data-tol="0.001" aria-label="kleinste Breite"> mm</span></div>
+<div class="row"><button class="primary num-check">Prüfen</button><button data-hint="u2">Tipp</button><button data-sol="u2Sol">Lösung zeigen</button></div><p class="fb nfb"></p><p class="tip" id="u2Tip"></p>
+<div class="hintsrc" data-for="u2" hidden><p>Die Schrift liegt <b>auf</b> der Platte: Die Dicken werden addiert.</p><p>Vom Rand bis zur Lochmitte: erst 2 mm Material, dann der Radius (halber Durchmesser).</p><p>Quer über die Platte: Rand + Loch-Durchmesser + Rand.</p></div>
+<div class="sol" id="u2Sol" hidden><p>a) 3,5 mm + 1,5 mm = 5 mm · b) 2 mm + 2,5 mm = 4,5 mm · c) 2 mm + 5 mm + 2 mm = 9 mm (für Schrift braucht die Platte aber mehr Breite).</p></div></div>
+</div>
+<div class="card"><div class="tag">Übung 3 · Stimmt das? <span class="stars">★</span> <span class="afb">AFB I</span></div>
+<div class="tf part" data-task="u5">
+<div class="item" data-v="0"><span>„Eine Bohrung schneidet sofort ein Loch, sobald sie in der Platte steckt.“</span><span class="btns"><button data-v="1">richtig</button><button data-v="0">falsch</button></span><p class="fb"></p><span class="ex">Erst das Gruppieren (Strg + G) schneidet das Loch aus.</span></div>
+<div class="item" data-v="1"><span>„Die Skizze für das Planungsblatt zeichne ich von oben.“</span><span class="btns"><button data-v="1">richtig</button><button data-v="0">falsch</button></span><p class="fb"></p><span class="ex">Von oben siehst du Umriss, Loch und Schrift mit allen Maßen.</span></div>
+<div class="item" data-v="0"><span>„Je dünner die Platte, desto besser – das spart Material.“</span><span class="btns"><button data-v="1">richtig</button><button data-v="0">falsch</button></span><p class="fb"></p><span class="ex">Unter 3 mm bricht der Anhänger leicht.</span></div>
+<div class="item" data-v="1"><span>„Mit der Taste S wird aus einer Bohrung wieder ein fester Körper.“</span><span class="btns"><button data-v="1">richtig</button><button data-v="0">falsch</button></span><p class="fb"></p><span class="ex">H macht eine Bohrung (hole), S einen festen Körper (solid).</span></div>
+</div>
+</div>
+</div><div>
+<div class="card"><div class="tag">Übung 4 · Fehlerdetektiv <span class="stars">★★</span> <span class="afb">AFB II</span></div>
+<div class="mitbild"><svg class="pk" aria-hidden="true"><use href="/brand/piktos.svg#auge"/></svg><p>Drei Entwürfe aus der Klasse. Lade jeden in die Werkstatt unten, sieh ihn dir genau an (drehen, Maße zeigen) und kreuze an, was nicht stimmt. Danach reparierst du ihn.</p></div>
+<div class="entw" id="entwBtns" data-fest><button data-e="lea">Entwurf von Lea</button><button data-e="tom">Entwurf von Tom</button><button data-e="ali">Entwurf von Ali</button></div>
+<div class="multi part" data-task="u3a" data-fb="Richtig! Leas Anhänger ist mit 65 mm zu lang und die Platte mit 2 mm zu dünn – sie würde leicht brechen."><p><b>Lea:</b> Was ist falsch? Kreuze <b>alle</b> Fehler an.</p><div class="checks"><label data-ok="1"><input type="checkbox">Länge</label><label data-ok="1"><input type="checkbox">Dicke</label><label data-ok="0"><input type="checkbox">Loch zu klein</label><label data-ok="0"><input type="checkbox">Rand ums Loch</label><label data-ok="0"><input type="checkbox">Schrift</label><label data-ok="0"><input type="checkbox">nicht gruppiert</label></div><div class="row"><button class="primary multi-check">Prüfen</button><p class="fb"></p></div></div>
+<div class="multi part" data-task="u3b" data-fb="Richtig! Bei Tom ist das Loch mit Ø 3 mm zu klein, es sitzt zu nah am Rand (nur 1,5 mm Material) und die Schrift schwebt 1 mm über der Platte."><p><b>Tom:</b> Was ist falsch? Kreuze <b>alle</b> Fehler an.</p><div class="checks"><label data-ok="0"><input type="checkbox">Länge</label><label data-ok="0"><input type="checkbox">Dicke</label><label data-ok="1"><input type="checkbox">Loch zu klein</label><label data-ok="1"><input type="checkbox">Rand ums Loch</label><label data-ok="1"><input type="checkbox">Schrift</label><label data-ok="0"><input type="checkbox">nicht gruppiert</label></div><div class="row"><button class="primary multi-check">Prüfen</button><p class="fb"></p></div></div>
+<div class="multi part" data-task="u3c" data-fb="Richtig! Alis Schrift beginnt bei 0 mm und steckt ganz in der Platte, und nichts ist gruppiert – deshalb gibt es auch kein Loch."><p><b>Ali:</b> Was ist falsch? Kreuze <b>alle</b> Fehler an.</p><div class="checks"><label data-ok="0"><input type="checkbox">Länge</label><label data-ok="0"><input type="checkbox">Dicke</label><label data-ok="0"><input type="checkbox">Loch zu klein</label><label data-ok="0"><input type="checkbox">Rand ums Loch</label><label data-ok="1"><input type="checkbox">Schrift</label><label data-ok="1"><input type="checkbox">nicht gruppiert</label></div><div class="row"><button class="primary multi-check">Prüfen</button><p class="fb"></p></div></div>
+</div>
+</div></div>
+
+<div class="card" id="eigen"><div class="tag">Übung 5 · Werkstatt: reparieren und eigener Entwurf <span class="stars">★★ – ★★★</span> <span class="afb">AFB II–III</span></div>
+<p>Repariere die Entwürfe aus Übung 4, bis die Checkliste ganz grün ist. Dann entwirfst du deinen <b>eigenen Anhänger</b> und füllst das Planungsblatt aus – so, wie du es danach auf Papier und in Tinkercad machst.</p>
+<p class="caption" id="labInfo">In der Werkstatt: dein eigener Entwurf.</p>
+<div id="lab2"></div>
+<span hidden data-task="u4lea"></span><span hidden data-task="u4tom"></span><span hidden data-task="u4ali"></span>
+<div class="row"><button id="eigenBtn">Meinen eigenen Entwurf laden</button></div>
+<div class="part" data-task="u6" style="margin-top:12px"><h4>Mein Planungsblatt <span class="stars">★★★</span></h4>
+<div class="planblatt">
+<label>Meine Idee (Form und Motiv)<textarea data-store="pb-idee" rows="2" id="pbIdee"></textarea></label>
+<label>Maße (L × B × D)<input type="text" id="pbMasse" readonly aria-label="Maße aus der Werkstatt"></label>
+<label>Grundkörper (+)<textarea data-store="pb-plus" rows="2" id="pbPlus" placeholder="z. B. Quader 50 × 20 × 3 mm, Text …"></textarea></label>
+<label>Bohrungen (−)<textarea data-store="pb-minus" rows="2" id="pbMinus" placeholder="z. B. Zylinder Ø 5 mm …"></textarea></label>
+<label style="grid-column:1/-1">Reihenfolge der Schritte<textarea data-store="pb-reihe" rows="3" id="pbReihe" placeholder="1. … 2. … 3. … 4. …"></textarea></label>
+</div>
+<div class="row"><button class="primary" id="pbCheck">Planung prüfen</button></div><div class="tz-res" id="pbRes" aria-live="polite"></div>
+<p class="caption">Übertrage deine Planung danach auf das Planungsblatt auf Papier und lass sie von deiner Lehrkraft prüfen.</p></div>
+</div>
+
+<div class="card"><div class="tag">Übung 6 · Loch am Rand <span class="stars">★★★</span> <span class="afb">AFB III</span></div>
+<div class="part why" data-task="u7"><h4>✍ Ben sagt: „Ich setze das Loch ganz an den Rand, dann habe ich mehr Platz für meinen Namen.“ Beurteile seinen Plan und begründe.</h4>
+<textarea data-store="u7" rows="3" placeholder="Schreib deine Begründung hier (oder ins Heft) – mindestens einen ganzen Satz." aria-label="Deine Begründung"></textarea>
+<label class="cbl"><input type="checkbox">Ich habe meine Begründung ins Heft geschrieben.</label>
+<div class="row"><button class="why-show">Mit Musterbegründung vergleichen</button></div>
+<div class="sol" hidden><p><b>Musterbegründung:</b> Bens Plan ist <b>nicht gut</b>. Am Schlüsselring zieht bei jeder Bewegung eine <b>Kraft</b> am Loch. Bleibt zu wenig Material neben dem Loch, <b>reißt es aus</b> und der Anhänger fällt ab. Darum braucht man <b>mindestens 2 mm Rand</b> ums Loch. Mehr Platz für den Namen bekommt Ben besser mit einer <b>längeren Platte</b> (bis 60 mm) oder kleinerer Schrift.</p><p class="caption" style="margin:0 0 6px">Vergleiche: Hast du die fett gedruckten Begriffe verwendet? Ergänze sonst deine Begründung.</p><div class="row"><button class="why-ok">Meine Begründung enthält das Wichtigste</button></div></div></div>
+</div>
+<div class="row" style="margin-top:12px"><a class="lnk" href="/">← Übersicht</a><a class="lnk nx" href="/Technik8/3d-druck">Weiter: 3D-Druck →</a></div>
+</div></section>
+
+<section class="band"><div class="wrap">
+<div class="row" style="margin-top:8px"><button id="resetAll">Fortschritt zurücksetzen</button></div>
+</div></section>
+<footer class="band"><div class="wrap">
+<p>Lernpfad Technik Klasse 8 · Projekt Schlüsselanhänger: CAD-Konstruktion (Planung, Grundkörper, additiv und subtraktiv, Bohrung und Gruppieren, Druckbarkeits-Check). Die Anhänger-Werkstatt ist ein vereinfachtes Modell eines CAD-Programms: Die Schrift liegt automatisch mittig rechts vom Loch, die Bohrung ist 2 mm höher als die Platte. Alles läuft in deinem Browser. Dein Fortschritt und deine Eingaben werden nur in diesem Browser gespeichert, es werden keine Daten übertragen (nur Feedback, das du selbst abschickst). Tinkercad ist nur verlinkt und wird erst geöffnet, wenn du auf den Link klickst.</p>
+<p class="rechtl"><a href="/impressum">Impressum · Datenschutz</a></p></div></footer>
+<!--@QRDLG@-->
+<script>
+{
+/*@COMMON@*/
+/*@ANH@*/
+/* ---------- Kopfbild ---------- */
+ANH.view($('#heroAnh'),{m:{r:4,sz:11},yaw:-24,pitch:42,drag:false});
+/* ---------- additiv / subtraktiv ---------- */
+ANH.view($('#glAdd'),{m:{L:30,B:20,t:6,r:0,d:10,hx:15,hole:'koerper',grp:true,txt:''},yaw:-30,pitch:35,drag:false,fit:true,cylH:6});
+ANH.view($('#glSub'),{m:{L:30,B:20,t:6,r:0,d:10,hx:15,hole:'bohrung',grp:true,txt:''},yaw:-30,pitch:35,drag:false,fit:true});
+/* ---------- Werkstatt 1: MAX nachbauen ---------- */
+const START={L:40,B:25,t:2,r:0,d:3,hx:10,hole:'koerper',grp:false,txt:'MAX',sz:10,h:2,z:0};
+const lab1=ANH.lab($('#lab1'),{store:'lab1',m:START});
+$('#q3reset').onclick=()=>{lab1.load(START);$('#q3res').innerHTML=''};
+$('#q3check').onclick=()=>{const m=lab1.m,f=ANH.f1,e=[];
+ if(m.L!==50)e.push(`Länge: ${f(m.L)} mm statt 50 mm`);if(m.B!==20)e.push(`Breite: ${f(m.B)} mm statt 20 mm`);if(m.t!==3)e.push(`Plattendicke: ${f(m.t)} mm statt 3 mm`);
+ if(m.hole!=='bohrung')e.push('Der Zylinder muss eine Bohrung sein, kein Körper');if(m.d!==5)e.push(`Loch: Ø ${f(m.d)} mm statt Ø 5 mm`);if(m.hx!==6)e.push(`Lochmitte: ${f(m.hx)} mm statt 6 mm vom linken Rand`);
+ if(m.txt.trim().toUpperCase()!=='MAX')e.push('Der Text muss „MAX“ heißen');if(m.h!==1)e.push(`Schrift: ${f(m.h)} mm dick statt 1 mm`);if(m.z!==m.t)e.push(`Die Schrift beginnt bei ${f(m.z)} mm – sie muss genau auf der Platte liegen (Unterkante = Plattendicke)`);
+ if(!m.grp)e.push('Noch nicht gruppiert');
+ const ck=lab1.checks().filter(c=>!c.ok);if(!e.length&&ck.length)e.push('Die Schrift passt nicht auf die Platte – wähle eine kleinere Buchstabenhöhe');
+ $('#q3res').innerHTML=e.length?'<p style="margin:0">Noch nicht ganz:</p><ul>'+e.map(x=>`<li class="bad">${x}.</li>`).join('')+'</ul>':'<p class="fb ok">Perfekt! Dein Anhänger entspricht dem Bauplan: 50 × 20 × 4 mm mit Loch Ø 5 mm – und er ist druckbar.</p>';
+ if(!e.length)mark('q3')};
+/* ---------- Werkstatt 2: Fehlerdetektiv und eigener Entwurf ---------- */
+const ENTW={lea:{name:'Lea',m:{L:65,B:20,t:2,r:5,d:5,hx:6,hole:'bohrung',grp:true,txt:'LEA',sz:11,h:1,z:2}},
+ tom:{name:'Tom',m:{L:50,B:18,t:3,r:3,d:3,hx:3,hole:'bohrung',grp:true,txt:'TOM',sz:10,h:1,z:4}},
+ ali:{name:'Ali',m:{L:48,B:22,t:3,r:6,d:5,hx:7,hole:'bohrung',grp:false,txt:'ALI',sz:12,h:2,z:0}}};
+let curE=null,eigen=null;try{eigen=JSON.parse(localStorage.getItem(KEY+'-eigen')||'null')}catch(e){}
+const lab2=ANH.lab($('#lab2'),{m:eigen||{txt:'',L:45,B:20,t:3,r:3,d:5,hx:6,sz:10,h:1,z:3}});
+const setE=e=>{curE=e;$$('#entwBtns button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.e===e));$('#labInfo').innerHTML=e?`In der Werkstatt: <b>Entwurf von ${ENTW[e].name}</b>. Repariere ihn, bis alles grün ist.`:'In der Werkstatt: <b>dein eigener Entwurf</b>.'};
+$$('#entwBtns button').forEach(b=>b.onclick=()=>{setE(b.dataset.e);lab2.load(ENTW[b.dataset.e].m);$('#eigen').scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'})});
+$('#eigenBtn').onclick=()=>{setE(null);let m=null;try{m=JSON.parse(localStorage.getItem(KEY+'-eigen')||'null')}catch(e){}lab2.load(m||{txt:'',L:45,B:20,t:3,r:3,d:5,hx:6,sz:10,h:1,z:3})};
+lab2.onchange=(m,c)=>{const ok=c.every(x=>x.ok);
+ if(curE){if(ok)mark('u4'+curE)}else{try{localStorage.setItem(KEY+'-eigen',JSON.stringify(m))}catch(e){}
+  const f=ANH.f1,inf=ANH.info(m);$('#pbMasse').value=`${f(m.L)} × ${f(m.B)} × ${f(inf.total)} mm`}};
+$('#pbCheck').onclick=()=>{if(curE)$('#eigenBtn').click();const c=lab2.checks(),bad=c.filter(x=>!x.ok),e=[];
+ if(['MAX','LEA','TOM','ALI',''].includes(lab2.m.txt.trim().toUpperCase()))e.push('Gib deinem Anhänger einen eigenen Text (Name, Initialen …).');
+ if(bad.length)e.push(`Die Checkliste ist noch nicht grün (${bad.length} ${bad.length===1?'Punkt':'Punkte'} offen).`);
+ if($('#pbIdee').value.trim().length<3)e.push('Beschreibe deine Idee.');
+ if($('#pbPlus').value.trim().length<3)e.push('Trag die Grundkörper (+) ein.');
+ if($('#pbMinus').value.trim().length<3)e.push('Trag die Bohrungen (−) ein.');
+ if($('#pbReihe').value.trim().length<10)e.push('Schreib die Reihenfolge deiner Schritte auf.');
+ $('#pbRes').innerHTML=e.length?'<ul>'+e.map(x=>`<li class="bad">${x}</li>`).join('')+'</ul>':'<p class="fb ok">Deine Planung ist vollständig und der Anhänger ist druckbar. Zeig sie deiner Lehrkraft!</p>';
+ if(!e.length)mark('u6')};
+setE(null);
+initCommon();
+}
+</script>
+</body>
+</html>
