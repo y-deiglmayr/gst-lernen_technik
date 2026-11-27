@@ -8,7 +8,9 @@ SEITEN={ # Quelle: (Ziel, localStorage-Schlüssel)
  'tz-bemassung':('Technik8/tz-bemassung','t8-tz-bemassung-done'),
  'dreitafelprojektion':('Technik8/dreitafelprojektion','t8-dreitafel-done'),
  'kavalierperspektive':('Technik8/kavalierperspektive','t8-kavalier-done'),
- 'isometrie':('Technik8/isometrie','t8-isometrie-done')}
+ 'isometrie':('Technik8/isometrie','t8-isometrie-done'),
+ 'anhaenger-konstruktion':('Technik8/anhaenger-konstruktion','t8-anh-konstruktion-done'),
+ '3d-druck':('Technik8/3d-druck','t8-3d-druck-done')}
 rd=lambda n:open(os.path.join(H,n),encoding='utf-8').read()
 def qr(url):
   s=segno.make(url,error='m').svg_inline(scale=1,light='#fff',svgclass='segno',lineclass='qrline',omitsize=True)
@@ -18,6 +20,7 @@ for src,(ziel,key) in SEITEN.items():
   if not os.path.exists(p):continue
   t=rd('src/'+src+'.html');url='https://technik.physik.party/'+ziel
   q=qr(url)
+  t=t.replace('/*@ANHCSS@*/',rd('anh.css')).replace('/*@ANH@*/',rd('anh.js'))
   t=t.replace('/*@CSS@*/',rd('basis.css')+rd('tz.css')).replace('/*@COMMON@*/',rd('common.js').replace('@KEY@',key))
   t=t.replace('/*@ENGINE@*/',rd('engine.js')+rd('tzui.js')+rd('bodies.js'))
   t=t.replace('<!--@QRBTN@-->','<button class="qrbtn" id="qrOpen" title="QR-Code groß anzeigen">'+q+'\nQR groß zeigen</button>')

@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Projekt Schlüsselanhänger · 3D-Druck</title>
+<meta name="description" content="Lernpfad Technik Klasse 8: Vom digitalen Modell zum fertigen Objekt – FDM-Drucker, Filament, STL und G-Code, Slicen mit Schichthöhe, Füllung und Wänden, 45°-Regel, Haftung, typische Probleme und Sicherheit.">
+<link rel="stylesheet" href="/fonts/fonts.css">
+<script src="/brand/theme.js"></script>
+<style>
+/* Projekt Schlüsselanhänger · 3D-Druck – Lernpfad Technik Klasse 8. Erzeugt mit tools/tz/build.py aus tools/tz/src/. */
+:root{color-scheme:light dark;
+--bg:light-dark(#ffffff,#11141b);--ink:light-dark(#1b1e27,#e9ebf1);--muted:light-dark(#5a6070,#a5abba);
+--panel:light-dark(#f3f6fa,#191e28);--line:light-dark(#d6dde8,#2d3544);--grid:light-dark(#d4e2f2,#232c3b);
+--paper:light-dark(#fdfeff,#151a23);
+--acc:light-dark(#c2410c,#ff9a4d);--acc2:light-dark(#1d62c9,#64a6ff);
+--el:light-dark(#2563c9,#6aa5ff);--eb:light-dark(#1d8a4a,#4fd27f);--eth:light-dark(#d4381e,#ff7a5c);--esp:light-dark(#8a3fc4,#c08cff);
+--ok:light-dark(#137a3a,#4fd27f);--okbg:light-dark(#e6f5ec,#15301f);--bad:light-dark(#b8322a,#ff8075);--badbg:light-dark(#fbeceb,#3a1c1a);
+--hint:light-dark(#fff6dc,#2e2815);--lab:#0e131d;--labink:#eef1f7}
+*{box-sizing:border-box;min-width:0}
+html{scroll-padding-top:80px;scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 "Atkinson Hyperlegible",system-ui,sans-serif;overflow-x:clip}
+h1,h2,h3,h4{font-family:Lexend,system-ui,sans-serif;line-height:1.15;text-wrap:balance;margin:0 0 .5em}
+h1{font-size:clamp(32px,5vw,50px);font-weight:700}
+h2{font-size:clamp(26px,3.4vw,36px);font-weight:700}
+h3{font-size:21px;font-weight:600;margin-top:1.6em}
+h4{font-size:17px;font-weight:600;margin:0 0 .3em}
+p{margin:0 0 .8em}
+sub{font-size:.72em}
+.wrap{max-width:1180px;margin:0 auto}
+.band{padding:clamp(28px,4vw,60px) max(5vw,16px)}
+.alt{background:var(--panel)}
+nav{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;padding:8px max(4vw,12px)}
+nav a{color:var(--ink);text-decoration:none;font:600 15px Lexend,sans-serif;padding:8px 10px;border-radius:8px}
+nav a:hover,nav a:focus-visible{background:var(--panel)}
+nav a span{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--acc);color:#fff;font-size:13px;margin-right:6px}
+.prog{margin-left:auto;display:flex;align-items:center;gap:10px;font-size:14px;color:var(--muted)}
+.bar{width:140px;height:10px;border-radius:6px;background:var(--line);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--acc);transition:width .4s}
+.hero{background:var(--lab);color:var(--labink)}
+.hero p{color:#c6ccd8;max-width:64ch}
+.hero svg{width:100%;height:auto;display:block;margin:18px 0 8px}
+.phases{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:10px}
+.phases a{display:block;padding:14px 16px;border-radius:12px;background:#182031;color:#eef1f7;text-decoration:none;border:1px solid #2a3448}
+.phases a:hover{border-color:#ff9a4d}
+.phases b{font-family:Lexend,system-ui,sans-serif;display:block;font-size:17px}
+.phases small{color:#a9b2c4;font-size:14px}
+.two{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:28px;align-items:start}
+@media(max-width:900px){.two{grid-template-columns:minmax(0,1fr)}}
+@media(min-width:901px){.stick{position:sticky;top:70px}}
+.fig{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:8px}
+.fig svg{display:block;width:100%;height:auto;touch-action:manipulation;user-select:none}
+.caption{font-size:14px;color:var(--muted);margin:6px 4px 0}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin-bottom:14px}
+.card.done{border-color:var(--ok)}
+.card .tag{font:600 13px Lexend,system-ui,sans-serif;color:var(--muted);margin-bottom:4px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.card.done>.tag::after{content:"✓ gelöst";color:var(--ok)}
+.stars{color:var(--acc);letter-spacing:2px}
+.intro{max-width:72ch;color:var(--muted)}
+.merke{border:2px solid var(--acc);border-radius:14px;padding:16px 20px;margin:18px 0;background:var(--bg)}
+.merke h4{color:var(--acc)}
+.merke ul{margin:.3em 0;padding-left:1.2em}
+details.reveal{border:1px dashed var(--line);border-radius:12px;padding:10px 14px;margin:14px 0;background:var(--bg)}
+details.reveal summary{cursor:pointer;font:600 16px Lexend,system-ui,sans-serif;padding:4px 0}
+button{font:600 16px "Atkinson Hyperlegible",sans-serif;min-height:44px;padding:8px 16px;border-radius:10px;border:1px solid var(--line);background:var(--panel);color:var(--ink);cursor:pointer}
+.alt button{background:var(--bg)}
+button:hover{border-color:var(--ink)}
+button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{outline:3px solid var(--acc2);outline-offset:2px}
+button.primary{background:var(--acc);border-color:var(--acc);color:light-dark(#fff,#11141b)}
+button[aria-pressed=true]{background:var(--ink);color:var(--bg)}
+input[type=text],select{font:16px "Atkinson Hyperlegible",sans-serif;min-height:44px;padding:6px 10px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}
+input[type=range]{width:100%;accent-color:var(--acc);min-height:36px}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:10px 0}
+.ctrl{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:4px 18px;margin-top:8px}
+.ctrl label{font-weight:700;font-size:15px}
+.toggles{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.toggles label{display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);cursor:pointer;min-height:44px;font-size:15px}
+.toggles input{width:18px;height:18px;accent-color:var(--acc)}
+.mc{display:grid;gap:8px;margin-top:8px}
+.mc button{text-align:left;font-weight:400}
+.mc button.ok,.tf button.ok{background:var(--okbg);border-color:var(--ok)}
+.mc button.bad,.tf button.bad{background:var(--badbg);border-color:var(--bad)}
+.fb{min-height:1em;margin:8px 0 0;font-size:16px}
+.fb:empty{display:none}
+.fb.ok{color:var(--ok)}.fb.bad{color:var(--bad)}
+.fb.hint{background:var(--hint);color:var(--ink);padding:8px 12px;border-radius:8px}
+input.ok,select.ok{border-color:var(--ok);background:var(--okbg)}
+input.bad,select.bad{border-color:var(--bad);background:var(--badbg)}
+.cloze{line-height:2.5;font-size:17px}
+.cloze select{min-height:38px;padding:2px 6px;margin:0 2px}
+.tf{display:grid;gap:4px}
+.tf .item{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
+.tf .item .fb{grid-column:1/-1;margin:0}
+.tf .btns{display:flex;gap:6px}
+.numq{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 12px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line)}
+.numq input{width:110px;text-align:right}
+.numq .mcq{grid-column:1/-1}
+.unit{white-space:nowrap}
+.sol{background:var(--panel);border-radius:10px;padding:10px 14px;margin-top:10px;font-size:16px}
+.sol p{margin:.3em 0}
+.calc{font-family:"Atkinson Hyperlegible",sans-serif;background:var(--bg);border-left:4px solid var(--acc);padding:6px 12px;margin:6px 0;border-radius:4px}
+.steps{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.steps i{font-style:normal;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--line);font:600 14px Lexend,system-ui,sans-serif}
+.steps i.on{background:var(--acc);color:#fff;border-color:var(--acc)}
+.steptext{min-height:7em}
+.heft{background:var(--paper);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:20px 20px;border:1px solid var(--line);border-radius:12px;padding:22px clamp(16px,3vw,34px)}
+.heft h3{margin-top:.8em;color:var(--acc)}
+.heft h3:first-child{margin-top:0}
+.heft .box{border:2px solid var(--ink);padding:8px 14px;border-radius:6px;background:var(--paper);display:inline-block}
+.checks{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.checks label{display:flex;gap:8px;align-items:center;padding:8px 14px;border:1px solid var(--line);border-radius:10px;min-height:44px;cursor:pointer;font-size:16px;background:var(--bg)}
+.checks label.ok{border-color:var(--ok);background:var(--okbg)}.checks label.bad{border-color:var(--bad);background:var(--badbg)}
+.checks input{width:18px;height:18px;accent-color:var(--acc)}
+.chain{display:grid;grid-template-columns:minmax(0,1.3fr) auto auto auto;gap:6px 10px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line)}
+@media(max-width:640px){.chain{grid-template-columns:auto auto auto}.chain>span:first-child{grid-column:1/-1}}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:14px;color:var(--muted);margin:6px 4px 0}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.given{background:var(--panel);border-radius:10px;padding:8px 14px;font-size:15px;margin:8px 0}
+footer{font-size:14px;color:var(--muted)}
+/* svg */
+.gl{stroke:var(--grid);stroke-width:1}
+.thin{stroke:var(--ink);stroke-width:1.4;fill:none}
+.dashl{stroke:var(--muted);stroke-width:1.4;stroke-dasharray:6 5;fill:none}
+.tx{fill:var(--ink);font:15px "Atkinson Hyperlegible",sans-serif}
+.txs{fill:var(--muted);font:13px "Atkinson Hyperlegible",sans-serif}
+.txb{fill:var(--ink);font:600 15px Lexend,sans-serif}
+.fel{fill:var(--el)}.feb{fill:var(--eb)}.feth{fill:var(--eth)}.fesp{fill:var(--esp)}
+.tel{fill:var(--el);font:600 14px Lexend,sans-serif}.teb{fill:var(--eb);font:600 14px Lexend,sans-serif}.teth{fill:var(--eth);font:600 14px Lexend,sans-serif}
+.ges{fill:none;stroke:var(--ink);stroke-width:2;stroke-dasharray:5 4}
+.ball{fill:light-dark(#f2b632,#f2b632);stroke:var(--ink);stroke-width:1.5}
+.ghost{opacity:.35}
+.ground{fill:light-dark(#e9edf3,#202736)}
+.track{fill:none;stroke:var(--ink);stroke-width:3;stroke-linecap:round}
+.hit{fill:transparent;cursor:pointer}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.bar i{transition:none}}
+@media(max-width:600px){body{font-size:16px}.prog .bar{width:80px}nav a{padding:6px}}
+.herohead{display:flex;gap:24px;align-items:flex-start;justify-content:space-between}
+.qrbtn{flex:none;width:136px;background:#fff;border:0;border-radius:12px;padding:8px 8px 4px;cursor:pointer;color:#1b1e27;font:600 12px Lexend,sans-serif;text-align:center}
+.qrbtn svg{display:block;width:120px;height:120px}
+.qrbtn:hover{outline:3px solid #ff5c50}
+dialog.qrdlg{border:0;border-radius:18px;padding:24px;background:#fff;color:#1b1e27;text-align:center;max-width:95vw}
+dialog.qrdlg::backdrop{background:rgba(8,10,16,.8)}
+dialog.qrdlg svg{width:min(70vh,80vw);height:min(70vh,80vw);display:block;margin:0 auto}
+dialog.qrdlg p{font:600 clamp(16px,2.4vw,26px) Lexend,sans-serif;margin:12px 0;word-break:break-all}
+dialog.qrdlg button{background:#f3f6fa;color:#1b1e27}
+@media(max-width:640px){.qrbtn{width:96px}.qrbtn svg{width:80px;height:80px}}
+@media print{nav,.qrbtn{display:none}}
+:root{--ech:light-dark(#8a5a2b,#e0a86a);--eelk:light-dark(#0b7f96,#4fd0e8);--estr:light-dark(#a37a00,#ffd54a)}
+.fech{fill:var(--ech)}.feelk{fill:var(--eelk)}.festr{fill:var(--estr)}
+.part{border-left:4px solid var(--line);padding:4px 0 4px 14px;margin:16px 0}
+.part.done{border-color:var(--ok)}
+.part.done>h4::after{content:"  ✓";color:var(--ok)}
+.tip:empty{display:none}
+.lvl{display:inline-block;font:600 14px Lexend,system-ui,sans-serif;padding:4px 10px;border-radius:20px;background:var(--bg);border:1px solid var(--line);margin-bottom:10px}
+.readout{font:600 18px Lexend,system-ui,sans-serif;color:var(--acc)}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 16px}
+.tabs button{display:flex;align-items:center;gap:8px;font-size:15px;padding:8px 12px}
+.tabs button i{width:14px;height:14px;border-radius:50%;display:inline-block;flex:none}
+.tabs button[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.tabs button.solved::after{content:"✓";color:var(--ok);font-weight:700}
+.tabs button[aria-pressed=true].solved::after{color:var(--bg)}
+.exp{background:var(--bg);border:1px dashed var(--line);border-radius:12px;padding:12px 16px;margin:10px 0}
+.exp h4{color:var(--acc)}
+.exp ol,.exp ul{margin:.3em 0 .6em;padding-left:1.3em}
+.safe{color:var(--bad);font-weight:600}
+.badge{display:inline-block;font:600 13px Lexend,sans-serif;padding:2px 10px;border-radius:20px;color:#fff;margin-bottom:6px}
+table.mess{border-collapse:collapse;font-size:15px;width:100%}
+table.mess th,table.mess td{border:1px solid var(--line);padding:5px 8px;text-align:center}
+table.mess th{background:var(--panel)}
+.scroll{overflow-x:auto}
+.formula{font:600 clamp(22px,3vw,30px) Lexend,sans-serif;margin:.3em 0}
+.fig.narrow{max-width:760px}
+input[inputmode=decimal]{width:110px;text-align:right}
+textarea{width:100%;font:16px "Atkinson Hyperlegible",sans-serif;padding:8px 10px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink);resize:vertical}
+.why .sol{border-left:4px solid var(--ok)}
+.why label.cbl{display:flex;gap:8px;align-items:center;font-size:15px;margin:6px 0;cursor:pointer}
+.mc button:disabled{opacity:.55;cursor:not-allowed}
+.mc button.bad:disabled{opacity:1}
+details.exp summary{cursor:pointer;font:600 16px Lexend,sans-serif;color:var(--acc)}
+.steprow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 12px;align-items:center;padding:6px 0;border-bottom:1px solid var(--line)}
+#protokoll{display:none}
+@media print{body.printprot>*:not(#protokoll){display:none!important}#protokoll{display:block!important;padding:20px;color:#000;background:#fff}#protokoll h2{margin:0 0 10px}#protokoll .pr{border:1px solid #999;padding:8px 12px;margin:8px 0;min-height:70px;white-space:pre-wrap}}
+.massbtns{display:flex;gap:8px;flex-wrap:wrap}
+.two>*{min-width:0}svg.board{overflow:hidden}.card select{max-width:100%}
+:root{--f1:light-dark(#1d62c9,#6aa5ff);--f2:light-dark(#8a3fc4,#c08cff);--f3:light-dark(#0b7f96,#4fd0e8);--fr:light-dark(#d4381e,#ff7a5c);
+--fg:light-dark(#1d8a4a,#4fd27f);--fh:light-dark(#d4381e,#ff7a5c);--fnn:light-dark(#1d62c9,#6aa5ff);--grid2:light-dark(#e8eff8,#1c2330)}
+.gl2{stroke:var(--grid2);stroke-width:1}
+svg.board{display:block;width:100%;height:auto;user-select:none;-webkit-user-select:none;border-radius:8px}
+svg.board:focus-visible{outline:3px solid var(--acc2);outline-offset:2px}
+.hdl{fill:color-mix(in srgb,var(--paper) 55%,transparent);stroke-width:3;cursor:grab}
+.hdl.act{stroke-dasharray:5 3;stroke-width:3.5}
+.flab{font:italic 700 20px "Atkinson Hyperlegible",serif}
+.rayl{stroke:var(--muted);stroke-width:1.6;stroke-dasharray:2 5;fill:none}
+.ruler{font-size:15px;color:var(--muted);margin:6px 4px 0}
+.ruler b{color:var(--ink)}
+.afb{display:inline-block;font:600 12px Lexend,sans-serif;padding:1px 8px;border-radius:20px;border:1px solid var(--line);color:var(--muted)}
+.vt .fig{max-width:720px;position:relative}.vt-max{position:absolute;top:6px;right:6px;z-index:2;padding:4px 10px;font-size:14px;min-height:0}html.noscroll,html.noscroll body{overflow:hidden}.vt.vtmax{position:fixed;inset:0;z-index:1000;margin:0;border-radius:0;overflow:auto;overscroll-behavior:contain;background:var(--bg,var(--paper));padding:10px 10px 24px}.vt.vtmax .fig{max-width:none!important;margin:0}.vt.vtmax svg.board{max-height:calc(100dvh - 150px);margin:0 auto}
+.fig svg.board{margin:0 auto}
+.vt .numq input{width:110px}
+.vt-ask{border-top:1px dashed var(--line);margin-top:10px;padding-top:6px}
+.lvlrow{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:14px;color:var(--muted);margin:4px 0 14px}
+.trig{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:8px 0}
+.trig div{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:8px 12px;text-align:center}
+.stepbox{min-height:5.5em}
+table.mess td.l{text-align:left}
+.pill{display:inline-block;padding:1px 9px;border-radius:20px;font:600 14px Lexend,sans-serif;color:#fff}
+.multi label{max-width:100%}
+.ex{display:none}
+.sim-read{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:10px 0}
+.sim-read div{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:6px 10px;font-size:15px}
+.sim-read b{display:block;font:600 19px Lexend,sans-serif}
+
+a.lnk{text-decoration:none;display:inline-flex;align-items:center;font:600 16px Lexend,sans-serif;padding:8px 16px;border-radius:10px;border:1px solid var(--line);color:var(--ink)}
+a.lnk.nx{background:var(--acc);border-color:var(--acc);color:light-dark(#fff,#11141b)}
+
+/* ===== Impuls-Lernpfade: Ergänzungen ===== */
+:root{--acc:var(--gst-acc,#3f6267);--acc2:var(--gst-acc,#3f6267);--pg:light-dark(#b8322a,#ff8a7a);--ekin:light-dark(#1d8a4a,#4fd27f);--eth:light-dark(#d4381e,#ff7a5c)}
+/* Heftaufschrieb deutlich hervorheben */
+.heftbox{border:2px solid var(--gst-acc);border-radius:14px;margin:22px 0;background:var(--paper);overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.08)}
+.hb-head{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;background:var(--gst-acc);color:var(--gst-on-acc);padding:10px 18px}
+.hb-head b{font:700 19px "Source Sans 3",Lexend,sans-serif;letter-spacing:.02em;display:flex;align-items:center;gap:10px}
+.hb-head b::before{content:"";width:14px;height:14px;background:var(--gst-mark);flex:none}
+.hb-head small{font-size:14px;opacity:.92}
+.heftbox .heft{border:0;border-radius:0}
+.hb-foot{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;padding:10px 18px;border-top:1px dashed var(--line);background:var(--panel);font-size:15px}
+.heftbox.done{border-color:var(--ok)}
+.heftbox.done .hb-done{background:var(--okbg);border-color:var(--ok)}
+.insheft{display:inline-flex;align-items:center;gap:6px;font:600 13px "Source Sans 3",Lexend,sans-serif;padding:2px 10px;border-radius:20px;border:1px solid var(--gst-acc);color:var(--gst-acc);vertical-align:middle;margin-left:6px;white-space:nowrap}
+.insheft::before{content:"";width:8px;height:8px;background:var(--gst-mark)}
+nav a.heftlink span{background:var(--gst-mark);color:#2f393a}
+.heft .fig2{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin:8px 0}
+.heft .fig2 svg{width:100%;height:auto;display:block;background:var(--paper);border:1px solid var(--line);border-radius:8px}
+.heft table{border-collapse:collapse;margin:6px 0;font-size:16px}.heft td,.heft th{border:1px solid var(--line);padding:4px 10px;background:var(--paper)}
+.stepper .stepbox{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:8px 0}
+.stepper .stepbox p{margin:.3em 0}
+.lab-tbl{border-collapse:collapse;width:100%;font-size:15px}.lab-tbl th,.lab-tbl td{border:1px solid var(--line);padding:5px 8px;text-align:center}.lab-tbl th{background:var(--panel)}
+.lab-tbl td.sum{font-weight:700}
+.seg{display:inline-flex;flex-wrap:wrap;gap:6px}
+.tc1{color:var(--f1)}.tc2{color:var(--f2)}.tcg{color:var(--pg)}
+.ctrl{grid-template-columns:repeat(2,minmax(0,1fr))}
+/* Handy: Navigation in einer Zeile, Simulation mit Reglern auf einen Bildschirm */
+@media(max-width:600px){
+ nav .wrap{flex-wrap:nowrap;gap:0 2px;padding:6px 8px}
+ nav a{font-size:0;padding:6px 3px;white-space:nowrap}
+ nav a span{font-size:13px;margin-right:0}
+ nav a[href="/"]{font-size:0;gap:0}
+ nav .prog{margin-left:auto;font-size:13px;white-space:nowrap}nav .prog .bar{width:56px}
+ .hero>.wrap>svg,.hero .phases{display:none}
+ .ctrl{grid-template-columns:1fr 1fr;gap:0 12px}
+ .ctrl label{font-size:13px}
+ .ctrl input[type=range]{min-height:30px}
+ .toggles{gap:6px;margin:6px 0}.toggles label{min-height:36px;padding:4px 10px;font-size:14px}
+ .stick .row{margin:6px 0;gap:6px}.stick .row button{padding:6px 10px;min-height:38px;font-size:14px}
+ .fig svg:not(.board) .txb{font-size:21px}.fig svg:not(.board):not(#ramp) .txs{font-size:18px}
+ .sim-read{grid-template-columns:1fr 1fr;gap:6px;margin:6px 0}.sim-read div{font-size:13px;padding:4px 8px}.sim-read b{font-size:16px}
+}
+/* Handy: Fragen über den Eingabefeldern statt daneben, Tabellen kompakt */
+@media(max-width:600px){
+ .hero h1{font-size:clamp(24px,7.4vw,30px);hyphens:auto;-webkit-hyphens:auto;overflow-wrap:break-word}
+ .tf .item,.numq,.steprow{grid-template-columns:minmax(0,1fr);gap:6px}
+ .tf .btns{justify-content:flex-end}
+ .numq>.unit{justify-self:end}
+ .steprow select{width:100%}
+ .lab-tbl,table.mess,.heft table{font-size:13px}
+ .lab-tbl th,.lab-tbl td,table.mess th,table.mess td,.heft td,.heft th{padding:4px 5px}
+ .stick .row .caption{font-size:13px}.stick .row button.lPre{padding:6px 10px;min-width:0}
+}
+.lbl{paint-order:stroke;stroke:var(--paper);stroke-width:4px;stroke-linejoin:round}
+
+
+
+
+/* ===== Klasse 8 · Kräfte: Ergänzungen ===== */
+.big{font-size:18px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.labbox{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:10px 12px}
+.kv{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin:8px 0}
+.kv div{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:6px 10px;font-size:15px}
+.kv b{display:block;font:600 19px "Source Sans 3",Lexend,sans-serif}
+.lab-tbl input{width:80px;text-align:right;min-height:36px;font:15px "Atkinson Hyperlegible",sans-serif;padding:4px 6px;border-radius:6px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}
+.lab-tbl input.ok{border-color:var(--ok);background:var(--okbg)}.lab-tbl input.bad{border-color:var(--bad);background:var(--badbg)}
+.fehler{border-left:4px solid var(--gst-mark);background:var(--panel);border-radius:8px;padding:8px 14px;margin:10px 0;font-size:15px}
+.pic{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:10px 0}
+.pic figure{margin:0;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:8px}
+.pic svg{width:100%;height:auto;display:block}
+.pic figcaption{font-size:14px;color:var(--muted);margin:4px 2px 0}
+
+#ball,#press{background:light-dark(#f4f7f2,#1f2627)}
+.musterfig{margin:6px 0 14px;max-width:460px}
+.musterfig svg{display:block;width:100%;height:auto}
+.musterfig .tx{font:5px "Atkinson Hyperlegible",system-ui,sans-serif}
+.musterfig figcaption{font-size:14px;color:var(--muted)}
+
+[hidden]{display:none!important}
+/* ===== Technisches Zeichnen: gemeinsame Bausteine =====
+   Fachfarben Technisches Zeichnen (einheitlich in allen TZ-Lernpfaden):
+   Körperflächen in Graugrün-Tönen (--kf vorn, --kt oben, --ks seitlich), Zeichenlinien in Tinte (--ink),
+   Rückmeldung: fehlt = Akzentgelb (--gst-mark), falscher Linientyp = --wrongc, zu viel = --bad. */
+:root{--kf:light-dark(#8fb3b8,#4f7479);--kt:light-dark(#d2e1e3,#76989d);--ks:light-dark(#b0c9cc,#5f8287);--kedge:light-dark(#1f2829,#0d1213);
+ --wrongc:light-dark(#8a3fc4,#c08cff);--pen:var(--ink);--paperb:light-dark(#fdfefe,#1c2324);--karo:light-dark(#d7e2e4,#2e3a3c);--karo2:light-dark(#b9c9cc,#3f4d50)}
+.tz-f2{fill:var(--kf)}.tz-f1{fill:var(--kt)}.tz-f0{fill:var(--ks)}.tz-f0,.tz-f1,.tz-f2{stroke:var(--kedge);stroke-opacity:.22;stroke-width:.025;stroke-linejoin:round}
+.tz-e{stroke:var(--kedge);stroke-width:.06;fill:none;stroke-linecap:round}
+.tz-arr{stroke:var(--gst-mark);stroke-width:.12;fill:none}.tz-arrh{fill:var(--gst-mark)}
+.tz-arrc{fill:var(--gst-acc)}.tz-arrt{fill:var(--gst-on-acc);font:700 .46px "Source Sans 3",sans-serif}
+.tz-v{stroke:var(--pen);stroke-width:.75;stroke-linecap:round;fill:none}
+.tz-h{stroke:var(--pen);stroke-width:.4;stroke-dasharray:2.2 1.3;fill:none}
+.tz-ax{stroke:var(--muted);stroke-width:.45}.tz-hl{stroke:var(--muted);stroke-width:.25;opacity:.8}
+.tz-lbl{font:700 5px "Source Sans 3",sans-serif;fill:var(--gst-acc)}
+.tz-mini{display:block;width:100%;height:auto;max-height:150px}
+.tz-mini .tz-v,.tz-dt .tz-v,.tz-sp .tz-v{stroke-width:2.2px;vector-effect:non-scaling-stroke}
+.tz-mini .tz-h,.tz-dt .tz-h,.tz-sp .tz-h{stroke-width:1.2px;stroke-dasharray:6 4;vector-effect:non-scaling-stroke}
+.tz-dt{display:block;width:100%;height:auto}
+.tz-dt .tz-ax,.tz-dt .tz-hl{vector-effect:non-scaling-stroke;stroke-width:1px}.tz-dt .tz-ax{stroke-width:1.4px}
+.tz-paper{fill:var(--paperb)}.tz-g{stroke:var(--karo);stroke-width:.18}
+svg.tz-board{display:block;width:100%;height:auto;touch-action:none;user-select:none;-webkit-user-select:none;border:1px solid var(--line);border-radius:8px;cursor:crosshair;background:var(--paperb)}
+svg.tz-board.erasing{cursor:pointer}
+.tz-snap{fill:var(--gst-mark);stroke:var(--ink);stroke-width:.25}
+.tz-prev{opacity:.7}
+.tz-len{fill:var(--ink);font-family:"Source Sans 3",sans-serif;font-weight:700;paint-order:stroke;stroke:var(--paperb);stroke-width:1px}
+.tz-miss{stroke:var(--gst-mark);stroke-width:2.2;stroke-linecap:round;opacity:.85}
+.tz-wrong{stroke:var(--wrongc);stroke-width:2;stroke-linecap:round;opacity:.7}
+.tz-extra{stroke:var(--bad);stroke-width:1.6;stroke-linecap:round;opacity:.75}
+.tz-areal{font:600 4.2px "Source Sans 3",sans-serif;fill:var(--muted)}
+svg.tz-3d{display:block;width:100%;height:auto;touch-action:none;cursor:grab;border-radius:10px;background:radial-gradient(circle at 50% 40%,var(--paper),var(--panel))}
+svg.tz-3d:active{cursor:grabbing}
+.tz-tools{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:8px 0}
+.tz-tools button{min-height:40px;padding:6px 12px;font-size:15px;display:inline-flex;align-items:center;gap:6px}
+.tz-tools .sep{width:1px;align-self:stretch;background:var(--line);margin:0 2px}
+.tz-tools button[aria-pressed=true]{background:var(--gst-acc);border-color:var(--gst-acc);color:var(--gst-on-acc)}
+.tz-tools svg.ls{width:30px;height:10px}
+.tz-legend{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:14px;color:var(--muted);margin:6px 2px}
+.tz-legend i{display:inline-block;width:18px;height:5px;border-radius:3px;margin-right:6px;vertical-align:2px}
+.tz-res{margin:8px 0}
+.tz-res ul{margin:.3em 0;padding-left:1.2em}
+.tz-res li.ok{color:var(--ok)}.tz-res li.bad{color:var(--bad)}
+.ws{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:20px;align-items:start}
+@media(max-width:900px){.ws{grid-template-columns:minmax(0,1fr)}}
+.ws .side{position:sticky;top:70px}
+@media(max-width:900px){.ws .side{position:static}}
+.vbtns{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.vbtns button{min-height:38px;padding:4px 12px;font-size:15px}
+.vbtns b{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--gst-acc);color:var(--gst-on-acc);font-size:13px;margin-right:4px}
+.bodytabs{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 12px}
+.bodytabs button{min-height:40px;padding:6px 12px;font-size:15px}
+.bodytabs button[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.bodytabs button.solved::after{content:" ✓";color:var(--ok);font-weight:700}
+.bodytabs button[aria-pressed=true].solved::after{color:var(--bg)}
+.views3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:10px 0}
+.views3 figure{margin:0;background:var(--paperb);border:1px solid var(--line);border-radius:10px;padding:10px}
+.views3 figcaption{font-size:14px;color:var(--muted);margin-top:6px;text-align:center}
+.views3 select{width:100%;margin-top:6px}
+@media(max-width:560px){.views3{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.choice3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:10px 0}
+.choice3 button{display:block;padding:10px;background:var(--paperb);text-align:center;font-weight:600}
+.choice3 button .tz-mini{max-height:120px;margin-bottom:6px}
+.choice3 button.ok{background:var(--okbg);border-color:var(--ok)}.choice3 button.bad{background:var(--badbg);border-color:var(--bad)}
+.choice3 button:disabled{opacity:.55;cursor:not-allowed}.choice3 button.bad:disabled{opacity:1}
+@media(max-width:560px){.choice3{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.pic3{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:10px 0}
+.pic3 figure{margin:0;background:var(--paperb);border:1px solid var(--line);border-radius:10px;padding:8px}
+.pic3 figure svg{display:block;width:100%;height:auto;max-height:140px}
+.pic3 figcaption{font-size:14px;color:var(--muted);margin-top:4px}
+.pic3 select{width:100%;margin-top:6px}
+.note{font-size:14px;color:var(--muted);border-left:3px solid var(--line);padding:2px 10px;margin:8px 0}
+.rules{counter-reset:r;list-style:none;padding:0;margin:8px 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:8px}
+.rules li{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:8px 12px 8px 44px;position:relative;font-size:16px}
+.rules li::before{counter-increment:r;content:counter(r);position:absolute;left:10px;top:8px;width:24px;height:24px;border-radius:50%;background:var(--gst-acc);color:var(--gst-on-acc);display:grid;place-items:center;font:700 13px "Source Sans 3",sans-serif}
+.dl{stroke:var(--pen);fill:none}
+.dl.b{stroke-width:2.4}.dl.s{stroke-width:1.1}.dl.d{stroke-width:1.1;stroke-dasharray:7 4}.dl.c{stroke-width:1.1;stroke-dasharray:16 3 2 3}
+.dimt{fill:var(--pen);font:15px "Atkinson Hyperlegible",sans-serif}
+.arrowf{fill:var(--pen)}
+.hitz{fill:transparent;stroke:transparent;stroke-width:14;cursor:pointer}
+.hitz:hover,.hitz:focus-visible{stroke:color-mix(in srgb,var(--gst-mark) 35%,transparent)}
+.found{stroke:color-mix(in srgb,var(--ok) 45%,transparent)!important}
+.flash{stroke:color-mix(in srgb,var(--bad) 40%,transparent)!important}
+button:disabled{opacity:.5;cursor:not-allowed}
+.lab-wrap{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:22px;align-items:start}
+@media(max-width:900px){.lab-wrap{grid-template-columns:minmax(0,1fr)}}
+.lab-wrap>*{min-width:0}
+
+/* ===== Projekt Schlüsselanhänger: Fachfarben CAD (einheitlich in beiden Lernpfaden) =====
+   Körper/Grundplatte blau (--anh-p), Schrift rot (--anh-t), Bohrung grau (--anh-h), Arbeitsebene hellblau mit Raster. */
+:root{--anh-p:light-dark(#3f86c6,#4f93cf);--anh-t:light-dark(#d9472f,#e36a55);--anh-h:light-dark(#9aa6a9,#7d898c);
+ --anh-plane:light-dark(#eef6fb,#1e2a30);--anh-grid:light-dark(#bcd8ea,#33505e);--anh-dim:light-dark(#1f2829,#e9edee)}
+.anh{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:16px 20px;align-items:start}
+.anh-view{position:sticky;top:70px}
+@media(max-width:900px){.anh{grid-template-columns:minmax(0,1fr)}.anh-view{position:static}}
+svg.anh-svg{display:block;width:100%;height:auto;touch-action:none;cursor:grab;border-radius:10px;background:radial-gradient(circle at 50% 40%,var(--paper),var(--panel))}
+svg.anh-svg:active{cursor:grabbing}
+.anh-plane{fill:var(--anh-plane)}.anh-grid{stroke:var(--anh-grid);stroke-width:.15;fill:none}
+.anh-w{stroke-width:.08;stroke-linejoin:round}
+.anh-top{stroke:color-mix(in srgb,var(--anh-p) 55%,#000);stroke-width:.18;stroke-linejoin:round}
+.anh-tside{fill:color-mix(in srgb,var(--anh-t) 70%,#000);font-family:Lexend,"Atkinson Hyperlegible",sans-serif;font-weight:700}
+.anh-ttop{fill:var(--anh-t);stroke:color-mix(in srgb,var(--anh-t) 50%,#000);stroke-width:.12;font-family:Lexend,"Atkinson Hyperlegible",sans-serif;font-weight:700}
+path.anh-tside{stroke:color-mix(in srgb,var(--anh-t) 50%,#000);stroke-width:.12}
+.anh-bohr{opacity:.55}.anh-bohr .anh-ctop{stroke:var(--anh-dim);stroke-width:.2;stroke-dasharray:1 .7}
+.anh-cyl .anh-ctop{stroke:color-mix(in srgb,var(--anh-p) 55%,#000);stroke-width:.18}
+.anh-dl{stroke:var(--anh-dim);stroke-width:.18;fill:none}.anh-da{stroke:var(--anh-dim);stroke-width:.18;fill:var(--anh-dim)}
+.anh-dt{fill:var(--anh-dim);font-family:"Source Sans 3",sans-serif;font-weight:600}
+.anh-ctl fieldset{border:1px solid var(--line);border-left:5px solid var(--fc);border-radius:10px;margin:0 0 10px;padding:6px 12px 8px;background:var(--paper)}
+.anh-ctl legend{font:600 16px "Source Sans 3",sans-serif;padding:0 6px}
+.anh-r{display:grid;grid-template-columns:minmax(0,9.5em) minmax(0,1fr) 4.6em;gap:8px;align-items:center;font-size:15px;min-height:40px}
+.anh-r input[type=range]{width:100%;margin:0}
+.anh-r output{font:600 15px "Source Sans 3",sans-serif;text-align:right;white-space:nowrap}
+.anh-r input[type=text]{grid-column:2/4;font:700 17px Lexend,sans-serif;letter-spacing:.04em}
+.anh-seg{display:flex;gap:6px;margin:4px 0 6px}.anh-seg button{min-height:38px;padding:4px 14px;font-size:15px}
+.anh-seg button[aria-pressed=true]{background:var(--gst-acc);border-color:var(--gst-acc);color:var(--gst-on-acc)}
+.anh-grp{display:flex;gap:10px;align-items:center;background:var(--paper);border:2px dashed var(--line);border-radius:10px;padding:8px 12px;font-size:15px;cursor:pointer}
+.anh-grp input{width:22px;height:22px;flex:none}
+.anh-dimt{display:inline-flex;align-items:center;gap:6px;font-size:15px;margin-left:4px}
+.anh-dimt input{width:20px;height:20px}
+.anh-chk{margin-top:10px;background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:8px 14px}
+.anh-chk h4{margin:4px 0 6px}
+.anh-chk ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:4px 18px}
+.anh-chk li{padding:3px 0;font-size:15px}.anh-chk li b{display:inline-block;width:1.3em}
+.anh-chk li.ok b{color:var(--ok)}.anh-chk li.bad b{color:var(--bad)}
+.anh-chk li small{display:block;color:var(--bad);margin-left:1.3em;font-size:14px}
+.anh-sum{margin:6px 0 2px;font-weight:600}.anh-sum.ok{color:var(--ok)}
+@media(max-width:600px){.anh-r{grid-template-columns:minmax(0,7.2em) minmax(0,1fr) 4.2em;font-size:14px}}
+
+/* Fachfarben 3D-Druck: Wandlinien gelb (--dr-wand), Füllung grau (--dr-fill), obere/untere Schichten blau (--anh-p), Stützen orange (--dr-st) */
+:root{--dr-wand:light-dark(#e2a400,#f0c040);--dr-fill:light-dark(#8e9a9d,#7d8a8d);--dr-st:light-dark(#e8840c,#f0a040);--dr-bed:light-dark(#c9d2d3,#3a4648);--dr-ink:light-dark(#1f2829,#e9edee)}
+.herofig{max-width:520px;margin:14px 0 4px}
+.herofig svg{display:block;width:100%;height:auto;margin:0;background:none!important}
+@media(max-width:600px){.herofig{display:none}}
+.drucker svg{display:block;width:100%;height:auto;max-width:460px;margin:0 auto}
+.drucker .fr{fill:none;stroke:var(--dr-ink);stroke-width:3;stroke-linejoin:round}
+.drucker .bx{fill:var(--panel);stroke:var(--dr-ink);stroke-width:1.6}
+.drucker .num circle{fill:var(--gst-acc)}.drucker .num text{fill:var(--gst-on-acc);font:700 13px "Source Sans 3",sans-serif}
+.drucker .lbl{fill:var(--muted);font:600 11px "Source Sans 3",sans-serif}
+.sl-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px 20px;align-items:start}
+@media(max-width:900px){.sl-grid{grid-template-columns:minmax(0,1fr)}}
+.sl-fig{border:1px solid var(--line);border-radius:10px;background:var(--paper);padding:6px}
+.sl-fig svg{display:block;width:100%;height:auto;max-height:340px}
+.sl-fig figcaption{font-size:14px;color:var(--muted);text-align:center}
+.sl-out{fill:none;stroke:var(--dr-ink);stroke-width:.12}
+.sl-wall{fill:none;stroke:var(--dr-wand);stroke-linejoin:round}
+.sl-fl{stroke:var(--dr-fill);fill:none}.sl-solid{stroke:var(--anh-p);fill:none}
+.sl-lay{stroke:var(--dr-ink);stroke-opacity:.28;fill:none}
+.sl-ctl .anh-r{grid-template-columns:minmax(0,8em) minmax(0,1fr) 4.6em}
+.gcode{font:500 14px ui-monospace,Consolas,monospace;background:light-dark(#1f2829,#111617);color:#e9edee;border-radius:8px;padding:8px 12px;white-space:pre;overflow-x:auto;margin:8px 0}
+.gcode i{color:#9fb0b3;font-style:normal}
+.ov svg{display:block;width:100%;height:auto;max-height:260px}
+.ov .bead{stroke:color-mix(in srgb,var(--anh-p) 50%,#000);stroke-width:.012}
+.ov .bead.sag{fill:var(--anh-t)!important}
+.ov .stz{fill:var(--dr-st);opacity:.8}
+.haft{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.haft figure{margin:0;border:1px solid var(--line);border-radius:10px;background:var(--paper);padding:8px;text-align:center}
+.haft svg{display:block;width:100%;height:auto;max-height:110px}
+.haft select{width:100%;margin-top:6px}
+@media(max-width:600px){.haft{grid-template-columns:minmax(0,1fr)}}
+.h-obj{fill:var(--anh-p)}.h-x{fill:none;stroke:var(--dr-wand);stroke-width:2.2}.h-raft{fill:var(--dr-fill)}.h-bed{fill:var(--dr-bed)}
+table.einst{border-collapse:collapse;width:100%;font-size:15px;margin:8px 0}
+table.einst th,table.einst td{border:1px solid var(--line);padding:5px 8px;text-align:left;vertical-align:top}
+table.einst th{background:var(--panel)}
+@media(max-width:600px){table.einst{font-size:13px}table.einst th,table.einst td{padding:4px}}
+</style>
+<link rel="stylesheet" href="/brand/brand.css">
+<link rel="stylesheet" href="/katex/katex.min.css">
+<script defer src="/katex/katex.min.js"></script>
+<script defer src="/katex/formel.js"></script>
+<script defer src="/brand/feedback.js"></script>
+<script defer src="/brand/mischen.js"></script>
+</head>
+<body>
+<nav aria-label="Phasen"><div class="wrap">
+<a href="/" title="Alle Lernpfade">← Übersicht</a>
+<a href="#einstieg"><span>1</span>Einstieg</a>
+<a href="#entdecken"><span>2</span>Entdecken</a>
+<a href="#festhalten"><span>3</span>Festhalten</a>
+<a href="#ueben"><span>4</span>Üben</a>
+<div class="prog"><span id="progtxt">0 / 0 gelöst</span><div class="bar"><i id="progbar"></i></div></div>
+</div></nav>
+
+<header class="band hero"><div class="wrap">
+<div class="herohead"><div><h1>Projekt Schlüsselanhänger · 3D-Druck</h1>
+<p>Dein Anhänger ist am Computer fertig konstruiert. Wie wird daraus ein echtes Objekt? Hier erfährst du, wie ein 3D-Drucker arbeitet, was der Slicer macht und welche Einstellungen über Stabilität, Druckzeit und Material entscheiden.</p></div><button class="qrbtn" id="qrOpen" title="QR-Code groß anzeigen"><svg role="img" aria-label="QR-Code: https://technik.physik.party/Technik8/3d-druck" viewBox="0 0 41 41" class="segno"><path fill="#fff" d="M0 0h41v41h-41z"/><path class="qrline" stroke="#000" d="M4 4.5h7m1 0h1m4 0h3m2 0h3m2 0h1m2 0h7m-33 1h1m5 0h1m7 0h5m1 0h2m2 0h1m1 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m3 0h4m1 0h2m4 0h1m1 0h1m2 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m2 0h1m2 0h4m1 0h1m1 0h1m3 0h1m2 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m3 0h1m2 0h1m1 0h4m2 0h2m1 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m1 0h3m1 0h2m3 0h2m1 0h2m4 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-22 1h1m3 0h2m3 0h5m-24 1h7m1 0h2m1 0h3m1 0h3m3 0h3m2 0h2m3 0h1m-33 1h1m2 0h3m3 0h2m1 0h1m1 0h7m2 0h1m2 0h2m1 0h4m-27 1h2m1 0h1m1 0h1m1 0h3m1 0h2m1 0h1m1 0h1m1 0h2m2 0h1m1 0h2m-29 1h1m1 0h1m1 0h3m1 0h1m2 0h3m2 0h1m1 0h2m1 0h2m2 0h4m-32 1h1m3 0h1m1 0h2m2 0h5m1 0h1m1 0h1m1 0h1m2 0h3m1 0h3m-30 1h2m1 0h1m3 0h2m1 0h4m2 0h5m1 0h2m2 0h1m3 0h3m-33 1h1m2 0h6m4 0h1m2 0h2m7 0h3m3 0h1m-32 1h1m2 0h3m4 0h1m1 0h1m6 0h1m1 0h2m1 0h3m2 0h2m-27 1h1m1 0h4m1 0h2m1 0h3m3 0h1m2 0h3m1 0h3m2 0h1m-32 1h1m2 0h1m7 0h3m2 0h5m1 0h1m1 0h3m1 0h2m1 0h1m-33 1h1m1 0h1m3 0h1m2 0h1m5 0h1m4 0h1m6 0h2m1 0h2m-25 1h1m3 0h1m2 0h2m1 0h1m3 0h10m-31 1h1m1 0h5m1 0h1m3 0h1m2 0h2m2 0h2m1 0h1m1 0h2m3 0h1m-30 1h1m2 0h2m4 0h2m2 0h1m1 0h6m2 0h1m2 0h1m2 0h2m1 0h1m-33 1h1m1 0h2m2 0h1m1 0h1m2 0h2m3 0h1m5 0h1m1 0h2m2 0h1m1 0h2m-32 1h1m2 0h3m1 0h1m1 0h1m1 0h2m2 0h1m1 0h2m1 0h2m1 0h1m4 0h3m1 0h1m-33 1h1m1 0h1m2 0h3m3 0h1m1 0h1m1 0h2m1 0h1m1 0h1m1 0h8m1 0h2m-25 1h2m1 0h5m1 0h6m1 0h1m3 0h1m1 0h3m-33 1h7m1 0h3m1 0h1m2 0h2m4 0h4m1 0h1m1 0h1m1 0h2m-32 1h1m5 0h1m1 0h2m1 0h2m1 0h2m2 0h1m2 0h1m1 0h2m3 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h4m1 0h4m2 0h1m4 0h6m1 0h2m-33 1h1m1 0h3m1 0h1m1 0h2m1 0h1m4 0h1m1 0h4m1 0h3m2 0h1m3 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m2 0h1m1 0h1m2 0h3m1 0h2m1 0h2m1 0h2m1 0h2m-31 1h1m5 0h1m1 0h1m2 0h3m4 0h1m1 0h2m4 0h1m1 0h1m1 0h1m-31 1h7m2 0h1m4 0h1m2 0h1m1 0h1m2 0h3m2 0h1m3 0h1"/></svg>
+QR groß zeigen</button></div>
+<div class="herofig" aria-hidden="true"><svg id="heroAnh"></svg></div>
+<div class="phases">
+<a href="#einstieg"><b>1 · Einstieg</b><small>Vom Modell zum Objekt</small></a><a href="#entdecken"><b>2 · Entdecken</b><small>Drucker, Slicer-Labor, 45°-Regel, Haftung</small></a><a href="#festhalten"><b>3 · Festhalten</b><small>Lückentext und Merke</small></a><a href="#ueben"><b>4 · Üben</b><small>Probleme lösen, Sicherheit, G-Code</small></a>
+</div>
+</div></header>
+
+<!-- ============ 1 EINSTIEG ============ -->
+<section class="band" id="einstieg"><div class="wrap">
+<h2>1 · Einstieg: Vom Modell zum Objekt</h2>
+<p class="intro">Der 3D-Drucker kann mit deinem CAD-Modell allein nichts anfangen. Jeder Druck läuft in fünf Schritten ab.</p>
+<div class="two"><div>
+<div class="card"><div class="tag">Auftrag 1 · Fünf Schritte <span class="stars">★</span> <span class="afb">AFB I</span></div>
+<div class="selbox part" data-task="e1" data-fb="Richtig! <b>Modellieren → Exportieren (STL) → Slicen (G-Code) → Übertragen → Drucken.</b>">
+<div class="steprow"><span>Objekt am Computer entwerfen, z. B. in Tinkercad</span><select data-a="1" aria-label="Schritt Entwerfen"><option value="">…</option><option value="1">1 · Modellieren</option><option value="2">2 · Exportieren</option><option value="3">3 · Slicen</option><option value="4">4 · Übertragen</option><option value="5">5 · Drucken</option></select></div>
+<div class="steprow"><span>Modell als STL-Datei speichern: nur die Form, keine Druckinfos</span><select data-a="2" aria-label="Schritt STL speichern"><option value="">…</option><option value="1">1 · Modellieren</option><option value="2">2 · Exportieren</option><option value="3">3 · Slicen</option><option value="4">4 · Übertragen</option><option value="5">5 · Drucken</option></select></div>
+<div class="steprow"><span>STL im Slicer (z. B. Cura) öffnen, Einstellungen wählen, G-Code erzeugen</span><select data-a="3" aria-label="Schritt G-Code erzeugen"><option value="">…</option><option value="1">1 · Modellieren</option><option value="2">2 · Exportieren</option><option value="3">3 · Slicen</option><option value="4">4 · Übertragen</option><option value="5">5 · Drucken</option></select></div>
+<div class="steprow"><span>G-Code per USB-Stick oder Netzwerk an den Drucker senden</span><select data-a="4" aria-label="Schritt senden"><option value="">…</option><option value="1">1 · Modellieren</option><option value="2">2 · Exportieren</option><option value="3">3 · Slicen</option><option value="4">4 · Übertragen</option><option value="5">5 · Drucken</option></select></div>
+<div class="steprow"><span>erste Schicht beobachten, danach Stützen entfernen</span><select data-a="5" aria-label="Schritt beobachten"><option value="">…</option><option value="1">1 · Modellieren</option><option value="2">2 · Exportieren</option><option value="3">3 · Slicen</option><option value="4">4 · Übertragen</option><option value="5">5 · Drucken</option></select></div>
+<div class="row"><button class="primary sel-check">Prüfen</button></div><p class="fb sfb"></p></div>
+</div>
+</div><div>
+<div class="card"><div class="tag">Auftrag 2 · STL oder G-Code? <span class="stars">★</span> <span class="afb">AFB I</span></div>
+<div class="part" data-task="e2"><h4>Welche Datei enthält die Befehle für den Drucker – wohin die Düse fährt und wie viel Material herauskommt?</h4>
+<div class="mc" data-correct="b" data-task="e2" data-tipp="Eine der beiden Dateien beschreibt nur die Form, die andere erzeugt erst der Slicer."><button data-k="a" data-fb="Nein. Die STL-Datei beschreibt nur die <b>Form</b> des Objekts (seine Oberfläche), aber keine Druckbefehle.">die STL-Datei aus dem CAD-Programm</button><button data-k="b" data-fb="Richtig! Den <b>G-Code</b> erzeugt der Slicer. Er enthält jede Bewegung der Düse und die Materialmenge. Die STL-Datei beschreibt nur die Form.">der G-Code aus dem Slicer</button><button data-k="c" data-fb="Nein. Die Projektdatei bleibt im CAD-Programm, der Drucker kann sie nicht lesen.">die Tinkercad-Projektdatei</button><p class="fb"></p></div></div>
+<div class="part" data-task="e3"><h4>Warum muss man vor dem Druck „slicen“ (engl. slice = in Scheiben schneiden)?</h4>
+<div class="mc" data-correct="a" data-task="e3" data-tipp="Wie baut der Drucker das Objekt auf: auf einmal oder nach und nach?"><button data-k="a" data-fb="Richtig! Der Drucker baut das Objekt <b>Schicht für Schicht</b> auf. Der Slicer zerlegt das Modell darum in dünne Schichten und plant für jede Schicht den Weg der Düse.">Der Drucker baut Schicht für Schicht – das Modell muss in Schichten zerlegt werden.</button><button data-k="b" data-fb="Nein. Die Größe ändert der Slicer nur, wenn du es einstellst.">Der Slicer macht das Modell kleiner, damit es auf das Druckbett passt.</button><button data-k="c" data-fb="Nein. Die Farbe kommt vom Filament, nicht vom Slicer.">Der Slicer legt die Farbe des Objekts fest.</button><p class="fb"></p></div></div>
+</div>
+</div></div>
+</div></section>
+
+<!-- ============ 2 ENTDECKEN ============ -->
+<section class="band alt" id="entdecken"><div class="wrap">
+<h2>2 · Entdecken</h2>
+<div class="two"><div>
+<div class="card"><div class="tag">Auftrag 3 · So arbeitet ein 3D-Drucker <span class="stars">★</span> <span class="afb">AFB I</span></div>
+<p>In der Schule drucken wir im <b>FDM-Verfahren</b>: Ein Kunststofffaden wird geschmolzen und Schicht für Schicht auf das Druckbett gelegt. Ordne den Nummern die Teile zu.</p>
+<div class="drucker fig"><svg viewBox="0 0 400 290" role="img" aria-label="Schema eines FDM-3D-Druckers mit den Nummern 1 bis 5: Spule oben links, Kasten mit Zahnrad am Rahmen, Düse über dem Druckbett, Druckbett unten, Achsenpfeile X, Y und Z.">
+<path d="M60 270V40H340V270" class="fr"/><path d="M40 270h320" class="fr"/>
+<circle cx="110" cy="70" r="34" style="fill:var(--pk-gruen);stroke:var(--dr-ink);stroke-width:1.6"/><circle cx="110" cy="70" r="11" style="fill:var(--panel);stroke:var(--dr-ink);stroke-width:1.6"/>
+<rect x="280" y="64" width="44" height="40" rx="4" class="bx"/><circle cx="302" cy="84" r="10" style="fill:var(--pk-grau);stroke:var(--dr-ink);stroke-width:1.4;stroke-dasharray:3 2"/>
+<path d="M140 58C200 30 260 40 290 70" style="fill:none;stroke:var(--pk-gruen);stroke-width:3"/>
+<path d="M302 104C300 140 230 120 205 150" style="fill:none;stroke:var(--pk-gruen);stroke-width:3"/>
+<path d="M60 150H340" style="stroke:var(--dr-ink);stroke-width:2.2"/>
+<rect x="184" y="140" width="40" height="28" rx="3" class="bx"/><path d="M196 168h16l-5 14h-6z" style="fill:var(--anh-t);stroke:var(--dr-ink);stroke-width:1.4"/>
+<rect x="110" y="230" width="190" height="12" rx="2" style="fill:var(--pk-grau);stroke:var(--dr-ink);stroke-width:1.6"/><path d="M190 230v-8h30v8z" style="fill:var(--anh-p);stroke:var(--dr-ink);stroke-width:1.2"/>
+<g style="stroke:var(--gst-acc);stroke-width:2;fill:none"><path d="M238 196h36M238 196l-12 12M238 196v-30"/></g>
+<text x="278" y="200" class="lbl">X</text><text x="212" y="216" class="lbl">Y</text><text x="242" y="166" class="lbl">Z</text>
+<g class="num"><circle cx="110" cy="70" r="10"/><text x="110" y="75" text-anchor="middle">1</text><circle cx="340" cy="64" r="10"/><text x="340" y="69" text-anchor="middle">2</text><circle cx="172" cy="182" r="10"/><text x="172" y="187" text-anchor="middle">3</text><circle cx="96" cy="236" r="10"/><text x="96" y="241" text-anchor="middle">4</text><circle cx="296" cy="174" r="10"/><text x="296" y="179" text-anchor="middle">5</text></g>
+</svg></div>
+<div class="selbox part" data-task="q1" data-fb="Richtig! Die <b>Spule</b> liefert das Filament (meist 1,75 mm dick), der <b>Extruder</b> schiebt es mit einem Zahnrad zur <b>Düse</b>, die es bei etwa 200 °C schmilzt. Auf dem beheizten <b>Druckbett</b> (ca. 60 °C) haftet der Druck. Die Düse fährt in X und Y, nach jeder Schicht geht es eine Ebene höher (Z).">
+<div class="steprow"><span>1</span><select data-a="spule" aria-label="Teil 1"><option value="">…</option><option value="spule">Filamentspule: liefert den Kunststofffaden</option><option value="ext">Extruder: schiebt den Faden mit einem Zahnrad</option><option value="duese">Düse (Hotend): schmilzt den Kunststoff</option><option value="bett">Druckbett: beheizte Unterlage</option><option value="achse">Achsen X, Y, Z: Bewegungsrichtungen</option></select></div>
+<div class="steprow"><span>2</span><select data-a="ext" aria-label="Teil 2"><option value="">…</option><option value="spule">Filamentspule: liefert den Kunststofffaden</option><option value="ext">Extruder: schiebt den Faden mit einem Zahnrad</option><option value="duese">Düse (Hotend): schmilzt den Kunststoff</option><option value="bett">Druckbett: beheizte Unterlage</option><option value="achse">Achsen X, Y, Z: Bewegungsrichtungen</option></select></div>
+<div class="steprow"><span>3</span><select data-a="duese" aria-label="Teil 3"><option value="">…</option><option value="spule">Filamentspule: liefert den Kunststofffaden</option><option value="ext">Extruder: schiebt den Faden mit einem Zahnrad</option><option value="duese">Düse (Hotend): schmilzt den Kunststoff</option><option value="bett">Druckbett: beheizte Unterlage</option><option value="achse">Achsen X, Y, Z: Bewegungsrichtungen</option></select></div>
+<div class="steprow"><span>4</span><select data-a="bett" aria-label="Teil 4"><option value="">…</option><option value="spule">Filamentspule: liefert den Kunststofffaden</option><option value="ext">Extruder: schiebt den Faden mit einem Zahnrad</option><option value="duese">Düse (Hotend): schmilzt den Kunststoff</option><option value="bett">Druckbett: beheizte Unterlage</option><option value="achse">Achsen X, Y, Z: Bewegungsrichtungen</option></select></div>
+<div class="steprow"><span>5</span><select data-a="achse" aria-label="Teil 5"><option value="">…</option><option value="spule">Filamentspule: liefert den Kunststofffaden</option><option value="ext">Extruder: schiebt den Faden mit einem Zahnrad</option><option value="duese">Düse (Hotend): schmilzt den Kunststoff</option><option value="bett">Druckbett: beheizte Unterlage</option><option value="achse">Achsen X, Y, Z: Bewegungsrichtungen</option></select></div>
+<div class="row"><button class="primary sel-check">Prüfen</button></div><p class="fb sfb"></p></div>
+</div>
+</div><div>
+<div class="card"><div class="tag">Auftrag 4 · Das Material: Filament <span class="stars">★</span> <span class="afb">AFB I</span></div>
+<div class="mitbild"><svg class="pk" aria-hidden="true"><use href="/brand/piktos.svg#filament"/></svg><p>Filament ist Kunststoff auf einer Spule. Ordne jedem Kunststoff seine Eigenschaften zu.</p></div>
+<div class="selbox part" data-task="q2" data-fb="Richtig! In der Schule drucken wir mit <b>PLA</b> (Düse 190–220 °C, Bett 50–60 °C). <b>PETG</b> (230–250 °C) ist robuster, <b>TPU</b> (210–230 °C) ist biegsam.">
+<div class="steprow"><span><b>PLA</b></span><select data-a="pla" aria-label="PLA"><option value="">…</option><option value="pla">leicht zu drucken, riecht kaum, aus Pflanzenstärke – wird ab ca. 60 °C weich</option><option value="petg">zäh und hitzebeständig – zieht leicht Fäden</option><option value="tpu">gummiartig und biegsam, z. B. für Handyhüllen – muss sehr langsam gedruckt werden</option></select></div>
+<div class="steprow"><span><b>PETG</b></span><select data-a="petg" aria-label="PETG"><option value="">…</option><option value="pla">leicht zu drucken, riecht kaum, aus Pflanzenstärke – wird ab ca. 60 °C weich</option><option value="petg">zäh und hitzebeständig – zieht leicht Fäden</option><option value="tpu">gummiartig und biegsam, z. B. für Handyhüllen – muss sehr langsam gedruckt werden</option></select></div>
+<div class="steprow"><span><b>TPU</b></span><select data-a="tpu" aria-label="TPU"><option value="">…</option><option value="pla">leicht zu drucken, riecht kaum, aus Pflanzenstärke – wird ab ca. 60 °C weich</option><option value="petg">zäh und hitzebeständig – zieht leicht Fäden</option><option value="tpu">gummiartig und biegsam, z. B. für Handyhüllen – muss sehr langsam gedruckt werden</option></select></div>
+<div class="row"><button class="primary sel-check">Prüfen</button></div><p class="fb sfb"></p></div>
+<div class="part" data-task="q3"><h4>Dein PLA-Anhänger liegt im Sommer im heißen Auto hinter der Windschutzscheibe (über 60 °C). Was kann passieren?</h4>
+<div class="mc" data-correct="b" data-task="q3" data-tipp="Lies noch einmal den Nachteil von PLA."><button data-k="a" data-fb="Nein. Bei 60 °C schmilzt PLA noch nicht, die Düse braucht etwa 200 °C.">Er schmilzt zu einer Pfütze.</button><button data-k="b" data-fb="Richtig! PLA wird ab etwa 60 °C <b>weich</b>. Der Anhänger kann sich verbiegen. Für heiße Orte wäre PETG besser.">Er wird weich und kann sich verbiegen.</button><button data-k="c" data-fb="Nein. Temperatur verändert die Farbe von PLA nicht.">Er ändert die Farbe.</button><p class="fb"></p></div></div>
+</div>
+</div></div>
+
+<div class="card" id="slicer"><div class="tag">Auftrag 5 · Das Slicer-Labor <span class="stars">★★</span> <span class="afb">AFB II</span></div>
+<p>Der Slicer schneidet das Modell in Schichten und plant für jede Schicht den Weg der Düse: <span style="color:var(--dr-wand);font-weight:700">Wandlinien</span> außen, innen <span style="color:var(--dr-fill);font-weight:700">Füllung</span>, unten und oben <span style="color:var(--anh-p);font-weight:700">geschlossene Schichten</span>. Verändere die Einstellungen und beobachte.</p>
+<div class="bodytabs" id="slObj" data-fest><button data-o="anh" aria-pressed="true">Anhänger <f-m>50 × 20 × 4 mm</f-m></button><button data-o="cube" aria-pressed="false">Testwürfel 20 mm</button></div>
+<div class="sl-grid"><div class="sl-ctl">
+<label class="anh-r"><span>Schichthöhe</span><input type="range" id="slH" min="0" max="4" step="1" value="2" aria-label="Schichthöhe"><output id="slHo"></output></label>
+<label class="anh-r"><span>Füllung</span><input type="range" id="slF" min="0" max="100" step="5" value="20" aria-label="Füllung in Prozent"><output id="slFo"></output></label>
+<label class="anh-r"><span>Wandlinien</span><input type="range" id="slW" min="1" max="4" step="1" value="2" aria-label="Anzahl Wandlinien"><output id="slWo"></output></label>
+<label class="anh-r"><span>Schicht ansehen</span><input type="range" id="slL" min="1" max="20" step="1" value="10" aria-label="Schicht auswählen"><output id="slLo"></output></label>
+<div class="kv" id="slKv"></div>
+<div class="gcode" id="slG" aria-label="Ausschnitt aus dem G-Code"></div>
+<p class="caption">Modell: Düse 0,4 mm, Geschwindigkeit 50 Millimeter pro Sekunde, PLA, untere und obere Schichten je 0,8 mm dick. Druckzeit und Material sind grobe Schätzungen; der echte Slicer rechnet genauer (Beschleunigen, Leerfahrten, langsame erste Schicht).</p>
+</div><div>
+<figure class="sl-fig"><svg id="slTop" role="img" aria-label="Ausgewählte Schicht von oben"></svg><figcaption id="slTopC">Ausgewählte Schicht von oben</figcaption></figure>
+<figure class="sl-fig" style="margin-top:10px"><svg id="slSide" role="img" aria-label="Querschnitt von der Seite mit Schichten"></svg><figcaption>Querschnitt von der Seite (durch die Mitte)</figcaption></figure>
+</div></div>
+<div class="two" style="margin-top:12px"><div>
+<div class="numbox part" data-task="q4" data-fb="Richtig! <f-m>4 mm : 0,2 mm = 20</f-m> Schichten. Wanddicke: 3 Wandlinien zu je 0,4 mm, also <f-m>3 · 0,4 mm = 1,2 mm</f-m>.">
+<p><b>Lies im Labor ab</b> (Anhänger).</p>
+<div class="numq"><span>a) Schichten bei 0,2 mm Schichthöhe</span><span class="unit"><input type="text" inputmode="decimal" data-a="20" data-tol="0.001" aria-label="Anzahl Schichten"></span></div>
+<div class="numq"><span>b) Wanddicke bei 3 Wandlinien</span><span class="unit"><input type="text" inputmode="decimal" data-a="1.2" data-tol="0.001" aria-label="Wanddicke"> mm</span></div>
+<div class="row"><button class="primary num-check">Prüfen</button><button data-hint="q4">Tipp</button></div><p class="fb nfb"></p><p class="tip" id="q4Tip"></p>
+<div class="hintsrc" data-for="q4" hidden><p>Stell die Werte im Labor ein und lies die Kästen ab.</p><p>Anzahl Schichten = Höhe : Schichthöhe. Wanddicke = Wandlinien · 0,4 mm.</p></div></div>
+<div class="part" data-task="q5"><h4>Stell die Schichthöhe von 0,2 mm auf 0,1 mm. Wie ändert sich die Druckzeit?</h4>
+<div class="mc" data-correct="b" data-task="q5" data-tipp="Wie viele Schichten braucht der Drucker jetzt? Und wie lang ist der Weg pro Schicht?"><button data-k="a" data-fb="Nein. Probier es im Labor aus und vergleiche die Druckzeit.">Sie halbiert sich.</button><button data-k="b" data-fb="Richtig! <b>Halbe Schichthöhe = doppelt so viele Schichten = etwa doppelte Druckzeit.</b> Dafür wird die Oberfläche feiner.">Sie verdoppelt sich ungefähr.</button><button data-k="c" data-fb="Nein. Der Drucker muss jetzt viel mehr Schichten drucken.">Sie bleibt gleich.</button><p class="fb"></p></div></div>
+</div><div>
+<div class="part" data-task="q6"><h4>Wähle den Testwürfel und stell die Füllung von 20 % auf 50 %. Was stimmt?</h4>
+<div class="mc" data-correct="c" data-task="q6" data-tipp="Vergleiche Druckzeit und Material vorher und nachher. Schau auch auf die Außenwand."><button data-k="a" data-fb="Nein. Von außen sieht man die Füllung nicht – die Oberfläche bleibt gleich.">Die Oberfläche wird glatter.</button><button data-k="b" data-fb="Nein. Schau auf die Werte: Material und Zeit steigen.">Der Würfel wird stabiler, ohne dass es länger dauert.</button><button data-k="c" data-fb="Richtig! <b>Mehr Füllung = stabiler, aber mehr Material und längere Druckzeit.</b> Bei einem flachen Anhänger merkt man das kaum, weil fast alles Wand oder geschlossene Schicht ist.">Er wird stabiler, braucht aber mehr Material und Zeit.</button><p class="fb"></p></div></div>
+<div class="part why" data-task="q7"><h4>✍ Faustregel: „Eine Wand mehr macht ein Teil oft stabiler als viel mehr Füllung.“ Begründe mit dem Labor.</h4>
+<textarea data-store="q7" rows="3" placeholder="Schreib deine Begründung hier (oder ins Heft) – mindestens einen ganzen Satz." aria-label="Deine Begründung"></textarea>
+<label class="cbl"><input type="checkbox">Ich habe meine Begründung ins Heft geschrieben.</label>
+<div class="row"><button class="why-show">Mit Musterbegründung vergleichen</button></div>
+<div class="sol" hidden><p><b>Musterbegründung:</b> Wenn man ein Teil biegt oder stößt, wird vor allem die <b>Außenseite</b> belastet. Eine zusätzliche <b>Wandlinie</b> macht diese Außenhaut dicker (0,4 mm mehr) und kostet nur wenig <b>Material und Zeit</b>. Mehr Füllung verteilt das Material dagegen im <b>Inneren</b>, wo es weniger trägt – dafür braucht man viel mehr Material.</p><p class="caption" style="margin:0 0 6px">Vergleiche: Hast du die fett gedruckten Begriffe verwendet? Ergänze sonst deine Begründung.</p><div class="row"><button class="why-ok">Meine Begründung enthält das Wichtigste</button></div></div></div>
+</div></div>
+</div>
+
+<div class="two"><div>
+<div class="card ov"><div class="tag">Auftrag 6 · Stützen: die 45°-Regel <span class="stars">★★</span> <span class="afb">AFB II</span></div>
+<p>Jede Schicht muss auf der Schicht darunter liegen. Neigt sich eine Wand nach außen (Überhang), rutscht jede neue Schicht ein Stück über den Rand. Hier siehst du einen stark vergrößerten Ausschnitt: zwölf Schichten mit 0,2 mm Höhe, jede Linie 0,4 mm breit.</p>
+<svg id="ovSvg" viewBox="0 0 4 2.6" role="img" aria-label="Vergrößerter Ausschnitt einer überhängenden Wand aus zwölf Schichten"></svg>
+<label class="anh-r"><span>Überhang (Winkel zur Senkrechten)</span><input type="range" id="ovA" min="0" max="75" step="5" value="30" aria-label="Überhang-Winkel"><output id="ovAo"></output></label>
+<label class="anh-grp" style="margin:6px 0"><input type="checkbox" id="ovS"> <span>Stützstruktur erstellen</span></label>
+<p class="readout" id="ovR" aria-live="polite"></p>
+<p class="caption">Modell: Eine Linie hält, wenn mindestens die Hälfte auf der Schicht darunter liegt. Die Grenze von 45° ist eine Faustregel für 0,2 mm Schichthöhe. Ein waagrechter Überhang (90°) liegt gar nicht mehr auf und braucht immer Stützen.</p>
+<div class="part" data-task="q8"><h4>Bis zu welchem Winkel geht es ohne Stütze?</h4>
+<div class="mc" data-correct="b" data-task="q8" data-tipp="Probier im Labor: Ab wann werden die Linien rot?"><button data-k="a" data-fb="Nein. Bis 30° geht es sicher – aber auch noch etwas mehr.">bis 30°</button><button data-k="b" data-fb="Richtig! <b>Bis etwa 45°</b> liegt jede Linie noch mindestens zur Hälfte auf der darunter. Bei flacheren Überhängen – erst recht bei waagrechten (90°) – braucht man <b>Stützen</b>.">bis 45°</button><button data-k="c" data-fb="Nein. Bei 75° liegt eine Linie kaum noch auf. Probier es im Labor.">bis 75°</button><p class="fb"></p></div></div>
+</div>
+</div><div>
+<div class="card"><div class="tag">Auftrag 7 · Haftung am Druckbett <span class="stars">★</span> <span class="afb">AFB I</span></div>
+<p>Die erste Schicht muss gut auf dem Druckbett haften. Dafür gibt es drei Hilfen. Ordne zu.</p>
+<div class="selbox part" data-task="q9" data-fb="Richtig! <b>Skirt:</b> Linie mit Abstand ums Objekt, zeigt, ob das Filament gleichmäßig fließt. <b>Brim:</b> flacher Rand direkt am Objekt, mehr Haftfläche gegen Ablösen und Warping. <b>Raft:</b> dicke Platte unter dem Objekt, für schwierige Drucke, kostet Material.">
+<div class="haft" data-fest>
+<figure><svg viewBox="0 0 100 70" aria-hidden="true"><rect x="5" y="5" width="90" height="60" rx="4" class="h-bed"/><rect x="32" y="24" width="36" height="22" rx="3" class="h-obj"/><rect x="34" y="26" width="32" height="18" rx="2" style="fill:none;stroke:var(--dr-wand);stroke-width:5"/><rect x="25" y="17" width="50" height="36" rx="6" class="h-x" style="stroke-width:5;opacity:.75"/></svg><select data-a="brim" aria-label="Bild 1"><option value="">…</option><option value="skirt">Skirt: Linie mit Abstand, berührt das Objekt nicht</option><option value="brim">Brim: flacher Rand direkt am Objekt</option><option value="raft">Raft: dicke Platte unter dem Objekt</option></select></figure>
+<figure><svg viewBox="0 0 100 70" aria-hidden="true"><rect x="5" y="5" width="90" height="60" rx="4" class="h-bed"/><rect x="32" y="24" width="36" height="22" rx="3" class="h-obj"/><rect x="18" y="12" width="64" height="46" rx="8" class="h-x"/></svg><select data-a="skirt" aria-label="Bild 2"><option value="">…</option><option value="skirt">Skirt: Linie mit Abstand, berührt das Objekt nicht</option><option value="brim">Brim: flacher Rand direkt am Objekt</option><option value="raft">Raft: dicke Platte unter dem Objekt</option></select></figure>
+<figure><svg viewBox="0 0 100 70" aria-hidden="true"><rect x="5" y="52" width="90" height="13" rx="2" class="h-bed"/><rect x="18" y="40" width="64" height="12" rx="2" class="h-raft"/><path d="M18 46h64" style="stroke:var(--panel);stroke-width:1"/><rect x="30" y="20" width="40" height="20" rx="2" class="h-obj"/><text x="50" y="14" text-anchor="middle" style="font:600 9px 'Source Sans 3',sans-serif;fill:var(--muted)">von der Seite</text></svg><select data-a="raft" aria-label="Bild 3"><option value="">…</option><option value="skirt">Skirt: Linie mit Abstand, berührt das Objekt nicht</option><option value="brim">Brim: flacher Rand direkt am Objekt</option><option value="raft">Raft: dicke Platte unter dem Objekt</option></select></figure>
+</div>
+<div class="row"><button class="primary sel-check">Prüfen</button></div><p class="fb sfb"></p></div>
+</div>
+<div class="card"><div class="tag">Auftrag 8 · Liegend oder hochkant? <span class="stars">★★★</span> <span class="afb">AFB III</span></div>
+<div class="part why" data-task="q10"><h4>✍ Begründe, warum man den Schlüsselanhänger <b>flach liegend</b> druckt und nicht hochkant (auf der kurzen Seite stehend).</h4>
+<textarea data-store="q10" rows="3" placeholder="Schreib deine Begründung hier (oder ins Heft) – mindestens einen ganzen Satz." aria-label="Deine Begründung"></textarea>
+<label class="cbl"><input type="checkbox">Ich habe meine Begründung ins Heft geschrieben.</label>
+<div class="row"><button class="why-show">Mit Musterbegründung vergleichen</button></div>
+<div class="sol" hidden><p><b>Musterbegründung:</b> Liegend hat der Anhänger eine <b>große Auflagefläche</b> und haftet gut auf dem Druckbett. Er ist nur 4 mm hoch, also braucht er bei 0,2 mm nur <b>20 Schichten</b> statt 250 – das geht <b>schneller</b>. Es gibt <b>keinen Überhang</b>, also keine Stützen. Und die Schichten liegen der Länge nach, deshalb <b>bricht</b> der Anhänger nicht so leicht zwischen zwei Schichten durch.</p><p class="caption" style="margin:0 0 6px">Vergleiche: Hast du die fett gedruckten Begriffe verwendet? Ergänze sonst deine Begründung.</p><div class="row"><button class="why-ok">Meine Begründung enthält das Wichtigste</button></div></div></div>
+</div>
+</div></div>
+</div></section>
+
+<!-- ============ 3 FESTHALTEN ============ -->
+<section class="band" id="festhalten"><div class="wrap">
+<h2>3 · Festhalten</h2>
+<div class="card"><div class="tag">Lückentext · 3D-Druck <span class="stars">★</span> <span class="afb">AFB I</span></div>
+<div class="selbox part" data-task="f1" data-fb="Alles richtig! Unten findest du die wichtigsten Einstellungen noch einmal im Überblick."><div class="cloze">Beim FDM-Verfahren wird ein Kunststofffaden in der <select data-a="Düse"><option value="">…</option><option>Düse</option><option>Spule</option><option>Druckbett</option></select> bei etwa 200 °C geschmolzen und <select data-a="Schicht für Schicht"><option value="">…</option><option>Schicht für Schicht</option><option>auf einmal</option><option>von oben nach unten</option></select> aufgebaut. Aus dem CAD-Programm exportiere ich eine <select data-a="STL-Datei"><option value="">…</option><option>STL-Datei</option><option>G-Code-Datei</option><option>Bilddatei</option></select>. Der Slicer zerlegt sie in Schichten und schreibt den <select data-a="G-Code"><option value="">…</option><option>G-Code</option><option>STL-Code</option><option>Strichcode</option></select> für den Drucker. Halbe Schichthöhe bedeutet etwa <select data-a="doppelte"><option value="">…</option><option>doppelte</option><option>halbe</option><option>gleiche</option></select> Druckzeit. Mehr Füllung macht das Teil stabiler, braucht aber mehr Material. Die Wanddicke ist Wandlinienanzahl mal <select data-a="0,4 mm"><option value="">…</option><option>0,4 mm</option><option>0,2 mm</option><option>1,75 mm</option></select>. Überhänge bis etwa <select data-a="45°"><option value="">…</option><option>45°</option><option>90°</option><option>10°</option></select> gehen ohne Stütze, waagrechte Überhänge brauchen <select data-a="Stützen"><option value="">…</option><option>Stützen</option><option>mehr Füllung</option><option>einen Skirt</option></select>. Gegen Ablösen hilft ein <select data-a="Brim"><option value="">…</option><option>Brim</option><option>Skirt</option><option>Infill</option></select>.</div><div class="row"><button class="primary sel-check">Prüfen</button></div><p class="fb sfb"></p></div>
+</div>
+<div class="two"><div>
+<h3 style="margin-top:0">Die wichtigsten Einstellungen (PLA)</h3>
+<table class="einst"><tr><th>Einstellung</th><th>typisch</th><th>Was sie verändert</th></tr>
+<tr><td>Schichthöhe</td><td>0,2 mm</td><td>dünner = feinere Oberfläche, aber längere Druckzeit</td></tr>
+<tr><td>Wandlinien</td><td>2–3</td><td>mehr Wände = stabiler und dichter</td></tr>
+<tr><td>Füllung</td><td>15–20 %</td><td>mehr Füllung = stabiler, aber schwerer und langsamer</td></tr>
+<tr><td>Drucktemperatur</td><td>200 °C</td><td>zu kalt: Schichten halten schlecht; zu heiß: Fäden</td></tr>
+<tr><td>Betttemperatur</td><td>60 °C</td><td>die erste Schicht haftet</td></tr>
+<tr><td>Geschwindigkeit</td><td><f-m>50 mm/s</f-m></td><td>schneller = kürzere Druckzeit, aber ungenauer</td></tr>
+<tr><td>Stützstruktur</td><td>an / aus</td><td>stützt Überhänge, muss danach entfernt werden</td></tr></table>
+</div><div>
+<div class="merke"><h4>Merke</h4><ul>
+<li><b>Ablauf:</b> Modellieren → Exportieren (STL: nur die Form) → Slicen (G-Code: Befehle für den Drucker) → Übertragen → Drucken.</li>
+<li><b>Schichthöhe:</b> halbe Schichthöhe = doppelt so viele Schichten = etwa doppelte Druckzeit.</li>
+<li><b>Stabilität:</b> mehr Füllung oder mehr Wandlinien (je 0,4 mm). Eine Wand mehr hilft oft mehr als viel Füllung.</li>
+<li><b>45°-Regel:</b> Überhänge bis 45° ohne Stütze, sonst Stützen oder das Modell drehen.</li>
+<li><b>Die erste Schicht entscheidet:</b> beobachten – klebt sie nicht, Druck sofort abbrechen.</li></ul></div>
+</div></div>
+</div></section>
+
+<!-- ============ 4 ÜBEN ============ -->
+<section class="band alt" id="ueben"><div class="wrap">
+<h2>4 · Üben</h2>
+<div class="lvlrow"><span>★ / AFB I: Grundlagen anwenden</span><span>★★ / AFB II: Zusammenhänge herstellen</span><span>★★★ / AFB III: übertragen, beurteilen, begründen</span></div>
+<div class="two"><div>
+<div class="card"><div class="tag">Übung 1 · Typische Probleme lösen <span class="stars">★★</span> <span class="afb">AFB II</span></div>
+<div class="selbox part" data-task="u1" data-fb="Richtig! Und immer gilt: Bei Problemen, die du nicht selbst lösen kannst, Druck stoppen und die Lehrkraft holen.">
+<div class="steprow"><span>Der Druck löst sich vom Bett.</span><select data-a="bett" aria-label="Problem 1"><option value="">…</option><option value="bett">Bett reinigen, Brim nutzen, Lehrkraft prüft die Ausrichtung</option><option value="warp">Brim nutzen, Betttemperatur prüfen, Zugluft vermeiden</option><option value="faden">Temperatur etwas senken, Einzug aktivieren</option><option value="ueber">Stützstruktur aktivieren oder Modell drehen</option><option value="leer">Druck stoppen und Lehrkraft holen</option></select></div>
+<div class="steprow"><span>Warping: Die Ecken biegen sich hoch.</span><select data-a="warp" aria-label="Problem 2"><option value="">…</option><option value="bett">Bett reinigen, Brim nutzen, Lehrkraft prüft die Ausrichtung</option><option value="warp">Brim nutzen, Betttemperatur prüfen, Zugluft vermeiden</option><option value="faden">Temperatur etwas senken, Einzug aktivieren</option><option value="ueber">Stützstruktur aktivieren oder Modell drehen</option><option value="leer">Druck stoppen und Lehrkraft holen</option></select></div>
+<div class="steprow"><span>Stringing: feine Fäden zwischen den Teilen</span><select data-a="faden" aria-label="Problem 3"><option value="">…</option><option value="bett">Bett reinigen, Brim nutzen, Lehrkraft prüft die Ausrichtung</option><option value="warp">Brim nutzen, Betttemperatur prüfen, Zugluft vermeiden</option><option value="faden">Temperatur etwas senken, Einzug aktivieren</option><option value="ueber">Stützstruktur aktivieren oder Modell drehen</option><option value="leer">Druck stoppen und Lehrkraft holen</option></select></div>
+<div class="steprow"><span>Überhänge hängen durch.</span><select data-a="ueber" aria-label="Problem 4"><option value="">…</option><option value="bett">Bett reinigen, Brim nutzen, Lehrkraft prüft die Ausrichtung</option><option value="warp">Brim nutzen, Betttemperatur prüfen, Zugluft vermeiden</option><option value="faden">Temperatur etwas senken, Einzug aktivieren</option><option value="ueber">Stützstruktur aktivieren oder Modell drehen</option><option value="leer">Druck stoppen und Lehrkraft holen</option></select></div>
+<div class="steprow"><span>Es kommt kein Material aus der Düse.</span><select data-a="leer" aria-label="Problem 5"><option value="">…</option><option value="bett">Bett reinigen, Brim nutzen, Lehrkraft prüft die Ausrichtung</option><option value="warp">Brim nutzen, Betttemperatur prüfen, Zugluft vermeiden</option><option value="faden">Temperatur etwas senken, Einzug aktivieren</option><option value="ueber">Stützstruktur aktivieren oder Modell drehen</option><option value="leer">Druck stoppen und Lehrkraft holen</option></select></div>
+<div class="row"><button class="primary sel-check">Prüfen</button></div><p class="fb sfb"></p></div>
+</div>
+<div class="card"><div class="tag">Übung 2 · Sicherheit am 3D-Drucker <span class="stars">★</span> <span class="afb">AFB I</span></div>
+<div class="mitbild"><svg class="pk" aria-hidden="true"><use href="/brand/piktos.svg#drucker3d"/></svg><p>Richtig oder falsch?</p></div>
+<div class="tf part" data-task="u2">
+<div class="item" data-v="0"><span>„Nach dem Druck kann ich die Düse kurz anfassen, sie kühlt sofort ab.“</span><span class="btns"><button data-v="1">richtig</button><button data-v="0">falsch</button></span><p class="fb"></p><span class="ex">Die Düse ist bis 200 °C heiß – auch nach dem Druck noch. Nie anfassen!</span></div>
+<div class="item" data-v="1"><span>„Während des Drucks lüfte ich den Raum.“</span><span class="btns"><button data-v="1">richtig</button><button data-v="0">falsch</button></span><p class="fb"></p><span class="ex">Beim Schmelzen von Kunststoff entstehen Dämpfe.</span></div>
+<div class="item" data-v="0"><span>„Wenn ein Faden hängt, greife ich schnell in den laufenden Drucker.“</span><span class="btns"><button data-v="1">richtig</button><button data-v="0">falsch</button></span><p class="fb"></p><span class="ex">Nicht hineingreifen: bewegliche Teile und heißes Druckbett (ca. 60 °C).</span></div>
+<div class="item" data-v="1"><span>„Bei Rauch oder seltsamen Geräuschen hole ich sofort die Lehrkraft.“</span><span class="btns"><button data-v="1">richtig</button><button data-v="0">falsch</button></span><p class="fb"></p><span class="ex">Genau – und den Druck beobachten, vor allem die erste Schicht.</span></div>
+<div class="item" data-v="1"><span>„Den fertigen Druck löse ich erst, wenn das Bett abgekühlt ist – mit dem Spachtel und nie zur Hand hin.“</span><span class="btns"><button data-v="1">richtig</button><button data-v="0">falsch</button></span><p class="fb"></p><span class="ex">So verletzt du dich nicht und der Druck bleibt heil.</span></div>
+</div>
+</div>
+</div><div>
+<div class="card"><div class="tag">Übung 3 · Was stellst du in Cura um? <span class="stars">★★</span> <span class="afb">AFB II</span></div>
+<div class="multi part" data-task="u3" data-fb="Richtig! Eine <b>größere Schichthöhe</b> (weniger Schichten) und <b>weniger Füllung</b> (weniger Weg pro Schicht) machen den Druck schneller. Mehr Wände und Stützen kosten dagegen Zeit." data-tipp="Was verkürzt den Weg der Düse insgesamt?"><p><b>a)</b> Dein Druck soll schneller fertig sein. Kreuze die <b>zwei</b> passenden Einstellungen an.</p><div class="checks"><label data-ok="1"><input type="checkbox">größere Schichthöhe, z. B. 0,3 mm</label><label data-ok="1"><input type="checkbox">weniger Füllung, z. B. 10 %</label><label data-ok="0"><input type="checkbox">mehr Wandlinien</label><label data-ok="0"><input type="checkbox">Stützstruktur einschalten</label><label data-ok="0"><input type="checkbox">Raft unter das Objekt</label></div><div class="row"><button class="primary multi-check">Prüfen</button><p class="fb"></p></div></div>
+<div class="part" data-task="u4"><h4>b) Dein Handyhalter bricht zu leicht. Was stellst du um?</h4>
+<div class="mc" data-correct="a" data-task="u4" data-tipp="Welche Einstellungen machen ein Teil stabiler?"><button data-k="a" data-fb="Richtig! Mehr <b>Wandlinien</b> (z. B. 3) und mehr <b>Füllung</b> (z. B. 50 %) machen den Halter stabiler.">eine Wandlinie mehr und mehr Füllung</button><button data-k="b" data-fb="Nein. Die Schichthöhe ändert vor allem Oberfläche und Druckzeit.">größere Schichthöhe</button><button data-k="c" data-fb="Nein. Ein Brim hilft nur bei der Haftung am Druckbett.">einen Brim hinzufügen</button><p class="fb"></p></div></div>
+<div class="part" data-task="u5"><h4>c) Dein Modell hat einen waagrechten Überhang. Was tust du?</h4>
+<div class="mc" data-correct="c" data-task="u5" data-tipp="Denk an die 45°-Regel."><button data-k="a" data-fb="Nein. Die Füllung liegt innen – sie stützt den Überhang nicht.">mehr Füllung einstellen</button><button data-k="b" data-fb="Nein. Ein Skirt berührt das Objekt nicht einmal.">einen Skirt drucken</button><button data-k="c" data-fb="Richtig! <b>Stützstruktur</b> einschalten – oder das Modell so <b>drehen</b>, dass wenig in der Luft hängt. Das spart Stützen, Material und Zeit.">Stützstruktur einschalten oder das Modell drehen</button><p class="fb"></p></div></div>
+</div>
+<div class="card"><div class="tag">Übung 4 · Rechnen wie der Slicer <span class="stars">★★</span> <span class="afb">AFB II</span></div>
+<div class="numbox part" data-task="u6" data-fb="Richtig! a) <f-m>4,5 mm : 0,15 mm = 30</f-m> Schichten · b) 3 · 0,4 mm = 1,2 mm · c) halbe Schichthöhe → etwa doppelte Zeit, also rund 60 min.">
+<div class="numq"><span>a) Ein Anhänger ist 4,5 mm dick. Wie viele Schichten bei 0,15 mm?</span><span class="unit"><input type="text" inputmode="decimal" data-a="30" data-tol="0.001" aria-label="Schichten"></span></div>
+<div class="numq"><span>b) Wanddicke bei 3 Wandlinien</span><span class="unit"><input type="text" inputmode="decimal" data-a="1.2" data-tol="0.001" aria-label="Wanddicke"> mm</span></div>
+<div class="numq"><span>c) Bei 0,2 mm dauert ein Druck 30 min. Etwa wie lange bei 0,1 mm?</span><span class="unit"><input type="text" inputmode="decimal" data-a="60" data-tol="0.001" aria-label="Druckzeit"> min</span></div>
+<div class="row"><button class="primary num-check">Prüfen</button><button data-hint="u6">Tipp</button><button data-sol="u6Sol">Lösung zeigen</button></div><p class="fb nfb"></p><p class="tip" id="u6Tip"></p>
+<div class="hintsrc" data-for="u6" hidden><p>Schichten = Dicke : Schichthöhe.</p><p>Jede Wandlinie ist so breit wie die Düse: 0,4 mm.</p><p>Halbe Schichthöhe = doppelt so viele Schichten.</p></div>
+<div class="sol" id="u6Sol" hidden><p>a) 4,5 mm : 0,15 mm = 30 · b) 3 · 0,4 mm = 1,2 mm · c) etwa 60 min</p></div></div>
+</div>
+</div></div>
+<div class="card"><div class="tag">Übung 5 · Den G-Code lesen <span class="stars">★★★</span> <span class="afb">AFB III</span></div>
+<div class="two"><div><div class="gcode" aria-label="G-Code-Ausschnitt">;LAYER:12
+G1 X52.4 Y30.1 E1.83
+G1 X60.0 Y30.1 E2.11
+G1 Z2.6</div><p class="caption">G1 = fahren · X, Y = Ziel · Z = Höhe · E = Material</p></div><div>
+<div class="part" data-task="u7"><h4>Was passiert in der zweiten Befehlszeile <code>G1 X60.0 Y30.1 E2.11</code>?</h4>
+<div class="mc" data-correct="b" data-task="u7" data-tipp="Vergleiche die X- und Y-Werte mit der Zeile davor. Was ändert sich?"><button data-k="a" data-fb="Nein. Z ändert sich in dieser Zeile nicht.">Die Düse fährt eine Schicht nach oben.</button><button data-k="b" data-fb="Richtig! Nur X ändert sich (52,4 → 60,0), Y bleibt gleich: Die Düse fährt <b>7,6 mm geradeaus in X-Richtung</b>, und weil E größer wird (1,83 → 2,11), drückt der Extruder dabei <b>Material</b> heraus – es entsteht eine Linie.">Die Düse fährt in X-Richtung und drückt dabei Material heraus.</button><button data-k="c" data-fb="Nein. Die Düse bewegt sich, und E wird größer – es kommt also Material heraus.">Die Düse heizt auf 60 °C.</button><p class="fb"></p></div></div>
+<div class="part" data-task="u8"><h4>In welcher Schicht ist der Drucker nach <code>G1 Z2.6</code>, wenn die Schichthöhe 0,2 mm ist?</h4>
+<div class="mc" data-correct="c" data-task="u8" data-tipp="Wie viele Schichten zu je 0,2 mm passen in 2,6 mm?"><button data-k="a" data-fb="Nein. <f-m>12 · 0,2 mm = 2,4 mm</f-m>.">Schicht 12</button><button data-k="b" data-fb="Nein. Rechne <f-m>2,6 mm : 0,2 mm</f-m>.">Schicht 26</button><button data-k="c" data-fb="Richtig! <f-m>2,6 mm : 0,2 mm = 13</f-m>. Nach Schicht 12 fährt die Düse eine Ebene höher – in die <b>13. Schicht</b>. (Cura zählt im G-Code ab 0, deshalb steht dort „LAYER:12“.)">Schicht 13</button><p class="fb"></p></div></div>
+</div></div>
+</div>
+<div class="row" style="margin-top:12px"><a class="lnk" href="/Technik8/anhaenger-konstruktion">← CAD-Konstruktion</a><a class="lnk nx" href="/">Zur Übersicht</a></div>
+</div></section>
+
+<section class="band"><div class="wrap">
+<div class="row" style="margin-top:8px"><button id="resetAll">Fortschritt zurücksetzen</button></div>
+</div></section>
+<footer class="band"><div class="wrap">
+<p>Lernpfad Technik Klasse 8 · Projekt Schlüsselanhänger: 3D-Druck (FDM-Verfahren, Filament, STL und G-Code, Slicen, Schichthöhe, Füllung, Wandlinien, 45°-Regel, Haftung, Probleme, Sicherheit). Slicer-Labor und 45°-Labor sind vereinfachte Modelle; Werte und Druckzeiten sind Schätzungen. Alles läuft in deinem Browser. Dein Fortschritt und deine Eingaben werden nur in diesem Browser gespeichert, es werden keine Daten übertragen (nur Feedback, das du selbst abschickst).</p>
+<p class="rechtl"><a href="/impressum">Impressum · Datenschutz</a></p></div></footer>
+<dialog class="qrdlg" id="qrDlg" aria-label="QR-Code zu diesem Lernpfad"><svg role="img" aria-label="QR-Code: https://technik.physik.party/Technik8/3d-druck" viewBox="0 0 41 41" class="segno"><path fill="#fff" d="M0 0h41v41h-41z"/><path class="qrline" stroke="#000" d="M4 4.5h7m1 0h1m4 0h3m2 0h3m2 0h1m2 0h7m-33 1h1m5 0h1m7 0h5m1 0h2m2 0h1m1 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m3 0h4m1 0h2m4 0h1m1 0h1m2 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m2 0h1m2 0h4m1 0h1m1 0h1m3 0h1m2 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m3 0h1m2 0h1m1 0h4m2 0h2m1 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m1 0h3m1 0h2m3 0h2m1 0h2m4 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-22 1h1m3 0h2m3 0h5m-24 1h7m1 0h2m1 0h3m1 0h3m3 0h3m2 0h2m3 0h1m-33 1h1m2 0h3m3 0h2m1 0h1m1 0h7m2 0h1m2 0h2m1 0h4m-27 1h2m1 0h1m1 0h1m1 0h3m1 0h2m1 0h1m1 0h1m1 0h2m2 0h1m1 0h2m-29 1h1m1 0h1m1 0h3m1 0h1m2 0h3m2 0h1m1 0h2m1 0h2m2 0h4m-32 1h1m3 0h1m1 0h2m2 0h5m1 0h1m1 0h1m1 0h1m2 0h3m1 0h3m-30 1h2m1 0h1m3 0h2m1 0h4m2 0h5m1 0h2m2 0h1m3 0h3m-33 1h1m2 0h6m4 0h1m2 0h2m7 0h3m3 0h1m-32 1h1m2 0h3m4 0h1m1 0h1m6 0h1m1 0h2m1 0h3m2 0h2m-27 1h1m1 0h4m1 0h2m1 0h3m3 0h1m2 0h3m1 0h3m2 0h1m-32 1h1m2 0h1m7 0h3m2 0h5m1 0h1m1 0h3m1 0h2m1 0h1m-33 1h1m1 0h1m3 0h1m2 0h1m5 0h1m4 0h1m6 0h2m1 0h2m-25 1h1m3 0h1m2 0h2m1 0h1m3 0h10m-31 1h1m1 0h5m1 0h1m3 0h1m2 0h2m2 0h2m1 0h1m1 0h2m3 0h1m-30 1h1m2 0h2m4 0h2m2 0h1m1 0h6m2 0h1m2 0h1m2 0h2m1 0h1m-33 1h1m1 0h2m2 0h1m1 0h1m2 0h2m3 0h1m5 0h1m1 0h2m2 0h1m1 0h2m-32 1h1m2 0h3m1 0h1m1 0h1m1 0h2m2 0h1m1 0h2m1 0h2m1 0h1m4 0h3m1 0h1m-33 1h1m1 0h1m2 0h3m3 0h1m1 0h1m1 0h2m1 0h1m1 0h1m1 0h8m1 0h2m-25 1h2m1 0h5m1 0h6m1 0h1m3 0h1m1 0h3m-33 1h7m1 0h3m1 0h1m2 0h2m4 0h4m1 0h1m1 0h1m1 0h2m-32 1h1m5 0h1m1 0h2m1 0h2m1 0h2m2 0h1m2 0h1m1 0h2m3 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h4m1 0h4m2 0h1m4 0h6m1 0h2m-33 1h1m1 0h3m1 0h1m1 0h2m1 0h1m4 0h1m1 0h4m1 0h3m2 0h1m3 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m2 0h1m1 0h1m2 0h3m1 0h2m1 0h2m1 0h2m1 0h2m-31 1h1m5 0h1m1 0h1m2 0h3m4 0h1m1 0h2m4 0h1m1 0h1m1 0h1m-31 1h7m2 0h1m4 0h1m2 0h1m1 0h1m2 0h3m2 0h1m3 0h1"/></svg>
+<p>technik.physik.party/Technik8/3d-druck</p><button id="qrClose">Schließen</button></dialog>
+<script>
+{
+const KEY='t8-3d-druck-done';
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const fmt=(v,n=2)=>(+v).toFixed(n).replace('.',',').replace('-','−');
+const fmtS=(v,n=2)=>fmt(v,n).replace(/(,\d*?)0+$/,'$1').replace(/,$/,'');
+const num=v=>parseFloat(String(v).replace(/[\s ]/g,'').replace(/\.(?=\d{3}(\D|$))/g,'').replace(',','.').replace('−','-'));
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const RAD=Math.PI/180,g=9.81;
+const sind=a=>Math.sin(a*RAD),cosd=a=>Math.cos(a*RAD),tand=a=>Math.tan(a*RAD);
+/* Fortschritt (nur in diesem Browser) */
+let done=new Set();
+try{done=new Set(JSON.parse(localStorage.getItem(KEY)||'[]'))}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify([...done]))}catch(e){}}
+function updProg(){const tasks=[...new Set($$('[data-task]').map(e=>e.dataset.task))];const n=tasks.filter(t=>done.has(t)).length;$('#progtxt').textContent=n+' / '+tasks.length+' gelöst';$('#progbar').style.width=(100*n/Math.max(1,tasks.length))+'%';
+ $$('[data-task]').forEach(e=>e.classList.toggle('done',done.has(e.dataset.task)));$$('.tabs button[data-for]').forEach(b=>b.classList.toggle('solved',done.has(b.dataset.for)))}
+function mark(id){if(!id)return;done.add(id);save();updProg()}
+function svgPt(svg,ev){const p=svg.createSVGPoint();p.x=ev.clientX;p.y=ev.clientY;return p.matrixTransform(svg.getScreenCTM().inverse())}
+function animate(ms,step,end){if(reduce){step(1);end&&end();return}const t0=performance.now();function f(t){const k=Math.min(1,(t-t0)/ms);step(k);if(k<1)requestAnimationFrame(f);else end&&end()}requestAnimationFrame(f)}
+/* Formelzeichen in SVG: "F|res" -> F mit Index res */
+function lab(n){const [b,s]=String(n).split('|');return s?`${b}<tspan dy="5" font-size="75%">${s}</tspan><tspan dy="-5"> </tspan>`:b}
+function labH(n){const [b,s]=String(n).split('|');return s?`${b}<sub>${s}</sub>`:b}
+const COL={f1:'var(--f1)',f2:'var(--f2)',f3:'var(--f3)',fr:'var(--fr)',fg:'var(--fg)',fh:'var(--fh)',fn:'var(--fnn)',ink:'var(--ink)',mut:'var(--muted)',acc:'var(--acc)'};
+const col=c=>COL[c]||c;
+/* ===== Bausteine ===== */
+const hints={};
+function initCommon(){
+ $$('.hintsrc').forEach(d=>{hints[d.dataset.for]=[...d.children].map(p=>p.innerHTML)});
+ $$('[data-hint]').forEach(b=>{let h=0;b.onclick=()=>{const id=b.dataset.hint,arr=hints[id]||[],el=$('#'+id+'Tip');if(!arr.length||!el)return;el.className='fb hint tip';el.innerHTML='Tipp '+(h%arr.length+1)+' von '+arr.length+': '+arr[h%arr.length];h++}});
+ $$('[data-sol]').forEach(b=>b.onclick=()=>{const el=$('#'+b.dataset.sol);el.hidden=!el.hidden;b.textContent=el.hidden?'Lösung zeigen':'Lösung ausblenden'});
+ /* Multiple Choice: nach einem Fehlversuch Hinweis und kurze Denkpause */
+ $$('.mc[data-correct]').forEach(box=>{const fb=box.querySelector('.fb'),btns=[...box.querySelectorAll('button[data-k]')];
+  btns.forEach(b=>b.onclick=()=>{const ok=b.dataset.k===box.dataset.correct;
+   if(ok){btns.forEach(x=>x.classList.remove('bad'));b.classList.add('ok');fb.className='fb ok';fb.innerHTML=b.dataset.fb||'Richtig!';mark(box.dataset.task);return}
+   b.classList.add('bad');b.disabled=true;fb.className='fb hint';
+   fb.innerHTML=(b.dataset.fb||'Das stimmt nicht.')+(box.dataset.tipp?' <b>Hinweis:</b> '+box.dataset.tipp:' Lies die Frage noch einmal genau und denk nach, bevor du weiterklickst.');
+   const free=btns.filter(x=>!x.classList.contains('bad'));free.forEach(x=>x.disabled=true);setTimeout(()=>free.forEach(x=>x.disabled=false),reduce?0:2500)})});
+ /* Mehrfachauswahl */
+ $$('.multi').forEach(box=>{const fb=box.querySelector('.fb');box.querySelector('.multi-check').onclick=()=>{const ls=[...box.querySelectorAll('label')];let bad=0;ls.forEach(l=>{const i=l.querySelector('input'),should=l.dataset.ok==='1';const r=i.checked===should;l.className=i.checked||!r?(r?'ok':'bad'):'';if(!r)bad++});
+  if(!bad){fb.className='fb ok';fb.innerHTML=box.dataset.fb||'Richtig!';mark(box.dataset.task)}else{fb.className='fb hint';fb.innerHTML=bad+(bad===1?' Auswahl stimmt':' Auswahlen stimmen')+' noch nicht. '+(box.dataset.tipp||'')}}});
+ /* Textfelder */
+ $$('textarea[data-store]').forEach(t=>{const k=KEY+'-txt-'+t.dataset.store;try{t.value=localStorage.getItem(k)||''}catch(e){}t.addEventListener('input',()=>{try{localStorage.setItem(k,t.value)}catch(e){}})});
+ /* Begründe-Aufträge */
+ $$('.why').forEach(w=>{const t=w.querySelector('textarea'),cb=w.querySelector('input[type=checkbox]'),show=w.querySelector('.why-show'),sol=w.querySelector('.sol'),okb=w.querySelector('.why-ok');
+  const upd=()=>{show.disabled=!((t&&t.value.trim().length>=15)||(cb&&cb.checked))};if(t)t.addEventListener('input',upd);if(cb)cb.addEventListener('change',upd);upd();
+  show.onclick=()=>{sol.hidden=false;show.hidden=true};okb.onclick=()=>{mark(w.dataset.task);okb.textContent='✓ Abgehakt'}});
+ /* Zahlen-Aufgaben */
+ $$('.numbox').forEach(box=>{const fb=box.querySelector('.nfb');box.querySelector('.num-check').onclick=()=>{const ins=[...box.querySelectorAll('input[data-a]')];let ok=0;
+  ins.forEach(i=>{const v=num(i.value),a=+i.dataset.a,tol=+(i.dataset.tol||0.01),gd=!isNaN(v)&&Math.abs(v-a)<=Math.max(Math.abs(a)*tol,1e-9);i.className=i.value===''?'':(gd?'ok':'bad');if(gd)ok++});
+  if(ok===ins.length){fb.className='fb ok nfb';fb.innerHTML=box.dataset.fb||'Alles richtig!';mark(box.dataset.task)}else{fb.className='fb bad nfb';fb.textContent=ok+' von '+ins.length+' richtig. Prüfe Rechnung, Einheiten und Rundung – oder hol dir einen Tipp.'}}});
+ /* Auswahlfelder (Lückentext, Zuordnung) */
+ $$('.selbox').forEach(box=>{const fb=box.querySelector('.sfb');box.querySelector('.sel-check').onclick=()=>{const s=[...box.querySelectorAll('select')];let ok=0;s.forEach(x=>{const gd=x.value===x.dataset.a;x.className=x.value===''?'':(gd?'ok':'bad');if(gd)ok++});
+  if(ok===s.length){fb.className='fb ok sfb';fb.innerHTML=box.dataset.fb||'Alles richtig!';mark(box.dataset.task)}else{fb.className='fb bad sfb';fb.textContent=ok+' von '+s.length+' richtig. Prüfe die rot markierten Felder.'}}});
+ /* Richtig/Falsch */
+ $$('.tf').forEach(box=>{const rows=[...box.querySelectorAll('.item')],solved=new Set();rows.forEach((row,i)=>{const ex=row.querySelector('.ex'),fb=row.querySelector('.fb');row.querySelectorAll('button').forEach(b=>b.onclick=()=>{const ok=b.dataset.v===row.dataset.v;
+  row.querySelectorAll('button').forEach(x=>x.classList.remove('ok','bad'));b.classList.add(ok?'ok':'bad');fb.className='fb '+(ok?'ok':'bad');fb.innerHTML=(ok?'Stimmt. ':'Nein. ')+ex.innerHTML;if(ok)solved.add(i);if(solved.size===rows.length)mark(box.dataset.task)})})});
+ /* Reiter */
+ $$('.tabs[data-group]').forEach(tb=>{const bs=[...tb.querySelectorAll('button')];bs.forEach(b=>b.onclick=()=>{bs.forEach(x=>{x.setAttribute('aria-pressed',x===b);const p=$('#'+x.dataset.panel);if(p)p.hidden=x!==b});const p=$('#'+b.dataset.panel);p&&p.dispatchEvent(new Event('show'))})});
+ {const d=$('#qrDlg');$('#qrOpen').onclick=()=>d.showModal();$('#qrClose').onclick=()=>d.close();d.addEventListener('click',e=>{if(e.target===d)d.close()})}
+ $('#resetAll').onclick=()=>{done.clear();save();location.reload()};
+ updProg()}
+
+
+/* Heftaufschrieb übernommen */
+$$('.hb-done').forEach(b=>{if(done.has(b.dataset.task))b.textContent='✓ Im Heft';b.onclick=()=>{mark(b.dataset.task);b.textContent='✓ Im Heft'}});
+/* Schritt-für-Schritt */
+$$('.stepper').forEach(st=>{const boxes=[...st.querySelectorAll('.stepbox')],nx=st.querySelector('.st-next'),bk=st.querySelector('.st-back'),dots=st.querySelector('.steps');let i=0;
+ const show=()=>{boxes.forEach((b,k)=>b.hidden=k>i);if(dots)dots.innerHTML=boxes.map((b,k)=>`<i class="${k<=i?'on':''}">${k+1}</i>`).join('');nx.disabled=i>=boxes.length-1;bk.disabled=i===0;if(i>=boxes.length-1&&st.dataset.task)mark(st.dataset.task)};
+ nx.onclick=()=>{i=Math.min(boxes.length-1,i+1);show()};bk.onclick=()=>{i=Math.max(0,i-1);show()};show()});
+
+/* ===== Anhänger-Werkstatt (Projekt Schlüsselanhänger): Grundplatte (Quader) + Schrift (Text) − Bohrung (Zylinder) =====
+   Maße in mm. Platte: x = Länge (nach rechts), y = Breite (nach hinten), z = Höhe. Loch-Mitte bei (hx, B/2).
+   Drehbare 3D-Ansicht als SVG (Maler-Verfahren), Druckbarkeits-Check nach der Checkliste aus dem Unterricht.
+   Modellannahmen: Schrift liegt mittig im Platz rechts vom Loch; die Bohrung ist 2 mm höher als die Platte. */
+const ANH=(()=>{
+const RAD=Math.PI/180;
+const DEF={L:50,B:20,t:3,r:4,d:5,hx:6,hole:'bohrung',grp:true,txt:'MAX',sz:10,h:1,z:3};
+const FONT='700 1px Lexend,"Atkinson Hyperlegible",sans-serif';
+const f1=v=>(Math.round(v*10)/10).toString().replace('.',',');
+function outline(L,B,r){r=Math.max(0,Math.min(r,B/2,L/2));if(r<.05)return [[0,0],[L,0],[L,B],[0,B]];const p=[];
+ for(const [cx,cy,a0] of [[L-r,r,-90],[L-r,B-r,0],[r,B-r,90],[r,r,180]])for(let i=0;i<=8;i++){const a=(a0+i*90/8)*RAD;p.push([cx+r*Math.cos(a),cy+r*Math.sin(a)])}
+ return p}
+function circle(cx,cy,R,n=36){const p=[];for(let i=0;i<n;i++){const a=i/n*2*Math.PI;p.push([cx+R*Math.cos(a),cy+R*Math.sin(a)])}return p}
+let ctx=null;
+function textW(s,sz){if(!s)return 0;if(!ctx)ctx=document.createElement('canvas').getContext('2d');ctx.font=FONT.replace('1px','100px');return ctx.measureText(s).width/100*sz/.72}
+/* Kennwerte des Entwurfs */
+function info(m){const capH=m.sz,fs=m.sz/.72,w=textW(m.txt,m.sz),x0=m.hole==='bohrung'?m.hx+m.d/2+1:1,tx=(x0+m.L)/2;
+ const fits=!m.txt||(tx-w/2>=x0-1e-6&&tx+w/2<=m.L-1+1e-6&&capH<=m.B-2+1e-6);
+ const rim=Math.min(m.hx-m.d/2,(m.B-m.d)/2),top=m.txt?m.z+m.h:0,total=Math.max(m.t,top);
+ return {capH,fs,w,tx,fits,rim,total,relief:top-m.t,float:!!m.txt&&m.z>m.t+1e-6,hidden:!!m.txt&&top<=m.t+1e-6}}
+/* Checkliste „Ist mein Anhänger druckbar?“ */
+function checks(m){const I=info(m),r=[];
+ r.push({k:'L',t:'Länge: 40 bis 60 mm',ok:m.L>=40&&m.L<=60,w:m.L<40?`Mit ${m.L} mm ist der Anhänger zu kurz.`:`Mit ${m.L} mm ist der Anhänger zu lang.`});
+ r.push({k:'D',t:'Dicke: 3 bis 5 mm',ok:m.t>=3&&I.total<=5,w:m.t<3?`Die Platte ist nur ${f1(m.t)} mm dünn – sie bricht leicht.`:`Gesamtdicke ${f1(I.total)} mm – das ist zu dick.`});
+ r.push({k:'d',t:'Loch: mindestens 4 mm Durchmesser',ok:m.hole==='bohrung'&&m.d>=4,w:m.hole==='none'?'Es gibt noch kein Loch für den Schlüsselring.':m.hole!=='bohrung'?'Der Zylinder ist ein Körper, keine Bohrung – es entsteht kein Loch.':`Ø ${f1(m.d)} mm ist zu klein für den Schlüsselring.`});
+ r.push({k:'rim',t:'Rand ums Loch: mindestens 2 mm Material',ok:m.hole!=='bohrung'||I.rim>=2-1e-6,w:I.rim<=0?'Das Loch schneidet den Rand an.':`Nur ${f1(I.rim)} mm Material neben dem Loch – es reißt aus.`});
+ r.push({k:'txt',t:'Schrift: mind. 1 mm hoch, auf der Platte',ok:!!m.txt&&!I.float&&I.relief>=1-1e-6&&I.fits,
+  w:!m.txt?'Es gibt noch keine Schrift.':I.float?'Die Schrift schwebt über der Platte – sie fällt nach dem Druck ab.':I.hidden?'Die Schrift steckt ganz in der Platte – man sieht sie nicht.':I.relief<1-1e-6?`Die Schrift steht nur ${f1(I.relief)} mm über die Platte.`:'Die Schrift passt nicht auf die Platte (zu lang, zu groß oder zu nah am Loch).'});
+ r.push({k:'grp',t:'Gruppiert: alles ist fest verbunden',ok:m.grp,w:'Noch nicht gruppiert: Die Bohrung schneidet nichts aus, die Teile sind nicht verbunden.'});
+ return r}
+/* ---------- 3D-Ansicht ---------- */
+function view(svg,o={}){
+ let m={...DEF,...(o.m||{})},yaw=o.yaw??-28,pitch=o.pitch??40,dims=!!o.dims,anim=null;
+ const st={};
+ function draw(){
+  const cy=Math.cos(yaw*RAD),sy=Math.sin(yaw*RAD),cp=Math.cos(pitch*RAD),sp=Math.sin(pitch*RAD);
+  const cx0=m.L/2,cy0=m.B/2,I=info(m);
+  const P=(x,y,z)=>{x-=cx0;y-=cy0;const x1=x*cy-y*sy,y1=x*sy+y*cy;return [x1,-(z*cp+y1*sp),y1*cp-z*sp]};
+  const v=[sy*cp,cy*cp,-sp],Ld=[-.35,-.55,.76];
+  const shade=(n,base,k0=.62)=>{const l=Math.max(0,n[0]*Ld[0]+n[1]*Ld[1]+n[2]*Ld[2]);return `color-mix(in srgb,var(${base}) ${Math.round((k0+(1-k0)*l)*100)}%,#000)`};
+  const M=c=>`matrix(${cy},${-sp*sy},${sy},${sp*cy},${-cx0*cy+cy0*sy},${-c*cp+sp*(sy*cx0+cy*cy0)})`;
+  const pts=a=>a.map(q=>q[0].toFixed(3)+' '+q[1].toFixed(3)).join('L');
+  const cut=m.grp&&m.hole==='bohrung';
+  const out=outline(m.L,m.B,m.r),hole=circle(m.hx,m.B/2,m.d/2);
+  let s='';
+  /* Arbeitsebene (Raster 5 mm) */
+  {let g='';const x0=-10,x1=Math.ceil((m.L+10)/5)*5,y0=-10,y1=Math.ceil((m.B+10)/5)*5;
+   for(let x=x0;x<=x1;x+=5)g+=`M${x} ${-y0}V${-y1}`;for(let y=y0;y<=y1;y+=5)g+=`M${x0} ${-y}H${x1}`;
+   s+=`<g transform="${M(0)}"><rect x="${x0}" y="${-y1}" width="${x1-x0}" height="${y1-y0}" class="anh-plane"/><path d="${g}" class="anh-grid"/></g>`}
+  /* Innenwände der Bohrung (nur wenn sie ausschneidet) */
+  const walls=(poly,z0,z1,base,inner)=>{const r=[];for(let i=0;i<poly.length;i++){const a=poly[i],b=poly[(i+1)%poly.length],dx=b[0]-a[0],dy=b[1]-a[1],L=Math.hypot(dx,dy)||1;
+   let n=[dy/L,-dx/L,0];if(inner)n=[-n[0],-n[1],0];if(n[0]*v[0]+n[1]*v[1]>=-1e-9)continue;
+   const q=[P(a[0],a[1],z0),P(b[0],b[1],z0),P(b[0],b[1],z1),P(a[0],a[1],z1)],dep=(q[0][2]+q[1][2])/2,c=shade(n,base);
+   r.push({dep,s:`<path d="M${pts(q)}Z" style="fill:${c};stroke:${c}" class="anh-w"/>`})}return r.sort((p,q)=>q.dep-p.dep).map(x=>x.s).join('')};
+  if(cut)s+=walls(hole,0,m.t,'--anh-p',true);
+  s+=walls(out,0,m.t,'--anh-p',false);
+  /* Oberseite der Platte */
+  const topP=out.map(q=>P(q[0],q[1],m.t));let d='M'+pts(topP)+'Z';
+  if(cut)d+='M'+pts(hole.slice().reverse().map(q=>P(q[0],q[1],m.t)))+'Z';
+  s+=`<path d="${d}" fill-rule="evenodd" style="fill:${shade([0,0,1],'--anh-p')}" class="anh-top"/>`;
+  /* Teile über der Platte: Schrift und Zylinder, nach Tiefe sortiert */
+  const items=[];
+  if(m.txt){const z0=I.hidden?null:Math.max(m.z,m.t),z1=m.z+m.h,c=P(I.tx,m.B/2,(m.z+z1)/2);
+   if(z0!=null){let t='';const base=-(m.B/2-I.capH/2);
+    if(sp<.05){const a=P(I.tx-I.w/2,m.B/2,z0),b=P(I.tx+I.w/2,m.B/2,z1);t=`<path d="M${a[0]} ${a[1]}H${b[0]}V${b[1]}H${a[0]}Z" class="anh-tside"/>`}
+    else{const n=Math.max(1,Math.min(30,Math.round((z1-z0)*cp*6)));
+     for(let k=0;k<n;k++){const z=z0+(z1-z0)*k/n;t+=`<text transform="${M(z)}" x="${I.tx}" y="${base}" font-size="${I.fs}" text-anchor="middle" class="anh-tside">${esc(m.txt)}</text>`}
+     t+=`<text transform="${M(z1)}" x="${I.tx}" y="${base}" font-size="${I.fs}" text-anchor="middle" class="anh-ttop">${esc(m.txt)}</text>`}
+    items.push({dep:c[2],s:`<g class="anh-txt">${t}</g>`})}}
+  if(!cut&&m.hole!=='none'){const H=m.t+(o.cylH??2),z0=m.hole==='bohrung'?0:(m.hx>=m.d/2?m.t:0),c=P(m.hx,m.B/2,H/2),isH=m.hole==='bohrung';
+   let t=walls(hole,isH?0:z0,H,isH?'--anh-h':'--anh-p',false);
+   t+=`<path d="M${pts(hole.map(q=>P(q[0],q[1],H)))}Z" style="fill:${shade([0,0,1],isH?'--anh-h':'--anh-p')}" class="anh-ctop"/>`;
+   items.push({dep:c[2]-.5,s:`<g class="${isH?'anh-bohr':'anh-cyl'}">${t}</g>`})}
+  items.sort((p,q)=>q.dep-p.dep);s+=items.map(i=>i.s).join('');
+  /* Bemaßung in der Ebene z = 0 */
+  if(dims){const a=3.2,y=-6,x=m.L+6,ar=(x1,y1,x2,y2)=>{const L=Math.hypot(x2-x1,y2-y1),ux=(x2-x1)/L,uy=(y2-y1)/L,h=2,w=.7;
+    return `M${x1} ${y1}L${x2} ${y2}M${x1} ${y1}l${ux*h-uy*w} ${uy*h+ux*w}l${2*uy*w} ${-2*ux*w}zM${x2} ${y2}l${-ux*h-uy*w} ${-uy*h+ux*w}l${2*uy*w} ${-2*ux*w}z`};
+   let g=`<path d="M0 ${-0}V${-y+2}M${m.L} 0V${-y+2}M${m.L} 0H${x+2}M${m.L} ${-m.B}H${x+2}" class="anh-dl"/>`;
+   g+=`<path d="${ar(0,-y,m.L,-y)}${ar(x,0,x,-m.B)}" class="anh-da"/>`;
+   g+=`<text x="${m.L/2}" y="${-y-1}" font-size="${a}" text-anchor="middle" class="anh-dt">${f1(m.L)}</text><text transform="translate(${x-1} ${-m.B/2}) rotate(-90)" font-size="${a}" text-anchor="middle" class="anh-dt">${f1(m.B)}</text>`;
+   if(m.hole==='bohrung'){const hx=m.hx,hy=-m.B/2,R=m.d/2,lx=hx+R*.7,ly=hy-R*.7;g+=`<path d="M${hx-R*.7} ${hy+R*.7}L${lx+5} ${ly-6}h6" class="anh-dl"/><text x="${lx+5.3}" y="${ly-6.8}" font-size="${a}" class="anh-dt">Ø ${f1(m.d)}</text>`}
+   s+=`<g transform="${M(m.t+.01)}">${g}</g>`}
+  const R=o.fit?.5*Math.hypot(m.L+6,m.B+6)+1:.5*Math.hypot(Math.max(m.L,50)+14,Math.max(m.B,20)+14);
+  svg.setAttribute('viewBox',o.fit?`${-R} ${-R*.8} ${2*R} ${1.6*R}`:`${-R} ${-R*.64} ${2*R} ${1.28*R}`);svg.innerHTML=s;st.onview&&st.onview()}
+ const esc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+ function to(y,p,ms=600){if(anim)cancelAnimationFrame(anim);const y0=yaw,p0=pitch,t0=performance.now();
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches){yaw=y;pitch=p;draw();return}
+  const f=t=>{const k=Math.min(1,(t-t0)/ms),e=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2;yaw=y0+(y-y0)*e;pitch=p0+(p-p0)*e;draw();if(k<1)anim=requestAnimationFrame(f)};anim=requestAnimationFrame(f)}
+ if(o.drag!==false){let dr=null;
+  svg.addEventListener('pointerdown',e=>{dr={x:e.clientX,y:e.clientY,yaw,pitch};svg.setPointerCapture(e.pointerId);if(anim)cancelAnimationFrame(anim)});
+  svg.addEventListener('pointermove',e=>{if(!dr)return;yaw=dr.yaw-(e.clientX-dr.x)*.5;pitch=Math.max(0,Math.min(90,dr.pitch+(e.clientY-dr.y)*.5));draw()});
+  const end=()=>{dr=null};svg.addEventListener('pointerup',end);svg.addEventListener('pointercancel',end);
+  svg.addEventListener('keydown',e=>{const k={ArrowLeft:[8,0],ArrowRight:[-8,0],ArrowUp:[0,-6],ArrowDown:[0,6]}[e.key];if(!k)return;e.preventDefault();yaw+=k[0];pitch=Math.max(0,Math.min(90,pitch+k[1]));draw()});
+  svg.tabIndex=0}
+ Object.assign(st,{draw,to,set:nm=>{m={...m,...nm};draw()},get m(){return m},dims:on=>{dims=on;draw()}});
+ draw();if(document.fonts)document.fonts.ready.then(draw);return st}
+/* ---------- Werkstatt mit Reglern und Checkliste ---------- */
+const ROWS=[['Grundplatte (Quader)','--anh-p',[['L','Länge',20,80,1],['B','Breite',10,40,1],['t','Dicke',1,6,.5],['r','Eckenradius',0,20,1]]],
+ ['Loch (Zylinder)','--anh-h',[['d','Durchmesser Ø',2,12,.5],['hx','Mitte vom linken Rand',2,30,.5]]],
+ ['Schrift (Text)','--anh-t',[['sz','Buchstabenhöhe',4,20,1],['h','Dicke der Schrift',.5,3,.5],['z','Unterkante über der Arbeitsebene',0,6,.5]]]];
+function lab(root,o={}){
+ const k=o.store?KEY+'-anh-'+o.store:null;let m={...DEF,...(o.m||{})};
+ if(k){try{const s=JSON.parse(localStorage.getItem(k)||'null');if(s)m={...m,...s}}catch(e){}}
+ let h=`<div class="anh"><div class="anh-view"><div class="fig"><svg class="anh-svg" role="img" aria-label="Drehbares 3D-Modell des Schlüsselanhängers"></svg></div>
+<div class="vbtns" data-fest><button data-v="s">schräg</button><button data-v="o">Draufsicht</button><button data-v="v">Vorderansicht</button><label class="anh-dimt"><input type="checkbox" class="anh-dims"> Maße zeigen</label></div>
+<p class="caption">Drehen: mit der Maus oder dem Finger ziehen. Ein Kästchen der Arbeitsebene ist 5 mm groß.</p>
+<div class="anh-chk"><h4>Ist mein Anhänger druckbar?</h4><ul></ul><p class="anh-sum"></p></div></div><div class="anh-ctl">`;
+ for(const [t,c,rows] of ROWS){h+=`<fieldset style="--fc:var(${c})"><legend>${t}</legend>`;
+  if(c==='--anh-h')h+=`<div class="anh-seg" data-fest role="group" aria-label="Zylinder ist"><button data-hole="koerper">Körper</button><button data-hole="bohrung">Bohrung</button></div>`;
+  if(c==='--anh-t')h+=`<label class="anh-r"><span>Text</span><input type="text" class="anh-txt" maxlength="8" autocomplete="off" spellcheck="false" aria-label="Text auf dem Anhänger"></label>`;
+  for(const [id,n,a,b,s] of rows)h+=`<label class="anh-r"><span>${n}</span><input type="range" data-k="${id}" min="${a}" max="${b}" step="${s}" aria-label="${n}"><output data-o="${id}"></output></label>`;
+  h+='</fieldset>'}
+ h+=`<label class="anh-grp"><input type="checkbox" class="anh-g"> <span><b>Alles markieren und gruppieren</b> (Strg + G)</span></label></div></div>`;
+ root.innerHTML=h;const q=s=>root.querySelector(s),qa=s=>[...root.querySelectorAll(s)];
+ const v=view(q('.anh-svg'),{m});
+ const sync=()=>{qa('[data-k]').forEach(i=>{i.value=m[i.dataset.k];q("[data-o=\""+i.dataset.k+"\"]").textContent=f1(m[i.dataset.k])+' mm'});
+  q('.anh-txt').value=m.txt;q('.anh-g').checked=m.grp;qa('[data-hole]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.hole===m.hole))};
+ const upd=()=>{v.set(m);const c=checks(m);q('.anh-chk ul').innerHTML=c.map(x=>`<li class="${x.ok?'ok':'bad'}" data-c="${x.k}"><b>${x.ok?'✓':'✗'}</b> ${x.t}${x.ok?'':`<small>${x.w}</small>`}</li>`).join('');
+  const n=c.filter(x=>x.ok).length;q('.anh-sum').innerHTML=n===c.length?'<b>Druckbar!</b> Jetzt als STL exportieren.':`${n} von ${c.length} Punkten erfüllt.`;
+  q('.anh-sum').className='anh-sum '+(n===c.length?'ok':'');
+  if(k){try{localStorage.setItem(k,JSON.stringify(m))}catch(e){}}st.onchange&&st.onchange(m,c)};
+ qa('[data-k]').forEach(i=>i.addEventListener('input',()=>{m[i.dataset.k]=+i.value;q("[data-o=\""+i.dataset.k+"\"]").textContent=f1(+i.value)+' mm';upd()}));
+ q('.anh-txt').addEventListener('input',e=>{m.txt=e.target.value.slice(0,8);upd()});
+ q('.anh-g').addEventListener('change',e=>{m.grp=e.target.checked;upd()});
+ qa('[data-hole]').forEach(b=>b.onclick=()=>{m.hole=b.dataset.hole;sync();upd()});
+ const V={s:[-28,40],o:[0,90],v:[0,0]};qa('[data-v]').forEach(b=>b.onclick=()=>v.to(...V[b.dataset.v]));
+ q('.anh-dims').addEventListener('change',e=>v.dims(e.target.checked));
+ const st={get m(){return m},load:nm=>{m={...DEF,...nm};sync();upd()},view:v,checks:()=>checks(m)};
+ sync();setTimeout(upd);if(document.fonts)document.fonts.ready.then(upd);return st}
+return {DEF,view,lab,checks,info,f1}})();
+
+ANH.view($('#heroAnh'),{m:{r:4,sz:11},yaw:-24,pitch:42,drag:false});
+/* ---------- Slicer-Labor ----------
+   Modell: Linienbreite 0,4 mm, Wandlinien als Versatz der Kontur, Füllung als Gitter (Dichte = Anteil der Fläche),
+   obere/untere Schichten je 0,8 mm voll, Geschwindigkeit 50 mm/s, Zuschlag 60 % für Beschleunigen und Leerfahrten, PLA 1,24 g/cm³. */
+{const LW=.4,HS=[.1,.15,.2,.25,.3],OBJ={anh:{L:50,B:20,H:4,r:2.5,hx:6},cube:{L:20,B:20,H:20,r:0}};
+ let obj='anh';const f=(v,n=1)=>(+v).toFixed(n).replace('.',',');
+ const calc=(o,h,rho,w)=>{const n=Math.round(o.H/h),nS=Math.min(n,2*Math.ceil(.8/h-1e-9)),wd=w*LW;
+  let wall=0;for(let i=0;i<w;i++){const off=(i+.5)*LW;wall+=2*(o.L+o.B)-8*off;if(o.r)wall+=2*Math.PI*(o.r+off)}
+  const A=(o.L-2*wd)*(o.B-2*wd)-(o.r?Math.PI*(o.r+wd)**2:0);
+  const perSparse=wall+A*rho/LW,perSolid=wall+A/LW,len=(n-nS)*perSparse+nS*perSolid;
+  const vol=len*LW*h,t=len/50*1.6;return {n,nS,wd,len,vol,t,perSparse,perSolid}};
+ const top=$('#slTop'),side=$('#slSide');
+ function draw(){const o=OBJ[obj],h=HS[+$('#slH').value],rho=+$('#slF').value/100,w=+$('#slW').value,c=calc(o,h,rho,w);
+  const L=$('#slL');L.max=c.n;if(+L.value>c.n)L.value=c.n;const k=+L.value,solid=k<=c.nS/2||k>c.n-c.nS/2;
+  $('#slHo').textContent=f(h,2).replace(/0$/,'')+' mm';$('#slFo').textContent=(rho*100)+' %';$('#slWo').textContent=w+' ('+f(c.wd,1)+' mm)';$('#slLo').textContent=k+' / '+c.n;
+  const min=Math.round(c.t/60),g=c.vol/1000*1.24,fil=c.vol/(Math.PI*.875**2)/1000;
+  $('#slKv').innerHTML=`<div>Schichten<b>${c.n}</b></div><div>Wanddicke<b>${f(c.wd,1)} mm</b></div><div>Druckzeit ca.<b>${min<60?min+' min':Math.floor(min/60)+' h '+(min%60)+' min'}</b></div><div>Material ca.<b>${f(g,1)} g</b><small>${f(fil,1)} m Filament</small></div>`;
+  /* G-Code: Düse am Anfang der Schicht k (Objekt mittig auf einem 220-mm-Bett) */
+  let E=0;for(let i=1;i<k;i++)E+=(i<=c.nS/2||i>c.n-c.nS/2?c.perSolid:c.perSparse)*LW*h/(Math.PI*.875**2);
+  const x0=110-o.L/2+LW/2,y0=110-o.B/2+LW/2,e2=E+(o.L-LW)*LW*h/(Math.PI*.875**2);
+  $('#slG').innerHTML=`;LAYER:${k-1}        <i>Schicht ${k}</i>\nG1 Z${(k*h).toFixed(2)}         <i>Düse auf ${f(k*h,2)} mm</i>\nG1 X${x0.toFixed(1)} Y${y0.toFixed(1)}   <i>zum Startpunkt fahren</i>\nG1 X${(x0+o.L-LW).toFixed(1)} Y${y0.toFixed(1)} E${e2.toFixed(2)} <i>Wandlinie drucken</i>`;
+  /* Schicht von oben */
+  {const p=2,W=o.L+2*p,H=o.B+2*p;top.setAttribute('viewBox',`${-p} ${-p} ${W} ${H}`);
+   let s=`<rect x="0" y="0" width="${o.L}" height="${o.B}" class="sl-out"/>`+(o.r?`<circle cx="${o.hx}" cy="${o.B/2}" r="${o.r}" class="sl-out"/>`:'');
+   for(let i=0;i<w;i++){const off=(i+.5)*LW;s+=`<rect x="${off}" y="${off}" width="${o.L-2*off}" height="${o.B-2*off}" class="sl-wall" style="stroke-width:${LW*.85}"/>`;if(o.r)s+=`<circle cx="${o.hx}" cy="${o.B/2}" r="${o.r+off}" class="sl-wall" style="stroke-width:${LW*.85}"/>`}
+   const wd=c.wd,cid='clp'+obj;let cl=`<clipPath id="${cid}"><path clip-rule="evenodd" d="M${wd} ${wd}H${o.L-wd}V${o.B-wd}H${wd}Z${o.r?`M${o.hx+o.r+wd} ${o.B/2}a${o.r+wd} ${o.r+wd} 0 1 0 ${-2*(o.r+wd)} 0a${o.r+wd} ${o.r+wd} 0 1 0 ${2*(o.r+wd)} 0Z`:''}"/></clipPath>`;
+   let lines='';const D=o.L+o.B;
+   if(solid){const dir=k%2?1:-1;for(let q=-D;q<=D;q+=LW)lines+=dir>0?`M${q} 0l${o.B} ${o.B}`:`M${q+o.B} 0l${-o.B} ${o.B}`;s+=`${cl}<path d="${lines}" class="sl-solid" style="stroke-width:${LW*.7}" clip-path="url(#${cid})"/>`}
+   else if(rho>0){const sp=2*LW/rho;for(let q=-D;q<=D;q+=sp)lines+=`M${q} 0l${o.B} ${o.B}M${q+o.B} 0l${-o.B} ${o.B}`;s+=`${cl}<path d="${lines}" class="sl-fl" style="stroke-width:${LW*.7}" clip-path="url(#${cid})"/>`}
+   top.innerHTML=s;$('#slTopC').textContent=`Schicht ${k} von oben: ${solid?'geschlossene Schicht (unten oder oben)':'Wandlinien und '+(rho>0?'Füllung als Gitter':'keine Füllung')}`}
+  /* Querschnitt von der Seite */
+  {const p=1.5,W=o.L+2*p,H=o.H+2*p,ex=obj==='anh'?3:1;side.setAttribute('viewBox',`${-p} ${-p*ex} ${W} ${H*ex}`);
+   const Y=z=>(o.H-z)*ex;let s='';
+   const xs=[[0,o.L]];if(o.r)xs.splice(0,1,[0,o.hx-o.r],[o.hx+o.r,o.L]);
+   for(const [a,b] of xs){s+=`<rect x="${a}" y="0" width="${b-a}" height="${o.H*ex}" style="fill:var(--panel)"/>`;
+    s+=`<rect x="${a}" y="0" width="${Math.min(c.wd,b-a)}" height="${o.H*ex}" style="fill:var(--dr-wand)"/><rect x="${b-Math.min(c.wd,b-a)}" y="0" width="${Math.min(c.wd,b-a)}" height="${o.H*ex}" style="fill:var(--dr-wand)"/>`;
+    const sh=c.nS/2*h;s+=`<rect x="${a+c.wd}" y="${Y(sh)}" width="${Math.max(0,b-a-2*c.wd)}" height="${sh*ex}" style="fill:var(--anh-p)"/><rect x="${a+c.wd}" y="0" width="${Math.max(0,b-a-2*c.wd)}" height="${sh*ex}" style="fill:var(--anh-p)"/>`;
+    if(rho>0){const sp=2*LW/rho/Math.SQRT2;let d='';for(let x=a+c.wd+sp/2;x<b-c.wd;x+=sp)d+=`M${x} ${Y(o.H-sh)}V${Y(sh)}`;s+=`<path d="${d}" style="stroke:var(--dr-fill);stroke-width:${LW*.8}"/>`}
+    let d='';for(let i=1;i<c.n;i++)d+=`M${a} ${Y(i*h)}H${b}`;s+=`<path d="${d}" class="sl-lay" style="stroke-width:${Math.min(.05,h*ex*.25)}"/>`;
+    s+=`<rect x="${a}" y="${Y(k*h)}" width="${b-a}" height="${h*ex}" style="fill:none;stroke:var(--gst-mark);stroke-width:${obj==='anh'?.25:.18}"/>`;
+    s+=`<rect x="${a}" y="0" width="${b-a}" height="${o.H*ex}" class="sl-out"/>`}
+   side.innerHTML=s+(ex>1?`<text x="${o.L}" y="${-p*ex*.25}" text-anchor="end" style="font:600 2px 'Source Sans 3',sans-serif;fill:var(--muted)">Höhe ${ex}-fach gestreckt</text>`:'')}}
+ ['#slH','#slF','#slW','#slL'].forEach(s=>$(s).addEventListener('input',draw));
+ $$('#slObj button').forEach(b=>b.onclick=()=>{obj=b.dataset.o;$$('#slObj button').forEach(x=>x.setAttribute('aria-pressed',x===b));$('#slL').value=Math.round(OBJ[obj].H/HS[+$('#slH').value]/2);draw()});
+ draw()}
+/* ---------- 45°-Labor ---------- */
+{const svg=$('#ovSvg'),N=12,h=.2,w=.4;
+ function draw(){const a=+$('#ovA').value,sup=$('#ovS').checked,d=h*Math.tan(Math.min(a,89.9)*Math.PI/180),part=Math.max(0,1-d/w);
+  $('#ovAo').textContent=a+'°';let s=`<rect x="0" y="2.4" width="4" height=".2" style="fill:var(--dr-bed)"/>`,beads='',x=.6,drop=0,xp=.6;
+  for(let i=0;i<N;i++){const y=2.4-(i+1)*h,ok=i===0||part>=.5||sup;
+   if(i>0){xp=x;x+=d;if(!ok)drop+=h*(.5-part)*1.6;
+    if(sup&&d>0)s+=`<rect x="${(xp+w).toFixed(3)}" y="${(y+h).toFixed(3)}" width="${d.toFixed(3)}" height="${(2.4-y-h).toFixed(3)}" class="stz"/>`}
+   const yy=Math.min(2.4-h,y+drop);
+   beads+=`<rect x="${x.toFixed(3)}" y="${yy.toFixed(3)}" width="${w}" height="${h}" rx=".09" class="bead${ok?'':' sag'}" style="fill:var(--anh-p)"/>`}
+  s+=beads;
+  s+=`<path d="M.6 2.4V${2.4-N*h}" style="stroke:var(--muted);stroke-width:.01;stroke-dasharray:.04 .03"/>`;
+  svg.innerHTML=s;
+  const vb=Math.max(4,x+w+.4);svg.setAttribute('viewBox',`0 0 ${vb} 2.6`);
+  const pct=Math.round(part*100);
+  $('#ovR').innerHTML=a===0?'Senkrechte Wand: Jede Linie liegt ganz auf der darunter.':sup?`Jede Linie liegt zu ${pct} % auf der darunter – die <span style="color:var(--dr-st)">Stützstruktur</span> trägt den Rest. Sie muss nach dem Druck entfernt werden.`:part>=.5?`Jede Linie liegt noch zu ${pct} % auf der darunter – das hält ohne Stütze.`:`Nur noch ${pct} % liegen auf – die Linien hängen durch (rot). Hier braucht man Stützen.`}
+ $('#ovA').addEventListener('input',draw);$('#ovS').addEventListener('change',draw);draw()}
+initCommon();
+}
+</script>
+</body>
+</html>
